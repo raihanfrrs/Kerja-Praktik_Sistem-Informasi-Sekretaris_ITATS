@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LayoutController;
 use App\Http\Controllers\LogoutController;
+use App\Http\Controllers\MasterController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegisterController;
 
@@ -40,6 +41,7 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::controller(ProfileController::class)->group(function(){
+        Route::get('profile', 'index');
         Route::put('mahasiswa/profile/{mahasiswa}', 'update');
         Route::put('dosen/profile/{dosen}', 'update');
         Route::put('superadmin/profile/{superadmin}', 'update');
@@ -47,17 +49,17 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::group(['middleware' => ['cekUserLogin:mahasiswa']], function(){
-        Route::resource('mahasiswa/profile', ProfileController::class);
     });
 
     Route::group(['middleware' => ['cekUserLogin:dosen']], function(){
-        Route::resource('dosen/profile',  ProfileController::class);
+        
     });
 
     Route::group(['middleware' => ['cekUserLogin:superadmin']], function(){
-        Route::resource('superadmin/profile',  ProfileController::class);
-        Route::resource('master/mahasiswa', MahasiswaController::class);
-        Route::resource('master/dosen', DosenController::class);
-        Route::resource('master/surat', SuratController::class);
+        Route::controller(MasterController::class)->group(function () {
+            Route::get('mahasiswa', 'mahasiswa_index');
+            Route::get('dosen', 'dosen_index');
+            Route::get('surat', 'surat_index');
+        });
     });
 });
