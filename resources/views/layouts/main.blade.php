@@ -4,23 +4,14 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
   <title>{{ isset($title) ? $title." - " : '' }} {{ isset($subtitle) ? $subtitle : Str::ucfirst(request()->segment(count(request()->segments()))) }}</title>
-  <meta content="" name="description">
-  <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href="{{ asset('assets/img/favicon.png') }}" rel="icon">
-  <link href="{{ asset('assets/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
-
+  <link href="{{ asset('assets/img/Logo_ITATS-2.png') }}" rel="icon">
 
   <!-- Vendor CSS Files -->
   <link href="{{ asset('/') }}assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="{{ asset('/') }}assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="{{ asset('/') }}assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <link href="{{ asset('/') }}assets/vendor/quill/quill.snow.css" rel="stylesheet">
-  <link href="{{ asset('/') }}assets/vendor/quill/quill.bubble.css" rel="stylesheet">
-  <link href="{{ asset('/') }}assets/vendor/remixicon/remixicon.css" rel="stylesheet">
   <link href="{{ asset('/') }}assets/vendor/simple-datatables/style.css" rel="stylesheet">
 
   <!-- Template Main CSS File -->
@@ -38,18 +29,7 @@
   <main @auth id="main" class="main" @endauth>
 
     @auth
-    <div class="pagetitle">
-      <h1>{{ isset($title) ? $title : Str::ucfirst(request()->segment(count(request()->segments()))) }}</h1>
-      <nav>
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
-          @if (request()->is('master/*'))
-          <li class="breadcrumb-item">Master</li>
-          @endif
-          <li class="breadcrumb-item active"><a href="{{ URL::current(); }}">{{ isset($subtitle) ? $subtitle : Str::ucfirst(request()->segment(count(request()->segments()))) }}</a></li>
-        </ol>
-      </nav>
-    </div>
+      @include('partials.title-wrapper')
     @endauth
 
     @auth

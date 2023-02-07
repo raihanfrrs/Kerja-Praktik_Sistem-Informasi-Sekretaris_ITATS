@@ -4,7 +4,7 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link {{ request()->is('dashboard') ? '':'collapsed' }}" href="{{ url('/dashboard') }}">
+        <a class="nav-link {{ count(Request::segments()) == 0 ? '' : 'collapsed' }}" href="{{ url('/') }}">
           <i class="bi bi-grid"></i>
           <span>Dashboard</span>
         </a>

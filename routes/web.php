@@ -58,8 +58,6 @@ Route::middleware('auth')->group(function () {
         Route::resource('superadmin/profile',  ProfileController::class);
         Route::resource('master/mahasiswa', MahasiswaController::class);
         Route::resource('master/dosen', DosenController::class);
-        Route::resource('master/role', RoleController::class);
         Route::resource('master/surat', SuratController::class);
-        Route::resource('master/detail-role', DetailRoleController::class);
     });
 });
