@@ -18,6 +18,7 @@ class CreateMahasiswasTable extends Migration
             $table->id();
             $table->foreignIdFor(User::class);
             $table->string('name');
+            $table->string('slug');
             $table->string('npm')->unique();
             $table->string('email')->unique();
             $table->string('phone')->unique();

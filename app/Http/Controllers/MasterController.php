@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Models\Dosen;
+use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rules\Password;
 
 class MasterController extends Controller
 {
@@ -11,78 +15,237 @@ class MasterController extends Controller
 
     public function mahasiswa_index()
     {
-        
+        return view('superadmin.master.mahasiswa')->with([
+            'mahasiswa' => Mahasiswa::all()
+        ]);
     }
     
     public function mahasiswa_create()
     {
-        
+        return view('superadmin.master.create.create_mahasiswa');
     }
 
-    public function mahasiswa_store()
+    public function mahasiswa_store(Request $request)
     {
-        
+        $validateData = $request->validate([
+            'username' => 'required|min:5|max:255|unique:users|alpha_num',
+            'password' => ['required', Password::min(5)->mixedCase()->letters()->numbers()->symbols()->uncompromised()],
+            'name' => 'required|min:3|max:255|regex:/^[\pL\s\-]+$/u',
+            'npm' => 'required|numeric|unique:mahasiswas',
+            'email' => 'required|min:5|max:255|unique:mahasiswas|email:dns',
+            'phone' =>'required|numeric|unique:mahasiswas',
+            'birthPlace' => 'required|max:225|min:3',
+            'birthDate' => 'required',
+            'gender' => 'required'
+        ]);
+
+        $validateData['level'] = 'mahasiswa';
+        $validateData['password'] = bcrypt($validateData['password']);
+
+        $user = User::create($validateData);
+
+        $validateData['user_id'] = $user->id;
+
+        Mahasiswa::create($validateData);
+
+        $status['status'] = $request->status;
+        Mahasiswa::where('user_id', $user->id)
+                    ->update($status);
+
+        return redirect('mahasiswa/add')->with([
+            'case' => 'default',
+            'type' => 'success',
+            'message' => 'Add Mahasiswa successfull!.'
+        ]);
+    }
+
+    public function mahasiswa_show(Mahasiswa $mahasiswa)
+    {
+        return view('superadmin.master.show.show_mahasiswa')->with([
+            'mahasiswa' => Mahasiswa::where('npm', $mahasiswa->id)->get()
+        ]);
     }
     
-    public function mahasiswa_edit()
+    public function mahasiswa_edit(Mahasiswa $mahasiswa)
     {
-        
+        dd($mahasiswa);
+        return view('superadmin.master.edit.edit_mahasiswa')->with([
+            'mahasiswa' => Mahasiswa::where('npm', $mahasiswa->id)->get()
+        ]);
     }
     
-    public function mahasiswa_update()
+    public function mahasiswa_update(Request $request, Mahasiswa $mahasiswa)
     {
+        if($request->status == '1' || $request->status == '0'){
+            $validateData['status'] = $request->status;
+            Mahasiswa::where('npm', $mahasiswa->npm)
+                    ->update($validateData);
+
+            return redirect('mahasiswa');
+        }
+
+        $rules = [
+            'name' => 'required|max:225|min:3|regex:/^[\pL\s\-]+$/u',
+            'birthPlace' => 'required|max:225|min:3',
+            'birthDate' => 'required',
+            'gender' => 'required'
+        ];
+
+        if($request->npm != $mahasiswa->npm){
+            $rules['npm'] = 'required|numeric|unique:mahasiswas';
+        }
+        if($request->email != $mahasiswa->email){
+            $rules['email'] = 'required|email:dns|max:255|unique:mahasiswas';
+        }
+        if($request->phone != $mahasiswa->phone){
+            $rules['phone'] = 'required|numeric|unique:mahasiswas';
+        }
+
+        $validateData = $request->validate($rules);
+            
+        Mahasiswa::where('id', $mahasiswa->id)
+                    ->update($validateData);
         
+        return redirect('mahasiswa')->with([
+            'case' => 'default',
+            'type' => 'success',
+            'message' => 'Edit Mahasiswa Successfull!.'
+        ]);
     }
     
-    public function mahasiswa_show()
+    public function mahasiswa_destroy(Mahasiswa $mahasiswa)
     {
-        
-    }
-    
-    public function mahasiswa_destroy()
-    {
-        
+        Mahasiswa::destroy($mahasiswa->id);
+        User::destroy($mahasiswa->user_id);
+
+        return redirect('mahasiswa')->with([
+            'case' => 'default',
+            'type' => 'success',
+            'message' => 'Delete Mahasiswa Successfull!.'
+        ]);
     }
 
     /* MAHASISWA METHOD END SECTION */
 
     /* DOSEN METHOD SECTION */
+
     public function dosen_index()
     {
-        
+        return view('superadmin.master.dosen')->with([
+            'dosen' => Dosen::all()
+        ]);
     }
     
     public function dosen_create()
     {
-        
+        return view('superadmin.master.create.create_dosen');
     }
 
-    public function dosen_store()
+    public function dosen_store(Request $request)
     {
-        
+        $validateData = $request->validate([
+            'username' => 'required|min:5|max:255|unique:users|alpha_num',
+            'password' => ['required', Password::min(5)->mixedCase()->letters()->numbers()->symbols()->uncompromised()],
+            'name' => 'required|min:3|max:255|regex:/^[\pL\s\-]+$/u',
+            'nip' => 'required|numeric|unique:dosens',
+            'email' => 'required|min:5|max:255|unique:mahasiswas|email:dns',
+            'phone' =>'required|numeric|unique:dosens',
+            'birthPlace' => 'required|max:225|min:3',
+            'birthDate' => 'required',
+            'gender' => 'required',
+            'role' => 'required' 
+        ]);
+
+        $validateData['level'] = 'dosen';
+        $validateData['password'] = bcrypt($validateData['password']);
+
+        $user = User::create($validateData);
+
+        $validateData['user_id'] = $user->id;
+
+        $dosen = Dosen::create($validateData);
+
+        // for ($i=0; $i < count($request->role); $i++) { 
+        //     $roles['role_id'] = $request->role[$i];
+        //     $roles['dosen_id'] = $dosen->id;
+        //     detail_role::create($roles);
+        // }
+
+        return redirect('dosen/add')->with([
+            'case' => 'default',
+            'type' => 'success',
+            'message' => 'Add Dosen successfull!.'
+        ]);
+    }
+
+    public function dosen_show(Dosen $dosen)
+    {
+        return view('superadmin.master.show.show_dosen')->with([
+            'dosen' => Dosen::where('nip', $dosen->nip)->get()
+        ]);
     }
     
-    public function dosen_edit()
+    public function dosen_edit(Dosen $dosen)
     {
-        
+        return view('superadmin.master.edit.edit_dosen')->with([
+            'dosen' => dosen::where('nip', $dosen->nip)->get()
+        ]);
     }
     
-    public function dosen_update()
+    public function dosen_update(Request $request, Dosen $dosen)
     {
+        $rules = [
+            'name' => 'required|min:3|max:255|regex:/^[\pL\s\-]+$/u',
+            'birthPlace' => 'required|max:225|min:3',
+            'birthDate' => 'required',
+            'gender' => 'required'
+        ];
+
+        if($request->nip != $dosen->nip){
+            $rules['nip'] = 'required|numeric|unique:dosens';
+        }
+
+        if($request->email != $dosen->email){
+            $rules['email'] = 'required|min:5|max:255|unique:mahasiswas|email:dns';
+        }
+
+        if($request->phone != $dosen->phone){
+            $rules['phone'] = 'required|numeric|unique:dosens';
+        }
+
+        $validateData = $request->validate($rules);
+            
+        Dosen::whereId($dosen->id)
+                    ->update($validateData);
         
+        // for ($i=0; $i < count($request->role); $i++) { 
+        //     $roles['role_id'] = $request->role[$i];
+        //     $roles['dosen_id'] = $dosen->id;
+        //     detail_role::create($roles);
+        // }
+
+        return redirect('dosen')->with([
+            'case' => 'default',
+            'type' => 'success',
+            'message' => 'Edit Dosen Successfull!.'
+        ]);
     }
     
-    public function dosen_show()
+    public function dosen_destroy(Dosen $dosen)
     {
-        
+        dosen::destroy($dosen->id);
+
+        return redirect('dosen')->with([
+            'case' => 'default',
+            'type' => 'success',
+            'message' => 'Delete Dosen Successfull!.'
+        ]);
     }
-    
-    public function dosen_destroy()
-    {
-        
-    }
+
     /* DOSEN METHOD END SECTION */
     
+    /* SURAT METHOD SECTION */
+
     public function surat_index()
     {
         
@@ -117,4 +280,6 @@ class MasterController extends Controller
     {
         
     }
+
+    /* SURAT METHOD END SECTION */
 }

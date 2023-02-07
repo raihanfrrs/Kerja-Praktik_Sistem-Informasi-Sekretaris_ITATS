@@ -70,26 +70,21 @@
     <a class="nav-link {{ request()->is('master/*') ? '' : 'collapsed' }}" data-bs-target="#master-super-nav" data-bs-toggle="collapse" href="#">
         <i class="bi bi-collection"></i><span>Data Master</span><i class="bi bi-chevron-down ms-auto"></i>
     </a>
-    <ul id="master-super-nav" class="nav-content collapse {{ request()->is('master/*') ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
+    <ul id="master-super-nav" class="nav-content collapse {{ request()->is('mahasiswa', 'mahasiswa/*', 'dosen', 'dosen/*', 'surat', 'surat/*') ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
         <li>
-        <a href="{{ url('master/mahasiswa') }}" class="{{ request()->is('*/mahasiswa') ? 'active' : (request()->is('*/mahasiswa/*') ? 'active' : '') }}">
-            <i class="bi bi-circle"></i><span>Mahasiswa</span>
-        </a>
+            <a href="{{ url('mahasiswa') }}" class="{{ request()->is('mahasiswa', 'mahasiswa/*') ? 'active' : '' }}">
+                <i class="bi bi-circle"></i><span>Mahasiswa</span>
+            </a>
         </li>
         <li>
-        <a href="{{ url('master/dosen') }}" class="{{ request()->is('*/dosen') ? 'active' : (request()->is('*/dosen/*') ? 'active' : '') }}">
-            <i class="bi bi-circle"></i><span>Dosen</span>
-        </a>
+            <a href="{{ url('dosen') }}" class="{{ request()->is('dosen', 'dosen/*') ? 'active' : '' }}">
+                <i class="bi bi-circle"></i><span>Dosen</span>
+            </a>
         </li>
         <li>
-        <a href="{{ url('master/surat') }}" class="{{ request()->is('*/surat') ? 'active' : (request()->is('*/surat/*') ? 'active' : '') }}">
-            <i class="bi bi-circle"></i><span>Surat</span>
-        </a>
-        </li>
-        <li>
-        <a href="{{ url('master/role') }}" class="{{ request()->is('*/role') ? 'active' : (request()->is('*/role/*') ? 'active' : '') }}">
-            <i class="bi bi-circle"></i><span>Role</span>
-        </a>
+            <a href="{{ url('surat') }}" class="{{ request()->is('surat' ,'surat/*') ? 'active' : '' }}">
+                <i class="bi bi-circle"></i><span>Surat</span>
+            </a>
         </li>
     </ul>
 </li>

@@ -16,9 +16,7 @@ class DosenController extends Controller
      */
     public function index()
     {
-        return view('superadmin.master.dosen')->with([
-            'dosen' => Dosen::all()
-        ]);
+        
     }
 
     /**
@@ -28,9 +26,7 @@ class DosenController extends Controller
      */
     public function create()
     {
-        return view('superadmin.master.create.create_dosen')->with([
-            'title' => 'Dosen'
-        ]);
+        
     }
 
     /**
@@ -41,39 +37,7 @@ class DosenController extends Controller
      */
     public function store(Request $request)
     {
-        $validateData = $request->validate([
-            'username' => 'required|min:5|max:255|unique:users|alpha_num',
-            'password' => ['required', Password::min(5)->mixedCase()->letters()->numbers()->symbols()->uncompromised()],
-            'name' => 'required|min:3|max:255|regex:/^[\pL\s\-]+$/u',
-            'nip' => 'required|numeric|unique:dosens',
-            'email' => 'required|min:5|max:255|unique:mahasiswas|email:dns',
-            'phone' =>'required|numeric|unique:dosens',
-            'birthPlace' => 'required|max:225|min:3',
-            'birthDate' => 'required',
-            'gender' => 'required',
-            'role' => 'required' 
-        ]);
-
-        $validateData['level'] = 'dosen';
-        $validateData['password'] = bcrypt($validateData['password']);
-
-        $user = User::create($validateData);
-
-        $validateData['user_id'] = $user->id;
-
-        $dosen = Dosen::create($validateData);
-
-        // for ($i=0; $i < count($request->role); $i++) { 
-        //     $roles['role_id'] = $request->role[$i];
-        //     $roles['dosen_id'] = $dosen->id;
-        //     detail_role::create($roles);
-        // }
-
-        return redirect('master/dosen')->with([
-            'case' => 'default',
-            'type' => 'success',
-            'message' => 'Add Dosen successfull!.'
-        ]);
+        
     }
 
     /**
@@ -82,13 +46,9 @@ class DosenController extends Controller
      * @param  \App\Models\Dosen  $dosen
      * @return \Illuminate\Http\Response
      */
-    public function show($nip)
+    public function show(Dosen $dosen)
     {
-        return view('superadmin.master.show.show_dosen')->with([
-            'title' => 'Dosen',
-            'subtitle' => 'Details',
-            'dosen' => Dosen::all()->where('nip', $nip)
-        ]);
+        
     }
 
     /**
@@ -99,10 +59,7 @@ class DosenController extends Controller
      */
     public function edit($nip)
     {
-        return view('superadmin.master.edit.edit_dosen')->with([
-            'title' => 'Dosen',
-            'dosen' => dosen::where('nip', $nip)->get()
-        ]);
+       
     }
 
     /**
@@ -114,41 +71,7 @@ class DosenController extends Controller
      */
     public function update(Request $request, Dosen $dosen)
     {
-        $rules = [
-            'name' => 'required|min:3|max:255|regex:/^[\pL\s\-]+$/u',
-            'birthPlace' => 'required|max:225|min:3',
-            'birthDate' => 'required',
-            'gender' => 'required'
-        ];
-
-        if($request->nip != $dosen->nip){
-            $rules['nip'] = 'required|numeric|unique:dosens';
-        }
-
-        if($request->email != $dosen->email){
-            $rules['email'] = 'required|min:5|max:255|unique:mahasiswas|email:dns';
-        }
-
-        if($request->phone != $dosen->phone){
-            $rules['phone'] = 'required|numeric|unique:dosens';
-        }
-
-        $validateData = $request->validate($rules);
-            
-        Dosen::where('id', $dosen->id)
-                    ->update($validateData);
         
-        // for ($i=0; $i < count($request->role); $i++) { 
-        //     $roles['role_id'] = $request->role[$i];
-        //     $roles['dosen_id'] = $dosen->id;
-        //     detail_role::create($roles);
-        // }
-
-        return redirect('master/dosen')->with([
-            'case' => 'default',
-            'type' => 'success',
-            'message' => 'Edit Dosen Successfull!.'
-        ]);
     }
 
     /**
@@ -159,12 +82,6 @@ class DosenController extends Controller
      */
     public function destroy($id)
     {
-        dosen::destroy($id);
-
-        return redirect('master/dosen')->with([
-            'case' => 'default',
-            'type' => 'success',
-            'message' => 'Delete Dosen Successfull!.'
-        ]);
+        
     }
 }
