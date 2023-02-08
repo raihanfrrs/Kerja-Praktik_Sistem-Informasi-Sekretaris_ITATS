@@ -16,7 +16,7 @@ class MasterController extends Controller
     public function mahasiswa_index()
     {
         return view('superadmin.master.mahasiswa')->with([
-            'mahasiswa' => Mahasiswa::all()
+            'mahasiswas' => Mahasiswa::all()
         ]);
     }
     
@@ -68,9 +68,8 @@ class MasterController extends Controller
     
     public function mahasiswa_edit(Mahasiswa $mahasiswa)
     {
-        dd($mahasiswa);
         return view('superadmin.master.edit.edit_mahasiswa')->with([
-            'mahasiswa' => Mahasiswa::where('npm', $mahasiswa->id)->get()
+            'mahasiswa' => Mahasiswa::where('npm', $mahasiswa->npm)->get()
         ]);
     }
     

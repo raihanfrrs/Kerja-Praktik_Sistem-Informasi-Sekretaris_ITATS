@@ -18,6 +18,7 @@ class CreateDosensTable extends Migration
             $table->id();
             $table->foreignIdFor(User::class);
             $table->string('name');
+            $table->string('slug');
             $table->string('nip')->unique();
             $table->string('email')->unique();
             $table->string('phone')->unique();

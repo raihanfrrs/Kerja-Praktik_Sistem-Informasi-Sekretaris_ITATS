@@ -17,6 +17,7 @@ class MahasiswaSeeder extends Seeder
         $mahasiswa = [
             [
                 'name' => 'Mohamad Raihan Farras',
+                'slug' => 'mohamad-raihan-farras',
                 'npm' => '062020107330',
                 'email' => 'rehanfarras76@gmail.com',
                 'phone' => '081333903187',

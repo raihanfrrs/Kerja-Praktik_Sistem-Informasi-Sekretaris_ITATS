@@ -17,6 +17,7 @@ class DosenSeeder extends Seeder
         $dosen = [
             [
                 'name' => 'Bethelsando Gemilang Wahyudi',
+                'slug' => 'bethelsando-gemilang-wahyudi',
                 'nip' => '09991',
                 'email' => 'bethelsando123@gmail.com',
                 'phone' => '087823312332',
@@ -26,6 +27,7 @@ class DosenSeeder extends Seeder
             ],
             [
                 'name' => 'Danu Septi Adi',
+                'slug' => 'danu-septi-adi',
                 'nip' => '09992',
                 'email' => 'danuseptiadi123@gmail.com',
                 'phone' => '0878213132321',

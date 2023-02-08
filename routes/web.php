@@ -61,10 +61,10 @@ Route::middleware('auth')->group(function () {
             Route::get('mahasiswa', 'mahasiswa_index');
             Route::get('mahasiswa/add', 'mahasiswa_create');
             Route::post('mahasiswa', 'mahasiswa_store');
-            Route::get('mahasiswa/{slug}', 'mahasiswa_show');
-            Route::get('mahasiswa/{slug}/edit', 'mahasiswa_edit');
-            Route::put('mahasiswa/{slug}', 'mahasiswa_update');
-            Route::delete('mahasiswa/{slug}', 'mahasiswa_destroy');
+            Route::get('mahasiswa/{mahasiswa}', 'mahasiswa_show');
+            Route::get('mahasiswa/{mahasiswa}/edit', 'mahasiswa_edit');
+            Route::put('mahasiswa/{mahasiswa}', 'mahasiswa_update');
+            Route::delete('mahasiswa/{mahasiswa}', 'mahasiswa_destroy');
 
             /* dosen master resource */
             Route::get('dosen', 'dosen_index');

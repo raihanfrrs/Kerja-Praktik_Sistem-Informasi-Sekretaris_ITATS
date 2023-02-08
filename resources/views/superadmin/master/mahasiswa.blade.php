@@ -25,24 +25,24 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach ($mahasiswa as $list)
+                @foreach ($mahasiswas as $mahasiswa)
                 <tr>
                     <th scope="row">#{{ $loop->iteration }}</th>
-                    <td>{{ $list->name }}</td>
-                    <td><a href="mahasiswa/{{ $list->npm }}" class="text-primary">{{ $list->npm }}</a></td>
-                    <td>{{ $list->email }}</td>
-                    <td>{{ $list->phone }}</td>
-                    <td><span class="badge bg-{{ $list->status > 0 ? 'success' : 'danger'}}">{{ $list->status > 0 ? 'approved' : 'disapprove'}}</span></td>
+                    <td>{{ $mahasiswa->name }}</td>
+                    <td><a href="mahasiswa/{{ $mahasiswa->npm }}" class="text-primary">{{ $mahasiswa->npm }}</a></td>
+                    <td>{{ $mahasiswa->email }}</td>
+                    <td>{{ $mahasiswa->phone }}</td>
+                    <td><span class="badge bg-{{ $mahasiswa->status > 0 ? 'success' : 'danger'}}">{{ $mahasiswa->status > 0 ? 'approved' : 'disapprove'}}</span></td>
                     <td>
-                        <form action="mahasiswa/{{ $list->id }}" class="d-inline" method="post">
+                        <form action="mahasiswa/{{ $mahasiswa->id }}" class="d-inline" method="post">
                             @method('put')
                             @csrf
-                            <input type="hidden" name="status" value="{{ $list->status > 0 ? '0' : '1' }}">
-                            <button  class="btn btn-{{ $list->status > 0 ? 'danger' : 'success' }}" ><i class="{{ $list->status > 0 ? 'bx bx-block' : 'bi bi-check-circle' }}"></i></button>
+                            <input type="hidden" name="status" value="{{ $mahasiswa->status > 0 ? '0' : '1' }}">
+                            <button  class="btn btn-{{ $mahasiswa->status > 0 ? 'danger' : 'success' }}" ><i class="{{ $mahasiswa->status > 0 ? 'bx bx-block' : 'bi bi-check-circle' }}"></i></button>
                         </form>
 
-                        <a href="mahasiswa/{{ $list->npm }}/edit" class="btn btn-warning" ><i class="bi bi-pen"></i></a>
-                        <form action="mahasiswa/{{ $list->user_id }}" method="post" class='d-inline'>
+                        <a href="mahasiswa/{{ $mahasiswa->slug }}/edit" class="btn btn-warning" ><i class="bi bi-pen"></i></a>
+                        <form action="mahasiswa/{{ $mahasiswa->user_id }}" method="post" class='d-inline'>
                             @method('delete')
                             @csrf
                             <button class="btn btn-danger" onclick="return confirm('Are you sure?')"><i class="bi bi-trash"></i></button>
