@@ -29,7 +29,7 @@
                 <tr>
                     <th scope="row">#{{ $loop->iteration }}</th>
                     <td>{{ $mahasiswa->name }}</td>
-                    <td><a href="mahasiswa/{{ $mahasiswa->npm }}" class="text-primary">{{ $mahasiswa->npm }}</a></td>
+                    <td><a href="mahasiswa/{{ $mahasiswa->slug }}" class="text-primary">{{ $mahasiswa->npm }}</a></td>
                     <td>{{ $mahasiswa->email }}</td>
                     <td>{{ $mahasiswa->phone }}</td>
                     <td><span class="badge bg-{{ $mahasiswa->status > 0 ? 'success' : 'danger'}}">{{ $mahasiswa->status > 0 ? 'approved' : 'disapprove'}}</span></td>

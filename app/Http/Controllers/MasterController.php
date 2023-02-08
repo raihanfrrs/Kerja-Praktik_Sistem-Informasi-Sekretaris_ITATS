@@ -59,7 +59,7 @@ class MasterController extends Controller
     public function mahasiswa_show(Mahasiswa $mahasiswa)
     {
         return view('superadmin.master.show.show_mahasiswa')->with([
-            'mahasiswa' => Mahasiswa::where('npm', $mahasiswa->id)->get()
+            'mahasiswa' => Mahasiswa::where('npm', $mahasiswa->npm)->get()
         ]);
     }
     
@@ -101,7 +101,7 @@ class MasterController extends Controller
 
         $validateData = $request->validate($rules);
             
-        Mahasiswa::where('id', $mahasiswa->id)
+        Mahasiswa::whereId($mahasiswa->id)
                     ->update($validateData);
         
         return redirect('mahasiswa')->with([
