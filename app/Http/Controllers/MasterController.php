@@ -15,14 +15,14 @@ class MasterController extends Controller
 
     public function mahasiswa_index()
     {
-        return view('superadmin.master.mahasiswa')->with([
+        return view('superadmin.master.mahasiswa.index')->with([
             'mahasiswas' => Mahasiswa::all()
         ]);
     }
     
     public function mahasiswa_create()
     {
-        return view('superadmin.master.create.create_mahasiswa');
+        return view('superadmin.master.mahasiswa.add-mahasiswa');
     }
 
     public function mahasiswa_store(Request $request)
@@ -58,14 +58,14 @@ class MasterController extends Controller
 
     public function mahasiswa_show(Mahasiswa $mahasiswa)
     {
-        return view('superadmin.master.show.show_mahasiswa')->with([
+        return view('superadmin.master.mahasiswa.details-mahasiswa')->with([
             'mahasiswa' => Mahasiswa::where('npm', $mahasiswa->npm)->get()
         ]);
     }
     
     public function mahasiswa_edit(Mahasiswa $mahasiswa)
     {
-        return view('superadmin.master.edit.edit_mahasiswa')->with([
+        return view('superadmin.master.mahasiswa.edit-mahasiswa')->with([
             'mahasiswa' => Mahasiswa::where('npm', $mahasiswa->npm)->get()
         ]);
     }
@@ -129,14 +129,14 @@ class MasterController extends Controller
 
     public function dosen_index()
     {
-        return view('superadmin.master.dosen')->with([
+        return view('superadmin.master.dosen.index')->with([
             'dosen' => Dosen::all()
         ]);
     }
     
     public function dosen_create()
     {
-        return view('superadmin.master.create.create_dosen');
+        return view('superadmin.master.dosen.add-dosen');
     }
 
     public function dosen_store(Request $request)
@@ -178,14 +178,14 @@ class MasterController extends Controller
 
     public function dosen_show(Dosen $dosen)
     {
-        return view('superadmin.master.show.show_dosen')->with([
+        return view('superadmin.master.dosen.details-dosen')->with([
             'dosen' => Dosen::where('nip', $dosen->nip)->get()
         ]);
     }
     
     public function dosen_edit(Dosen $dosen)
     {
-        return view('superadmin.master.edit.edit_dosen')->with([
+        return view('superadmin.master.dosen.edit-dosen')->with([
             'dosen' => dosen::where('nip', $dosen->nip)->get()
         ]);
     }
