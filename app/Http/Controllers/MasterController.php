@@ -233,7 +233,8 @@ class MasterController extends Controller
     
     public function dosen_destroy(Dosen $dosen)
     {
-        dosen::destroy($dosen->id);
+        Dosen::destroy($dosen->id);
+        User::destroy($dosen->user_id);
 
         return redirect('dosen')->with([
             'case' => 'default',

@@ -24,8 +24,10 @@ class ProfileController extends Controller
             ];
         }else{
             $data = [
-                'data' => Dosen::all()->where('user_id', auth()->user()->id)
+                'data' => Dosen::where('user_id', auth()->user()->id)->get()
             ];
+
+            dd(Dosen::where('user_id', auth()->user()->id)->get());
         }
 
         return view('profile')->with([
