@@ -44,7 +44,6 @@ Route::middleware('auth')->group(function () {
         Route::get('profile', 'index');
         Route::put('mahasiswa/profile/{mahasiswa}', 'update');
         Route::put('dosen/profile/{dosen}', 'update');
-        Route::put('superadmin/profile/{superadmin}', 'update');
         Route::put('password', 'updatePassword');
     });
 

@@ -19,19 +19,13 @@ class ProfileController extends Controller
     public function index()
     {
         if(auth()->user()->level == 'mahasiswa'){
-            $data = [
-                'data' => Mahasiswa::all()->where('user_id', auth()->user()->id)
-            ];
+            $data = Mahasiswa::where('user_id', auth()->user()->id)->get();
         }else{
-            $data = [
-                'data' => Dosen::where('user_id', auth()->user()->id)->get()
-            ];
-
-            dd(Dosen::where('user_id', auth()->user()->id)->get());
+            $data = Dosen::where('user_id', auth()->user()->id)->get();
         }
 
         return view('profile')->with([
-            'data' => $data
+            'user' => $data
         ]);
     }
 

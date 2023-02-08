@@ -1,14 +1,13 @@
 @extends('layouts.main')
 
 @section('section')
-@foreach ($data['data'] as $user)
 <div class="col-xl-4">
 
 <div class="card">
     <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
 
     <img src="{{ asset('assets/img/profile-img.jpg') }}" alt="Profile" class="rounded-circle">
-    <h2>{{ $user->name }}</h2>
+    <h2>{{ $user[0]->name }}</h2>
     <h3>{{ auth()->user()->level }}</h3>
     </div>
 </div>
@@ -43,38 +42,38 @@
 
         <div class="row">
             <div class="col-lg-3 col-md-4 label ">Full Name</div>
-            <div class="col-lg-9 col-md-8">{{ $user->name }}</div>
+            <div class="col-lg-9 col-md-8">{{ $user[0]->name }}</div>
         </div>
 
         <div class="row">
             <div class="col-lg-3 col-md-4 label">@if(auth()->user()->level == 'mahasiswa') NPM @else NIP @endif</div>
-            <div class="col-lg-9 col-md-8">@if(auth()->user()->level == 'mahasiswa') {{ $user->npm }} @else {{ $user->nip }} @endif</div>
+            <div class="col-lg-9 col-md-8">@if(auth()->user()->level == 'mahasiswa') {{ $user[0]->npm }} @else {{ $user[0]->nip }} @endif</div>
         </div>
 
         <div class="row">
             <div class="col-lg-3 col-md-4 label">Email</div>
-            <div class="col-lg-9 col-md-8">{{ $user->email }}</div>
+            <div class="col-lg-9 col-md-8">{{ $user[0]->email }}</div>
         </div>
 
         <div class="row">
             <div class="col-lg-3 col-md-4 label">Phone</div>
-            <div class="col-lg-9 col-md-8">{{ $user->phone }}</div>
+            <div class="col-lg-9 col-md-8">{{ $user[0]->phone }}</div>
         </div>
 
         <div class="row">
             <div class="col-lg-3 col-md-4 label">Gender</div>
-            <div class="col-lg-9 col-md-8">@if($user->gender) {{ $user->gender }} @else - @endif</div>
+            <div class="col-lg-9 col-md-8">@if($user[0]->gender) {{ $user[0]->gender }} @else - @endif</div>
         </div>
 
         <div class="row">
             <div class="col-lg-3 col-md-4 label">Place, Date of Birth</div>
-            <div class="col-lg-9 col-md-8">@if($user->birthPlace && $user->birthDate) {{ $user->birthPlace }}, {{ $user->birthDate }} @else - @endif</div>
+            <div class="col-lg-9 col-md-8">@if($user[0]->birthPlace && $user[0]->birthDate) {{ $user[0]->birthPlace }}, {{ $user[0]->birthDate }} @else - @endif</div>
         </div>
 
         @if (auth()->user()->level == 'mahasiswa')
             <div class="row">
                 <div class="col-lg-3 col-md-4 label">Status</div>
-                <div class="col-lg-9 col-md-8"><span class="badge bg-{{ $user->status > 0 ? 'success' : 'danger'}}">{{ $user->status > 0 ? 'approved' : 'disapprove'}}</span></div>
+                <div class="col-lg-9 col-md-8"><span class="badge bg-{{ $user[0]->status > 0 ? 'success' : 'danger'}}">{{ $user[0]->status > 0 ? 'approved' : 'disapprove'}}</span></div>
             </div>
         @endif
 
@@ -82,20 +81,18 @@
         <div class="row">
             <div class="col-lg-3 col-md-4 label">Role</div>
             <div class="col-lg-9 col-md-8">
-                @foreach ($data['roles'] as $role)
-                    {{ $role->role->role }}
-                @endforeach
+
             </div>
         </div>
         @endif
 
-        <p class="text-end text-muted">Updated {{ $user->updated_at->diffForHumans(); }}</p>
+        <p class="text-end text-muted">Updated {{ $user[0]->updated_at->diffForHumans(); }}</p>
         </div>
 
         <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
 
         <!-- Profile Edit Form -->
-        <form method="post" action="/{{ auth()->user()->level == 'mahasiswa' ? 'mahasiswa' : (auth()->user()->level == 'dosen' ? 'dosen' : 'superadmin') }}/profile/{{ $user->id }}">
+        <form method="post" action="/{{ auth()->user()->level == 'mahasiswa' ? 'mahasiswa' : 'dosen' }}/profile/{{ $user[0]->slug }}">
             @method('put')
             @csrf
             <div class="row mb-3">
@@ -112,7 +109,7 @@
             <div class="row mb-3">
             <label for="name" class="col-md-4 col-lg-3 col-form-label">Full Name</label>
             <div class="col-md-8 col-lg-9">
-                <input name="name" type="text" class="form-control @error('name') is-invalid @enderror" id="name" value="{{ old('name', $user->name) }}" required>
+                <input name="name" type="text" class="form-control @error('name') is-invalid @enderror" id="name" value="{{ old('name', $user[0]->name) }}" required>
                 @error('name')<div class="invalid-feedback">{{ $message }}</div>@enderror
             </div>
             </div>
@@ -121,7 +118,7 @@
                 <div class="row mb-3">
                 <label for="npm" class="col-md-4 col-lg-3 col-form-label">NPM</label>
                 <div class="col-md-8 col-lg-9">
-                    <input name="npm" type="text" class="form-control @error('npm') is-invalid @enderror" id="npm" value="{{ old('npm', $user->npm) }}" required>
+                    <input name="npm" type="text" class="form-control @error('npm') is-invalid @enderror" id="npm" value="{{ old('npm', $user[0]->npm) }}" required>
                     @error('npm')<div class="invalid-feedback">{{ $message }}</div>@enderror
                 </div>
                 </div>
@@ -129,7 +126,7 @@
                 <div class="row mb-3">
                 <label for="nip" class="col-md-4 col-lg-3 col-form-label">NIP</label>
                 <div class="col-md-8 col-lg-9">
-                    <input name="nip" type="text" class="form-control @error('nip') is-invalid @enderror" id="nip" value="{{ old('nip', $user->nip) }}" required>
+                    <input name="nip" type="text" class="form-control @error('nip') is-invalid @enderror" id="nip" value="{{ old('nip', $user[0]->nip) }}" required>
                     @error('nip')<div class="invalid-feedback">{{ $message }}</div>@enderror
                 </div>
                 </div>
@@ -139,7 +136,7 @@
             <div class="row mb-3">
             <label for="email" class="col-md-4 col-lg-3 col-form-label">Email</label>
             <div class="col-md-8 col-lg-9">
-                <input name="email" type="email" class="form-control @error('email') is-invalid @enderror" id="email" value="{{ old('email', $user->email) }}" required>
+                <input name="email" type="email" class="form-control @error('email') is-invalid @enderror" id="email" value="{{ old('email', $user[0]->email) }}" required>
                 @error('email')<div class="invalid-feedback">{{ $message }}</div>@enderror
             </div>
             </div>
@@ -147,7 +144,7 @@
             <div class="row mb-3">
             <label for="phone" class="col-md-4 col-lg-3 col-form-label">Phone</label>
             <div class="col-md-8 col-lg-9">
-                <input name="phone" type="text" class="form-control @error('phone') is-invalid @enderror" id="phone" value="{{ old('phone', $user->phone) }}" required>
+                <input name="phone" type="text" class="form-control @error('phone') is-invalid @enderror" id="phone" value="{{ old('phone', $user[0]->phone) }}" required>
                 @error('phone')<div class="invalid-feedback">{{ $message }}</div>@enderror
             </div>
             </div>
@@ -156,13 +153,13 @@
             <label class="col-md-4 col-lg-3 col-form-label">Gender</label>
             <div class="col-md-8 col-lg-9">
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="gender" value="male" @if(old('gender', $user->gender) == 'male') checked @endif>
+                    <input class="form-check-input" type="radio" name="gender" value="male" @if(old('gender', $user[0]->gender) == 'male') checked @endif>
                     <label class="form-check-label" for="gridRadios1">
                       Male
                     </label>
                   </div>
                   <div class="form-check">
-                    <input class="form-check-input" type="radio" name="gender" value="female" @if(old('gender', $user->gender) == 'female') checked @endif>
+                    <input class="form-check-input" type="radio" name="gender" value="female" @if(old('gender', $user[0]->gender) == 'female') checked @endif>
                     <label class="form-check-label" for="gridRadios2">
                       Female
                     </label>
@@ -174,7 +171,7 @@
             <div class="row mb-3">
             <label for="birthPlace" class="col-md-4 col-lg-3 col-form-label">Place of Birth</label>
             <div class="col-md-8 col-lg-9">
-                <input name="birthPlace" type="text" class="form-control @error('birthPlace') is-invalid @enderror" id="birthPlace" value="{{ old('birthPlace', $user->birthPlace) }}" required>
+                <input name="birthPlace" type="text" class="form-control @error('birthPlace') is-invalid @enderror" id="birthPlace" value="{{ old('birthPlace', $user[0]->birthPlace) }}" required>
                 @error('birthPlace')<div class="invalid-feedback">{{ $message }}</div>@enderror
             </div>
             </div>
@@ -182,7 +179,7 @@
             <div class="row mb-3">
             <label for="birthDate" class="col-md-4 col-lg-3 col-form-label">Date of Birth</label>
             <div class="col-md-8 col-lg-9">
-                <input name="birthDate" type="date" class="form-control @error('birthDate') is-invalid @enderror" id="birthDate" value="{{ old('birthDate', $user->birthDate) }}" required>
+                <input name="birthDate" type="date" class="form-control @error('birthDate') is-invalid @enderror" id="birthDate" value="{{ old('birthDate', $user[0]->birthDate) }}" required>
                 @error('datePlace')<div class="invalid-feedback">{{ $message }}</div>@enderror
             </div>
             </div>
@@ -196,7 +193,7 @@
 
         <div class="tab-pane fade pt-3" id="profile-change-password">
         <!-- Change Password Form -->
-        <form method="post" action="{{ url('password') }}">
+        <form method="post" action="{{ url('/password') }}">
             @method('put')
             @csrf
             <div class="row mb-3">
@@ -228,5 +225,4 @@
 </div>
 
 </div>
-@endforeach
 @endsection
