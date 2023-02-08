@@ -7,7 +7,7 @@
         <div class="col-12">
         <div class="card master-mahasiswa overflow-auto">
             <div class="filter">
-                <a href="{{ url('master/mahasiswa/create') }}" class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Add Mahasiswa"><i class="bi bi-person-plus"></i></a>
+                <a href="{{ url('mahasiswa/add') }}" class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Add Mahasiswa"><i class="bi bi-person-plus"></i></a>
             </div>
 
             <div class="card-body">
@@ -34,18 +34,17 @@
                     <td>{{ $mahasiswa->phone }}</td>
                     <td><span class="badge bg-{{ $mahasiswa->status > 0 ? 'success' : 'danger'}}">{{ $mahasiswa->status > 0 ? 'approved' : 'disapprove'}}</span></td>
                     <td>
-                        <form action="mahasiswa/{{ $mahasiswa->id }}" class="d-inline" method="post">
+                        <form action="/mahasiswa/{{ $mahasiswa->slug }}" class="d-inline" method="post">
                             @method('put')
                             @csrf
-                            <input type="hidden" name="status" value="{{ $mahasiswa->status > 0 ? '0' : '1' }}">
-                            <button  class="btn btn-{{ $mahasiswa->status > 0 ? 'danger' : 'success' }}" ><i class="{{ $mahasiswa->status > 0 ? 'bx bx-block' : 'bi bi-check-circle' }}"></i></button>
+                            <button  class="btn btn-sm btn-{{ $mahasiswa->status > 0 ? 'danger' : 'success' }}" ><i class="{{ $mahasiswa->status > 0 ? 'bi bi-x-circle' : 'bi bi-check-circle' }}"></i></button>
                         </form>
 
-                        <a href="mahasiswa/{{ $mahasiswa->slug }}/edit" class="btn btn-warning" ><i class="bi bi-pen"></i></a>
-                        <form action="mahasiswa/{{ $mahasiswa->user_id }}" method="post" class='d-inline'>
+                        <a href="/mahasiswa/{{ $mahasiswa->slug }}/edit" class="btn btn-sm btn-warning" ><i class="bi bi-pen"></i></a>
+                        <form action="/mahasiswa/{{ $mahasiswa->slug }}" method="post" class='d-inline'>
                             @method('delete')
                             @csrf
-                            <button class="btn btn-danger" onclick="return confirm('Are you sure?')"><i class="bi bi-trash"></i></button>
+                            <button class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')"><i class="bi bi-trash"></i></button>
                         </form>
                     </td>
                 </tr>

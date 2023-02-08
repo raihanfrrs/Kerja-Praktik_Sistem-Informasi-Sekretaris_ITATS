@@ -6,9 +6,8 @@
       <h5 class="card-title">Mahasiswa <span>| Add</span></h5>
 
       <!-- Floating Labels Form -->
-      <form class="row g-3" action="{{ url('/master/mahasiswa') }}" method="post">
+      <form class="row g-3" action="{{ url('/mahasiswa') }}" method="post">
         @csrf
-        <input type="hidden" name="status" value="1">
         <div class="col-md-12">
           <div class="form-floating">
             <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" placeholder="Full Name" required value="{{ old('name') }}">
@@ -80,7 +79,7 @@
         <div class="text-center">
           <button type="submit" class="btn btn-primary">Submit</button>
           <button type="reset" class="btn btn-secondary">Reset</button>
-          <a href="{{ url('master/mahasiswa') }}" class="btn btn-danger">Back</a>
+          <a href="{{ url('/mahasiswa') }}" class="btn btn-danger">Back</a>
         </div>
       </form><!-- End floating Labels Form -->
 

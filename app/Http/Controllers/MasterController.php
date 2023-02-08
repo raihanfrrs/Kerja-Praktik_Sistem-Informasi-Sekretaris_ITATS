@@ -40,6 +40,7 @@ class MasterController extends Controller
         ]);
 
         $validateData['level'] = 'mahasiswa';
+        $validateData['status'] = '1';
         $validateData['password'] = bcrypt($validateData['password']);
 
         $user = User::create($validateData);
@@ -47,10 +48,6 @@ class MasterController extends Controller
         $validateData['user_id'] = $user->id;
 
         Mahasiswa::create($validateData);
-
-        $status['status'] = $request->status;
-        Mahasiswa::where('user_id', $user->id)
-                    ->update($status);
 
         return redirect('mahasiswa/add')->with([
             'case' => 'default',
@@ -75,10 +72,12 @@ class MasterController extends Controller
     
     public function mahasiswa_update(Request $request, Mahasiswa $mahasiswa)
     {
-        if($request->status == '1' || $request->status == '0'){
-            $validateData['status'] = $request->status;
-            Mahasiswa::where('npm', $mahasiswa->npm)
-                    ->update($validateData);
+        if($mahasiswa->status == '0'){
+            Mahasiswa::where('npm', $mahasiswa->npm)->update(['status' => 1]);
+
+            return redirect('mahasiswa');
+        }elseif ($mahasiswa->status == '1') {
+            Mahasiswa::where('npm', $mahasiswa->npm)->update(['status' => 0]);
 
             return redirect('mahasiswa');
         }
