@@ -59,14 +59,15 @@ class MasterController extends Controller
     public function mahasiswa_show(Mahasiswa $mahasiswa)
     {
         return view('superadmin.master.mahasiswa.details-mahasiswa')->with([
-            'mahasiswa' => Mahasiswa::where('npm', $mahasiswa->npm)->get()
+            'mahasiswa' => Mahasiswa::whereId($mahasiswa->id)->get(),
+            'subtitle' => 'Details'
         ]);
     }
     
     public function mahasiswa_edit(Mahasiswa $mahasiswa)
     {
         return view('superadmin.master.mahasiswa.edit-mahasiswa')->with([
-            'mahasiswa' => Mahasiswa::where('npm', $mahasiswa->npm)->get()
+            'mahasiswa' => Mahasiswa::whereId($mahasiswa->id)->get()
         ]);
     }
     
@@ -130,7 +131,7 @@ class MasterController extends Controller
     public function dosen_index()
     {
         return view('superadmin.master.dosen.index')->with([
-            'dosen' => Dosen::all()
+            'dosens' => Dosen::all()
         ]);
     }
     
@@ -179,14 +180,15 @@ class MasterController extends Controller
     public function dosen_show(Dosen $dosen)
     {
         return view('superadmin.master.dosen.details-dosen')->with([
-            'dosen' => Dosen::where('nip', $dosen->nip)->get()
+            'dosen' => Dosen::whereId($dosen->id)->get(),
+            'subtitle' => 'Details'
         ]);
     }
     
     public function dosen_edit(Dosen $dosen)
     {
         return view('superadmin.master.dosen.edit-dosen')->with([
-            'dosen' => dosen::where('nip', $dosen->nip)->get()
+            'dosen' => dosen::whereId($dosen->id)->get()
         ]);
     }
     

@@ -4,15 +4,19 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>{{ isset($title) ? $title." - " : '' }} {{ isset($subtitle) ? $subtitle : Str::ucfirst(request()->segment(count(request()->segments()))) }}</title>
+  <title>Sekretaris -  {{ isset($subtitle) ? $subtitle : Str::ucfirst(request()->segment(count(request()->segments()))) }}</title>
 
   <!-- Favicons -->
   <link href="{{ asset('assets/img/Logo_ITATS-2.png') }}" rel="icon">
+
+  <!-- Vendor JS Files -->
+  <script src="{{ asset('/') }}assets/vendor/sweetalert2/js/sweetalert2.min.js"></script>
 
   <!-- Vendor CSS Files -->
   <link href="{{ asset('/') }}assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="{{ asset('/') }}assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
   <link href="{{ asset('/') }}assets/vendor/simple-datatables/style.css" rel="stylesheet">
+  <link href="{{ asset('/') }}assets/vendor/sweetalert2/css/sweetalert2.min.css" rel="stylesheet">
 
   <!-- Template Main CSS File -->
   <link href="{{ asset('/') }}assets/css/style.css" rel="stylesheet">

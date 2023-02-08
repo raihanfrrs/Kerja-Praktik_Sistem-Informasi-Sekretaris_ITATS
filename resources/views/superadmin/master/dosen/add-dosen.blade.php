@@ -85,24 +85,30 @@
         <div class="row mb-3">
           <legend class="col-form-label col-sm-2 pt-0">Roles</legend>
           <div class="col-sm-10">
-            @foreach ($roles as $role)
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="{{ $role->role }}" name="role[]" value="{{ $role->id }}" @if(old('role') == $role->id) checked @endif>
-                <label class="form-check-label" for="{{ $role->role }}">
-                  {{ $role->role }}
-                </label>
-              </div>
-            @endforeach
+            <div class="form-check form-switch">
+              <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+              <label class="form-check-label" for="flexSwitchCheckDefault">Create</label>
+            </div>
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked>
+                <label class="form-check-label" for="flexSwitchCheckChecked">Read</label>
+            </div>
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+                <label class="form-check-label" for="flexSwitchCheckDefault">Update</label>
+            </div>
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+                <label class="form-check-label" for="flexSwitchCheckDefault">Delete</label>
+            </div>
           </div>
         </div>
 
-        <div class="row mb-3">
-          <div class="col-sm-10">
-            <button type="submit" class="btn btn-primary">Submit</button>
-            <button type="reset" class="btn btn-secondary">Reset</button>
-            <a href="{{ url('master/dosen') }}" class="btn btn-danger">Back</a>
-          </div>
-        </div>
+        <div class="text-center">
+          <button type="submit" class="btn btn-primary">Submit</button>
+          <button type="reset" class="btn btn-secondary">Reset</button>
+          <a href="{{ url('/dosen') }}" class="btn btn-danger">Back</a>
+        </div>    
 
       </form><!-- End General Form Elements -->
 

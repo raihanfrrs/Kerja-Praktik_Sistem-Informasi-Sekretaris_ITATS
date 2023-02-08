@@ -49,6 +49,7 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::group(['middleware' => ['cekUserLogin:mahasiswa']], function(){
+        
     });
 
     Route::group(['middleware' => ['cekUserLogin:dosen']], function(){
@@ -70,10 +71,10 @@ Route::middleware('auth')->group(function () {
             Route::get('dosen', 'dosen_index');
             Route::get('dosen/add', 'dosen_create');
             Route::post('dosen', 'dosen_store');
-            Route::get('dosen/{slug}', 'dosen_show');
-            Route::get('dosen/{slug}/edit', 'dosen_edit');
-            Route::put('dosen/{slug}', 'dosen_update');
-            Route::delete('dosen/{slug}', 'dosen_destroy');
+            Route::get('dosen/{dosen}', 'dosen_show');
+            Route::get('dosen/{dosen}/edit', 'dosen_edit');
+            Route::put('dosen/{dosen}', 'dosen_update');
+            Route::delete('dosen/{dosen}', 'dosen_destroy');
 
             /* surat master resource */
             Route::get('surat', 'surat_index');

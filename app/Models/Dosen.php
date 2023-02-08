@@ -14,6 +14,10 @@ class Dosen extends Model
         'id'
     ];
 
+    public function getRouteKeyName() {
+        return 'slug';
+    }
+
     public function sluggable(): array
     {
         return [
