@@ -7,7 +7,7 @@
     <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
 
     <img src="{{ asset('assets/img/profile-img.jpg') }}" alt="Profile" class="rounded-circle">
-    <h2>{{ $user[0]->name }}</h2>
+    <h2 class="text-capitalize">{{ $user[0]->name }}</h2>
     <h3>{{ Str::ucfirst(auth()->user()->level) }}</h3>
     </div>
 </div>
@@ -18,7 +18,7 @@
 
 <div class="card">
     <div class="card-body pt-3">
-    <!-- Bordered Tabs -->
+        
     <ul class="nav nav-tabs nav-tabs-bordered">
 
         <li class="nav-item">
@@ -42,7 +42,7 @@
 
         <div class="row">
             <div class="col-lg-3 col-md-4 label ">Full Name</div>
-            <div class="col-lg-9 col-md-8">{{ $user[0]->name }}</div>
+            <div class="col-lg-9 col-md-8 text-capitalize">{{ $user[0]->name }}</div>
         </div>
 
         <div class="row">
@@ -52,7 +52,7 @@
 
         <div class="row">
             <div class="col-lg-3 col-md-4 label">Email</div>
-            <div class="col-lg-9 col-md-8">{{ $user[0]->email }}</div>
+            <div class="col-lg-9 col-md-8 text-lowercase">{{ $user[0]->email }}</div>
         </div>
 
         <div class="row">
@@ -62,18 +62,18 @@
 
         <div class="row">
             <div class="col-lg-3 col-md-4 label">Gender</div>
-            <div class="col-lg-9 col-md-8">@if($user[0]->gender) {{ $user[0]->gender }} @else - @endif</div>
+            <div class="col-lg-9 col-md-8">@if($user[0]->gender) {{ Str::ucfirst($user[0]->gender) }} @else - @endif</div>
         </div>
 
         <div class="row">
             <div class="col-lg-3 col-md-4 label">Place, Date of Birth</div>
-            <div class="col-lg-9 col-md-8">@if($user[0]->birthPlace && $user[0]->birthDate) {{ $user[0]->birthPlace }}, {{ $user[0]->birthDate }} @else - @endif</div>
+            <div class="col-lg-9 col-md-8 text-capitalize">@if($user[0]->birthPlace && $user[0]->birthDate) {{ $user[0]->birthPlace }}, {{ $user[0]->birthDate }} @else - @endif</div>
         </div>
 
         @if (auth()->user()->level == 'mahasiswa')
             <div class="row">
                 <div class="col-lg-3 col-md-4 label">Status</div>
-                <div class="col-lg-9 col-md-8"><span class="badge bg-{{ $user[0]->status > 0 ? 'success' : 'danger'}}">{{ $user[0]->status > 0 ? 'approved' : 'disapprove'}}</span></div>
+                <div class="col-lg-9 col-md-8"><span class="badge bg-{{ $user[0]->status > 0 ? 'success' : 'danger'}}">{{ $user[0]->status > 0 ? 'APPROVED' : 'DISAPPROVED'}}</span></div>
             </div>
         @endif
 
@@ -91,7 +91,6 @@
 
         <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
 
-        <!-- Profile Edit Form -->
         <form method="post" action="/{{ auth()->user()->level == 'mahasiswa' ? 'mahasiswa' : 'dosen' }}/profile/{{ $user[0]->slug }}">
             @method('put')
             @csrf
@@ -109,7 +108,7 @@
             <div class="row mb-3">
             <label for="name" class="col-md-4 col-lg-3 col-form-label">Full Name</label>
             <div class="col-md-8 col-lg-9">
-                <input name="name" type="text" class="form-control @error('name') is-invalid @enderror" id="name" value="{{ old('name', $user[0]->name) }}" required>
+                <input name="name" type="text" class="form-control @error('name') is-invalid @enderror" id="name" value="{{ old('name', $user[0]->name) }}" required autocomplete="off">
                 @error('name')<div class="invalid-feedback">{{ $message }}</div>@enderror
             </div>
             </div>
@@ -118,7 +117,7 @@
                 <div class="row mb-3">
                 <label for="npm" class="col-md-4 col-lg-3 col-form-label">NPM</label>
                 <div class="col-md-8 col-lg-9">
-                    <input name="npm" type="text" class="form-control @error('npm') is-invalid @enderror" id="npm" value="{{ old('npm', $user[0]->npm) }}" required>
+                    <input name="npm" type="text" class="form-control @error('npm') is-invalid @enderror" id="npm" value="{{ old('npm', $user[0]->npm) }}" required autocomplete="off">
                     @error('npm')<div class="invalid-feedback">{{ $message }}</div>@enderror
                 </div>
                 </div>
@@ -126,7 +125,7 @@
                 <div class="row mb-3">
                 <label for="nip" class="col-md-4 col-lg-3 col-form-label">NIP</label>
                 <div class="col-md-8 col-lg-9">
-                    <input name="nip" type="text" class="form-control @error('nip') is-invalid @enderror" id="nip" value="{{ old('nip', $user[0]->nip) }}" required>
+                    <input name="nip" type="text" class="form-control @error('nip') is-invalid @enderror" id="nip" value="{{ old('nip', $user[0]->nip) }}" required autocomplete="off">
                     @error('nip')<div class="invalid-feedback">{{ $message }}</div>@enderror
                 </div>
                 </div>
@@ -136,7 +135,7 @@
             <div class="row mb-3">
             <label for="email" class="col-md-4 col-lg-3 col-form-label">Email</label>
             <div class="col-md-8 col-lg-9">
-                <input name="email" type="email" class="form-control @error('email') is-invalid @enderror" id="email" value="{{ old('email', $user[0]->email) }}" required>
+                <input name="email" type="email" class="form-control @error('email') is-invalid @enderror" id="email" value="{{ old('email', $user[0]->email) }}" required autocomplete="off">
                 @error('email')<div class="invalid-feedback">{{ $message }}</div>@enderror
             </div>
             </div>
@@ -144,7 +143,7 @@
             <div class="row mb-3">
             <label for="phone" class="col-md-4 col-lg-3 col-form-label">Phone</label>
             <div class="col-md-8 col-lg-9">
-                <input name="phone" type="text" class="form-control @error('phone') is-invalid @enderror" id="phone" value="{{ old('phone', $user[0]->phone) }}" required>
+                <input name="phone" type="text" class="form-control @error('phone') is-invalid @enderror" id="phone" value="{{ old('phone', $user[0]->phone) }}" required autocomplete="off">
                 @error('phone')<div class="invalid-feedback">{{ $message }}</div>@enderror
             </div>
             </div>
@@ -171,7 +170,7 @@
             <div class="row mb-3">
             <label for="birthPlace" class="col-md-4 col-lg-3 col-form-label">Place of Birth</label>
             <div class="col-md-8 col-lg-9">
-                <input name="birthPlace" type="text" class="form-control @error('birthPlace') is-invalid @enderror" id="birthPlace" value="{{ old('birthPlace', $user[0]->birthPlace) }}" required>
+                <input name="birthPlace" type="text" class="form-control @error('birthPlace') is-invalid @enderror" id="birthPlace" value="{{ old('birthPlace', $user[0]->birthPlace) }}" required autocomplete="off">
                 @error('birthPlace')<div class="invalid-feedback">{{ $message }}</div>@enderror
             </div>
             </div>
@@ -187,12 +186,12 @@
             <div class="text-center">
             <button type="submit" class="btn btn-primary">Save Changes</button>
             </div>
-        </form><!-- End Profile Edit Form -->
+        </form>
 
         </div>
 
         <div class="tab-pane fade pt-3" id="profile-change-password">
-        <!-- Change Password Form -->
+
         <form method="post" action="{{ url('/password') }}">
             @method('put')
             @csrf
@@ -215,11 +214,11 @@
             <div class="text-center">
             <button type="submit" class="btn btn-primary">Change Password</button>
             </div>
-        </form><!-- End Change Password Form -->
+        </form>
 
         </div>
 
-    </div><!-- End Bordered Tabs -->
+    </div>
 
     </div>
 </div>
