@@ -17,7 +17,7 @@
       @csrf
       <div class="col-12">
         <label for="yourUsername" class="form-label">Username</label>
-        <input type="text" name="username" class="form-control @error('username') is-invalid @enderror" id="yourUsername">
+        <input type="text" name="username" class="form-control @error('username') is-invalid @enderror" id="yourUsername" value="{{ old('username') }}">
         @error('username')<div class="invalid-feedback">{{ $message }}</div>@enderror
       </div>
 
