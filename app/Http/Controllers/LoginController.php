@@ -30,10 +30,11 @@ class LoginController extends Controller
 
             if($user){
                 return redirect()->intended('/')->with([
-                    'case' => 'heading',
-                    'type' => 'primary',
-                    'head' => 'Hello, Welcome back!',
-                    'message' => 'Login Successfully.'
+                    'flash-type' => 'sweetalert',
+                    'case' => 'default',
+                    'position' => 'center',
+                    'type' => 'success',
+                    'message' => 'Login Successfully!'
                 ]);
             }
 

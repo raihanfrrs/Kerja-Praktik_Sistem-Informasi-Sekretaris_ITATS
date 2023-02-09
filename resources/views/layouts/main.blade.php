@@ -31,7 +31,6 @@
   @endauth
 
   <main @auth id="main" class="main" @endauth>
-
     @auth
       @include('partials.title-wrapper')
     @endauth

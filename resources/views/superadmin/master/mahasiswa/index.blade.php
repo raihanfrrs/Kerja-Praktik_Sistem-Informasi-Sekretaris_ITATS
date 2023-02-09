@@ -37,7 +37,7 @@
                         <form action="/mahasiswa/{{ $mahasiswa->slug }}" class="d-inline" method="post">
                             @method('put')
                             @csrf
-                            <button  class="btn btn-sm btn-{{ $mahasiswa->status > 0 ? 'danger' : 'success' }}" ><i class="{{ $mahasiswa->status > 0 ? 'bi bi-x-circle' : 'bi bi-check-circle' }}"></i></button>
+                            <button name="status" value="checked" class="btn btn-sm btn-{{ $mahasiswa->status > 0 ? 'danger' : 'success' }}" ><i class="{{ $mahasiswa->status > 0 ? 'bi bi-x-circle' : 'bi bi-check-circle' }}"></i></button>
                         </form>
 
                         <a href="/mahasiswa/{{ $mahasiswa->slug }}/edit" class="btn btn-sm btn-warning" ><i class="bi bi-pen"></i></a>

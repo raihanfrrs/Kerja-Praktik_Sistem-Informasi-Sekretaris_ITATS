@@ -46,9 +46,11 @@ class RegisterController extends Controller
         Mahasiswa::create($validateDataMahasiswa);
 
         return redirect('login')->with([
+            'flash-type' => 'sweetalert',
             'case' => 'default',
+            'position' => 'center',
             'type' => 'success',
-            'message' => 'Registration successfull! Please Login.'
+            'message' => 'Register Successfully!'
         ]);
     }
 }

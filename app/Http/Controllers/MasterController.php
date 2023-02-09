@@ -50,9 +50,11 @@ class MasterController extends Controller
         Mahasiswa::create($validateData);
 
         return redirect('mahasiswa/add')->with([
+            'flash-type' => 'sweetalert',
             'case' => 'default',
+            'position' => 'center',
             'type' => 'success',
-            'message' => 'Add Mahasiswa successfull!.'
+            'message' => 'Mahasiswa Added!'
         ]);
     }
 
@@ -73,14 +75,28 @@ class MasterController extends Controller
     
     public function mahasiswa_update(Request $request, Mahasiswa $mahasiswa)
     {
-        if($mahasiswa->status == '0'){
-            Mahasiswa::where('npm', $mahasiswa->npm)->update(['status' => 1]);
-
-            return redirect('mahasiswa');
-        }elseif ($mahasiswa->status == '1') {
-            Mahasiswa::where('npm', $mahasiswa->npm)->update(['status' => 0]);
-
-            return redirect('mahasiswa');
+        if($request->status === 'checked'){
+            if($mahasiswa->status == '0'){
+                Mahasiswa::where('npm', $mahasiswa->npm)->update(['status' => 1]);
+    
+                return redirect('mahasiswa')->with([
+                    'flash-type' => 'sweetalert',
+                    'case' => 'default',
+                    'position' => 'center',
+                    'type' => 'success',
+                    'message' => 'Status Updated!'
+                ]);
+            }elseif ($mahasiswa->status == '1') {
+                Mahasiswa::where('npm', $mahasiswa->npm)->update(['status' => 0]);
+    
+                return redirect('mahasiswa')->with([
+                    'flash-type' => 'sweetalert',
+                    'case' => 'default',
+                    'position' => 'center',
+                    'type' => 'success',
+                    'message' => 'Status Updated!'
+                ]);
+            }
         }
 
         $rules = [
@@ -106,9 +122,11 @@ class MasterController extends Controller
                     ->update($validateData);
         
         return redirect('mahasiswa')->with([
+            'flash-type' => 'sweetalert',
             'case' => 'default',
+            'position' => 'center',
             'type' => 'success',
-            'message' => 'Edit Mahasiswa Successfull!.'
+            'message' => 'Mahasiswa Updated!'
         ]);
     }
     
@@ -118,9 +136,11 @@ class MasterController extends Controller
         User::destroy($mahasiswa->user_id);
 
         return redirect('mahasiswa')->with([
+            'flash-type' => 'sweetalert',
             'case' => 'default',
+            'position' => 'center',
             'type' => 'success',
-            'message' => 'Delete Mahasiswa Successfull!.'
+            'message' => 'Mahasiswa Deleted!'
         ]);
     }
 
@@ -171,9 +191,11 @@ class MasterController extends Controller
         // }
 
         return redirect('dosen/add')->with([
+            'flash-type' => 'sweetalert',
             'case' => 'default',
+            'position' => 'center',
             'type' => 'success',
-            'message' => 'Add Dosen successfull!.'
+            'message' => 'Dosen Added!'
         ]);
     }
 
@@ -225,9 +247,11 @@ class MasterController extends Controller
         // }
 
         return redirect('dosen')->with([
+            'flash-type' => 'sweetalert',
             'case' => 'default',
+            'position' => 'center',
             'type' => 'success',
-            'message' => 'Edit Dosen Successfull!.'
+            'message' => 'Dosen Updated!'
         ]);
     }
     
@@ -237,9 +261,11 @@ class MasterController extends Controller
         User::destroy($dosen->user_id);
 
         return redirect('dosen')->with([
+            'flash-type' => 'sweetalert',
             'case' => 'default',
+            'position' => 'center',
             'type' => 'success',
-            'message' => 'Delete Dosen Successfull!.'
+            'message' => 'Dosen Deleted!'
         ]);
     }
 
