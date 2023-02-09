@@ -4,9 +4,12 @@ $(document).ready(function () {
         serverSide: true,
         ajax: '/dataMahasiswa',
         columns: [
-            { data: 'id', name: 'id', class: 'lead-text' },
-            { data: 'product_name', name: 'product_name', class: 'text-muted text-capitalize' },
-            { data: 'price', name: 'price', class: 'text-muted' },
+            { data: 'number', name: 'number', class: 'text-bold' },
+            { data: 'name', name: 'name', class: 'text-muted text-capitalize' },
+            { data: 'npm', name: 'npm', class: 'text-muted' },
+            { data: 'email', name: 'email', class: 'text-muted' },
+            { data: 'phone', name: 'phone', class: 'text-muted' },
+            { data: 'status', name: 'status', class: 'text-muted text-center' },
             { data: 'action', name: 'action' }
         ]
     });

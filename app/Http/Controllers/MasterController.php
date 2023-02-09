@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Dosen;
 use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Validation\Rules\Password;
 
 class MasterController extends Controller
@@ -142,6 +143,22 @@ class MasterController extends Controller
             'type' => 'success',
             'message' => 'Mahasiswa Deleted!'
         ]);
+    }
+
+    public function dataMahasiswa()
+    {
+        return DataTables::of(Mahasiswa::all())
+        ->addColumn('number', function ($model) {
+            return "1";
+        })
+        ->addColumn('status', function ($model) {
+            return view('superadmin.master.mahasiswa.status-action', compact('model'))->render();
+        })
+        ->addColumn('action', function ($model) {
+            return view('superadmin.master.mahasiswa.form-action', compact('model'))->render();
+        })
+        ->rawColumns(['status', 'action'])
+        ->make(true);
     }
 
     /* MAHASISWA METHOD END SECTION */
