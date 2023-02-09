@@ -67,12 +67,24 @@ class ProfileController extends Controller
             Mahasiswa::where('user_id', auth()->user()->id)
                         ->update($validateData);
             
-            return redirect('mahasiswa/profile');
+            return redirect('profile')->with([
+                'flash-type' => 'sweetalert',
+                'case' => 'default',
+                'position' => 'center',
+                'type' => 'success',
+                'message' => 'Dosen Added!'
+            ]);
         }else{
             Dosen::where('user_id', auth()->user()->id)
                         ->update($validateData);
             
-            return redirect(auth()->user()->level.'/profile');
+            return redirect('/profile')->with([
+                'flash-type' => 'sweetalert',
+                'case' => 'default',
+                'position' => 'center',
+                'type' => 'success',
+                'message' => 'Profile Updated!'
+            ]);
         }
     }
 
@@ -95,9 +107,11 @@ class ProfileController extends Controller
         ]);
 
         return back()->with([
+            'flash-type' => 'sweetalert',
             'case' => 'default',
+            'position' => 'center',
             'type' => 'success',
-            'message' => 'Password changed successfully'
+            'message' => 'Password Updated!'
         ]);
     }
 }
