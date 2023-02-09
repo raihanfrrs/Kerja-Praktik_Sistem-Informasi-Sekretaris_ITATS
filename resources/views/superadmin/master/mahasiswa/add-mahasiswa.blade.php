@@ -10,7 +10,7 @@
         @csrf
         <div class="col-md-12">
           <div class="form-floating">
-            <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" placeholder="Full Name" required value="{{ old('name') }}">
+            <input type="text" class="form-control @error('name') is-invalid @enderror text-capitalize" id="name" name="name" placeholder="Full Name" required value="{{ old('name') }}">
             <label for="name">Full Name</label>
           </div>
           @error('name') <div class="invalid-feedback"> {{ $message }} </div> @enderror
@@ -24,7 +24,7 @@
         </div>
         <div class="col-md-4">
           <div class="form-floating">
-            <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" placeholder="Email" required value="{{ old('email') }}">
+            <input type="email" class="form-control @error('email') is-invalid @enderror text-lowercase" id="email" name="email" placeholder="Email" required value="{{ old('email') }}">
             <label for="email">Email</label>
           </div>
           @error('email') <div class="invalid-feedback"> {{ $message }} </div> @enderror
@@ -39,7 +39,7 @@
         <div class="col-md-6">
           <div class="col-md-12">
             <div class="form-floating">
-              <input type="text" class="form-control @error('birthPlace') is-invalid @enderror" id="birthPlace" name='birthPlace' placeholder="Birth of Place" required value="{{ old('birthPlace') }}">
+              <input type="text" class="form-control @error('birthPlace') is-invalid @enderror text-capitalize" id="birthPlace" name='birthPlace' placeholder="Birth of Place" required value="{{ old('birthPlace') }}">
               <label for="birthPlace">Birth of Place</label>
             </div>
             @error('birthPlace') <div class="invalid-feedback"> {{ $message }} </div> @enderror
@@ -76,10 +76,11 @@
             </div>
             @error('password') <div class="invalid-feedback"> {{ $message }} </div> @enderror
           </div>
-        <div class="text-center">
-          <button type="submit" class="btn btn-primary">Submit</button>
-          <button type="reset" class="btn btn-secondary">Reset</button>
-          <a href="{{ url('/mahasiswa') }}" class="btn btn-danger">Back</a>
+
+        <div class="text-center mt-5">
+          <button type="submit" class="btn btn-primary"><i class="bi bi-save"></i> Submit</button>
+          <button type="reset" class="btn btn-secondary"><i class="bi bi-arrow-clockwise"></i> Reset</button>
+          <a href="{{ url('/mahasiswa') }}" class="btn btn-warning"><i class="bi bi-arrow-bar-left"></i> Back</a>
         </div>
       </form><!-- End floating Labels Form -->
 

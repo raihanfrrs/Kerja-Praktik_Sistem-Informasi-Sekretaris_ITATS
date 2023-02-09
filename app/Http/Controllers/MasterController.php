@@ -148,9 +148,6 @@ class MasterController extends Controller
     public function dataMahasiswa()
     {
         return DataTables::of(Mahasiswa::all())
-        ->addColumn('number', function ($model) {
-            return "1";
-        })
         ->addColumn('status', function ($model) {
             return view('superadmin.master.mahasiswa.status-action', compact('model'))->render();
         })

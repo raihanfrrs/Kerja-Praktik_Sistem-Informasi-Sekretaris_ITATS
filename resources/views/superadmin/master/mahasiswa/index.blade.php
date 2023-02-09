@@ -14,13 +14,12 @@
                 <table class="table table-master table-borderless datatable table-hover" id="dataMahasiswa">
                     <thead>
                         <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Mahasiswa</th>
-                            <th scope="col">NPM</th>
-                            <th scope="col">Email</th>
-                            <th scope="col">Phone</th>
-                            <th scope="col">Status</th>
-                            <th scope="col">Action</th>
+                            <th scope="col" class="text-center">Mahasiswa</th>
+                            <th scope="col" class="text-center">NPM</th>
+                            <th scope="col" class="text-center">Email</th>
+                            <th scope="col" class="text-center">Phone</th>
+                            <th scope="col" class="text-center">Status</th>
+                            <th scope="col" class="text-center">Action</th>
                         </tr>
                     </thead>
                 </table>

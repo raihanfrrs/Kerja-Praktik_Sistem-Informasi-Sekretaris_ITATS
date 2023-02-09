@@ -4,13 +4,12 @@ $(document).ready(function () {
         serverSide: true,
         ajax: '/dataMahasiswa',
         columns: [
-            { data: 'number', name: 'number', class: 'text-bold' },
             { data: 'name', name: 'name', class: 'text-muted text-capitalize' },
-            { data: 'npm', name: 'npm', class: 'text-muted' },
+            { data: 'npm', name: 'npm', class: 'text-muted text-center' },
             { data: 'email', name: 'email', class: 'text-muted' },
-            { data: 'phone', name: 'phone', class: 'text-muted' },
+            { data: 'phone', name: 'phone', class: 'text-muted text-center' },
             { data: 'status', name: 'status', class: 'text-muted text-center' },
-            { data: 'action', name: 'action' }
+            { data: 'action', name: 'action', class: 'text-center' }
         ]
     });
 });

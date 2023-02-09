@@ -11,7 +11,7 @@
         <div class="row mb-3">
             <label for="name" class="col-sm-2 col-form-label">Full Name</label>
             <div class="col-sm-10">
-            <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" required value="{{ old('name', $mahasiswa[0]->name) }}">
+            <input type="text" class="form-control @error('name') is-invalid @enderror text-capitalize" id="name" name="name" required value="{{ old('name', $mahasiswa[0]->name) }}">
             @error('name') <div class="invalid-feedback"> {{ $message }} </div> @enderror
             </div>
         </div>
@@ -25,7 +25,7 @@
         <div class="row mb-3">
             <label for="email" class="col-sm-2 col-form-label">Email</label>
             <div class="col-sm-10">
-            <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" required value="{{ old('email', $mahasiswa[0]->email) }}">
+            <input type="email" class="form-control @error('email') is-invalid @enderror text-lowercase" id="email" name="email" required value="{{ old('email', $mahasiswa[0]->email) }}">
             @error('email') <div class="invalid-feedback"> {{ $message }} </div> @enderror
             </div>
         </div>
@@ -39,7 +39,7 @@
         <div class="row mb-3">
             <label for="birthPlace" class="col-sm-2 col-form-label">Place of Birth</label>
             <div class="col-sm-10">
-            <input type="text" class="form-control @error('birthPlace') is-invalid @enderror" id="birthPlace" name="birthPlace" required value="{{ old('birthPlace', $mahasiswa[0]->birthPlace) }}">
+            <input type="text" class="form-control @error('birthPlace') is-invalid @enderror text-capitalize" id="birthPlace" name="birthPlace" required value="{{ old('birthPlace', $mahasiswa[0]->birthPlace) }}">
             @error('birthPlace') <div class="invalid-feedback"> {{ $message }} </div> @enderror
             </div>
         </div>
@@ -69,10 +69,10 @@
             </div>
         </fieldset>
 
-        <div class="text-center">
-            <button type="submit" class="btn btn-primary">Submit</button>
-            <button type="reset" class="btn btn-secondary">Reset</button>
-            <a href="{{ url('/mahasiswa') }}" class="btn btn-danger">Back</a>
+        <div class="text-center mt-5">
+            <button type="submit" class="btn btn-primary"><i class="bi bi-save"></i> Submit</button>
+            <button type="reset" class="btn btn-secondary"><i class="bi bi-arrow-clockwise"></i> Reset</button>
+            <a href="{{ url('/mahasiswa') }}" class="btn btn-warning"><i class="bi bi-arrow-bar-left"></i> Back</a>
         </div>
 
     </form><!-- End General Form Elements -->
