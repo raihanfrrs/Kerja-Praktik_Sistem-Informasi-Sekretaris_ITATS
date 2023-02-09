@@ -83,6 +83,8 @@ Route::middleware('auth')->group(function () {
             Route::get('surat/{slug}/edit', 'surat_edit');
             Route::put('surat/{slug}', 'surat_update');
             Route::delete('surat/{slug}', 'surat_destroy');
+
+            Route::get('/dataMahasiswa', [MasterController::class, 'dataMahasiswa'])->name('dataMahasiswa');
         });
     });
 });
