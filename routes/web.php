@@ -85,6 +85,7 @@ Route::middleware('auth')->group(function () {
             Route::delete('surat/{slug}', 'surat_destroy');
 
             Route::get('/dataMahasiswa', [MasterController::class, 'dataMahasiswa'])->name('dataMahasiswa');
+            Route::get('/dataDosen', [MasterController::class, 'dataDosen'])->name('dataDosen');
         });
     });
 });

@@ -185,8 +185,7 @@ class MasterController extends Controller
             'phone' =>'required|numeric|unique:dosens',
             'birthPlace' => 'required|max:225|min:3',
             'birthDate' => 'required',
-            'gender' => 'required',
-            'role' => 'required' 
+            'gender' => 'required'
         ]);
 
         $validateData['level'] = 'dosen';
@@ -196,7 +195,7 @@ class MasterController extends Controller
 
         $validateData['user_id'] = $user->id;
 
-        $dosen = Dosen::create($validateData);
+        Dosen::create($validateData);
 
         // for ($i=0; $i < count($request->role); $i++) { 
         //     $roles['role_id'] = $request->role[$i];
@@ -281,6 +280,18 @@ class MasterController extends Controller
             'type' => 'success',
             'message' => 'Dosen Deleted!'
         ]);
+    }
+
+    public function dataDosen()
+    {
+        return DataTables::of(Dosen::join('users', 'dosens.user_id', '=', 'users.id')
+                                    ->select('dosens.*')
+                                    ->where('users.level', 'dosen')
+                                    ->get())
+        ->addColumn('action', function ($model) {
+            return view('superadmin.master.dosen.form-action', compact('model'))->render();
+        })
+        ->make(true);
     }
 
     /* DOSEN METHOD END SECTION */

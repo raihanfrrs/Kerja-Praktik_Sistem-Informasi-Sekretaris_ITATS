@@ -25,7 +25,7 @@ class CreateDosensTable extends Migration
             $table->enum('gender', ['male','female'])->nullable();
             $table->string('birthPlace')->nullable();
             $table->date('birthDate')->nullable();
-            $table->string('role');
+            $table->string('role')->nullable();
             $table->timestamps();
         });
     }

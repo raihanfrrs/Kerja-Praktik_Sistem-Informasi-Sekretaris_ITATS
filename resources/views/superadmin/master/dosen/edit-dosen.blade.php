@@ -89,11 +89,11 @@
             </div>
         </div>
 
-        <div class="text-center">
-            <button type="submit" class="btn btn-primary">Submit</button>
-            <button type="reset" class="btn btn-secondary">Reset</button>
-            <a href="{{ url('/dosen') }}" class="btn btn-danger">Back</a>
-        </div>
+        <div class="text-center mt-5">
+            <button type="submit" class="btn btn-primary"><i class="bi bi-save"></i> Submit</button>
+            <button type="reset" class="btn btn-secondary"><i class="bi bi-arrow-clockwise"></i> Reset</button>
+            <a href="{{ url('/dosen') }}" class="btn btn-warning"><i class="bi bi-arrow-bar-left"></i> Back</a>
+        </div>  
 
     </form>
 

@@ -6,62 +6,62 @@
       <h5 class="card-title">Dosen <span>| Add</span></h5>
 
       <!-- General Form Elements -->
-      <form action="{{ url('/master/dosen') }}" method="post">
+      <form action="{{ url('/dosen') }}" method="post">
         @csrf
         <div class="row mb-3">
           <label for="name" class="col-sm-2 col-form-label">Full Name</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control @error('name') @enderror" id="name" name="name" value="{{ old('name') }}">
-            @error('name') <div class="invalid-feedback">{{ $message }}</div> @enderror
+            <input type="text" class="form-control @error('name') @enderror text-capitalize" id="name" name="name" value="{{ old('name') }}">
+            @error('name') <div class="invalid-feedback">{{ $msg }}</div> @enderror
           </div>
         </div>
         <div class="row mb-3">
           <label for="nip" class="col-sm-2 col-form-label">NIP</label>
           <div class="col-sm-10">
             <input type="text" class="form-control @error('nip') is-invalid @enderror" id="nip" name="nip"  value="{{ old('nip') }}">
-            @error('nip') <div class="invalid-feedback">{{ $message }}</div> @enderror
+            @error('nip') <div class="invalid-feedback">{{ $msg }}</div> @enderror
           </div>
         </div>
         <div class="row mb-3">
           <label for="email" class="col-sm-2 col-form-label">Email</label>
           <div class="col-sm-10">
-            <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email"  value="{{ old('email') }}">
-            @error('email') <div class="invalid-feedback">{{ $message }}</div> @enderror
+            <input type="email" class="form-control @error('email') is-invalid @enderror text-lowercase" id="email" name="email"  value="{{ old('email') }}">
+            @error('email') <div class="invalid-feedback">{{ $msg }}</div> @enderror
           </div>
         </div>
         <div class="row mb-3">
           <label for="phone" class="col-sm-2 col-form-label">Phone</label>
           <div class="col-sm-10">
             <input type="text" class="form-control @error('phone') is-invalid @enderror" id="phone" name="phone"  value="{{ old('phone') }}">
-            @error('phone') <div class="invalid-feedback">{{ $message }}</div> @enderror
+            @error('phone') <div class="invalid-feedback">{{ $msg }}</div> @enderror
           </div>
         </div>
         <div class="row mb-3">
             <label for="birthPlace" class="col-sm-2 col-form-label">Place of Birth</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control @error('birthPlace') is-invalid @enderror" id="birthPlace" name="birthPlace"  value="{{ old('birthPlace') }}">
-              @error('birthPlace') <div class="invalid-feedback">{{ $message }}</div> @enderror
+              <input type="text" class="form-control @error('birthPlace') is-invalid @enderror text-capitalize" id="birthPlace" name="birthPlace"  value="{{ old('birthPlace') }}">
+              @error('birthPlace') <div class="invalid-feedback">{{ $msg }}</div> @enderror
             </div>
         </div>
         <div class="row mb-3">
             <label for="birthDate" class="col-sm-2 col-form-label">Date of Birth</label>
             <div class="col-sm-10">
               <input type="date" class="form-control @error('birthDate') is-invalid @enderror" id="birthDate" name="birthDate"  value="{{ old('birthDate') }}">
-              @error('birthDate') <div class="invalid-feedback">{{ $message }}</div> @enderror
+              @error('birthDate') <div class="invalid-feedback">{{ $msg }}</div> @enderror
             </div>
         </div>
         <div class="row mb-3">
             <label for="username" class="col-sm-2 col-form-label">Username</label>
             <div class="col-sm-10">
               <input type="text" class="form-control @error('username') is-invalid @enderror" id="username" name="username"  value="{{ old('username') }}">
-              @error('username') <div class="invalid-feedback">{{ $message }}</div> @enderror
+              @error('username') <div class="invalid-feedback">{{ $msg }}</div> @enderror
             </div>
         </div>
         <div class="row mb-3">
             <label for="password" class="col-sm-2 col-form-label">Password</label>
             <div class="col-sm-10">
-              <input type="password" class="form-control @error('passwprd') is-invalid @enderror" id="password" name="password" >
-              @error('password') <div class="invalid-feedback">{{ $message }}</div> @enderror
+              <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" >
+              @error('password') <div class="invalid-feedback">{{ $msg }}</div> @enderror
             </div>
           </div>
         <fieldset class="row mb-3">
@@ -79,7 +79,7 @@
                 Female
               </label>
             </div>
-            @error('gender') <div class="invalid-feedback">{{ $message }}</div> @enderror
+            @error('gender') <div class="invalid-feedback">{{ $msg }}</div> @enderror
           </div>
         </fieldset>
         <div class="row mb-3">
@@ -104,10 +104,10 @@
           </div>
         </div>
 
-        <div class="text-center">
-          <button type="submit" class="btn btn-primary">Submit</button>
-          <button type="reset" class="btn btn-secondary">Reset</button>
-          <a href="{{ url('/dosen') }}" class="btn btn-danger">Back</a>
+        <div class="text-center mt-5">
+          <button type="submit" class="btn btn-primary"><i class="bi bi-save"></i> Submit</button>
+          <button type="reset" class="btn btn-secondary"><i class="bi bi-arrow-clockwise"></i> Reset</button>
+          <a href="{{ url('/dosen') }}" class="btn btn-warning"><i class="bi bi-arrow-bar-left"></i> Back</a>
         </div>    
 
       </form><!-- End General Form Elements -->
