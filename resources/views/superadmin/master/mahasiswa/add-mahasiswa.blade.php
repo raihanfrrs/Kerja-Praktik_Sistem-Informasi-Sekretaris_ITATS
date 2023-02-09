@@ -10,28 +10,28 @@
         @csrf
         <div class="col-md-12">
           <div class="form-floating">
-            <input type="text" class="form-control @error('name') is-invalid @enderror text-capitalize" id="name" name="name" placeholder="Full Name" required value="{{ old('name') }}">
+            <input type="text" class="form-control @error('name') is-invalid @enderror text-capitalize" id="name" name="name" placeholder="Full Name" required value="{{ old('name') }}" autocomplete="off">
             <label for="name">Full Name</label>
           </div>
           @error('name') <div class="invalid-feedback"> {{ $message }} </div> @enderror
         </div>
         <div class="col-md-4">
           <div class="form-floating">
-            <input type="text" class="form-control @error('npm') is-invalid @enderror" id="npm" name="npm" placeholder="NPM" required value="{{ old('npm') }}">
+            <input type="text" class="form-control @error('npm') is-invalid @enderror" id="npm" name="npm" placeholder="NPM" required value="{{ old('npm') }}" autocomplete="off">
             <label for="npm">NPM</label>
           </div>
           @error('npm') <div class="invalid-feedback"> {{ $message }} </div> @enderror
         </div>
         <div class="col-md-4">
           <div class="form-floating">
-            <input type="email" class="form-control @error('email') is-invalid @enderror text-lowercase" id="email" name="email" placeholder="Email" required value="{{ old('email') }}">
+            <input type="email" class="form-control @error('email') is-invalid @enderror text-lowercase" id="email" name="email" placeholder="Email" required value="{{ old('email') }}" autocomplete="off">
             <label for="email">Email</label>
           </div>
           @error('email') <div class="invalid-feedback"> {{ $message }} </div> @enderror
         </div>
         <div class="col-md-4">
             <div class="form-floating">
-              <input type="phone" class="form-control @error('phone') is-invalid @enderror" id="phone" name="phone" placeholder="Phone" required value="{{ old('phone') }}">
+              <input type="phone" class="form-control @error('phone') is-invalid @enderror" id="phone" name="phone" placeholder="Phone" required value="{{ old('phone') }}" autocomplete="off">
               <label for="phone">Phone</label>
             </div>
             @error('phone') <div class="invalid-feedback"> {{ $message }} </div> @enderror
@@ -39,7 +39,7 @@
         <div class="col-md-6">
           <div class="col-md-12">
             <div class="form-floating">
-              <input type="text" class="form-control @error('birthPlace') is-invalid @enderror text-capitalize" id="birthPlace" name='birthPlace' placeholder="Birth of Place" required value="{{ old('birthPlace') }}">
+              <input type="text" class="form-control @error('birthPlace') is-invalid @enderror text-capitalize" id="birthPlace" name='birthPlace' placeholder="Birth of Place" required value="{{ old('birthPlace') }}" autocomplete="off">
               <label for="birthPlace">Birth of Place</label>
             </div>
             @error('birthPlace') <div class="invalid-feedback"> {{ $message }} </div> @enderror
@@ -64,7 +64,7 @@
         </div>
         <div class="col-md-6">
             <div class="form-floating">
-              <input type="text" class="form-control @error('username') is-invalid @enderror" id="username" name="username" placeholder="Username" required value="{{ old('username') }}">
+              <input type="text" class="form-control @error('username') is-invalid @enderror" id="username" name="username" placeholder="Username" required value="{{ old('username') }}" autocomplete="off">
               <label for="username">Username</label>
             </div>
             @error('username') <div class="invalid-feedback"> {{ $message }} </div> @enderror

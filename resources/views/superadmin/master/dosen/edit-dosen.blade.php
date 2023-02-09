@@ -10,35 +10,35 @@
         <div class="row mb-3">
             <label for="name" class="col-sm-2 col-form-label">Full Name</label>
             <div class="col-sm-10">
-            <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" required value="{{ old('name', $dosen[0]->name) }}">
+            <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" required value="{{ old('name', $dosen[0]->name) }}" autocomplete="off">
             @error('name') <div class="invalid-feedback"> {{ $message }} </div> @enderror
             </div>
         </div>
         <div class="row mb-3">
             <label for="nip" class="col-sm-2 col-form-label">NIP</label>
             <div class="col-sm-10">
-            <input type="text" class="form-control @error('nip') is-invalid @enderror" id="nip" name="nip" required value="{{ old('nip', $dosen[0]->nip) }}">
+            <input type="text" class="form-control @error('nip') is-invalid @enderror" id="nip" name="nip" required value="{{ old('nip', $dosen[0]->nip) }}" autocomplete="off">
             @error('npm') <div class="invalid-feedback"> {{ $message }} </div> @enderror
             </div>
         </div>
         <div class="row mb-3">
             <label for="email" class="col-sm-2 col-form-label">Email</label>
             <div class="col-sm-10">
-            <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" required value="{{ old('email', $dosen[0]->email) }}">
+            <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" required value="{{ old('email', $dosen[0]->email) }}" autocomplete="off">
             @error('email') <div class="invalid-feedback"> {{ $message }} </div> @enderror
             </div>
         </div>
         <div class="row mb-3">
             <label for="phone" class="col-sm-2 col-form-label">Phone</label>
             <div class="col-sm-10">
-            <input type="text" class="form-control @error('phone') is-invalid @enderror" id="phone" name="phone" required value="{{ old('phone', $dosen[0]->phone) }}">
+            <input type="text" class="form-control @error('phone') is-invalid @enderror" id="phone" name="phone" required value="{{ old('phone', $dosen[0]->phone) }}" autocomplete="off">
             @error('phone') <div class="invalid-feedback"> {{ $message }} </div> @enderror
             </div>
         </div>
         <div class="row mb-3">
             <label for="birthPlace" class="col-sm-2 col-form-label">Place of Birth</label>
             <div class="col-sm-10">
-            <input type="text" class="form-control @error('birthPlace') is-invalid @enderror" id="birthPlace" name="birthPlace" required value="{{ old('birthPlace', $dosen[0]->birthPlace) }}">
+            <input type="text" class="form-control @error('birthPlace') is-invalid @enderror" id="birthPlace" name="birthPlace" required value="{{ old('birthPlace', $dosen[0]->birthPlace) }}" autocomplete="off">
             @error('birthPlace') <div class="invalid-feedback"> {{ $message }} </div> @enderror
             </div>
         </div>
