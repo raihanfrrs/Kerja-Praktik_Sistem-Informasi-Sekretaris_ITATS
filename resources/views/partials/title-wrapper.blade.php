@@ -9,7 +9,7 @@
     <nav class="d-flex justify-content-end">
       <ol class="breadcrumb">
         <li class="breadcrumb-item">
-          <a href="/dashboard">Dashboard</a>
+          <a href="/">Dashboard</a>
         </li>
         @if (count(Request::segments()) >= 1)
           @if(request()->is(Request::segment(1)."/*"))

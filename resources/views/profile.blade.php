@@ -8,7 +8,7 @@
 
     <img src="{{ asset('assets/img/profile-img.jpg') }}" alt="Profile" class="rounded-circle">
     <h2>{{ $user[0]->name }}</h2>
-    <h3>{{ auth()->user()->level }}</h3>
+    <h3>{{ Str::ucfirst(auth()->user()->level) }}</h3>
     </div>
 </div>
 

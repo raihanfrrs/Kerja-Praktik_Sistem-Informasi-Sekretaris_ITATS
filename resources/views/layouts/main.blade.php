@@ -37,7 +37,7 @@
     @endauth
 
     @auth
-    <section @if(request()->is(auth()->user()->level.'/profile')) class='section profile' @else class='section dashboard' @endif>
+    <section @if(request()->is('profile')) class='section profile' @else class='section dashboard' @endif>
       @include('partials.flash')
       <div class="row">
         @yield('section')
