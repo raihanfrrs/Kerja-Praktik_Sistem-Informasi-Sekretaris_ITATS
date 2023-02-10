@@ -4,7 +4,13 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Sekretaris -  {{ isset($subtitle) ? $subtitle : Str::ucfirst(request()->segment(count(request()->segments()))) }}</title>
+  <title>Sekretaris 
+    @if (count(Request::segments()) == 0)
+        - Dashboard
+    @else 
+        -  {{ isset($subtitle) ? $subtitle : Str::ucfirst(request()->segment(count(request()->segments()))) }}
+    @endif
+  </title>
 
   <!-- Favicons -->
   <link href="{{ asset('assets/img/Logo_ITATS-2.png') }}" rel="icon">
@@ -66,6 +72,7 @@
   <!-- Template Main JS File -->
   <script src="{{ asset('/') }}assets/js/main.js"></script>
   <script src="{{ asset('/') }}assets/js/datatables.js"></script>
+  <script src="{{ asset('/') }}assets/js/images.js"></script>
 
 </body>
 

@@ -26,6 +26,7 @@ class CreateMahasiswasTable extends Migration
             $table->string('birthPlace')->nullable();
             $table->date('birthDate')->nullable();
             $table->integer('status')->default('0');
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }

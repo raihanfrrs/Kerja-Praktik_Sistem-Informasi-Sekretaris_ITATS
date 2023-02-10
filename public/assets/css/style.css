@@ -1237,6 +1237,32 @@ h6 {
 }
 
 /*--------------------------------------------------------------
+# File
+--------------------------------------------------------------*/
+
+label.label-image {
+  background-color: #0d6efd;
+  color: white !important;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  padding-top: 0.25rem;
+  padding-bottom: 0.35rem;
+  font-size: 0.875rem;
+  border-radius: 0.25rem;
+  cursor: pointer;
+}
+
+label.label-image:hover {
+  background-color: #0b5ed7;
+  border-color: #0a58ca;
+  
+}
+
+input[type="file"] {
+  display: none;
+}
+
+/*--------------------------------------------------------------
 # Footer
 --------------------------------------------------------------*/
 .footer {

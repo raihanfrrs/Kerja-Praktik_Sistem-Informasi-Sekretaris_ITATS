@@ -6,7 +6,11 @@
 <div class="card">
     <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
 
-    <img src="{{ asset('assets/img/profile-img.jpg') }}" alt="Profile" class="rounded-circle">
+    @if ($user[0]->image)
+        <img src="{{ asset('storage/'. $user[0]->image) }}" class="img-fluid rounded" alt="{{ $user[0]->name }}">
+    @else
+        <img src="{{ asset('/') }}assets/img/profile-img.jpg" class="img-fluid rounded" alt="{{ $user[0]->name }}">
+    @endif
     <h2 class="text-capitalize">{{ $user[0]->name }}</h2>
     <h3>{{ Str::ucfirst(auth()->user()->level) }}</h3>
     </div>
@@ -18,7 +22,7 @@
 
 <div class="card">
     <div class="card-body pt-3">
-        
+
     <ul class="nav nav-tabs nav-tabs-bordered">
 
         <li class="nav-item">
@@ -91,18 +95,28 @@
 
         <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
 
-        <form method="post" action="/{{ auth()->user()->level == 'mahasiswa' ? 'mahasiswa' : 'dosen' }}/profile/{{ $user[0]->slug }}">
+        <form method="post" action="/{{ auth()->user()->level == 'mahasiswa' ? 'mahasiswa' : 'dosen' }}/profile/{{ $user[0]->slug }}" enctype="multipart/form-data">
             @method('put')
             @csrf
             <div class="row mb-3">
-            <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Profile Image</label>
-            <div class="col-md-8 col-lg-9">
-                <img src="assets/img/profile-img.jpg" alt="Profile">
-                <div class="pt-2">
-                <a href="#" class="btn btn-primary btn-sm" title="Upload new profile image"><i class="bi bi-upload"></i></a>
-                <a href="#" class="btn btn-danger btn-sm" title="Remove my profile image"><i class="bi bi-trash"></i></a>
+            <label for="image" class="col-md-4 col-lg-3 col-form-label">Profile Image</label>
+                <div class="col-md-8 col-lg-9">
+                    @if ($user[0]->image)
+                        <img src="{{ asset('storage/'. $user[0]->image) }}" class="img-preview img-fluid" alt="{{ $user[0]->name }}">
+                    @else
+                        <img src="{{ asset('/') }}assets/img/profile-img.jpg" class="img-preview img-fluid" alt="{{ $user[0]->name }}">
+                    @endif
+                    <div class="pt-2">
+                        <label for="image" class="label-image" title="Upload my profile image"><i class="bi bi-upload"></i></label>
+                        <input type="file" id="image" name="image" onchange="previewImage()">
+                        <a href="#" class="btn btn-danger btn-sm" title="Remove my profile image"><i class="bi bi-trash"></i></a>
+                    </div>
+                    @error('image')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
                 </div>
-            </div>
             </div>
 
             <div class="row mb-3">

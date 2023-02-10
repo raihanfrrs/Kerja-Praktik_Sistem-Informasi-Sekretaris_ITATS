@@ -7,6 +7,7 @@ use App\Models\Dosen;
 use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rules\Password;
 
 class ProfileController extends Controller
@@ -31,11 +32,12 @@ class ProfileController extends Controller
 
     public function update(Request $request, mahasiswa $mahasiswa, dosen $dosen)
     {
-        $rules =[
+        $rules = [
             'name' => 'required|max:225|min:3|regex:/^[\pL\s\-]+$/u',
             'birthPlace' => 'required|max:225|min:3',
             'birthDate' => 'required',
-            'gender' => 'required'
+            'gender' => 'required',
+            'image' => 'image|file|max:2048'
         ];
 
         if(auth()->user()->level == 'mahasiswa'){
@@ -63,6 +65,13 @@ class ProfileController extends Controller
         $validateData = $request->validate($rules);
 
         if(auth()->user()->level == 'mahasiswa'){
+
+            if ($request->file('image')) {
+                if ($mahasiswa->image) {
+                    Storage::delete($mahasiswa->image);
+                }
+                $validateData['image'] = $request->file('image')->store('profile-image');
+            }
             
             Mahasiswa::where('user_id', auth()->user()->id)
                         ->update($validateData);
@@ -72,9 +81,16 @@ class ProfileController extends Controller
                 'case' => 'default',
                 'position' => 'center',
                 'type' => 'success',
-                'message' => 'Dosen Added!'
+                'message' => 'Profile Updated!'
             ]);
         }else{
+            if ($request->file('image')) {
+                if ($dosen->image) {
+                    Storage::delete($dosen->image);
+                }
+                $validateData['image'] = $request->file('image')->store('profile-image');
+            }
+
             Dosen::where('user_id', auth()->user()->id)
                         ->update($validateData);
             
