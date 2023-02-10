@@ -5,14 +5,13 @@
 
 <div class="card">
     <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
-
-    @if ($user[0]->image)
-        <img src="{{ asset('storage/'. $user[0]->image) }}" class="img-fluid rounded" alt="{{ $user[0]->name }}">
-    @else
-        <img src="{{ asset('/') }}assets/img/profile-img.jpg" class="img-fluid rounded" alt="{{ $user[0]->name }}">
-    @endif
-    <h2 class="text-capitalize">{{ $user[0]->name }}</h2>
-    <h3>{{ Str::ucfirst(auth()->user()->level) }}</h3>
+        @if ($user[0]->image)
+            <img src="{{ asset('storage/'. $user[0]->image) }}" class="img-fluid rounded" alt="{{ $user[0]->name }}">
+        @else
+            <img src="{{ asset('/') }}assets/img/profile-img.jpg" class="img-fluid rounded" alt="{{ $user[0]->name }}">
+        @endif
+        <h2 class="text-capitalize">{{ $user[0]->name }}</h2>
+        <h3>{{ Str::ucfirst(auth()->user()->level) }}</h3>
     </div>
 </div>
 
