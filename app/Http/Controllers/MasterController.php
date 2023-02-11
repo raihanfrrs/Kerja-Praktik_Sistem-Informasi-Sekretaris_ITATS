@@ -37,7 +37,8 @@ class MasterController extends Controller
             'phone' =>'required|numeric|unique:mahasiswas',
             'birthPlace' => 'required|max:225|min:3',
             'birthDate' => 'required',
-            'gender' => 'required'
+            'gender' => 'required',
+            'image' => 'image|file|max:2048'
         ]);
 
         $validateData['level'] = 'mahasiswa';
@@ -46,6 +47,9 @@ class MasterController extends Controller
 
         $user = User::create($validateData);
 
+        if ($request->file('image')) {
+            $validateData['image'] = $request->file('image')->store('profile-image');
+        }
         $validateData['user_id'] = $user->id;
 
         Mahasiswa::create($validateData);

@@ -107,7 +107,7 @@
                     @endif
                     <div class="pt-2">
                         <label for="image" class="label-image" title="Upload my profile image"><i class="bi bi-upload"></i></label>
-                        <input type="file" id="image" name="image" onchange="previewImage()">
+                        <input type="file" id="image" name="image" class="profile-image" onchange="previewImage()">
                         <a href="#" class="btn btn-danger btn-sm" title="Remove my profile image"><i class="bi bi-trash"></i></a>
                     </div>
                     @error('image')

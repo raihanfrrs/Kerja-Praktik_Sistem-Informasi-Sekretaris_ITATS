@@ -1258,7 +1258,7 @@ label.label-image:hover {
   
 }
 
-input[type="file"] {
+input[type="file"].profile-image {
   display: none;
 }
 

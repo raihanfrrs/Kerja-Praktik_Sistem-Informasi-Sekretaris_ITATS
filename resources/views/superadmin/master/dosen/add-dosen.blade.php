@@ -5,7 +5,6 @@
     <div class="card-body">
       <h5 class="card-title">Dosen <span>| Add</span></h5>
 
-      <!-- General Form Elements -->
       <form action="{{ url('/dosen') }}" method="post">
         @csrf
         <div class="row mb-3">
@@ -110,7 +109,7 @@
           <a href="{{ url('/dosen') }}" class="btn btn-warning"><i class="bi bi-arrow-bar-left"></i> Back</a>
         </div>    
 
-      </form><!-- End General Form Elements -->
+      </form>
 
     </div>
 </div>
