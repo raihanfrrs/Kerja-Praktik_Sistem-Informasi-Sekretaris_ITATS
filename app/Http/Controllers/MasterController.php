@@ -192,12 +192,13 @@ class MasterController extends Controller
             'password' => ['required', Password::min(5)->mixedCase()->letters()->numbers()->symbols()->uncompromised()],
             'name' => 'required|min:3|max:255|regex:/^[\pL\s\-]+$/u',
             'nip' => 'required|numeric|unique:dosens',
-            'email' => 'required|min:5|max:255|unique:mahasiswas|email:dns',
+            'email' => 'required|min:5|max:255|unique:dosens|email:dns',
             'phone' =>'required|numeric|unique:dosens',
             'birthPlace' => 'required|max:225|min:3',
             'birthDate' => 'required',
             'gender' => 'required',
-            'image' => 'image|file|max:2048'
+            'image' => 'image|file|max:2048',
+            'role' => 'required'
         ]);
 
         $validateData['level'] = 'dosen';
@@ -209,14 +210,9 @@ class MasterController extends Controller
             $validateData['image'] = $request->file('image')->store('profile-image');
         }
         $validateData['user_id'] = $user->id;
+        $validateData['role'] = implode(',', $request->role);
 
         Dosen::create($validateData);
-
-        // for ($i=0; $i < count($request->role); $i++) { 
-        //     $roles['role_id'] = $request->role[$i];
-        //     $roles['dosen_id'] = $dosen->id;
-        //     detail_role::create($roles);
-        // }
 
         return redirect('dosen/add')->with([
             'flash-type' => 'sweetalert',

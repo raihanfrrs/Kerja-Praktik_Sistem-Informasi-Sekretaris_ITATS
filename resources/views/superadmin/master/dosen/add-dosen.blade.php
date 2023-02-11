@@ -72,21 +72,27 @@
           <legend class="col-form-label col-sm-2 pt-0">Roles</legend>
           <div class="col-sm-10">
             <div class="form-check form-switch">
-              <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-              <label class="form-check-label" for="flexSwitchCheckDefault">Create</label>
+              <input class="form-check-input" type="checkbox" id="create" name="role[]" value="create" {{ (is_array(old('role')) and in_array('create', old('role'))) ? ' checked' : '' }}>
+              <label class="form-check-label" for="create">Create</label>
             </div>
             <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked>
-                <label class="form-check-label" for="flexSwitchCheckChecked">Read</label>
+                <input class="form-check-input" type="checkbox" id="read" name="role[]" value="read" {{ (is_array(old('role')) and in_array('read', old('role'))) ? ' checked' : '' }}>
+                <label class="form-check-label" for="read">Read</label>
             </div>
             <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-                <label class="form-check-label" for="flexSwitchCheckDefault">Update</label>
+                <input class="form-check-input" type="checkbox" id="update" name="role[]" value="update" {{ (is_array(old('role')) and in_array('update', old('role'))) ? ' checked' : '' }}>
+                <label class="form-check-label" for="update">Update</label>
             </div>
             <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-                <label class="form-check-label" for="flexSwitchCheckDefault">Delete</label>
+                <input class="form-check-input" type="checkbox" id="delete" name="role[]" value="delete" {{ (is_array(old('role')) and in_array('delete', old('role'))) ? ' checked' : '' }}>
+                <label class="form-check-label" for="delete">Delete</label>
             </div>
+            @if($errors->any())
+            @php
+                $error = $errors->getBags()['default']->get('role');
+            @endphp
+              <span class="text-danger">{{$error[0]}}</span>
+            @endif
           </div>
         </div>
         <div class="row mb-3">
@@ -100,7 +106,15 @@
             <label for="password" class="col-sm-2 col-form-label">Password</label>
             <div class="col-sm-10">
               <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" required>
-              @error('password') <div class="invalid-feedback">{{ $message }}</div> @enderror
+              @if ($errors->any())
+                <div class="invalid-feedback">
+                  <ul>
+                    @foreach ($errors->getBags()['default']->get('password') as $error)
+                    <li>{{ $error }}</li>
+                    @endforeach
+                  </ul>
+                </div>
+              @endif
             </div>
         </div>
 
