@@ -101,7 +101,6 @@
 
       <div class="text-center mt-3">
         <button type="submit" class="btn btn-primary"><i class="bi bi-save"></i> Submit</button>
-        <button type="reset" class="btn btn-secondary" id="reset"><i class="bi bi-arrow-clockwise"></i> Reset</button>
         <a href="{{ url('/mahasiswa') }}" class="btn btn-warning"><i class="bi bi-arrow-bar-left"></i> Back</a>
       </div>  
     </div>

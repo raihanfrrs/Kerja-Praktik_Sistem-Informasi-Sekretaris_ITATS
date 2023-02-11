@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Dosen;
 use App\Models\Mahasiswa;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Validation\Rules\Password;
 
@@ -108,7 +109,8 @@ class MasterController extends Controller
             'name' => 'required|max:225|min:3|regex:/^[\pL\s\-]+$/u',
             'birthPlace' => 'required|max:225|min:3',
             'birthDate' => 'required',
-            'gender' => 'required'
+            'gender' => 'required',
+            'image' => 'image|file|max:2048'
         ];
 
         if($request->npm != $mahasiswa->npm){
@@ -122,7 +124,14 @@ class MasterController extends Controller
         }
 
         $validateData = $request->validate($rules);
-            
+
+        if ($request->file('image')) {
+            if ($mahasiswa->image) {
+                Storage::delete($mahasiswa->image);
+            }
+            $validateData['image'] = $request->file('image')->store('profile-image');
+        }
+        
         Mahasiswa::whereId($mahasiswa->id)
                     ->update($validateData);
         
@@ -240,7 +249,8 @@ class MasterController extends Controller
             'name' => 'required|min:3|max:255|regex:/^[\pL\s\-]+$/u',
             'birthPlace' => 'required|max:225|min:3',
             'birthDate' => 'required',
-            'gender' => 'required'
+            'gender' => 'required',
+            'image' => 'image|file|max:2048'
         ];
 
         if($request->nip != $dosen->nip){
@@ -256,6 +266,13 @@ class MasterController extends Controller
         }
 
         $validateData = $request->validate($rules);
+
+        if ($request->file('image')) {
+            if ($dosen->image) {
+                Storage::delete($dosen->image);
+            }
+            $validateData['image'] = $request->file('image')->store('profile-image');
+        }
             
         Dosen::whereId($dosen->id)
                     ->update($validateData);
