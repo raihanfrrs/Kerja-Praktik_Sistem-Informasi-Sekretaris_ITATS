@@ -1,12 +1,13 @@
 @extends('layouts.main')
 
 @section('section')
-<div class="card">
+<div class="col-md-7">
+  <form action="/dosen" method="post" enctype="multipart/form-data">
+  @csrf
+  <div class="card">
     <div class="card-body">
       <h5 class="card-title">Dosen <span>| Add</span></h5>
 
-      <form action="{{ url('/dosen') }}" method="post">
-        @csrf
         <div class="row mb-3">
           <label for="name" class="col-sm-2 col-form-label">Full Name</label>
           <div class="col-sm-10">
@@ -49,20 +50,6 @@
               @error('birthDate') <div class="invalid-feedback">{{ $message }}</div> @enderror
             </div>
         </div>
-        <div class="row mb-3">
-            <label for="username" class="col-sm-2 col-form-label">Username</label>
-            <div class="col-sm-10">
-              <input type="text" class="form-control @error('username') is-invalid @enderror" id="username" name="username"  value="{{ old('username') }}" required autocomplete="off">
-              @error('username') <div class="invalid-feedback">{{ $message }}</div> @enderror
-            </div>
-        </div>
-        <div class="row mb-3">
-            <label for="password" class="col-sm-2 col-form-label">Password</label>
-            <div class="col-sm-10">
-              <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" required>
-              @error('password') <div class="invalid-feedback">{{ $message }}</div> @enderror
-            </div>
-          </div>
         <fieldset class="row mb-3">
           <legend class="col-form-label col-sm-2 pt-0">Gender</legend>
           <div class="col-sm-10">
@@ -102,15 +89,44 @@
             </div>
           </div>
         </div>
-
-        <div class="text-center mt-5">
-          <button type="submit" class="btn btn-primary"><i class="bi bi-save"></i> Submit</button>
-          <button type="reset" class="btn btn-secondary"><i class="bi bi-arrow-clockwise"></i> Reset</button>
-          <a href="{{ url('/dosen') }}" class="btn btn-warning"><i class="bi bi-arrow-bar-left"></i> Back</a>
-        </div>    
-
-      </form>
+        <div class="row mb-3">
+          <label for="username" class="col-sm-2 col-form-label">Username</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control @error('username') is-invalid @enderror" id="username" name="username"  value="{{ old('username') }}" required autocomplete="off">
+            @error('username') <div class="invalid-feedback">{{ $message }}</div> @enderror
+          </div>
+        </div>
+        <div class="row mb-3">
+            <label for="password" class="col-sm-2 col-form-label">Password</label>
+            <div class="col-sm-10">
+              <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" required>
+              @error('password') <div class="invalid-feedback">{{ $message }}</div> @enderror
+            </div>
+        </div>
 
     </div>
+  </div>
+</div>
+<div class="col-md-5">
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Dosen <span>| Image</span></h5>
+      <div class="row">
+        <label for="image" class="col-sm-2 col-form-label">Image</label>
+        <div class="col-sm-10">
+          <input type="file" class="form-control @error('image') is-invalid @enderror" id="image" name="image" onchange="previewImage()">
+          @error('image') <div class="invalid-feedback">{{ $message }}</div> @enderror
+          <img class="img-preview img-fluid mt-3">
+        </div>
+      </div>
+      
+      <div class="text-center mt-3">
+        <button type="submit" class="btn btn-primary"><i class="bi bi-save"></i> Submit</button>
+        <button type="reset" class="btn btn-secondary" id="reset"><i class="bi bi-arrow-clockwise"></i> Reset</button>
+        <a href="{{ url('/dosen') }}" class="btn btn-warning"><i class="bi bi-arrow-bar-left"></i> Back</a>
+      </div>
+    </div>
+  </div>
+  </form>
 </div>
 @endsection

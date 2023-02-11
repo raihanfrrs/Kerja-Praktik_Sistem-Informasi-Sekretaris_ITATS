@@ -54,6 +54,16 @@
                     <div class="col-lg-3 col-md-4 label text-muted">Status</div>
                     <div class="col-lg-9 col-md-8"><span class="badge bg-{{ $mahasiswa[0]->status > 0 ? 'success' : 'danger'}}">{{ $mahasiswa[0]->status > 0 ? 'APPROVED' : 'DISAPPROVE'}}</span></div>
                 </div>
+
+                <div class="row">
+                    <div class="col-lg-3 col-md-4 label text-muted">Created At</div>
+                    <div class="col-lg-9 col-md-8">{{ $created_at }}</div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-3 col-md-4 label text-muted">Last Updated</div>
+                    <div class="col-lg-9 col-md-8">{{ $mahasiswa[0]->updated_at->diffForHumans() }}</div>
+                </div>
             </div>
     
             <div class="text-center mt-5">

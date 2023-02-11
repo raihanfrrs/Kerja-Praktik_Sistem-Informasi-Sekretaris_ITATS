@@ -57,6 +57,16 @@
     
                     </div>
                 </div>
+
+                <div class="row">
+                    <div class="col-lg-3 col-md-4 label text-muted">Created At</div>
+                    <div class="col-lg-9 col-md-8">{{ $created_at }}</div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-3 col-md-4 label text-muted">Last Updated</div>
+                    <div class="col-lg-9 col-md-8">{{ $dosen[0]->updated_at->diffForHumans() }}</div>
+                </div>
     
                 <div class="text-center mt-5">
                     <button type="submit" class="btn btn-danger"><i class="bi bi-trash3"></i> Delete</button>

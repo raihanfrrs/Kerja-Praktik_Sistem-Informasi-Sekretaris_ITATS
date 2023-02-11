@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Dosen;
 use App\Models\Mahasiswa;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Validation\Rules\Password;
@@ -16,9 +17,7 @@ class MasterController extends Controller
 
     public function mahasiswa_index()
     {
-        return view('superadmin.master.mahasiswa.index')->with([
-            'mahasiswas' => Mahasiswa::all()
-        ]);
+        return view('superadmin.master.mahasiswa.index');
     }
     
     public function mahasiswa_create()
@@ -67,6 +66,7 @@ class MasterController extends Controller
     {
         return view('superadmin.master.mahasiswa.details-mahasiswa')->with([
             'mahasiswa' => Mahasiswa::whereId($mahasiswa->id)->get(),
+            'created_at' => Carbon::create($mahasiswa->created_at)->timezone('Asia/Jakarta')->format('Y-m-d H:i:s'),
             'subtitle' => 'Details'
         ]);
     }
@@ -168,9 +168,7 @@ class MasterController extends Controller
 
     public function dosen_index()
     {
-        return view('superadmin.master.dosen.index')->with([
-            'dosens' => Dosen::all()
-        ]);
+        return view('superadmin.master.dosen.index');
     }
     
     public function dosen_create()
@@ -189,7 +187,8 @@ class MasterController extends Controller
             'phone' =>'required|numeric|unique:dosens',
             'birthPlace' => 'required|max:225|min:3',
             'birthDate' => 'required',
-            'gender' => 'required'
+            'gender' => 'required',
+            'image' => 'image|file|max:2048'
         ]);
 
         $validateData['level'] = 'dosen';
@@ -197,6 +196,9 @@ class MasterController extends Controller
 
         $user = User::create($validateData);
 
+        if ($request->file('image')) {
+            $validateData['image'] = $request->file('image')->store('profile-image');
+        }
         $validateData['user_id'] = $user->id;
 
         Dosen::create($validateData);
@@ -220,6 +222,7 @@ class MasterController extends Controller
     {
         return view('superadmin.master.dosen.details-dosen')->with([
             'dosen' => Dosen::whereId($dosen->id)->get(),
+            'created_at' => Carbon::create($dosen->created_at)->timezone('Asia/Jakarta')->format('Y-m-d H:i:s'),
             'subtitle' => 'Details'
         ]);
     }
@@ -291,6 +294,7 @@ class MasterController extends Controller
         return DataTables::of(Dosen::join('users', 'dosens.user_id', '=', 'users.id')
                                     ->select('dosens.*')
                                     ->where('users.level', 'dosen')
+                                    ->orderBy('dosens.user_id', 'DESC')
                                     ->get())
         ->addColumn('action', function ($model) {
             return view('superadmin.master.dosen.form-action', compact('model'))->render();

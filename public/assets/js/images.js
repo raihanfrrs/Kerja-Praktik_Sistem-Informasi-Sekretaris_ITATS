@@ -11,3 +11,9 @@ function previewImage(){
         imgPreview.src = oFREvent.target.result;
     }
 }
+
+$(document).on('click', '#reset', function () {
+    const imgPreview = document.querySelector('.img-preview');
+
+    imgPreview.style.display = 'none';
+});
