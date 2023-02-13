@@ -23,17 +23,29 @@ class DosenSeeder extends Seeder
                 'phone' => '087823312332',
                 'gender' => 'male',
                 'role' => 'create,read,update,delete',
-                'user_id' => '2'
+                'user_id' => '3',
+                'status' => 'active'
+            ],
+            [
+                'name' => 'Sahnon Bamakerti',
+                'slug' => 'sahnon-bamakerti',
+                'nip' => '09992',
+                'email' => 'sahnonbamakerti123@gmail.com',
+                'phone' => '0812434342234',
+                'gender' => 'male',
+                'role' => 'create',
+                'user_id' => '4',
+                'status' => 'recycle'
             ],
             [
                 'name' => 'Danu Septi Adi',
                 'slug' => 'danu-septi-adi',
-                'nip' => '09992',
+                'nip' => '09993',
                 'email' => 'danuseptiadi123@gmail.com',
                 'phone' => '0878213132321',
                 'gender' => 'male',
-                'role' => 'create,read',
-                'user_id' => '3'
+                'user_id' => '5',
+                'status' => 'active'
             ]
         ];
 

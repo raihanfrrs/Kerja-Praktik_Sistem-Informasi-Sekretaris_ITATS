@@ -73,6 +73,7 @@
   <script src="{{ asset('/') }}assets/js/main.js"></script>
   <script src="{{ asset('/') }}assets/js/datatables.js"></script>
   <script src="{{ asset('/') }}assets/js/images.js"></script>
+  <script src="{{ asset('/') }}assets/js/button.js"></script>
 
 </body>
 

@@ -21,7 +21,17 @@ class UserSeeder extends Seeder
                 'level' => 'mahasiswa'
             ],
             [
+                'username' => 'agung123',
+                'password' => bcrypt('test123'),
+                'level' => 'mahasiswa'
+            ],
+            [
                 'username' => 'bethelsando123',
+                'password' => bcrypt('test123'),
+                'level' => 'dosen'
+            ],
+            [
+                'username' => 'sahnon123',
                 'password' => bcrypt('test123'),
                 'level' => 'dosen'
             ],

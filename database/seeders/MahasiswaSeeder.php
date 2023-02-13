@@ -22,7 +22,18 @@ class MahasiswaSeeder extends Seeder
                 'email' => 'rehanfarras76@gmail.com',
                 'phone' => '081333903187',
                 'gender' => 'male',
-                'user_id' => '1'
+                'user_id' => '1',
+                'status' => 'disapprove'
+            ],
+            [
+                'name' => 'Agung Widodo',
+                'slug' => 'agung-widodo',
+                'npm' => '062020107312',
+                'email' => 'agungwidodo76@gmail.com',
+                'phone' => '08187438923',
+                'gender' => 'male',
+                'user_id' => '2',
+                'status' => 'recycle'
             ]
         ];
 

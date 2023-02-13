@@ -6,6 +6,7 @@ use App\Http\Controllers\LayoutController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\MasterController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RecycleController;
 use App\Http\Controllers\RegisterController;
 
 /*
@@ -86,6 +87,11 @@ Route::middleware('auth')->group(function () {
 
             Route::get('/dataMahasiswa', [MasterController::class, 'dataMahasiswa'])->name('dataMahasiswa');
             Route::get('/dataDosen', [MasterController::class, 'dataDosen'])->name('dataDosen');
+        });
+
+        Route::controller(RecycleController::class)->group(function () {
+            Route::get('recycle', 'index');
+            Route::delete('recycle/{slug}', 'destroy');
         });
     });
 });

@@ -6,10 +6,28 @@
           <img src="{{ asset('assets/img/Logo_ITATS.png') }}" alt="logoITATS">
         </a>
         <i class="bi bi-list toggle-sidebar-btn"></i>
-    </div><!-- End Logo -->
+    </div>
 
     <nav class="header-nav ms-auto">
       <ul class="d-flex align-items-center">
+
+        @if (auth()->user()->level === 'superadmin')
+        <li class="nav-item">
+
+          <a class="nav-link nav-icon" href="#">
+            <i class="bi bi-archive"></i>
+            <span class="badge bg-primary badge-number">4</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+
+          <a class="nav-link nav-icon" href="/recycle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">
+            <i class="bi bi-recycle"></i>
+            <span class="badge bg-success badge-number">3</span>
+          </a>
+        </li>
+        @endif
 
         <li class="nav-item dropdown pe-3">
 

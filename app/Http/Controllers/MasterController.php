@@ -42,7 +42,7 @@ class MasterController extends Controller
         ]);
 
         $validateData['level'] = 'mahasiswa';
-        $validateData['status'] = '1';
+        $validateData['status'] = 'approve';
         $validateData['password'] = bcrypt($validateData['password']);
 
         $user = User::create($validateData);
@@ -82,8 +82,8 @@ class MasterController extends Controller
     public function mahasiswa_update(Request $request, Mahasiswa $mahasiswa)
     {
         if($request->status === 'checked'){
-            if($mahasiswa->status == '0'){
-                Mahasiswa::where('npm', $mahasiswa->npm)->update(['status' => 1]);
+            if($mahasiswa->status == 'disapprove'){
+                Mahasiswa::where('npm', $mahasiswa->npm)->update(['status' => 'approve']);
     
                 return redirect('mahasiswa')->with([
                     'flash-type' => 'sweetalert',
@@ -92,8 +92,8 @@ class MasterController extends Controller
                     'type' => 'success',
                     'message' => 'Status Updated!'
                 ]);
-            }elseif ($mahasiswa->status == '1') {
-                Mahasiswa::where('npm', $mahasiswa->npm)->update(['status' => 0]);
+            }elseif ($mahasiswa->status == 'approve') {
+                Mahasiswa::where('npm', $mahasiswa->npm)->update(['status' => 'disapprove']);
     
                 return redirect('mahasiswa')->with([
                     'flash-type' => 'sweetalert',

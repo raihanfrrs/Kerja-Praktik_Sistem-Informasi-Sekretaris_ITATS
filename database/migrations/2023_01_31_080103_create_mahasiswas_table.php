@@ -25,7 +25,7 @@ class CreateMahasiswasTable extends Migration
             $table->enum('gender', ['male','female'])->nullable();
             $table->string('birthPlace')->nullable();
             $table->date('birthDate')->nullable();
-            $table->integer('status')->default('0');
+            $table->enum('status', ['disapprove', 'approve', 'archive', 'recycle']);
             $table->string('image')->nullable();
             $table->timestamps();
         });
