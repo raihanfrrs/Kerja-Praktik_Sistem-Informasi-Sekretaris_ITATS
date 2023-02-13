@@ -53,8 +53,8 @@
                 
                 <div class="row">
                     <div class="col-lg-3 col-md-4 label text-muted">Role</div>
-                    <div class="col-lg-9 col-md-8">
-    
+                    <div class="col-lg-9 col-md-8 text-capitalize">
+                        @if($dosen[0]->role) {{ Str::ucfirst($dosen[0]->role) }} @else - @endif
                     </div>
                 </div>
 
