@@ -10,11 +10,7 @@ class LayoutController extends Controller
 {
     public function index()
     {
-
-        $recycle = Mahasiswa::where('status', 'recycle')->count() + Dosen::where('status', 'recycle')->count();
-        $archive = Mahasiswa::where('status', 'archive')->count() + Dosen::where('status', 'archive')->count();
-
-        session(['recycle' => $recycle, 'archive' => $archive]);
+        session(['deactivate' => Mahasiswa::where('status', 'deactivated')->count() + Dosen::where('status', 'deactivated')->count()]);
 
         return view('welcome');
     }

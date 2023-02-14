@@ -83,7 +83,7 @@ class MasterController extends Controller
     {
         if($request->status === 'checked'){
             if($mahasiswa->status == 'disapprove'){
-                Mahasiswa::where('npm', $mahasiswa->npm)->update(['status' => 'approve']);
+                Mahasiswa::where('npm', $mahasiswa->npm)->update(['status' => 'approved']);
     
                 return redirect('mahasiswa')->with([
                     'flash-type' => 'sweetalert',
@@ -92,7 +92,7 @@ class MasterController extends Controller
                     'type' => 'success',
                     'message' => 'Status Updated!'
                 ]);
-            }elseif ($mahasiswa->status == 'approve') {
+            }elseif ($mahasiswa->status == 'approved') {
                 Mahasiswa::where('npm', $mahasiswa->npm)->update(['status' => 'disapprove']);
     
                 return redirect('mahasiswa')->with([
@@ -144,23 +144,15 @@ class MasterController extends Controller
         ]);
     }
     
-    public function mahasiswa_destroy(Mahasiswa $mahasiswa)
+    public function mahasiswa_destroy(Request $request, Mahasiswa $mahasiswa)
     {
-        Mahasiswa::destroy($mahasiswa->id);
-        User::destroy($mahasiswa->user_id);
-
-        return redirect('mahasiswa')->with([
-            'flash-type' => 'sweetalert',
-            'case' => 'default',
-            'position' => 'center',
-            'type' => 'success',
-            'message' => 'Mahasiswa Deleted!'
-        ]);
+        Mahasiswa::findOrFail($mahasiswa->id)->update(['status' => 'deactivated']);
+        session(['deactivate' => $request->session()->get('deactivate')+1]);
     }
 
     public function dataMahasiswa()
     {
-        return DataTables::of(Mahasiswa::where('status', 'approve')
+        return DataTables::of(Mahasiswa::where('status', 'approved')
                                         ->orWhere('status', 'disapprove')
                                         ->get())
         ->addColumn('status', function ($model) {
@@ -290,16 +282,10 @@ class MasterController extends Controller
         ]);
     }
     
-    public function dosen_recycle(Request $request, Dosen $dosen)
+    public function dosen_destroy(Request $request, Dosen $dosen)
     {
-        Dosen::findOrFail($dosen->id)->update(['status' => 'recycle']);
-        session(['recycle' => $request->session()->get('recycle')+1]);
-    }
-
-    public function dosen_archive(Request $request, Dosen $dosen)
-    {
-        Dosen::findOrFail($dosen->id)->update(['status' => 'archive']);
-        session(['archive' => $request->session()->get('archive')+1]);
+        Dosen::findOrFail($dosen->id)->update(['status' => 'deactivated']);
+        session(['deactivate' => $request->session()->get('deactivate')+1]);
     }
 
     public function dataDosen()

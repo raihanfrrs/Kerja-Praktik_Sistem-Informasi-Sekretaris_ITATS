@@ -26,7 +26,7 @@ class CreateDosensTable extends Migration
             $table->string('birthPlace')->nullable();
             $table->date('birthDate')->nullable();
             $table->string('role')->nullable();
-            $table->enum('status', ['active','archive', 'recycle']);
+            $table->enum('status', ['active', 'deactivated']);
             $table->string('image')->nullable();
             $table->timestamps();
         });

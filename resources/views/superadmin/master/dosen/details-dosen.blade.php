@@ -59,6 +59,11 @@
                 </div>
 
                 <div class="row">
+                    <div class="col-lg-3 col-md-4 label text-muted">Status</div>
+                    <div class="col-lg-9 col-md-8 text-uppercase"><span class="badge bg-{{ $dosen[0]->status == 'active' ? 'success' : 'danger'}}">{{ $dosen[0]->status }}</span></div>
+                </div>
+
+                <div class="row">
                     <div class="col-lg-3 col-md-4 label text-muted">Created At</div>
                     <div class="col-lg-9 col-md-8">{{ $created_at }}</div>
                 </div>
@@ -68,10 +73,11 @@
                     <div class="col-lg-9 col-md-8">{{ $dosen[0]->updated_at->diffForHumans() }}</div>
                 </div>
     
-                <div class="text-center mt-5">
-                    <button class="btn btn-danger" id="recycle-btn" value="{{ $dosen[0]->slug }}"><i class="bi bi-trash3"></i> Delete</button>
-                    <button class="btn btn-warning" id="archive-btn" value="{{ $dosen[0]->slug }}"><i class="bi bi-archive"></i> Archive</button>
-                </div>
+                @if ($dosen[0]->status == 'active')
+                    <div class="text-center mt-2">
+                        <button class="btn btn-danger" id="deactivate-btn" value="{{ $dosen[0]->slug }}"><i class="bi bi-trash3"></i> Deactivate</button>
+                    </div>
+                @endif
             </div>
         </div>
     </div>
@@ -79,48 +85,23 @@
 
 @push('scripts')
     <script>
-        $(document).on('click', '#recycle-btn', function () {
+        $(document).on('click', '#deactivate-btn', function () {
             let slug = $(this).val();
             
-            $.post(`/dosen/`+slug+`/recycle`, {
+            $.post(`{{ url('dosen') }}/`+slug, {
                 '_token': '{{ csrf_token() }}',
-                '_method': 'put'
+                '_method': 'delete'
             })
             .done(response => {
                 Swal.fire({
                     position: 'center',
                     icon: 'success',
-                    title: 'Dosen Moved to recycle!',
+                    title: 'Deactivated Successfully!',
                     showConfirmButton: false,
                     timer: 2000
                 });
                 window.setTimeout(function(){
-                    window.location.href = "{{ url('/dosen') }}";
-                }, 2000);
-                return;
-            })
-            .fail(errors => {
-                return;
-            })
-        });
-
-        $(document).on('click', '#archive-btn', function () {
-            let slug = $(this).val();
-            
-            $.post(`/dosen/`+slug+`/archive`, {
-                '_token': '{{ csrf_token() }}',
-                '_method': 'put'
-            })
-            .done(response => {
-                Swal.fire({
-                    position: 'center',
-                    icon: 'success',
-                    title: 'Dosen Moved to Archive!',
-                    showConfirmButton: false,
-                    timer: 2000
-                });
-                window.setTimeout(function(){
-                    window.location.href = "{{ url('/dosen') }}";
+                    window.location.href = "{{ url('dosen') }}";
                 }, 2000);
                 return;
             })

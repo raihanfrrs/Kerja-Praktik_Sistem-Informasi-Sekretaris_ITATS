@@ -2,8 +2,8 @@
 
 @section('section')
     <div class="card mx-2">
-        <div class="card-body @if(Session::get('recycle') == 0) p-0 @endif">
-            @if (Session::get('recycle') == 0)
+        <div class="card-body @if(Session::get('deactivate') == 0) p-0 @endif">
+            @if (Session::get('deactivate') == 0)
                 <div class="alert alert-primary m-3" role="alert">
                     <span class="fw-bold">Sorry,</span> You don't have one recycle data!
                 </div>
@@ -34,14 +34,7 @@
                                 <i class="bi bi-trash3"></i>
                             </button>
                         </form>
-                        <form action="/recycle/{{ $mahasiswa->slug }}/archive" method="post">
-                            @csrf
-                            @method('put')
-                            <button type="submit" class="action-btn" title="Archive">
-                                <i class="bi bi-archive"></i>
-                            </button>
-                        </form>
-                        <form action="/recycle/{{ $mahasiswa->slug }}/restore" method="post">
+                        <form action="/recycle/{{ $mahasiswa->slug }}" method="post">
                             @csrf
                             @method('put')
                             <button type="submit" class="action-btn" title="Restore">
@@ -78,14 +71,7 @@
                                 <i class="bi bi-trash3"></i>
                             </button>
                         </form>
-                        <form action="/recycle/{{ $dosen->slug }}/archive" method="post">
-                            @csrf
-                            @method('put')
-                            <button type="submit" class="action-btn" title="Archive">
-                                <i class="bi bi-archive"></i>
-                            </button>
-                        </form>
-                        <form action="/recycle/{{ $dosen->slug }}/restore" method="post">
+                        <form action="/recycle/{{ $dosen->slug }}" method="post">
                             @csrf
                             @method('put')
                             <button type="submit" class="action-btn" title="Restore">

@@ -52,7 +52,7 @@
     
                 <div class="row">
                     <div class="col-lg-3 col-md-4 label text-muted">Status</div>
-                    <div class="col-lg-9 col-md-8"><span class="badge bg-{{ $mahasiswa[0]->status > 0 ? 'success' : 'danger'}}">{{ $mahasiswa[0]->status > 0 ? 'APPROVED' : 'DISAPPROVE'}}</span></div>
+                    <div class="col-lg-9 col-md-8 text-uppercase"><span class="badge bg-{{ $mahasiswa[0]->status == 'approved' ? 'success' : 'danger'}}">{{ $mahasiswa[0]->status }}</span></div>
                 </div>
 
                 <div class="row">
@@ -66,11 +66,41 @@
                 </div>
             </div>
     
-            <div class="text-center mt-5">
-                <button type="submit" class="btn btn-danger"><i class="bi bi-trash3"></i> Delete</button>
-                <a href="{{ url('/mahasiswa') }}" class="btn btn-warning"><i class="bi bi-arrow-bar-left"></i> Back</a>
-            </div>
+            @if ($mahasiswa[0]->status == 'disapprove' || $mahasiswa[0]->status == 'approved')
+                <div class="text-center mt-2">
+                    <button class="btn btn-danger" id="deactivate-btn" value="{{ $mahasiswa[0]->slug }}"><i class="bi bi-trash3"></i> Deactivate</button>
+                </div>
+            @endif
         </div>
     </div>
 </div>
+
+@push('scripts')
+    <script>
+        $(document).on('click', '#deactivate-btn', function () {
+            let slug = $(this).val();
+            
+            $.post(`{{ url('mahasiswa') }}/`+slug, {
+                '_token': '{{ csrf_token() }}',
+                '_method': 'delete'
+            })
+            .done(response => {
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: 'Deactivated Successfully!',
+                    showConfirmButton: false,
+                    timer: 2000
+                });
+                window.setTimeout(function(){
+                    window.location.href = "{{ url('mahasiswa') }}";
+                }, 2000);
+                return;
+            })
+            .fail(errors => {
+                return;
+            })
+        });
+    </script>
+@endpush
 @endsection

@@ -12,22 +12,13 @@
       <ul class="d-flex align-items-center">
 
         @if (auth()->user()->level === 'superadmin')
-        <li class="nav-item">
-
-          <a class="nav-link nav-icon" href="#" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Archive">
-            <i class="bi bi-archive"></i>
-            @if (Session::get('archive') != 0)
-              <span class="badge bg-primary badge-number">{{ Session::get('archive') }}</span>
-            @endif
-          </a>
-        </li>
 
         <li class="nav-item">
 
-          <a class="nav-link nav-icon" href="/recycle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Recycle">
-            <i class="bi bi-recycle"></i>
-            @if (Session::get('recycle') != 0)
-              <span class="badge bg-success badge-number">{{ Session::get('recycle') }}</span>
+          <a class="nav-link nav-icon" href="/recycle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Bin">
+            <i class="bi bi-trash3"></i>
+            @if (Session::get('deactivate') != 0)
+              <span class="badge bg-success badge-number">{{ Session::get('deactivate') }}</span>
             @endif
           </a>
         </li>
@@ -56,7 +47,7 @@
                 {{ auth()->user()->dosen->name }}
               @endif
             </span>
-          </a><!-- End Profile Iamge Icon -->
+          </a>
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
@@ -90,10 +81,10 @@
               </a>
             </li>
 
-          </ul><!-- End Profile Dropdown Items -->
-        </li><!-- End Profile Nav -->
+          </ul>
+        </li>
 
       </ul>
-    </nav><!-- End Icons Navigation -->
+    </nav>
 
-</header><!-- End Header -->
+</header>

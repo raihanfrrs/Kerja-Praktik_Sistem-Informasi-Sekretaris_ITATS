@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ArchiveController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LayoutController;
@@ -74,8 +75,7 @@ Route::middleware('auth')->group(function () {
             Route::get('dosen/{dosen}', 'dosen_show');
             Route::get('dosen/{dosen}/edit', 'dosen_edit');
             Route::put('dosen/{dosen}', 'dosen_update');
-            Route::put('dosen/{dosen}/recycle', 'dosen_recycle');
-            Route::put('dosen/{dosen}/archive', 'dosen_archive');
+            Route::delete('dosen/{dosen}', 'dosen_destroy');
 
             /* surat master resource */
             Route::get('surat', 'surat_index');
@@ -92,8 +92,7 @@ Route::middleware('auth')->group(function () {
         Route::controller(RecycleController::class)->group(function () {
             Route::get('recycle', 'index');
             Route::delete('recycle/{slug}', 'destroy');
-            Route::put('recycle/{slug}/archive', 'update_archive');
-            Route::put('recycle/{slug}/restore', 'update_restore');
+            Route::put('recycle/{slug}', 'update');
         });
     });
 });
