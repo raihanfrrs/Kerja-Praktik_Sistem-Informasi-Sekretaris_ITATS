@@ -44,9 +44,9 @@
               @endif
             @else
               @if (auth()->user()->dosen->image)
-                  <img src="{{ asset('storage/'. auth()->user()->dosen->image) }}" class="img-fluid rounded" alt="{{ auth()->user()->dosen->name }}">
+                  <img src="{{ asset('storage/'. auth()->user()->dosen->image) }}" class="img-fluid" alt="{{ auth()->user()->dosen->name }}">
               @else
-                  <img src="{{ asset('/') }}assets/img/profile-img.jpg" class="img-fluid rounded" alt="{{ auth()->user()->dosen->name }}">
+                  <img src="{{ asset('/') }}assets/img/profile-img.jpg" class="img-fluid" alt="{{ auth()->user()->dosen->name }}">
               @endif
             @endif
             <span class="d-none d-md-block dropdown-toggle ps-2">

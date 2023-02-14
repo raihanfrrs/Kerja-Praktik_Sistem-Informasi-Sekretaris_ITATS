@@ -509,6 +509,7 @@ hr {
 
 .header-nav .nav-profile img {
   max-height: 36px;
+  border-radius: 50%;
 }
 
 .header-nav .nav-profile span {
