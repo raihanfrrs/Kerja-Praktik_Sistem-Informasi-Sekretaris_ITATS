@@ -24,7 +24,7 @@ class DosenSeeder extends Seeder
                 'gender' => 'male',
                 'role' => 'create,read,update,delete',
                 'user_id' => '3',
-                'status' => 'active'
+                'status' => 'recycle'
             ],
             [
                 'name' => 'Sahnon Bamakerti',

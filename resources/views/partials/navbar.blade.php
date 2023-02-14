@@ -16,7 +16,9 @@
 
           <a class="nav-link nav-icon" href="#">
             <i class="bi bi-archive"></i>
-            <span class="badge bg-primary badge-number">4</span>
+            @if (Session::get('archive') != 0)
+              <span class="badge bg-primary badge-number">{{ Session::get('archive') }}</span>
+            @endif
           </a>
         </li>
 
@@ -24,7 +26,9 @@
 
           <a class="nav-link nav-icon" href="/recycle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">
             <i class="bi bi-recycle"></i>
-            <span class="badge bg-success badge-number">3</span>
+            @if (Session::get('recycle') != 0)
+              <span class="badge bg-success badge-number">{{ Session::get('recycle') }}</span>
+            @endif
           </a>
         </li>
         @endif

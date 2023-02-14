@@ -92,6 +92,8 @@ Route::middleware('auth')->group(function () {
         Route::controller(RecycleController::class)->group(function () {
             Route::get('recycle', 'index');
             Route::delete('recycle/{slug}', 'destroy');
+            Route::put('recycle/{slug}/archive', 'update_archive');
+            Route::put('recycle/{slug}/restore', 'update_restore');
         });
     });
 });

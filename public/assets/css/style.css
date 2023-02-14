@@ -42,10 +42,12 @@ hr {
   color: inherit;
   border: 0;
   border-top: 1px solid;
-  opacity: .25;
+  opacity: .10;
+  margin-right: 2%;
+  margin-left: 2%;
 }
 
-#delete-btn {
+.action-btn {
   border: none;
   background-color: transparent;
 }
@@ -1109,6 +1111,7 @@ hr {
   align-items: center;
   font-weight: 600;
   margin-right: 10%;
+  margin-left: 2%;
 }
 
 .single-notification .notification .content {

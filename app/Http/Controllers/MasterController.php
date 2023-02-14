@@ -160,7 +160,9 @@ class MasterController extends Controller
 
     public function dataMahasiswa()
     {
-        return DataTables::of(Mahasiswa::all())
+        return DataTables::of(Mahasiswa::where('status', 'approve')
+                                        ->orWhere('status', 'disapprove')
+                                        ->get())
         ->addColumn('status', function ($model) {
             return view('superadmin.master.mahasiswa.status-action', compact('model'))->render();
         })
@@ -307,6 +309,7 @@ class MasterController extends Controller
         return DataTables::of(Dosen::join('users', 'dosens.user_id', '=', 'users.id')
                                     ->select('dosens.*')
                                     ->where('users.level', 'dosen')
+                                    ->where('status', 'active')
                                     ->orderBy('dosens.user_id', 'DESC')
                                     ->get())
         ->addColumn('action', function ($model) {
