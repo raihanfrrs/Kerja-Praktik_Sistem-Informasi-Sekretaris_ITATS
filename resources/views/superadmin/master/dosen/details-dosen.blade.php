@@ -69,11 +69,65 @@
                 </div>
     
                 <div class="text-center mt-5">
-                    <button type="submit" class="btn btn-danger"><i class="bi bi-trash3"></i> Delete</button>
-                    <a href="{{ url('/dosen') }}" class="btn btn-warning"><i class="bi bi-arrow-bar-left"></i> Back</a>
+                    <button class="btn btn-danger" id="recycle-btn" value="{{ $dosen[0]->slug }}"><i class="bi bi-trash3"></i> Delete</button>
+                    <button class="btn btn-warning" id="archive-btn" value="{{ $dosen[0]->slug }}"><i class="bi bi-archive"></i> Archive</button>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+@push('scripts')
+    <script>
+        $(document).on('click', '#recycle-btn', function () {
+            let slug = $(this).val();
+            
+            $.post(`/dosen/`+slug+`/recycle`, {
+                '_token': '{{ csrf_token() }}',
+                '_method': 'put'
+            })
+            .done(response => {
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: 'Dosen Moved to recycle!',
+                    showConfirmButton: false,
+                    timer: 2000
+                });
+                window.setTimeout(function(){
+                    window.location.href = "{{ url('/dosen') }}";
+                }, 2000);
+                return;
+            })
+            .fail(errors => {
+                return;
+            })
+        });
+
+        $(document).on('click', '#archive-btn', function () {
+            let slug = $(this).val();
+            
+            $.post(`/dosen/`+slug+`/archive`, {
+                '_token': '{{ csrf_token() }}',
+                '_method': 'put'
+            })
+            .done(response => {
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: 'Dosen Moved to Archive!',
+                    showConfirmButton: false,
+                    timer: 2000
+                });
+                window.setTimeout(function(){
+                    window.location.href = "{{ url('/dosen') }}";
+                }, 2000);
+                return;
+            })
+            .fail(errors => {
+                return;
+            })
+        });
+    </script>
+@endpush
 @endsection

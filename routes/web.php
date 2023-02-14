@@ -74,7 +74,8 @@ Route::middleware('auth')->group(function () {
             Route::get('dosen/{dosen}', 'dosen_show');
             Route::get('dosen/{dosen}/edit', 'dosen_edit');
             Route::put('dosen/{dosen}', 'dosen_update');
-            Route::delete('dosen/{dosen}', 'dosen_destroy');
+            Route::put('dosen/{dosen}/recycle', 'dosen_recycle');
+            Route::put('dosen/{dosen}/archive', 'dosen_archive');
 
             /* surat master resource */
             Route::get('surat', 'surat_index');
@@ -83,7 +84,6 @@ Route::middleware('auth')->group(function () {
             Route::get('surat/{slug}', 'surat_show');
             Route::get('surat/{slug}/edit', 'surat_edit');
             Route::put('surat/{slug}', 'surat_update');
-            Route::delete('surat/{slug}', 'surat_destroy');
 
             Route::get('/dataMahasiswa', [MasterController::class, 'dataMahasiswa'])->name('dataMahasiswa');
             Route::get('/dataDosen', [MasterController::class, 'dataDosen'])->name('dataDosen');

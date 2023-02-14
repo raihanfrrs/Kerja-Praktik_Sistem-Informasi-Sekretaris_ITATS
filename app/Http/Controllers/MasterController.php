@@ -290,18 +290,16 @@ class MasterController extends Controller
         ]);
     }
     
-    public function dosen_destroy(Dosen $dosen)
+    public function dosen_recycle(Request $request, Dosen $dosen)
     {
-        Dosen::destroy($dosen->id);
-        User::destroy($dosen->user_id);
+        Dosen::findOrFail($dosen->id)->update(['status' => 'recycle']);
+        session(['recycle' => $request->session()->get('recycle')+1]);
+    }
 
-        return redirect('dosen')->with([
-            'flash-type' => 'sweetalert',
-            'case' => 'default',
-            'position' => 'center',
-            'type' => 'success',
-            'message' => 'Dosen Deleted!'
-        ]);
+    public function dosen_archive(Request $request, Dosen $dosen)
+    {
+        Dosen::findOrFail($dosen->id)->update(['status' => 'archive']);
+        session(['archive' => $request->session()->get('archive')+1]);
     }
 
     public function dataDosen()
