@@ -33,7 +33,7 @@ class MahasiswaSeeder extends Seeder
                 'phone' => '08187438923',
                 'gender' => 'male',
                 'user_id' => '2',
-                'status' => 'recycle'
+                'status' => 'disapprove'
             ]
         ];
 
