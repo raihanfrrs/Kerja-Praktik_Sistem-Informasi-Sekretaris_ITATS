@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Models\Dosen;
+use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -22,6 +25,24 @@ class LoginController extends Controller
         ]);
 
         $kredensial = $request->only('username', 'password');
+
+        $checkUser = User::where('username', $request->username)->get();
+
+        if ($checkUser->count() > 0) {
+            if (Mahasiswa::where('user_id', $checkUser[0]->id)->count() > 0) {
+                if ($checkUser[0]->mahasiswa->status === 'deactivated') {
+                    return back()->withErrors([
+                        'username' => 'Your account is being deactivated by the admin, please contact the admin!',
+                    ])->onlyInput('username');
+                }
+            }elseif (Dosen::where('user_id', $checkUser[0]->id)->count() > 0) {
+                if ($checkUser[0]->dosen->status === 'deactivated') {
+                    return back()->withErrors([
+                        'username' => 'Your account is being deactivated by the admin, please contact the admin!',
+                    ])->onlyInput('username');
+                }
+            }
+        }
 
         if(Auth::attempt($kredensial)){
             $request->session()->regenerate();
