@@ -229,7 +229,8 @@ class MasterController extends Controller
     public function dosen_edit(Dosen $dosen)
     {
         return view('superadmin.master.dosen.edit-dosen')->with([
-            'dosen' => dosen::whereId($dosen->id)->get()
+            'dosen' => $dosen,
+            'role' => explode(',', $dosen->role)
         ]);
     }
     
@@ -240,7 +241,8 @@ class MasterController extends Controller
             'birthPlace' => 'required|max:225|min:3',
             'birthDate' => 'required',
             'gender' => 'required',
-            'image' => 'image|file|max:2048'
+            'image' => 'image|file|max:2048',
+            'role' => 'required'
         ];
 
         if($request->nip != $dosen->nip){
@@ -263,15 +265,11 @@ class MasterController extends Controller
             }
             $validateData['image'] = $request->file('image')->store('profile-image');
         }
+
+        $validateData['role'] = implode(',', $request->role);
             
         Dosen::whereId($dosen->id)
                     ->update($validateData);
-        
-        // for ($i=0; $i < count($request->role); $i++) { 
-        //     $roles['role_id'] = $request->role[$i];
-        //     $roles['dosen_id'] = $dosen->id;
-        //     detail_role::create($roles);
-        // }
 
         return redirect('dosen')->with([
             'flash-type' => 'sweetalert',
