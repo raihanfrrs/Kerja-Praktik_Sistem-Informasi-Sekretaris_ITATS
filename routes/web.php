@@ -81,9 +81,17 @@ Route::middleware('auth')->group(function () {
             Route::get('surat', 'surat_index');
             Route::get('surat/add', 'surat_create');
             Route::post('surat', 'surat_store');
-            Route::get('surat/{slug}', 'surat_show');
-            Route::get('surat/{slug}/edit', 'surat_edit');
-            Route::put('surat/{slug}', 'surat_update');
+            Route::get('surat/{surat}', 'surat_show');
+            Route::get('surat/{surat}/edit', 'surat_edit');
+            Route::put('surat/{surat}', 'surat_update');
+
+            /* role master resource */
+            Route::get('role', 'role_index');
+            Route::get('role/add', 'role_create');
+            Route::post('role', 'role_store');
+            Route::get('role/{role}', 'role_show');
+            Route::get('role/{role}/edit', 'role_edit');
+            Route::put('role/{role}', 'role_update');
 
             Route::get('/dataMahasiswa', [MasterController::class, 'dataMahasiswa'])->name('dataMahasiswa');
             Route::get('/dataDosen', [MasterController::class, 'dataDosen'])->name('dataDosen');

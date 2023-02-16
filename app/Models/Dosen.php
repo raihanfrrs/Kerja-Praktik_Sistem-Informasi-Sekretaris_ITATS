@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Job;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
@@ -31,5 +32,10 @@ class Dosen extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function job()
+    {
+        return $this->hasOne(Job::class);
     }
 }
