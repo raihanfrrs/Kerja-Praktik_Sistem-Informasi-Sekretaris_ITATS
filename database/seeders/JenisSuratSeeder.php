@@ -13,6 +13,11 @@ class JenisSuratSeeder extends Seeder
      */
     public function run()
     {
-        //
+        $jenisSurat = [
+            [
+                'role_id' => '1',
+                'jenis' => ''
+            ]
+        ];
     }
 }

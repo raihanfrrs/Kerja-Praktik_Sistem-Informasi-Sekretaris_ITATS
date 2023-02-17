@@ -25,4 +25,14 @@ $(document).ready(function () {
             { data: 'action', name: 'action', class: 'text-center' }
         ]
     });
+
+    $('#dataRole').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: '/dataRole',
+        columns: [
+            { data: 'role', name: 'role', class: 'text-muted text-capitalize' },
+            { data: 'action', name: 'action', class: 'text-center' }
+        ]
+    });
 });

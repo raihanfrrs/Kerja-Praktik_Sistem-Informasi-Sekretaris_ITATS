@@ -18,6 +18,7 @@ class CreateJenisSuratsTable extends Migration
             $table->id();
             $table->foreignIdFor(Role::class);
             $table->string('jenis');
+            $table->string('role');
             $table->timestamps();
         });
     }

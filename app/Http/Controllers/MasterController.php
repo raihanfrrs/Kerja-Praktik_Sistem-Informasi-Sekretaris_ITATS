@@ -378,5 +378,10 @@ class MasterController extends Controller
         
     }
 
+    public function dataRole()
+    {
+        
+    }
+
     /* ROLE METHOD END SECTION */
 }

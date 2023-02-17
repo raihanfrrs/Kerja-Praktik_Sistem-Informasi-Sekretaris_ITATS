@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('section')
-<div class="card master-mahasiswa overflow-auto mx-2">
+<div class="card overflow-auto mx-2">
     <div class="filter">
         <a href="{{ url('mahasiswa/add') }}" class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Add Mahasiswa"><i class="bi bi-person-plus"></i></a>
     </div>
