@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Role;
+use App\Models\Surat;
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -32,5 +33,10 @@ class JenisSurat extends Model
     public function role()
     {
         return $this->belongsTo(Role::class);
+    }
+
+    public function surat()
+    {
+        return $this->hasMany(Surat::class);
     }
 }

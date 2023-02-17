@@ -340,4 +340,43 @@ class MasterController extends Controller
     }
 
     /* SURAT METHOD END SECTION */
+
+    /* ROLE METHOD SECTION */
+
+    public function role_index()
+    {
+        return view('superadmin.master.role.index');
+    }
+    
+    public function role_create()
+    {
+        
+    }
+
+    public function role_store()
+    {
+        
+    }
+    
+    public function role_edit()
+    {
+        
+    }
+    
+    public function role_update()
+    {
+        
+    }
+    
+    public function role_show()
+    {
+        
+    }
+    
+    public function role_destroy()
+    {
+        
+    }
+
+    /* ROLE METHOD END SECTION */
 }
