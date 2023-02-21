@@ -8,17 +8,19 @@
 
     <div class="card-body">
     <h5 class="card-title">Dosen <span>| Data Master</span></h5>
-    <table id="dataDosen" class="table table-master table-borderless datatable table-hover">
-        <thead>
-            <tr>
-                <th scope="col" class="text-center">Dosen</th>
-                <th scope="col" class="text-center">NIP</th>
-                <th scope="col" class="text-center">Email</th>
-                <th scope="col" class="text-center">Phone</th>
-                <th scope="col" class="text-center">Action</th>
-            </tr>
-        </thead>
-    </table>
+        <div class="table-responsive">
+            <table id="dataDosen" class="table table-master table-borderless datatable table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col" class="text-center">Dosen</th>
+                        <th scope="col" class="text-center">NIP</th>
+                        <th scope="col" class="text-center">Email</th>
+                        <th scope="col" class="text-center">Phone</th>
+                        <th scope="col" class="text-center">Action</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
     </div>
 </div>
 @endsection

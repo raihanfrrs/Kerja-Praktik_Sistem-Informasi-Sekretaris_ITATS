@@ -1,0 +1,2 @@
+<a href="/surat/{{ $model->slug }}/edit" class="btn btn-sm btn-warning" title="Edit"><i class="bi bi-pen"></i></a>
+<button class="btn btn-sm btn-primary" title="Details" id="detail-surat-button" value="{{ $model->slug }}"><i class="bi bi-eye"></i></button>

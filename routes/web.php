@@ -95,6 +95,8 @@ Route::middleware('auth')->group(function () {
 
             Route::get('/dataMahasiswa', [MasterController::class, 'dataMahasiswa'])->name('dataMahasiswa');
             Route::get('/dataDosen', [MasterController::class, 'dataDosen'])->name('dataDosen');
+            Route::get('/dataJenisSurat', [MasterController::class, 'dataSurat'])->name('dataJenisSurat');
+            Route::get('/dataRole', [MasterController::class, 'dataRole'])->name('dataRole');
         });
 
         Route::controller(RecycleController::class)->group(function () {

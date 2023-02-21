@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\JenisSurat;
 use Illuminate\Database\Seeder;
 
 class JenisSuratSeeder extends Seeder
@@ -16,8 +17,16 @@ class JenisSuratSeeder extends Seeder
         $jenisSurat = [
             [
                 'role_id' => '1',
-                'jenis' => ''
+                'jenis' => 'DHS'
+            ],
+            [
+                'role_id' => '2',
+                'jenis' => 'Aktif Kuliah'
             ]
         ];
+
+        foreach ($jenisSurat as $key => $value) {
+            JenisSurat::create($value);
+        }
     }
 }

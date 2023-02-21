@@ -8,14 +8,16 @@
 
     <div class="card-body">
     <h5 class="card-title">Role <span>| Data Master</span></h5>
-    <table id="dataRole" class="table table-master table-borderless datatable table-hover">
-        <thead>
-            <tr>
-                <th scope="col" class="text-center">Role</th>
-                <th scope="col" class="text-center">Action</th>
-            </tr>
-        </thead>
-    </table>
+        <div class="table-responsive">
+            <table id="dataRole" class="table table-master table-borderless datatable table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col" class="text-center">Role</th>
+                        <th scope="col" class="text-center">Action</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
     </div>
 </div>
 @endsection

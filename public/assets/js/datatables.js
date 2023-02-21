@@ -31,7 +31,17 @@ $(document).ready(function () {
         serverSide: true,
         ajax: '/dataRole',
         columns: [
-            { data: 'role', name: 'role', class: 'text-muted text-capitalize' },
+            { data: 'role', name: 'role', class: 'text-muted text-capitalize text-center' },
+            { data: 'action', name: 'action', class: 'text-center' }
+        ]
+    });
+
+    $('#dataJenisSurat').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: '/dataJenisSurat',
+        columns: [
+            { data: 'jenis', name: 'jenis', class: 'text-muted text-capitalize text-center' },
             { data: 'action', name: 'action', class: 'text-center' }
         ]
     });
