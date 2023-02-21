@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Dosen;
+use App\Models\JenisSurat;
 use App\Models\Mahasiswa;
+use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
@@ -306,7 +308,7 @@ class MasterController extends Controller
 
     public function surat_index()
     {
-        
+        return view('superadmin.master.surat.index');
     }
     
     public function surat_create()
@@ -329,14 +331,24 @@ class MasterController extends Controller
         
     }
     
-    public function surat_show()
+    public function surat_show(JenisSurat $surat)
     {
-        
+        dd
+        return view('superadmin.master.surat.data-modal');
     }
     
     public function surat_destroy()
     {
         
+    }
+
+    public function dataSurat()
+    {
+        return DataTables::of(JenisSurat::all())
+        ->addColumn('action', function ($model) {
+            return view('superadmin.master.surat.form-action', compact('model'))->render();
+        })
+        ->make(true);
     }
 
     /* SURAT METHOD END SECTION */
@@ -380,7 +392,11 @@ class MasterController extends Controller
 
     public function dataRole()
     {
-        
+        return DataTables::of(Role::all())
+        ->addColumn('action', function ($model) {
+            return view('superadmin.master.role.form-action', compact('model'))->render();
+        })
+        ->make(true);
     }
 
     /* ROLE METHOD END SECTION */
