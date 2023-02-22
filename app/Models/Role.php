@@ -28,8 +28,8 @@ class Role extends Model
         ];
     }
 
-    public function jenis_surat()
+    public function job_role()
     {
-        return $this->hasMany(JenisSurat::class);
+        return $this->hasOne(JobRole::class);
     }
 }

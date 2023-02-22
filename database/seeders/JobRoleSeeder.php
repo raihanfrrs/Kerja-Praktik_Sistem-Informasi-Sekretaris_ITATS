@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Job;
+use App\Models\JobRole;
 use Illuminate\Database\Seeder;
 
-class JobSeeder extends Seeder
+class JobRoleSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,17 +16,17 @@ class JobSeeder extends Seeder
     {
         $jobs = [
             [
-                'dosen_id' => '1',
-                'job' => 'Sekretaris Jurusan, CSR'
+                'role_id' => '1',
+                'job' => 'DHS, Aktif Kuliah'
             ],
             [
-                'dosen_id' => '2',
-                'job' => 'Sekretaris Jurusan'
+                'role_id' => '2',
+                'job' => 'DHS'
             ]
         ];
 
         foreach ($jobs as $key => $value) {
-            Job::create($value);
+            JobRole::create($value);
         }
     }
 }

@@ -30,11 +30,6 @@ class JenisSurat extends Model
         ];
     }
 
-    public function role()
-    {
-        return $this->belongsTo(Role::class);
-    }
-
     public function surat()
     {
         return $this->hasMany(Surat::class);

@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Dosen;
 use App\Models\JenisSurat;
+use App\Models\JobRole;
 use App\Models\Mahasiswa;
 use App\Models\Role;
 use Illuminate\Http\Request;
@@ -133,6 +134,8 @@ class MasterController extends Controller
             }
             $validateData['image'] = $request->file('image')->store('profile-image');
         }
+
+        $validateData['slug'] = slug($request->name);
         
         Mahasiswa::whereId($mahasiswa->id)
                     ->update($validateData);
@@ -268,7 +271,9 @@ class MasterController extends Controller
             $validateData['image'] = $request->file('image')->store('profile-image');
         }
 
-        $validateData['role'] = implode(',', $request->role);
+        // $validateData['role'] = implode(',', $request->role);
+
+        $validateData['slug'] = slug($request->name);
             
         Dosen::whereId($dosen->id)
                     ->update($validateData);
@@ -313,22 +318,50 @@ class MasterController extends Controller
     
     public function surat_create()
     {
-        
+        return view('superadmin.master.surat.add-surat');
     }
 
-    public function surat_store()
+    public function surat_store(Request $request)
     {
-        
+        $validateData = $request->validate([
+            'jenis' => 'required|min:2|max:255|unique:jenis_surats'
+        ]);
+
+        JenisSurat::create($validateData);
+
+        return redirect('surat/add')->with([
+            'flash-type' => 'sweetalert',
+            'case' => 'default',
+            'position' => 'center',
+            'type' => 'success',
+            'message' => 'Surat Added!'
+        ]);
     }
     
-    public function surat_edit()
+    public function surat_edit(JenisSurat $surat)
     {
-        
+        return view('superadmin.master.surat.edit-surat')->with([
+            'surat' => $surat
+        ]);
     }
     
-    public function surat_update()
+    public function surat_update(Request $request, JenisSurat $surat)
     {
-        
+        $validateData = $request->validate([
+            'jenis' => 'required|min:2|max:255|unique:jenis_surats'
+        ]);
+
+        $validateData['slug'] = slug($request->jenis);
+
+        JenisSurat::findOrFail($surat->id)->update($validateData);
+
+        return redirect('surat')->with([
+            'flash-type' => 'sweetalert',
+            'case' => 'default',
+            'position' => 'center',
+            'type' => 'success',
+            'message' => 'Surat Updated!'
+        ]);
     }
     
     public function surat_show(JenisSurat $surat)
@@ -370,28 +403,74 @@ class MasterController extends Controller
     
     public function role_create()
     {
-        
+        return view('superadmin.master.role.add-role')->with([
+            'jenis_surats' => JenisSurat::all()
+        ]);
     }
 
-    public function role_store()
+    public function role_store(Request $request)
     {
-        
+        $validateData = $request->validate([
+            'role' => 'required|min:2|max:255|unique:roles',
+            'jenis_surat' => 'required'
+        ]);
+
+        $validateData['status'] = 'active';
+        $role = Role::create($validateData);
+
+        $validateData['role_id'] = $role->id;
+        $validateData['job'] = implode(',', $request->roles);
+        JobRole::create($validateData);
+
+        return redirect('role/add')->with([
+            'flash-type' => 'sweetalert',
+            'case' => 'default',
+            'position' => 'center',
+            'type' => 'success',
+            'message' => 'Role Added!'
+        ]);
     }
     
-    public function role_edit()
+    public function role_edit(Role $role)
     {
-        
+        return view('superadmin.master.role.edit-role')->with([
+            'role' => $role,
+            'jenis_surats' => JenisSurat::all(),
+            'job' => explode(',', $role->job_role->job)
+        ]);
     }
     
-    public function role_update()
+    public function role_update(Request $request, Role $role)
     {
-        
+        $validateData = $request->validate([
+            'jenis_surat' => 'required'
+        ]);
+
+        if ($request->role != $role->role) {
+            $validateData = $request->validate([
+                'role' => 'required|min:2|max:255|unique:roles'
+            ]);
+
+            Role::findOrFail($role->id)->update($validateData);
+        }
+
+        $value['job'] = implode(',', $request->jenis_surat);
+        JobRole::where('role_id', $role->id)->update($value);
+
+        return redirect('role')->with([
+            'flash-type' => 'sweetalert',
+            'case' => 'default',
+            'position' => 'center',
+            'type' => 'success',
+            'message' => 'Role Updated!'
+        ]);
     }
     
     public function role_show(Role $role)
     {
+        $jobs = JobRole::where('role_id', $role->id)->get();
         return view('superadmin.master.role.data-modal')->with([
-            'roles' => JenisSurat::where('role_id', $role->id)->get()
+            'jobs' => explode(",",$jobs[0]->job)
         ]);
     }
     

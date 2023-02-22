@@ -16,8 +16,7 @@ class CreateJenisSuratsTable extends Migration
     {
         Schema::create('jenis_surats', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Role::class);
-            $table->string('jenis');
+            $table->string('jenis')->unique();
             $table->string('slug');
             $table->enum('status', ['active', 'deactivated']);
             $table->timestamps();

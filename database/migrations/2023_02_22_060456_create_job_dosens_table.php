@@ -1,10 +1,11 @@
 <?php
 
+use App\Models\Dosen;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRolesTable extends Migration
+class CreateJobDosensTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +14,10 @@ class CreateRolesTable extends Migration
      */
     public function up()
     {
-        Schema::create('roles', function (Blueprint $table) {
+        Schema::create('job_dosens', function (Blueprint $table) {
             $table->id();
-            $table->string('role')->unique();
-            $table->string('slug');
-            $table->enum('status', ['active', 'deactivated']);
+            $table->foreignIdFor(Dosen::class);
+            $table->string('job');
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ class CreateRolesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('roles');
+        Schema::dropIfExists('job_dosens');
     }
 }

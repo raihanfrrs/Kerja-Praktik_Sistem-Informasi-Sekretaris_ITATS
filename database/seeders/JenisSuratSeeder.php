@@ -16,13 +16,13 @@ class JenisSuratSeeder extends Seeder
     {
         $jenisSurat = [
             [
-                'role_id' => '1',
                 'jenis' => 'DHS',
+                'slug' => 'dhs',
                 'status' => 'active'
             ],
             [
-                'role_id' => '2',
                 'jenis' => 'Aktif Kuliah',
+                'slug' => 'aktif-kuliah',
                 'status' => 'active'
             ]
         ];

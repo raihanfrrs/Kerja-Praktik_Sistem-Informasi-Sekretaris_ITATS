@@ -19,7 +19,8 @@ class DatabaseSeeder extends Seeder
             MahasiswaSeeder::class,
             RoleSeeder::class,
             JenisSuratSeeder::class,
-            JobSeeder::class
+            JobDosenSeeder::class,
+            JobRoleSeeder::class
         ]);
     }
 }

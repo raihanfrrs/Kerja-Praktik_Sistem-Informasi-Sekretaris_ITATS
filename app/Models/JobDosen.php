@@ -2,11 +2,10 @@
 
 namespace App\Models;
 
-use App\Models\Dosen;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
-class Job extends Model
+class JobDosen extends Model
 {
     use HasFactory;
 

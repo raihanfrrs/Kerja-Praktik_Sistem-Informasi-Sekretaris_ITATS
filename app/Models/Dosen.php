@@ -34,8 +34,8 @@ class Dosen extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function job()
+    public function job_dosen()
     {
-        return $this->hasOne(Job::class);
+        return $this->hasOne(JobDosen::class);
     }
 }

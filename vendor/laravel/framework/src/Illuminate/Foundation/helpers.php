@@ -932,3 +932,14 @@ if (! function_exists('view')) {
         return $factory->make($view, $data, $mergeData);
     }
 }
+
+if (! function_exists('slug')) {
+    
+    function slug($slug){
+        $lowercase = strtolower($slug);
+        $words = explode(" ", $lowercase);
+        $slug = implode("-", $words);
+
+        return $slug;
+    }
+}
