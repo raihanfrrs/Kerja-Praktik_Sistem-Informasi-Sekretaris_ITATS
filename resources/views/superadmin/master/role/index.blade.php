@@ -1,9 +1,12 @@
 @extends('layouts.main')
 
 @section('section')
+
+@include('superadmin.master.role.role-modal')
+
 <div class="card overflow-auto mx-2">
     <div class="filter">
-        <a href="{{ url('/role/add') }}" class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Add Dosen"><i class="bi bi-person-plus"></i></a>
+        <a href="{{ url('/role/add') }}" class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Add Role"><i class="bi bi-journal-plus"></i></a>
     </div>
 
     <div class="card-body">
@@ -20,4 +23,24 @@
         </div>
     </div>
 </div>
+
+@push('scripts')
+    <script>
+        $(document).on('click', '#detail-role-button', function () {
+            let slug = $(this).val();
+
+            $.post(`{{ url('role') }}/`+slug, {
+                '_token': '{{ csrf_token() }}',
+                '_method': 'get'
+            })
+            .done(response => {
+                $("#modal-role").html(response);
+                $("#detail-role").modal('show');
+            })
+            .fail(errors => {
+                return;
+            })
+        });
+    </script>
+@endpush
 @endsection

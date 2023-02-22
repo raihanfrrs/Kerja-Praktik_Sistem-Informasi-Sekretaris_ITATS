@@ -17,6 +17,7 @@ class CreateRolesTable extends Migration
             $table->id();
             $table->string('role');
             $table->string('slug');
+            $table->enum('status', ['active', 'deactivated']);
             $table->timestamps();
         });
     }

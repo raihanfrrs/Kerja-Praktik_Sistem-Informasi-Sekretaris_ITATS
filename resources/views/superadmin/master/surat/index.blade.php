@@ -1,53 +1,23 @@
 @extends('layouts.main')
 
 @section('section')
+<div class="card overflow-auto mx-2">
+    <div class="filter">
+        <a href="{{ url('/surat/add') }}" class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Add Surat"><i class="bi bi-envelope-plus"></i></a>
+    </div>
 
-@include('superadmin.master.surat.surat-modal')
-
-<div class="col-lg-12">
-    <div class="row">
-        <div class="col-12">
-            <div class="card overflow-auto">
-
-                <div class="card-body">
-                <h5 class="card-title">Surat <span>| Data Master</span></h5>
-                    <div class="table-responsive">
-                        <table id="dataJenisSurat" class="table table-borderless datatable">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Jenis Surat</th>
-                                    <th scope="col">Action</th>
-                                </tr>
-                            </thead>
-                        </table>
-                    </div>
-                </div>
-            </div>
+    <div class="card-body">
+    <h5 class="card-title">Surat <span>| Data Master</span></h5>
+        <div class="table-responsive">
+            <table id="dataJenisSurat" class="table table-borderless datatable">
+                <thead>
+                    <tr>
+                        <th scope="col">Jenis Surat</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+            </table>
         </div>
     </div>
 </div>
-
-@push('scripts')
-    <script>
-        $(document).on('click', '#detail-surat-button', function () {
-            let slug = $(this).val();
-
-            $.post(`{{ url('surat') }}/`+slug, {
-                '_token': '{{ csrf_token() }}',
-                '_method': 'get'
-            })
-            .done(response => {
-                $("#modal-surat").html(response);
-                $("#detail-surat").modal('show');
-            })
-            .fail(errors => {
-                return;
-            })
-        });
-
-        $(document).on('click', '#modal-dismiss', function () {
-            $('#detail-surat').modal('hide');
-        });
-    </script>
-@endpush
 @endsection

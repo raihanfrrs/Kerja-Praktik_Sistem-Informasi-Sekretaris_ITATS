@@ -84,6 +84,7 @@ Route::middleware('auth')->group(function () {
             Route::get('surat/{surat}', 'surat_show');
             Route::get('surat/{surat}/edit', 'surat_edit');
             Route::put('surat/{surat}', 'surat_update');
+            Route::delete('surat/{surat}', 'surat_destroy');
 
             /* role master resource */
             Route::get('role', 'role_index');
@@ -92,6 +93,7 @@ Route::middleware('auth')->group(function () {
             Route::get('role/{role}', 'role_show');
             Route::get('role/{role}/edit', 'role_edit');
             Route::put('role/{role}', 'role_update');
+            Route::delete('role/{role}', 'role_destroy');
 
             Route::get('/dataMahasiswa', [MasterController::class, 'dataMahasiswa'])->name('dataMahasiswa');
             Route::get('/dataDosen', [MasterController::class, 'dataDosen'])->name('dataDosen');

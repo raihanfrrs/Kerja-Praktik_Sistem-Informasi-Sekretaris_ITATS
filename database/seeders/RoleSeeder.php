@@ -17,11 +17,13 @@ class RoleSeeder extends Seeder
         $roles = [
             [
                 'role' => 'Sekretaris Jurusan',
-                'slug' => 'sekretaris-jurusan'
+                'slug' => 'sekretaris-jurusan',
+                'status' => 'active'
             ],
             [
                 'role' => 'CSR',
-                'slug' => 'csr'
+                'slug' => 'csr',
+                'status' => 'active'
             ]
         ];
 

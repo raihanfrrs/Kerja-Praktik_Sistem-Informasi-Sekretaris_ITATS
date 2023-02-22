@@ -19,6 +19,7 @@ class CreateJenisSuratsTable extends Migration
             $table->foreignIdFor(Role::class);
             $table->string('jenis');
             $table->string('slug');
+            $table->enum('status', ['active', 'deactivated']);
             $table->timestamps();
         });
     }

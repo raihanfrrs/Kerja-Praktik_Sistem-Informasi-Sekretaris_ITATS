@@ -333,18 +333,26 @@ class MasterController extends Controller
     
     public function surat_show(JenisSurat $surat)
     {
-        dd
-        return view('superadmin.master.surat.data-modal');
+        
     }
     
-    public function surat_destroy()
+    public function surat_destroy(Request $request, JenisSurat $surat)
     {
-        
+        JenisSurat::findOrFail($surat->id)->update(['status' => 'deactivated']);
+        session(['deactivate' => $request->session()->get('deactivate')+1]);
+
+        return redirect('surat')->with([
+            'flash-type' => 'sweetalert',
+            'case' => 'default',
+            'position' => 'center',
+            'type' => 'success',
+            'message' => 'Surat Deleted!'
+        ]);
     }
 
     public function dataSurat()
     {
-        return DataTables::of(JenisSurat::all())
+        return DataTables::of(JenisSurat::where('status', 'active')->get())
         ->addColumn('action', function ($model) {
             return view('superadmin.master.surat.form-action', compact('model'))->render();
         })
@@ -380,19 +388,30 @@ class MasterController extends Controller
         
     }
     
-    public function role_show()
+    public function role_show(Role $role)
     {
-        
+        return view('superadmin.master.role.data-modal')->with([
+            'roles' => JenisSurat::where('role_id', $role->id)->get()
+        ]);
     }
     
-    public function role_destroy()
+    public function role_destroy(Request $request, Role $role)
     {
-        
+        Role::findOrFail($role->id)->update(['status' => 'deactivated']);
+        session(['deactivate' => $request->session()->get('deactivate')+1]);
+
+        return redirect('role')->with([
+            'flash-type' => 'sweetalert',
+            'case' => 'default',
+            'position' => 'center',
+            'type' => 'success',
+            'message' => 'Role Deleted!'
+        ]);
     }
 
     public function dataRole()
     {
-        return DataTables::of(Role::all())
+        return DataTables::of(Role::where('status', 'active')->get())
         ->addColumn('action', function ($model) {
             return view('superadmin.master.role.form-action', compact('model'))->render();
         })
