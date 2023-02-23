@@ -20,11 +20,19 @@
             <div class="row mb-3">
                 <legend class="col-form-label col-sm-2 pt-0">Jenis Surat</legend>
                 <div class="col-sm-10">
+                    @php
+                        $key = 0;
+                    @endphp
                     @foreach ($jenis_surats as $jenis_surat)
                     <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" id="{{ $jenis_surat->jenis }}" name="jenis_surat[]" value="{{ $jenis_surat->jenis }}" {{ in_array($jenis_surat->jenis, $job) ? ' checked' : '' }}>
+                        <input class="form-check-input" type="checkbox" id="{{ $jenis_surat->jenis }}" name="jenis_surat[]" value="{{ $jenis_surat->jenis }}" {{ ($jenis_surat->jenis == $job[$key]->jenis_surat->jenis) ? ' checked' : '' }}>
                         <label class="form-check-label text-capitalize" for="{{ $jenis_surat->jenis }}">{{ $jenis_surat->jenis }}</label>
                     </div>
+                    @php
+                        if ($job->count()-1 != $key) {
+                            $key++;
+                        }
+                    @endphp
                     @endforeach
                     @if($errors->any())
                     @php

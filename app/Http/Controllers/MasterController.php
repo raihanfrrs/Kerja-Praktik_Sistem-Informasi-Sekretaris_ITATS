@@ -436,7 +436,7 @@ class MasterController extends Controller
         return view('superadmin.master.role.edit-role')->with([
             'role' => $role,
             'jenis_surats' => JenisSurat::where('status', 'active')->get(),
-            'job' => explode(',', $role->job_role->job)
+            'job' => JobRole::where('role_id', $role->id)->get(),
         ]);
     }
     
