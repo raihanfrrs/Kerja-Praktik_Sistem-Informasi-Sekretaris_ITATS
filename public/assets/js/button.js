@@ -1,7 +1,6 @@
 $(document).on('click', '#delete-btn', function(e){
     e.preventDefault();
     let slug = $(this).attr('value');
-    console.log(slug);
 
     Swal.fire({
         title: 'Are you sure?',
