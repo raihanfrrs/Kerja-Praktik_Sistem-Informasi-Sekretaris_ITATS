@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\JenisSurat;
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -28,8 +27,13 @@ class Role extends Model
         ];
     }
 
+    public function job_dosen()
+    {
+        return $this->hasMany(JobDosen::class);
+    }
+
     public function job_role()
     {
-        return $this->hasOne(JobRole::class);
+        return $this->hasMany(JobRole::class);
     }
 }

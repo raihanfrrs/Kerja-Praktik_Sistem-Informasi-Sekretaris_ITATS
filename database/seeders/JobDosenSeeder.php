@@ -17,11 +17,15 @@ class JobDosenSeeder extends Seeder
         $jobs = [
             [
                 'dosen_id' => '1',
-                'job' => 'Sekretaris Jurusan, CSR'
+                'role_id' => '1'
+            ],
+            [
+                'dosen_id' => '1',
+                'role_id' => '1'
             ],
             [
                 'dosen_id' => '2',
-                'job' => 'CSR'
+                'role_id' => '1'
             ]
         ];
 

@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Dosen;
+use App\Models\Role;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -17,7 +18,7 @@ class CreateJobDosensTable extends Migration
         Schema::create('job_dosens', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Dosen::class);
-            $table->string('job');
+            $table->foreignIdFor(Role::class);
             $table->timestamps();
         });
     }

@@ -83,6 +83,76 @@
                 <hr>
             @endforeach
 
+            @if ($jenis_surats->count() != 0)
+            <h5 class="card-title">Surat <span>| List</span></h5>
+            @endif
+
+            @foreach ($jenis_surats as $jenis_surat)
+                <div class="single-notification">
+                    <div class="notification">
+                        <div class="image bg-success">
+                            <span>{{ mb_substr($jenis_surat->jenis, 0, 1) }}</span>
+                        </div>
+                        <a href="#" class="content">
+                            <h5 class="fw-bold text-black">{{ Str::ucfirst($jenis_surat->jenis) }}</h5>
+                            <span class="fw-semibold text-muted">Moved in {{ $jenis_surat->updated_at->diffForHumans() }}</span>
+                        </a>
+                    </div>
+                    <div class="action">
+                        <form action="/recycle/{{ $jenis_surat->slug }}" method="post" id="delete-form-{{ $jenis_surat->slug }}">
+                            @csrf
+                            @method('delete')
+                            <button type="submit" id="delete-btn" class="action-btn" value="{{ $jenis_surat->slug }}" title="Delete">
+                                <i class="bi bi-trash3"></i>
+                            </button>
+                        </form>
+                        <form action="/recycle/{{ $jenis_surat->slug }}" method="post">
+                            @csrf
+                            @method('put')
+                            <button type="submit" class="action-btn" title="Restore">
+                                <i class="bi bi-arrow-clockwise"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                <hr>
+            @endforeach
+
+            @if ($roles->count() != 0)
+            <h5 class="card-title">Role <span>| List</span></h5>
+            @endif
+
+            @foreach ($roles as $role)
+                <div class="single-notification">
+                    <div class="notification">
+                        <div class="image bg-info">
+                            <span>{{ mb_substr($role->role, 0, 1) }}</span>
+                        </div>
+                        <a href="#" class="content">
+                            <h5 class="fw-bold text-black">{{ Str::ucfirst($role->role) }}</h5>
+                            <span class="fw-semibold text-muted">Moved in {{ $role->updated_at->diffForHumans() }}</span>
+                        </a>
+                    </div>
+                    <div class="action">
+                        <form action="/recycle/{{ $role->slug }}" method="post" id="delete-form-{{ $role->slug }}">
+                            @csrf
+                            @method('delete')
+                            <button type="submit" id="delete-btn" class="action-btn" value="{{ $role->slug }}" title="Delete">
+                                <i class="bi bi-trash3"></i>
+                            </button>
+                        </form>
+                        <form action="/recycle/{{ $role->slug }}" method="post">
+                            @csrf
+                            @method('put')
+                            <button type="submit" class="action-btn" title="Restore">
+                                <i class="bi bi-arrow-clockwise"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                <hr>
+            @endforeach
+
         </div>
     </div>
 @endsection

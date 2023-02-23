@@ -17,4 +17,9 @@ class JobDosen extends Model
     {
         return $this->belongsTo(Dosen::class);
     }
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
 }
