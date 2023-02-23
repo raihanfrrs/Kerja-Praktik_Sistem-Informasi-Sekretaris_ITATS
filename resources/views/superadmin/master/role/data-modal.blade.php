@@ -10,7 +10,7 @@
           @foreach ($jobs as $job)
           <tr>
             <th scope="row" class="text-center">{{ $loop->iteration }}</th>
-            <td class="text-center">{{ $job }}</td>
+            <td class="text-center">{{ $job->jenis_surat->jenis }}</td>
           </tr>
           @endforeach
         </tbody>

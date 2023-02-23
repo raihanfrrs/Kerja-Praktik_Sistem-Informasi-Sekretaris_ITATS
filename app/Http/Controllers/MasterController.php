@@ -404,7 +404,7 @@ class MasterController extends Controller
     public function role_create()
     {
         return view('superadmin.master.role.add-role')->with([
-            'jenis_surats' => JenisSurat::all()
+            'jenis_surats' => JenisSurat::where('status', 'active')->get()
         ]);
     }
 
@@ -435,7 +435,7 @@ class MasterController extends Controller
     {
         return view('superadmin.master.role.edit-role')->with([
             'role' => $role,
-            'jenis_surats' => JenisSurat::all(),
+            'jenis_surats' => JenisSurat::where('status', 'active')->get(),
             'job' => explode(',', $role->job_role->job)
         ]);
     }
@@ -468,9 +468,8 @@ class MasterController extends Controller
     
     public function role_show(Role $role)
     {
-        $jobs = JobRole::where('role_id', $role->id)->get();
         return view('superadmin.master.role.data-modal')->with([
-            'jobs' => explode(",",$jobs[0]->job)
+            'jobs' => JobRole::where('role_id', $role->id)->get()
         ]);
     }
     

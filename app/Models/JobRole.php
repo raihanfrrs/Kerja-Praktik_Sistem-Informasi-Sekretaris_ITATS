@@ -17,4 +17,9 @@ class JobRole extends Model
     {
         return $this->belongsTo(Role::class);
     }
+
+    public function jenis_surat()
+    {
+        return $this->belongsTo(JenisSurat::class);
+    }
 }

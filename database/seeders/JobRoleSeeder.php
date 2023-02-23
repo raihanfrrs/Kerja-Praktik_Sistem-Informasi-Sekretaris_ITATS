@@ -17,11 +17,15 @@ class JobRoleSeeder extends Seeder
         $jobs = [
             [
                 'role_id' => '1',
-                'job' => 'DHS, Aktif Kuliah'
+                'jenis_surat_id' => '1'
+            ],
+            [
+                'role_id' => '1',
+                'jenis_surat_id' => '2'
             ],
             [
                 'role_id' => '2',
-                'job' => 'DHS'
+                'jenis_surat_id' => '1'
             ]
         ];
 

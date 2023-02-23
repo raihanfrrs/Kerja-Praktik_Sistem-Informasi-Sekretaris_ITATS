@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\JenisSurat;
 use App\Models\Role;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -17,7 +18,7 @@ class CreateJobRolesTable extends Migration
         Schema::create('job_roles', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Role::class);
-            $table->string('job');
+            $table->foreignIdFor(JenisSurat::class);
             $table->timestamps();
         });
     }
