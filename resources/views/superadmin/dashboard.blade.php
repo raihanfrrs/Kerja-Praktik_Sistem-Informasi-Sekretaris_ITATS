@@ -12,22 +12,22 @@
                 <h6>Filter</h6>
                 </li>
 
-                <li><a class="dropdown-item" href="#">Today</a></li>
-                <li><a class="dropdown-item" href="#">This Month</a></li>
-                <li><a class="dropdown-item" href="#">This Year</a></li>
+                <li><a class="dropdown-item" href="#" id="day">Today</a></li>
+                <li><a class="dropdown-item" href="#" id="month">This Month</a></li>
+                <li><a class="dropdown-item" href="#" id="year">This Year</a></li>
             </ul>
             </div>
 
             <div class="card-body">
-            <h5 class="card-title">Mahasiswa <span>| Today</span></h5>
+            <h5 class="card-title">Mahasiswa <span>|</span> <span id="date">Today</span></h5>
 
             <div class="d-flex align-items-center">
                 <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                 <i class="bi bi-cart"></i>
                 </div>
                 <div class="ps-3">
-                <h6>145</h6>
-                <span class="text-success small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">increase</span>
+                <h6 id="mahasiswa-amount"></h6>
+                <span class="text-success small pt-1 fw-bold" id="percent">12%</span> <span class="text-muted small pt-2 ps-1">increase</span>
 
                 </div>
             </div>
@@ -130,7 +130,7 @@
         </div>
 
         <div class="card-body pb-0">
-        <h5 class="card-title">News &amp; Updates <span>| Today</span></h5>
+        <h5 class="card-title">Request Activity <span>| Today</span></h5>
 
         <div class="news">
             <div class="post-item clearfix">
@@ -169,3 +169,47 @@
     </div><!-- End News & Updates -->
 
 </div>
+
+@push('scripts')
+    <script>
+        $(document).ready(function () {
+            $.ajax({
+                type: "post",
+                url: "{{ url('dashboard') }}/mahasiswa",
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                    "date": "day"
+                },
+                success: function(data){
+                    $("#mahasiswa-amount").html(data.amount);
+                    $("#percent").html(data.percent+"%");
+                }
+            });
+        });
+
+        $(document).on('click', '.dropdown-item', function () {
+            let date = $(this).attr('id');
+
+            if (date === 'day') {
+                $("#date").html("<span>Today</span>");
+            } else if (date === 'month') {
+                $("#date").html("<span>This Month</span>");
+            } else if (date === 'year') {
+                $("#date").html("<span>This Year</span>");
+            }
+
+            $.ajax({
+                type: "post",
+                url: "{{ url('dashboard') }}/mahasiswa",
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                    "date": date
+                },
+                success: function(data){
+                    $("#mahasiswa-amount").html(data.amount);
+                    $("#percent").html(data.percent+"%");
+                }
+            });
+        });
+    </script>
+@endpush

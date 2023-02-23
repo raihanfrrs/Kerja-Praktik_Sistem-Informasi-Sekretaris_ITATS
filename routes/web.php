@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ArchiveController;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LayoutController;
@@ -47,6 +48,10 @@ Route::middleware('auth')->group(function () {
         Route::put('mahasiswa/profile/{mahasiswa}', 'update');
         Route::put('dosen/profile/{dosen}', 'update');
         Route::put('password', 'updatePassword');
+    });
+
+    Route::controller(DashboardController::class)->group(function () {
+        Route::post('dashboard/{data}', 'daily');
     });
 
     Route::group(['middleware' => ['cekUserLogin:mahasiswa']], function(){
