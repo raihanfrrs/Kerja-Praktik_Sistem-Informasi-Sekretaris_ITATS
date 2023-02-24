@@ -172,46 +172,6 @@
 
 @push('scripts')
     <script>
-        $(document).ready(function () {
-            $.ajax({
-                type: "post",
-                url: "{{ url('dashboard') }}/mahasiswa",
-                data: {
-                    "_token": "{{ csrf_token() }}",
-                    "date": "day"
-                },
-                success: function(data){
-                    console.log(data);
-                    $("#mahasiswa-amount").html(data.amount);
-                    $("#percent").html(data.percent+"%");
-                }
-            });
-        });
 
-        $(document).on('click', '.dropdown-item', function () {
-            let date = $(this).attr('id');
-
-            if (date === 'day') {
-                $("#date").html("<span>Today</span>");
-            } else if (date === 'month') {
-                $("#date").html("<span>This Month</span>");
-            } else if (date === 'year') {
-                $("#date").html("<span>This Year</span>");
-            }
-
-            $.ajax({
-                type: "post",
-                url: "{{ url('dashboard') }}/mahasiswa",
-                data: {
-                    "_token": "{{ csrf_token() }}",
-                    "date": date
-                },
-                success: function(data){
-                    console.log(data);
-                    $("#mahasiswa-amount").html(data.amount);
-                    $("#percent").html(data.percent+"%");
-                }
-            });
-        });
     </script>
 @endpush

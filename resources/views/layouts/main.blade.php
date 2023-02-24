@@ -4,6 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <title>Sekretaris 
     @if (count(Request::segments()) == 0)
         - Dashboard
@@ -74,6 +75,7 @@
   <script src="{{ asset('/') }}assets/js/datatables.js"></script>
   <script src="{{ asset('/') }}assets/js/images.js"></script>
   <script src="{{ asset('/') }}assets/js/button.js"></script>
+  <script src="{{ asset('/') }}assets/js/dashboard.js"></script>
 
   @stack('scripts')
 </body>

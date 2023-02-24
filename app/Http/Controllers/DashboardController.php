@@ -10,6 +10,8 @@ class DashboardController extends Controller
 {
     public function daily(Request $request, $data)
     {
+        $amount_now = 0;
+        $amount_yesterday = 0;
         if ($data === 'mahasiswa') {
             if ($request->date === 'day') {
                 $amount_now = Mahasiswa::whereDay('created_at', now())->count();

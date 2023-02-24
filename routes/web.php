@@ -51,7 +51,7 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::controller(DashboardController::class)->group(function () {
-        Route::post('dashboard/{data}', 'daily');
+        Route::get('dashboard/{data}', 'daily');
     });
 
     Route::group(['middleware' => ['cekUserLogin:mahasiswa']], function(){
