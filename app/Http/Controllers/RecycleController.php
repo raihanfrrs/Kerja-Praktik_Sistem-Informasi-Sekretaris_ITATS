@@ -39,6 +39,9 @@ class RecycleController extends Controller
         }elseif (JenisSurat::where('slug', $slug)->count() > 0) {
             JenisSurat::where('slug', $slug)->update(['status' => 'active']);
             $check++;
+        }elseif (Surat::where('slug', $slug)->count() > 0) {
+            Surat::where('slug', $slug)->update(['status' => 'active']);
+            $check++;
         }elseif (Role::where('slug', $slug)->count() > 0) {
             Role::where('slug', $slug)->update(['status' => 'active']);
             $check++;
