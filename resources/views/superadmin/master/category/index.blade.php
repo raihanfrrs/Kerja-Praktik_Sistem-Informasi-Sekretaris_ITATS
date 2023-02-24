@@ -7,7 +7,7 @@
     </div>
 
     <div class="card-body">
-    <h5 class="card-title">Category <span>| Data Master</span></h5>
+    <h5 class="card-title">Jenis Surat <span>| Data Master</span></h5>
         <div class="table-responsive">
             <table id="dataCategory" class="table table-borderless datatable">
                 <thead>

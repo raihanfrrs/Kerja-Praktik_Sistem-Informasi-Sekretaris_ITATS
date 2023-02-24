@@ -84,7 +84,7 @@
             @endforeach
 
             @if ($jenis_surats->count() != 0)
-            <h5 class="card-title">Surat <span>| List</span></h5>
+            <h5 class="card-title">Jenis Surat <span>| List</span></h5>
             @endif
 
             @foreach ($jenis_surats as $jenis_surat)
