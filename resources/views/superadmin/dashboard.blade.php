@@ -12,23 +12,22 @@
                 <h6>Filter</h6>
                 </li>
 
-                <li><a class="dropdown-item" href="#" id="day">Today</a></li>
-                <li><a class="dropdown-item" href="#" id="month">This Month</a></li>
-                <li><a class="dropdown-item" href="#" id="year">This Year</a></li>
+                <li><a class="dropdown-item mahasiswa" href="#" id="day">Today</a></li>
+                <li><a class="dropdown-item mahasiswa" href="#" id="month">This Month</a></li>
+                <li><a class="dropdown-item mahasiswa" href="#" id="year">This Year</a></li>
             </ul>
             </div>
 
             <div class="card-body">
-            <h5 class="card-title">Mahasiswa <span>|</span> <span id="date">Today</span></h5>
+            <h5 class="card-title">Mahasiswa <span>|</span> <span id="mahasiswa-date">Today</span></h5>
 
             <div class="d-flex align-items-center">
                 <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                     <i class="bi bi-people"></i>
                 </div>
                 <div class="ps-3">
-                <h6 id="mahasiswa-amount"></h6>
-                <span class="text-success small pt-1 fw-bold" id="percent">12%</span> <span class="text-muted small pt-2 ps-1">increase</span>
-
+                <h6 id="amount-mahasiswa"></h6>
+                <span class="text-success small pt-1 fw-bold" id="percent-mahasiswa"></span> <span class="text-muted small pt-2 ps-1">increase</span>
                 </div>
             </div>
             </div>
@@ -47,22 +46,22 @@
                 <h6>Filter</h6>
                 </li>
 
-                <li><a class="dropdown-item" href="#">Today</a></li>
-                <li><a class="dropdown-item" href="#">This Month</a></li>
-                <li><a class="dropdown-item" href="#">This Year</a></li>
+                <li><a class="dropdown-item dosen" href="#" id="day">Today</a></li>
+                <li><a class="dropdown-item dosen" href="#" id="month">This Month</a></li>
+                <li><a class="dropdown-item dosen" href="#" id="year">This Year</a></li>
             </ul>
             </div>
 
             <div class="card-body">
-            <h5 class="card-title">Dosen <span>| This Month</span></h5>
+            <h5 class="card-title">Dosen <span>|</span> <span id="date-dosen">Today</span></h5>
 
             <div class="d-flex align-items-center">
                 <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                <i class="bi bi-currency-dollar"></i>
+                    <i class="bi bi-people-fill"></i>
                 </div>
                 <div class="ps-3">
-                <h6>$3,264</h6>
-                <span class="text-success small pt-1 fw-bold">8%</span> <span class="text-muted small pt-2 ps-1">increase</span>
+                <h6 id="amount-dosen"></h6>
+                <span class="text-success small pt-1 fw-bold" id="percent-dosen"></span> <span class="text-muted small pt-2 ps-1">increase</span>
 
                 </div>
             </div>
