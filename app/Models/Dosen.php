@@ -38,4 +38,9 @@ class Dosen extends Model
     {
         return $this->hasOne(JobDosen::class);
     }
+
+    public function request()
+    {
+        return $this->hasMany(Request::class);
+    }
 }

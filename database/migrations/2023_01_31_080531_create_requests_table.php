@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Dosen;
+use App\Models\Mahasiswa;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,6 +17,8 @@ class CreateRequestsTable extends Migration
     {
         Schema::create('requests', function (Blueprint $table) {
             $table->id();
+            $table->foreignIdFor(Dosen::class);
+            $table->foreignIdFor(Mahasiswa::class);
             $table->timestamps();
         });
     }

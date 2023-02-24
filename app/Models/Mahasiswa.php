@@ -32,4 +32,9 @@ class Mahasiswa extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function request()
+    {
+        return $this->hasMany(Request::class);
+    }
 }
