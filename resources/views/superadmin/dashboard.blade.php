@@ -23,7 +23,7 @@
 
             <div class="d-flex align-items-center">
                 <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                <i class="bi bi-cart"></i>
+                    <i class="bi bi-people"></i>
                 </div>
                 <div class="ps-3">
                 <h6 id="mahasiswa-amount"></h6>
@@ -181,6 +181,7 @@
                     "date": "day"
                 },
                 success: function(data){
+                    console.log(data);
                     $("#mahasiswa-amount").html(data.amount);
                     $("#percent").html(data.percent+"%");
                 }
@@ -206,6 +207,7 @@
                     "date": date
                 },
                 success: function(data){
+                    console.log(data);
                     $("#mahasiswa-amount").html(data.amount);
                     $("#percent").html(data.percent+"%");
                 }
