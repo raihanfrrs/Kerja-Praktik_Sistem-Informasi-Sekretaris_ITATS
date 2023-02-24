@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LayoutController;
 use App\Http\Controllers\LogoutController;
+use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\MasterController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RecycleController;
@@ -55,7 +56,13 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::group(['middleware' => ['cekUserLogin:mahasiswa']], function(){
-        
+        Route::controller(MahasiswaController::class)->group(function () {
+            /* request surat resource */
+            Route::get('request','request_index');
+
+            /* request surat resource */
+            Route::get('accept','accept_index');
+        });
     });
 
     Route::group(['middleware' => ['cekUserLogin:dosen']], function(){

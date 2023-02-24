@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             DosenSeeder::class,
             MahasiswaSeeder::class,
             RoleSeeder::class,
+            SuratSeeder::class,
             JenisSuratSeeder::class,
             JobDosenSeeder::class,
             JobRoleSeeder::class

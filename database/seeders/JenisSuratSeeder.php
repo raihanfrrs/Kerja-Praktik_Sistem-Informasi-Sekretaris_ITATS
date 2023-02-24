@@ -24,6 +24,11 @@ class JenisSuratSeeder extends Seeder
                 'jenis' => 'Aktif Kuliah',
                 'slug' => 'aktif-kuliah',
                 'status' => 'active'
+            ],
+            [
+                'jenis' => 'MBKM',
+                'slug' => 'mbkm',
+                'status' => 'active'
             ]
         ];
 
