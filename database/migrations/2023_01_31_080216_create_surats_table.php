@@ -18,6 +18,7 @@ class CreateSuratsTable extends Migration
             $table->id();
             $table->foreignIdFor(JenisSurat::class);
             $table->string('name');
+            $table->string('slug');
             $table->text('description');
             $table->enum('status', ['active', 'deactivated']);
             $table->timestamps();

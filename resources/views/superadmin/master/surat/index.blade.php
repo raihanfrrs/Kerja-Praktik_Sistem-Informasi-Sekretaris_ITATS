@@ -9,11 +9,13 @@
     <div class="card-body">
     <h5 class="card-title">Surat <span>| Data Master</span></h5>
         <div class="table-responsive">
-            <table id="dataJenisSurat" class="table table-borderless datatable">
+            <table id="dataSurat" class="table table-borderless datatable">
                 <thead>
                     <tr>
-                        <th scope="col">Jenis Surat</th>
-                        <th scope="col">Action</th>
+                        <th scope="col" class="text-center">Surat</th>
+                        <th scope="col" class="text-center">Jenis Surat</th>
+                        <th scope="col" class="text-center">Description</th>
+                        <th scope="col" class="text-center">Action</th>
                     </tr>
                 </thead>
             </table>

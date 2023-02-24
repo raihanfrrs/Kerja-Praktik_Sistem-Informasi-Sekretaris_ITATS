@@ -89,6 +89,15 @@ Route::middleware('auth')->group(function () {
             Route::put('dosen/{dosen}', 'dosen_update');
             Route::delete('dosen/{dosen}', 'dosen_destroy');
 
+            /* category master resource */
+            Route::get('category', 'category_index');
+            Route::get('category/add', 'category_create');
+            Route::post('category', 'category_store');
+            Route::get('category/{category}', 'category_show');
+            Route::get('category/{category}/edit', 'category_edit');
+            Route::put('category/{category}', 'category_update');
+            Route::delete('category/{category}', 'category_destroy');
+            
             /* surat master resource */
             Route::get('surat', 'surat_index');
             Route::get('surat/add', 'surat_create');
@@ -109,7 +118,8 @@ Route::middleware('auth')->group(function () {
 
             Route::get('/dataMahasiswa', [MasterController::class, 'dataMahasiswa'])->name('dataMahasiswa');
             Route::get('/dataDosen', [MasterController::class, 'dataDosen'])->name('dataDosen');
-            Route::get('/dataJenisSurat', [MasterController::class, 'dataSurat'])->name('dataJenisSurat');
+            Route::get('/dataCategory', [MasterController::class, 'dataCategory'])->name('dataCategory');
+            Route::get('/dataSurat', [MasterController::class, 'dataSurat'])->name('dataSurat');
             Route::get('/dataRole', [MasterController::class, 'dataRole'])->name('dataRole');
         });
 

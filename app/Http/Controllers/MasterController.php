@@ -9,6 +9,7 @@ use App\Models\JenisSurat;
 use App\Models\JobRole;
 use App\Models\Mahasiswa;
 use App\Models\Role;
+use App\Models\Surat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
@@ -309,6 +310,91 @@ class MasterController extends Controller
 
     /* DOSEN METHOD END SECTION */
     
+    /* CATEGORY METHOD SECTION */
+
+    public function category_index()
+    {
+        return view('superadmin.master.category.index');
+    }
+    
+    public function category_create()
+    {
+        return view('superadmin.master.category.add-category');
+    }
+
+    public function category_store(Request $request)
+    {
+        $validateData = $request->validate([
+            'jenis' => 'required|min:2|max:255|unique:jenis_surats'
+        ]);
+
+        JenisSurat::create($validateData);
+
+        return redirect('category/add')->with([
+            'flash-type' => 'sweetalert',
+            'case' => 'default',
+            'position' => 'center',
+            'type' => 'success',
+            'message' => 'Surat Added!'
+        ]);
+    }
+    
+    public function category_edit(JenisSurat $category)
+    {
+        return view('superadmin.master.category.edit-category')->with([
+            'category' => $category
+        ]);
+    }
+    
+    public function category_update(Request $request, JenisSurat $category)
+    {
+        $validateData = $request->validate([
+            'jenis' => 'required|min:2|max:255|unique:jenis_surats'
+        ]);
+
+        $validateData['slug'] = slug($request->jenis);
+
+        JenisSurat::findOrFail($category->id)->update($validateData);
+
+        return redirect('category')->with([
+            'flash-type' => 'sweetalert',
+            'case' => 'default',
+            'position' => 'center',
+            'type' => 'success',
+            'message' => 'Surat Updated!'
+        ]);
+    }
+    
+    public function category_show(JenisSurat $surat)
+    {
+        
+    }
+    
+    public function category_destroy(Request $request, JenisSurat $category)
+    {
+        JenisSurat::findOrFail($category->id)->update(['status' => 'deactivated']);
+        session(['deactivate' => $request->session()->get('deactivate')+1]);
+
+        return redirect('category')->with([
+            'flash-type' => 'sweetalert',
+            'case' => 'default',
+            'position' => 'center',
+            'type' => 'success',
+            'message' => 'Surat Deleted!'
+        ]);
+    }
+
+    public function dataCategory()
+    {
+        return DataTables::of(JenisSurat::where('status', 'active')->get())
+        ->addColumn('action', function ($model) {
+            return view('superadmin.master.category.form-action', compact('model'))->render();
+        })
+        ->make(true);
+    }
+
+    /* CATEGORY METHOD END SECTION */
+
     /* SURAT METHOD SECTION */
 
     public function surat_index()
@@ -318,60 +404,37 @@ class MasterController extends Controller
     
     public function surat_create()
     {
-        return view('superadmin.master.surat.add-surat');
+        return view('superadmin.master.role.add-surat')->with([
+            'surats' => Surat::where('status', 'active')->get()
+        ]);
     }
 
     public function surat_store(Request $request)
     {
-        $validateData = $request->validate([
-            'jenis' => 'required|min:2|max:255|unique:jenis_surats'
-        ]);
 
-        JenisSurat::create($validateData);
-
-        return redirect('surat/add')->with([
-            'flash-type' => 'sweetalert',
-            'case' => 'default',
-            'position' => 'center',
-            'type' => 'success',
-            'message' => 'Surat Added!'
-        ]);
     }
     
-    public function surat_edit(JenisSurat $surat)
+    public function surat_edit(Surat $surat)
     {
         return view('superadmin.master.surat.edit-surat')->with([
-            'surat' => $surat
+            'surat' => $surat,
+            'jenis_surats' => JenisSurat::all()
         ]);
     }
     
-    public function surat_update(Request $request, JenisSurat $surat)
-    {
-        $validateData = $request->validate([
-            'jenis' => 'required|min:2|max:255|unique:jenis_surats'
-        ]);
-
-        $validateData['slug'] = slug($request->jenis);
-
-        JenisSurat::findOrFail($surat->id)->update($validateData);
-
-        return redirect('surat')->with([
-            'flash-type' => 'sweetalert',
-            'case' => 'default',
-            'position' => 'center',
-            'type' => 'success',
-            'message' => 'Surat Updated!'
-        ]);
-    }
-    
-    public function surat_show(JenisSurat $surat)
+    public function surat_update(Request $request, Surat $surat)
     {
         
     }
     
-    public function surat_destroy(Request $request, JenisSurat $surat)
+    public function surat_show(Surat $surat)
     {
-        JenisSurat::findOrFail($surat->id)->update(['status' => 'deactivated']);
+
+    }
+    
+    public function surat_destroy(Request $request, Surat $surat)
+    {
+        Surat::findOrFail($surat->id)->update(['status' => 'deactivated']);
         session(['deactivate' => $request->session()->get('deactivate')+1]);
 
         return redirect('surat')->with([
@@ -379,16 +442,23 @@ class MasterController extends Controller
             'case' => 'default',
             'position' => 'center',
             'type' => 'success',
-            'message' => 'Surat Deleted!'
+            'message' => 'Role Deleted!'
         ]);
     }
 
     public function dataSurat()
     {
-        return DataTables::of(JenisSurat::where('status', 'active')->get())
+        return DataTables::of(Surat::join('jenis_surats', 'surats.jenis_surat_id', '=', 'jenis_surats.id')
+                                    ->select('surats.*', 'jenis_surats.jenis')
+                                    ->where('surats.status', 'active')
+                                    ->get())
+        ->addColumn('description', function ($model) {
+            return view('superadmin.master.surat.data-desc', compact('model'))->render();
+        })
         ->addColumn('action', function ($model) {
             return view('superadmin.master.surat.form-action', compact('model'))->render();
         })
+        ->rawColumns(['description', 'action'])
         ->make(true);
     }
 

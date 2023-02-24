@@ -18,12 +18,14 @@
 
   <!-- Vendor JS Files -->
   <script src="{{ asset('/') }}assets/vendor/sweetalert2/js/sweetalert2.min.js"></script>
+  <script src="{{ asset('/') }}assets/vendor/trix-editor/js/trix.umd.min.js"></script>
 
   <!-- Vendor CSS Files -->
   <link href="{{ asset('/') }}assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="{{ asset('/') }}assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
   <link href="{{ asset('/') }}assets/vendor/sweetalert2/css/sweetalert2.min.css" rel="stylesheet">
   <link href="{{ asset('/') }}assets/vendor/datatables/css/datatables.min.css" rel="stylesheet">
+  <link href="{{ asset('/') }}assets/vendor/trix-editor/css/trix.css" rel="stylesheet">
 
   <!-- Template Main CSS File -->
   <link href="{{ asset('/') }}assets/css/style.css" rel="stylesheet">

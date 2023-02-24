@@ -26,22 +26,34 @@ $(document).ready(function () {
         ]
     });
 
+    $('#dataCategory').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: '/dataCategory',
+        columns: [
+            { data: 'jenis', name: 'jenis', class: 'text-muted text-capitalize text-center' },
+            { data: 'action', name: 'action', class: 'text-center' }
+        ]
+    });
+
+    $('#dataSurat').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: '/dataSurat',
+        columns: [
+            { data: 'name', name: 'name', class: 'text-muted text-capitalize text-center' },
+            { data: 'jenis', name: 'jenis', class: 'text-muted text-capitalize text-center' },
+            { data: 'description', name: 'description', class: 'text-muted text-center' },
+            { data: 'action', name: 'action', class: 'text-center' }
+        ]
+    });
+
     $('#dataRole').DataTable({
         processing: true,
         serverSide: true,
         ajax: '/dataRole',
         columns: [
             { data: 'role', name: 'role', class: 'text-muted text-capitalize text-center' },
-            { data: 'action', name: 'action', class: 'text-center' }
-        ]
-    });
-
-    $('#dataJenisSurat').DataTable({
-        processing: true,
-        serverSide: true,
-        ajax: '/dataJenisSurat',
-        columns: [
-            { data: 'jenis', name: 'jenis', class: 'text-muted text-capitalize text-center' },
             { data: 'action', name: 'action', class: 'text-center' }
         ]
     });
