@@ -25,7 +25,7 @@
                     @endphp
                     @foreach ($jenis_surats as $jenis_surat)
                     <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" id="{{ $jenis_surat->jenis }}" name="jenis_surat[]" value="{{ $jenis_surat->jenis }}" {{ ($jenis_surat->jenis == $job[$key]->jenis_surat->jenis) ? ' checked' : '' }}>
+                        <input class="form-check-input" type="checkbox" id="{{ $jenis_surat->jenis }}" name="jenis_surat[]" value="{{ $jenis_surat->id }}" {{ ($jenis_surat->jenis == $job[$key]->jenis_surat->jenis) ? ' checked' : '' }}>
                         <label class="form-check-label text-capitalize" for="{{ $jenis_surat->jenis }}">{{ $jenis_surat->jenis }}</label>
                     </div>
                     @php

@@ -418,9 +418,11 @@ class MasterController extends Controller
         $validateData['status'] = 'active';
         $role = Role::create($validateData);
 
-        $validateData['role_id'] = $role->id;
-        $validateData['job'] = implode(',', $request->roles);
-        JobRole::create($validateData);
+        for ($i=0; $i < count($request->jenis_surat); $i++) { 
+            $roles['role_id'] = $role->id;
+            $roles['jenis_surat_id'] = $request->jenis_surat[$i];
+            JobRole::create($roles);
+        }
 
         return redirect('role/add')->with([
             'flash-type' => 'sweetalert',
@@ -454,8 +456,13 @@ class MasterController extends Controller
             Role::findOrFail($role->id)->update($validateData);
         }
 
-        $value['job'] = implode(',', $request->jenis_surat);
-        JobRole::where('role_id', $role->id)->update($value);
+        JobRole::where('role_id', $role->id)->delete();
+
+        for ($i=0; $i < count($request->jenis_surat); $i++) { 
+            $roles['role_id'] = $role->id;
+            $roles['jenis_surat_id'] = $request->jenis_surat[$i];
+            JobRole::create($roles);
+        }
 
         return redirect('role')->with([
             'flash-type' => 'sweetalert',

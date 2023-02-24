@@ -21,7 +21,7 @@
                 <div class="col-sm-10">
                     @foreach ($jenis_surats as $jenis_surat)
                     <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" id="{{ $jenis_surat->jenis }}" name="jenis_surat[]" value="{{ $jenis_surat->jenis }}" {{ (is_array(old('jenis_surat')) and in_array($jenis_surat->jenis, old('jenis_surat'))) ? ' checked' : '' }}>
+                        <input class="form-check-input" type="checkbox" id="{{ $jenis_surat->jenis }}" name="jenis_surat[]" value="{{ $jenis_surat->id }}" {{ (is_array(old('jenis_surat')) and in_array($jenis_surat->jenis, old('jenis_surat'))) ? ' checked' : '' }}>
                         <label class="form-check-label text-capitalize" for="{{ $jenis_surat->jenis }}">{{ $jenis_surat->jenis }}</label>
                     </div>
                     @endforeach
