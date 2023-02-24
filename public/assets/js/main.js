@@ -194,4 +194,11 @@
         form.classList.add('was-validated')
       }, false)
     })
+
+  /**
+   * trix editor
+   */
+  document.addEventListener('trix-file-accept', function (e) {
+    e.preventDefault();
+  })
 })();

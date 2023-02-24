@@ -1339,3 +1339,10 @@ input[type="file"].profile-image {
   font-size: 13px;
   color: #012970;
 }
+
+/*--------------------------------------------------------------
+# Trix Editor
+--------------------------------------------------------------*/
+trix-toolbar [data-trix-button-group="file-tools"] {
+  display: none;
+}

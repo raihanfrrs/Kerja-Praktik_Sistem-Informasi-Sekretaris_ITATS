@@ -17,7 +17,7 @@ class CreateSuratsTable extends Migration
         Schema::create('surats', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(JenisSurat::class);
-            $table->string('name');
+            $table->string('name')->unique();
             $table->string('slug');
             $table->text('description');
             $table->enum('status', ['active', 'deactivated']);

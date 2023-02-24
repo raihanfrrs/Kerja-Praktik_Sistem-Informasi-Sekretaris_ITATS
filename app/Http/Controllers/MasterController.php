@@ -404,27 +404,60 @@ class MasterController extends Controller
     
     public function surat_create()
     {
-        return view('superadmin.master.role.add-surat')->with([
-            'surats' => Surat::where('status', 'active')->get()
+        return view('superadmin.master.surat.add-surat')->with([
+            'jenis_surats' => JenisSurat::where('status', 'active')->get()
         ]);
     }
 
     public function surat_store(Request $request)
     {
+        $validateData = $request->validate([
+            'name' => 'required|min:2|max:255|unique:surats',
+            'jenis_surat_id' => 'required',
+            'description' => 'required'
+        ]);
 
+        Surat::create($validateData);
+
+        return redirect('surat/add')->with([
+            'flash-type' => 'sweetalert',
+            'case' => 'default',
+            'position' => 'center',
+            'type' => 'success',
+            'message' => 'Surat Added!'
+        ]);
     }
     
     public function surat_edit(Surat $surat)
     {
         return view('superadmin.master.surat.edit-surat')->with([
             'surat' => $surat,
-            'jenis_surats' => JenisSurat::all()
+            'jenis_surats' => JenisSurat::where('status', 'active')->get()
         ]);
     }
     
     public function surat_update(Request $request, Surat $surat)
     {
-        
+        $validateData = [
+            'jenis_surat_id' => 'required',
+            'description' => 'required'
+        ];
+
+        if ($request->name != $surat->name) {
+            $validateData['name'] = 'required|min:2|max:255|unique:surats';
+        }
+
+        $rules = $request->validate($validateData);
+
+        Surat::findOrFail($surat->id)->update($rules);
+
+        return redirect('surat')->with([
+            'flash-type' => 'sweetalert',
+            'case' => 'default',
+            'position' => 'center',
+            'type' => 'success',
+            'message' => 'Surat Updated!'
+        ]);
     }
     
     public function surat_show(Surat $surat)
@@ -442,7 +475,7 @@ class MasterController extends Controller
             'case' => 'default',
             'position' => 'center',
             'type' => 'success',
-            'message' => 'Role Deleted!'
+            'message' => 'Surat Deleted!'
         ]);
     }
 

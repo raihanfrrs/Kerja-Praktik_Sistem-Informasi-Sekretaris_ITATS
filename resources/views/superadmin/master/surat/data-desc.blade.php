@@ -1,1 +1,1 @@
-{{ Str::limit($model->description, '100') }}
+{!! Str::limit($model->description, '100') !!}
