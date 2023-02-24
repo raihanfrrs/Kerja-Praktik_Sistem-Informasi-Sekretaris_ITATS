@@ -8,6 +8,7 @@ use App\Models\JobDosen;
 use App\Models\JobRole;
 use App\Models\Mahasiswa;
 use App\Models\Role;
+use App\Models\Surat;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -19,6 +20,7 @@ class RecycleController extends Controller
             'mahasiswas' => Mahasiswa::where('status', 'deactivated')->get(),
             'dosens' => Dosen::where('status', 'deactivated')->get(),
             'jenis_surats' => JenisSurat::where('status', 'deactivated')->get(),
+            'surats' => Surat::where('status', 'deactivated')->get(),
             'roles' => Role::where('roles.status', 'deactivated')
                             ->groupBy('roles.id')
                             ->get()
@@ -69,6 +71,7 @@ class RecycleController extends Controller
         $mahasiswa = Mahasiswa::where('slug', $slug)->get();
         $dosen = Dosen::where('slug', $slug)->get();
         $jenis_surat = JenisSurat::where('slug', $slug)->get();
+        $surat = Surat::where('slug', $slug)->get();
         $role = Role::where('slug', $slug)->get();
 
         if ($mahasiswa->count() > 0) {
@@ -82,6 +85,9 @@ class RecycleController extends Controller
         }elseif (JenisSurat::where('slug', $slug)->count() > 0) {
             JenisSurat::where('slug', $slug)->delete();
             JobRole::where('jenis_surat_id', $jenis_surat[0]->id)->delete();
+            $check++;
+        }elseif (Surat::where('slug', $slug)->count() > 0) {
+            Surat::where('slug', $slug)->delete();
             $check++;
         }elseif (Role::where('slug', $slug)->count() > 0) {
             Role::where('slug', $slug)->delete();

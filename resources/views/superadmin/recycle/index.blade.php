@@ -118,6 +118,41 @@
                 <hr>
             @endforeach
 
+            @if ($surats->count() != 0)
+            <h5 class="card-title">Surat <span>| List</span></h5>
+            @endif
+
+            @foreach ($surats as $surat)
+                <div class="single-notification">
+                    <div class="notification">
+                        <div class="image bg-secondary">
+                            <span>{{ mb_substr($surat->name, 0, 1) }}</span>
+                        </div>
+                        <a href="#" class="content">
+                            <h5 class="fw-bold text-black">{{ Str::ucfirst($surat->name) }}</h5>
+                            <span class="fw-semibold text-muted">Moved in {{ $surat->updated_at->diffForHumans() }}</span>
+                        </a>
+                    </div>
+                    <div class="action">
+                        <form action="/recycle/{{ $surat->slug }}" method="post" id="delete-form-{{ $surat->slug }}">
+                            @csrf
+                            @method('delete')
+                            <button type="submit" id="delete-btn" class="action-btn" value="{{ $surat->slug }}" title="Delete">
+                                <i class="bi bi-trash3"></i>
+                            </button>
+                        </form>
+                        <form action="/recycle/{{ $surat->slug }}" method="post">
+                            @csrf
+                            @method('put')
+                            <button type="submit" class="action-btn" title="Restore">
+                                <i class="bi bi-arrow-clockwise"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                <hr>
+            @endforeach
+
             @if ($roles->count() != 0)
             <h5 class="card-title">Role <span>| List</span></h5>
             @endif
