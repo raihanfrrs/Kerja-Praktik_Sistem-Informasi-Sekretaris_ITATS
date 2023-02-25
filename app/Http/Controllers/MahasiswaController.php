@@ -2,16 +2,38 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
-use App\Models\Mahasiswa;
+use App\Models\Surat;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rules\Password;
 
 class MahasiswaController extends Controller
 {
     public function request_index()
     {
         return view('mahasiswa.request.index');
+    }
+
+    public function request_read(Request $request)
+    {
+        if ($request->search === 'default') {
+            return view('mahasiswa.request.data')->with([
+                'surats' => Surat::where('status', 'active')->orderBy('id', 'ASC')->get()
+            ]);
+        }
+
+        $surat = Surat::where('status', 'active')->orderBy('id', 'ASC')
+                        ->where('name', 'LIKE', '%'.$request->search.'%')
+                        ->orWhere('description', 'LIKE', '%'.$request->search.'%')
+                        ->get();
+
+        if ($surat->count() == 0) {
+            return view('mahasiswa.request.data')->with([
+                'surats' => Surat::where('status', 'active')->orderBy('id', 'ASC')->get()
+            ]);
+        }
+
+        return view('mahasiswa.request.data')->with([
+            'surats' => $surat
+        ]);
     }
 
     public function accept_index()

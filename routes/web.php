@@ -59,6 +59,7 @@ Route::middleware('auth')->group(function () {
         Route::controller(MahasiswaController::class)->group(function () {
             /* request surat resource */
             Route::get('request','request_index');
+            Route::get('request/read', 'request_read');
 
             /* request surat resource */
             Route::get('accept','accept_index');
