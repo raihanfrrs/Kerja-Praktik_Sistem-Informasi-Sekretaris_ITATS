@@ -1,5 +1,5 @@
 <a href="/role/{{ $model->slug }}/edit" class="btn btn-sm btn-warning" title="Edit"><i class="bi bi-pen"></i></a>
-<button class="btn btn-sm btn-primary" title="Details" id="detail-role-button" value="{{ $model->slug }}"><i class="bi bi-eye"></i></button>
+<button class="btn btn-sm btn-primary" title="Details" id="detail-role-button" data-id="{{ $model->slug }}"><i class="bi bi-eye"></i></button>
 <form action="/role/{{ $model->slug }}" method="post" class='d-inline'>
     @csrf
     @method('delete')

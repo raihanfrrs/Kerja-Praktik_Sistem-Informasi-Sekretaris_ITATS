@@ -60,6 +60,7 @@ Route::middleware('auth')->group(function () {
             /* request surat resource */
             Route::get('request','request_index');
             Route::get('request/read', 'request_read');
+            Route::get('request/{surat}/surat', 'request_surat');
 
             /* request surat resource */
             Route::get('accept','accept_index');

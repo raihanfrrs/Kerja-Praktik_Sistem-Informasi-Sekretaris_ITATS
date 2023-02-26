@@ -36,6 +36,12 @@ class MahasiswaController extends Controller
         ]);
     }
 
+    public function request_surat(Surat $surat){
+        return view('mahasiswa.request.data-modal')->with([
+            'surat' => $surat
+        ]);
+    }
+
     public function accept_index()
     {
 
