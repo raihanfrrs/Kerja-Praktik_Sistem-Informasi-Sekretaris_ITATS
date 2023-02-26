@@ -21,7 +21,7 @@
       <ul class="d-flex align-items-center">
 
         @if (auth()->user()->level === 'mahasiswa')
-        <li class="nav-item">
+        <li class="nav-item" id="request-icon">
 
           <a class="nav-link nav-icon" href="#" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Request">
             <i class="bi bi-send"></i>

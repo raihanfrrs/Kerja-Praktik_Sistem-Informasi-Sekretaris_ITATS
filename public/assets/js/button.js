@@ -63,7 +63,24 @@ $(document).on('click', '#request-surat', function () {
             "slug": slug
         },
         success: function(data){
-            console.log(data);
+            if(data){
+                $("#request-icon").load(location.href + " #request-icon");
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: 'Request Added!',
+                    showConfirmButton: false,
+                    timer: 2000
+                });
+            }else{
+                Swal.fire({
+                    position: 'center',
+                    icon: 'warning',
+                    title: 'Request Already Exists!',
+                    showConfirmButton: false,
+                    timer: 2000
+                });
+            }
         }
     });
 });
