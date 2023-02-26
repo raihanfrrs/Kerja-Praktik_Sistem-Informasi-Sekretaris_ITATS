@@ -1,9 +1,14 @@
 $(document).ready(function () {
+    $.ajaxSetup({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr("content")
+        }
+    });
+
     $.ajax({
         type: "get",
-        url: "dashboard/mahasiswa",
+        url: "/dashboard/mahasiswa",
         data: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
             "date": "day"
         },
         success: function(data){
@@ -14,9 +19,8 @@ $(document).ready(function () {
 
     $.ajax({
         type: "get",
-        url: "dashboard/dosen",
+        url: "/dashboard/dosen",
         data: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
             "date": "day"
         },
         success: function(data){
@@ -37,11 +41,16 @@ $(document).on('click', '.dropdown-item.mahasiswa', function () {
         $("#mahasiswa-date").html("<span>This Year</span>");
     }
 
+    $.ajaxSetup({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr("content")
+        }
+    });
+
     $.ajax({
         type: "get",
         url: "dashboard/mahasiswa",
         data: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
             "date": date
         },
         success: function(data){
@@ -62,11 +71,16 @@ $(document).on('click', '.dropdown-item.dosen', function () {
         $("#date-dosen").html("<span>This Year</span>");
     }
 
+    $.ajaxSetup({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr("content")
+        }
+    });
+
     $.ajax({
         type: "get",
         url: "dashboard/dosen",
         data: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
             "date": date
         },
         success: function(data){
