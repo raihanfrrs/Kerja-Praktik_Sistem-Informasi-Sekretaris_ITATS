@@ -73,6 +73,7 @@
   <script src="{{ asset('/') }}assets/vendor/datatables/js/datatables.min.js"></script>
 
   <!-- Template Main JS File -->
+  @auth
   <script src="{{ asset('/') }}assets/js/main.js"></script>
   <script src="{{ asset('/') }}assets/js/datatables.js"></script>
   <script src="{{ asset('/') }}assets/js/images.js"></script>
@@ -80,8 +81,7 @@
   <script src="{{ asset('/') }}assets/js/dashboard.js"></script>
   <script src="{{ asset('/') }}assets/js/search.js"></script>
   <script src="{{ asset('/') }}assets/js/modal.js"></script>
-  
-  @stack('scripts')
+  @endauth
 </body>
 
 </html>

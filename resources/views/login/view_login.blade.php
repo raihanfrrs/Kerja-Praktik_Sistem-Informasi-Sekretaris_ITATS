@@ -16,14 +16,14 @@
     <form class="row g-3 needs-validation" action="{{ url('login/proses') }}" method="post">
       @csrf
       <div class="col-12">
-        <label for="yourUsername" class="form-label">Username</label>
-        <input type="text" name="username" class="form-control @error('username') is-invalid @enderror" id="yourUsername" value="{{ old('username') }}" autocomplete="off">
+        <label for="username" class="form-label">Username</label>
+        <input type="text" name="username" class="form-control @error('username') is-invalid @enderror" id="username" value="{{ old('username') }}" autocomplete="off">
         @error('username')<div class="invalid-feedback">{{ $message }}</div>@enderror
       </div>
 
       <div class="col-12">
-        <label for="yourPassword" class="form-label">Password</label>
-        <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" id="yourPassword">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" id="password" autocomplete="off">
         @error('password')<div class="invalid-feedback">{{ $message }}</div>@enderror
       </div>
 

@@ -168,9 +168,3 @@
     </div><!-- End News & Updates -->
 
 </div>
-
-@push('scripts')
-    <script>
-
-    </script>
-@endpush
