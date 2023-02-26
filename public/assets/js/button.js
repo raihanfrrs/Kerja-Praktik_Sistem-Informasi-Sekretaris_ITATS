@@ -16,3 +16,33 @@ $(document).on('click', '#delete-btn', function(e){
         }
     });
 });
+
+$(document).on('click', '#deactivate-btn', function () {
+    let slug = $(this).val();
+    let level = $(this).data("id");
+
+    if(level === 'mahasiswa' || level === 'dosen'){
+        $.post('/'+level+'/'+slug, {
+            '_token': $('meta[name="csrf-token"]').attr('content'),
+            '_method': 'delete'
+        })
+        .done(response => {
+            Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'Deactivated Successfully!',
+                showConfirmButton: false,
+                timer: 2000
+            });
+            window.setTimeout(function(){
+                window.location.href = window.location.origin+'/'+level;
+            }, 2000);
+            return;
+        })
+        .fail(errors => {
+            return;
+        })
+    }else{
+        window.location.href = window.location.origin;
+    }
+});

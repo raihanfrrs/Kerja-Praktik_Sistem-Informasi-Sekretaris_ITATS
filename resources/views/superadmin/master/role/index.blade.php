@@ -23,24 +23,4 @@
         </div>
     </div>
 </div>
-
-@push('scripts')
-    <script>
-        $(document).on('click', '#detail-role-button', function () {
-            let slug = $(this).val();
-
-            $.post(`{{ url('role') }}/`+slug, {
-                '_token': '{{ csrf_token() }}',
-                '_method': 'get'
-            })
-            .done(response => {
-                $("#modal-role").html(response);
-                $("#detail-role").modal('show');
-            })
-            .fail(errors => {
-                return;
-            })
-        });
-    </script>
-@endpush
 @endsection

@@ -79,7 +79,8 @@
   <script src="{{ asset('/') }}assets/js/button.js"></script>
   <script src="{{ asset('/') }}assets/js/dashboard.js"></script>
   <script src="{{ asset('/') }}assets/js/search.js"></script>
-
+  <script src="{{ asset('/') }}assets/js/modal.js"></script>
+  
   @stack('scripts')
 </body>
 

@@ -68,39 +68,10 @@
     
             @if ($mahasiswa[0]->status == 'disapprove' || $mahasiswa[0]->status == 'approved')
                 <div class="text-center mt-2">
-                    <button class="btn btn-danger" id="deactivate-btn" value="{{ $mahasiswa[0]->slug }}"><i class="bi bi-trash3"></i> Deactivate</button>
+                    <button class="btn btn-danger" id="deactivate-btn" value="{{ $mahasiswa[0]->slug }}" data-id="{{ $mahasiswa[0]->user->level }}"><i class="bi bi-trash3"></i> Deactivate</button>
                 </div>
             @endif
         </div>
     </div>
 </div>
-
-@push('scripts')
-    <script>
-        $(document).on('click', '#deactivate-btn', function () {
-            let slug = $(this).val();
-            
-            $.post(`{{ url('mahasiswa') }}/`+slug, {
-                '_token': '{{ csrf_token() }}',
-                '_method': 'delete'
-            })
-            .done(response => {
-                Swal.fire({
-                    position: 'center',
-                    icon: 'success',
-                    title: 'Deactivated Successfully!',
-                    showConfirmButton: false,
-                    timer: 2000
-                });
-                window.setTimeout(function(){
-                    window.location.href = "{{ url('mahasiswa') }}";
-                }, 2000);
-                return;
-            })
-            .fail(errors => {
-                return;
-            })
-        });
-    </script>
-@endpush
 @endsection
