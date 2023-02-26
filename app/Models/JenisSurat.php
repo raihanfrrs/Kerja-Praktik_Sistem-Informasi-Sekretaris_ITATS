@@ -39,9 +39,4 @@ class JenisSurat extends Model
     {
         return $this->hasMany(JobRole::class);
     }
-
-    public function detail_surat()
-    {
-        return $this->hasMany(DetailRequest::class);
-    }
 }

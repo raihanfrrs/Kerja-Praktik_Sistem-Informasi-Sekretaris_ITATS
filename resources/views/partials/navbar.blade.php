@@ -20,6 +20,18 @@
     <nav class="header-nav ms-auto">
       <ul class="d-flex align-items-center">
 
+        @if (auth()->user()->level === 'mahasiswa')
+        <li class="nav-item">
+
+          <a class="nav-link nav-icon" href="#" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Request">
+            <i class="bi bi-send"></i>
+            @if (Session::get('request') != 0)
+              <span class="badge bg-success badge-number">{{ Session::get('request') }}</span>
+            @endif
+          </a>
+        </li>
+        @endif
+
         @if (auth()->user()->level === 'superadmin')
 
         <li class="nav-item">

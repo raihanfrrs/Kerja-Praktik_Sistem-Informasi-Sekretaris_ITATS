@@ -37,4 +37,9 @@ class Mahasiswa extends Model
     {
         return $this->hasMany(Request::class);
     }
+
+    public function temp_request()
+    {
+        return $this->hasMany(TempRequest::class);
+    }
 }

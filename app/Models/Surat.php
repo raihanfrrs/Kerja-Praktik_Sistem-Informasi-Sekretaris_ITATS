@@ -32,4 +32,14 @@ class Surat extends Model
     {
         return $this->belongsTo(JenisSurat::class);
     }
+
+    public function detail_request()
+    {
+        return $this->hasMany(DetailRequest::class);
+    }
+
+    public function temp_request()
+    {
+        return $this->hasMany(TempRequest::class);
+    }
 }

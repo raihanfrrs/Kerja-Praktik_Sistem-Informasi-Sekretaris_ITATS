@@ -42,6 +42,10 @@ class MahasiswaController extends Controller
         ]);
     }
 
+    public function request_store(Request $request){
+        
+    }
+
     public function accept_index()
     {
 

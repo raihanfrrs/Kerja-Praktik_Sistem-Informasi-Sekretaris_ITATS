@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Request extends Model
+class TempRequest extends Model
 {
     use HasFactory;
 
@@ -13,13 +13,13 @@ class Request extends Model
         'id'
     ];
 
+    public function surat()
+    {
+        return $this->belongsTo(Surat::class);
+    }
+
     public function mahasiswa()
     {
         return $this->belongsTo(Mahasiswa::class);
-    }
-
-    public function detail_request()
-    {
-        return $this->hasMany(DetailRequest::class);
     }
 }

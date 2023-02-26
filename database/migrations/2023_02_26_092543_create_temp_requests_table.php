@@ -1,11 +1,12 @@
 <?php
 
 use App\Models\Mahasiswa;
+use App\Models\Surat;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRequestsTable extends Migration
+class CreateTempRequestsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,8 +15,9 @@ class CreateRequestsTable extends Migration
      */
     public function up()
     {
-        Schema::create('requests', function (Blueprint $table) {
+        Schema::create('temp_requests', function (Blueprint $table) {
             $table->id();
+            $table->foreignIdFor(Surat::class);
             $table->foreignIdFor(Mahasiswa::class);
             $table->timestamps();
         });
@@ -28,6 +30,6 @@ class CreateRequestsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('requests');
+        Schema::dropIfExists('temp_requests');
     }
 }

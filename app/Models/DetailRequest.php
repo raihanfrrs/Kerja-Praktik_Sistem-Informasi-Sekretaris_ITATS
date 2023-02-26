@@ -18,8 +18,13 @@ class DetailRequest extends Model
         return $this->belongsTo(Request::class);
     }
 
-    public function jenis_surat()
+    public function dosen()
     {
-        return $this->belongsTo(JenisSurat::class);
+        return $this->belongsTo(Dosen::class);
+    }
+
+    public function surat()
+    {
+        return $this->belongsTo(Surat::class);
     }
 }

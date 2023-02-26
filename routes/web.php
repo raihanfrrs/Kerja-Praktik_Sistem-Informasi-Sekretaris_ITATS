@@ -61,6 +61,7 @@ Route::middleware('auth')->group(function () {
             Route::get('request','request_index');
             Route::get('request/read', 'request_read');
             Route::get('request/{surat}/surat', 'request_surat');
+            Route::post('request', 'request_store');
 
             /* request surat resource */
             Route::get('accept','accept_index');

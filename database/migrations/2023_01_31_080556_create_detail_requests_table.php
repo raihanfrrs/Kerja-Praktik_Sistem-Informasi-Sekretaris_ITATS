@@ -1,7 +1,8 @@
 <?php
 
-use App\Models\JenisSurat;
+use App\Models\Dosen;
 use App\Models\Request;
+use App\Models\Surat;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -18,7 +19,8 @@ class CreateDetailRequestsTable extends Migration
         Schema::create('detail_requests', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Request::class);
-            $table->foreignIdFor(JenisSurat::class);
+            $table->foreignIdFor(Dosen::class);
+            $table->foreignIdFor(Surat::class);
             $table->string('surat');
             $table->enum('status', ['pending', 'accept', 'reject', 'done']);
             $table->timestamps();
