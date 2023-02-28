@@ -1,3 +1,6 @@
-<a href="/request/{{ $model->id }}/edit" class="btn btn-sm btn-warning" title="Edit"><i class="bi bi-pen"></i></a>
 <a href="/request/{{ $model->id }}" class="btn btn-sm btn-primary" title="Details"><i class="bi bi-eye"></i></a>
-<button class="btn btn-sm btn-danger" title="Delete"><i class="bi bi-trash3"></i></a>
+<form action="/history/{{ $model->id }}" method="post" class="d-inline" id="form-delete-history">
+    @csrf
+    @method('delete')
+    <button class="btn btn-sm btn-danger" title="Delete" id="delete-history-btn"><i class="bi bi-trash3"></i></a>
+</form>

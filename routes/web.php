@@ -58,6 +58,7 @@ Route::middleware('auth')->group(function () {
 
     Route::controller(HistoryController::class)->group(function () {
         Route::get('history', 'index');
+        Route::delete('history/{request}', 'destroy');
 
         Route::get('/dataRequestHistory', [HistoryController::class, 'dataRequestHistory'])->name('dataRequestHistory');
     });

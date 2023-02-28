@@ -34,4 +34,17 @@ class HistoryController extends Controller
         ->rawColumns(['status', 'action'])
         ->make(true);
     }
+
+    public function destroy(ModelsRequest $request){
+        ModelsRequest::findOrFail($request->id)->delete();
+        DetailRequest::where('request_id', $request->id)->delete();
+
+        return redirect('history')->with([
+            'flash-type' => 'sweetalert',
+            'case' => 'default',
+            'position' => 'center',
+            'type' => 'success',
+            'message' => 'Request History Deleted!'
+        ]);
+    }
 }
