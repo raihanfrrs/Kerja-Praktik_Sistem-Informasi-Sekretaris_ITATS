@@ -183,7 +183,9 @@ class MasterController extends Controller
     
     public function dosen_create()
     {
-        return view('superadmin.master.dosen.add-dosen');
+        return view('superadmin.master.dosen.add-dosen')->with([
+            'roles' => Role::where('status', 'active')->get()
+        ]);
     }
 
     public function dosen_store(Request $request)
@@ -199,7 +201,7 @@ class MasterController extends Controller
             'birthDate' => 'required',
             'gender' => 'required',
             'image' => 'image|file|max:2048',
-            'role' => 'required'
+            'role_id' => 'required'
         ]);
 
         $validateData['level'] = 'dosen';
@@ -211,9 +213,14 @@ class MasterController extends Controller
             $validateData['image'] = $request->file('image')->store('profile-image');
         }
         $validateData['user_id'] = $user->id;
-        $validateData['role'] = implode(',', $request->role);
 
-        Dosen::create($validateData);
+        $dosen = Dosen::create($validateData);
+
+        for ($i=0; $i < count($request->role_id); $i++) { 
+            $data['dosen_id'] = $dosen->id;
+            $data['role_id'] = $request->role_id[$i];
+            JobDosen::create($data);
+        }
 
         return redirect('dosen/add')->with([
             'flash-type' => 'sweetalert',

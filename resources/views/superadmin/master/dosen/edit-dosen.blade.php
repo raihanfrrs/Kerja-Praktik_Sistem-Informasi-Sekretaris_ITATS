@@ -93,7 +93,7 @@
 <div class="col-md-5">
     <div class="card">
         <div class="card-body">
-            <h5 class="card-title">Dosen <span>| Image</span></h5>
+            <h5 class="card-title">Dosen <span>| Image</span><sup class="text-danger">*Optional</sup></h5>
             <div class="row">
                 <label for="image" class="col-sm-2 col-form-label">Image</label>
                 <div class="col-sm-10">
