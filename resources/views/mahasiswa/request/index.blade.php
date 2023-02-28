@@ -4,5 +4,7 @@
 
 @include('mahasiswa.request.surat-modal')
 
+@include('mahasiswa.request.request-modal')
+
 <div class="row" id="data-surat"></div>
 @endsection

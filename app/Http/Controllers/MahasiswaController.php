@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DetailRequest;
+use App\Models\Request as ModelsRequest;
+use Illuminate\Http\Request;
 use App\Models\Surat;
 use App\Models\TempRequest;
-use Illuminate\Http\Request;
 
 class MahasiswaController extends Controller
 {
@@ -38,7 +40,7 @@ class MahasiswaController extends Controller
     }
 
     public function request_surat(Surat $surat){
-        return view('mahasiswa.request.data-modal')->with([
+        return view('mahasiswa.request.data-surat-modal')->with([
             'surat' => $surat
         ]);
     }
@@ -46,7 +48,7 @@ class MahasiswaController extends Controller
     public function request_store(Request $request){
         $surat = Surat::where('slug', $request->slug)->get();
 
-        if (TempRequest::where('surat_id', $surat[0]->id)->count() > 0) {
+        if (TempRequest::where('surat_id', $surat[0]->id)->where('mahasiswa_id', auth()->user()->mahasiswa->id)->count() > 0) {
             return false;
         }
 
@@ -58,6 +60,48 @@ class MahasiswaController extends Controller
         session(['request' => $request->session()->get('request')+1]);
         
         TempRequest::create($data);
+
+        return true;
+    }
+
+    public function request_show(){
+        return view('mahasiswa.request.data-request-modal')->with([
+            'requests' => TempRequest::where('mahasiswa_id', auth()->user()->mahasiswa->id)->get()
+        ]);
+    }
+
+    public function request_delete(Request $request){
+        $surat = Surat::where('slug', $request->slug)->get();
+
+        if ($surat->count() == 0) {
+            return false;
+        }
+
+        session(['request' => $request->session()->get('request')-1]);
+
+        TempRequest::where('surat_id', $surat[0]->id)
+                    ->where('mahasiswa_id', auth()->user()->mahasiswa->id)
+                    ->delete();
+
+        return view('mahasiswa.request.data-request-modal')->with([
+            'requests' => TempRequest::where('mahasiswa_id', auth()->user()->mahasiswa->id)->get()
+        ]);
+    }
+
+    public function request_send(Request $request){
+        $tempRequest = TempRequest::where('mahasiswa_id', auth()->user()->mahasiswa->id)->get();
+
+        $data['mahasiswa_id'] = auth()->user()->mahasiswa->id;
+
+        $request = ModelsRequest::create($data);
+        foreach ($tempRequest as $key => $value) {
+            $data['request_id'] = $request->id;
+            $data['surat_id'] = $value->surat_id;
+            DetailRequest::create($data);
+        }
+
+        TempRequest::where('mahasiswa_id', auth()->user()->mahasiswa->id)->delete();
+        session()->forget('request');
 
         return true;
     }

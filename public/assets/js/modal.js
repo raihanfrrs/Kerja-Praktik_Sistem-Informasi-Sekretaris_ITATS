@@ -29,3 +29,18 @@ $(document).on('click', '#detail-surat-button', function () {
         return;
     })
 });
+
+$(document).on('click', '#detail-request-button', function () {
+    $.get('/request/show', {
+        '_token': $('meta[name="csrf-token"]').attr('content'),
+        '_method': 'get'
+    })
+    .done(response => {
+        $("#modal-request").html(response);
+        $("#detail-request").modal('show');
+        return;
+    })
+    .fail(errors => {
+        return;
+    })
+});

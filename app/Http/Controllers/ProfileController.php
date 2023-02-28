@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Dosen;
+use App\Models\JobDosen;
 use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -26,7 +27,8 @@ class ProfileController extends Controller
         }
 
         return view('profile')->with([
-            'user' => $data
+            'user' => $data,
+            'roles' => JobDosen::where('dosen_id', auth()->user()->dosen->id)->get()
         ]);
     }
 

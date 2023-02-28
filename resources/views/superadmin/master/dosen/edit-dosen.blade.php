@@ -72,22 +72,12 @@
                 <div class="row mb-3">
                     <legend class="col-form-label col-sm-2 pt-0">Roles</legend>
                     <div class="col-sm-10">
-                        <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" name="role[]" id="createSwitchCheck" {{ (in_array('create', $role)) ? ' checked' : '' }} value="create">
-                            <label class="form-check-label" for="createSwitchCheck">Create</label>
-                        </div>
-                        <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" name="role[]" id="readSwitchCheck" {{ (in_array('read', $role)) ? ' checked' : '' }} value="read">
-                            <label class="form-check-label" for="readSwitchCheck">Read</label>
-                        </div>
-                        <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" name="role[]" id="updateSwitchCheck" {{ (in_array('update', $role)) ? ' checked' : '' }} value="update">
-                            <label class="form-check-label" for="updateSwitchCheck">Update</label>
-                        </div>
-                        <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" name="role[]" id="deleteSwitchCheck" {{ (in_array('delete', $role)) ? ' checked' : '' }} value="delete">
-                            <label class="form-check-label" for="deleteSwitchCheck">Delete</label>
-                        </div>
+                        @foreach ($roles as $role)
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" name="role_id[]" id="{{ $role->slug }}" {{ in_array(old('role_id', $role->id), $data) ? 'checked' : '' }} value="{{ $role->slug }}">
+                                <label class="form-check-label" for="{{ $role->slug }}">{{ $role->role }}</label>
+                            </div>
+                        @endforeach
                         @if($errors->any())
                         @php
                             $error = $errors->getBags()['default']->get('role');

@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Dosen;
 use App\Models\JenisSurat;
+use App\Models\JobDosen;
 use App\Models\JobRole;
 use App\Models\Mahasiswa;
 use App\Models\Role;
@@ -227,6 +228,7 @@ class MasterController extends Controller
     {
         return view('superadmin.master.dosen.details-dosen')->with([
             'dosen' => Dosen::whereId($dosen->id)->get(),
+            'roles' => JobDosen::where('dosen_id', $dosen->id)->get(),
             'created_at' => Carbon::create($dosen->created_at)->timezone('Asia/Jakarta')->format('Y-m-d H:i:s'),
             'subtitle' => 'Details'
         ]);
@@ -234,9 +236,13 @@ class MasterController extends Controller
     
     public function dosen_edit(Dosen $dosen)
     {
+        foreach ($dosen->job_dosen as $key => $value) {
+            $data[] = $value->role_id;
+        }
         return view('superadmin.master.dosen.edit-dosen')->with([
             'dosen' => $dosen,
-            'role' => explode(',', $dosen->role)
+            'data' => $data,
+            'roles' => Role::where('status', 'active')->get()
         ]);
     }
     

@@ -17,6 +17,7 @@ class CreateRequestsTable extends Migration
         Schema::create('requests', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Mahasiswa::class);
+            $table->enum('status', ['finished', 'unfinished'])->default('unfinished');
             $table->timestamps();
         });
     }

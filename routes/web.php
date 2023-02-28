@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\ArchiveController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\HistoryController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LayoutController;
@@ -52,7 +52,14 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::controller(DashboardController::class)->group(function () {
-        Route::get('dashboard/{data}', 'daily');
+        Route::get('dashboard/{data}/superadmin', 'daily_dosen');
+        Route::get('dashboard/{data}/mahasiswa', 'daily_mahasiswa');
+    });
+
+    Route::controller(HistoryController::class)->group(function () {
+        Route::get('history', 'index');
+
+        Route::get('/dataRequestHistory', [HistoryController::class, 'dataRequestHistory'])->name('dataRequestHistory');
     });
 
     Route::group(['middleware' => ['cekUserLogin:mahasiswa']], function(){
@@ -62,6 +69,9 @@ Route::middleware('auth')->group(function () {
             Route::get('request/read', 'request_read');
             Route::get('request/{surat}/surat', 'request_surat');
             Route::post('request', 'request_store');
+            Route::get('request/show', 'request_show');
+            Route::post('request/delete', 'request_delete');
+            Route::post('request/send', 'request_send');
 
             /* request surat resource */
             Route::get('accept','accept_index');

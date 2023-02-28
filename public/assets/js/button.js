@@ -50,6 +50,40 @@ $(document).on('click', '#deactivate-btn', function () {
 $(document).on('click', '#request-surat', function () {
     let slug = $(this).data('id');
 
+    $.post('/request', {
+        '_token': $('meta[name="csrf-token"]').attr('content'),
+        '_method': 'post',
+        'slug': slug
+    })
+    .done(response => {
+        if(response){
+            $("#request-icon").load(location.href + " #request-icon");
+            Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'Request Added!',
+                showConfirmButton: false,
+                timer: 2000
+            });
+        }else{
+            Swal.fire({
+                position: 'center',
+                icon: 'warning',
+                title: 'Request Already Exists!',
+                showConfirmButton: false,
+                timer: 2000
+            });
+        }
+        return;
+    })
+    .fail(errors => {
+        return;
+    })
+});
+
+$(document).on('click', '#delete-request', function () {
+    let slug = $(this).data('id');
+    
     $.ajaxSetup({
         headers: {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr("content")
@@ -58,29 +92,45 @@ $(document).on('click', '#request-surat', function () {
 
     $.ajax({
         type: "post",
-        url: "/request",
+        url: "/request/delete",
         data: {
             "slug": slug
         },
         success: function(data){
-            if(data){
-                $("#request-icon").load(location.href + " #request-icon");
-                Swal.fire({
-                    position: 'center',
-                    icon: 'success',
-                    title: 'Request Added!',
-                    showConfirmButton: false,
-                    timer: 2000
-                });
-            }else{
+            $("#request-icon").load(location.href + " #request-icon");
+            $("#modal-request").html(data);
+            $("#detail-request").modal('show');
+            if(!data){
                 Swal.fire({
                     position: 'center',
                     icon: 'warning',
-                    title: 'Request Already Exists!',
+                    title: 'Surat Not Found!',
                     showConfirmButton: false,
                     timer: 2000
                 });
             }
         }
     });
+});
+
+$(document).on('click', '#submit-request-btn', function () {
+    $.post('/request/send', {
+        '_token': $('meta[name="csrf-token"]').attr('content'),
+        '_method': 'post'
+    })
+    .done(response => {
+        $("#request-icon").load(location.href + " #request-icon");
+        $("#detail-request").modal('hide');
+        Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Request Success!',
+            showConfirmButton: false,
+            timer: 2000
+        });
+        return;
+    })
+    .fail(errors => {
+        return;
+    })
 });

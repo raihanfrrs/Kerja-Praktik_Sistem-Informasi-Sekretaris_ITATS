@@ -35,7 +35,7 @@ class Dosen extends Model
 
     public function job_dosen()
     {
-        return $this->hasOne(JobDosen::class);
+        return $this->hasMany(JobDosen::class);
     }
 
     public function detail_request()

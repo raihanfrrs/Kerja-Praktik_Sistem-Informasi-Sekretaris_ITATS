@@ -22,7 +22,6 @@ class DosenSeeder extends Seeder
                 'email' => 'bethelsando123@gmail.com',
                 'phone' => '087823312332',
                 'gender' => 'male',
-                'role' => 'create,read,update,delete',
                 'user_id' => '3',
                 'status' => 'active'
             ],
@@ -33,7 +32,6 @@ class DosenSeeder extends Seeder
                 'email' => 'sahnonbamakerti123@gmail.com',
                 'phone' => '0812434342234',
                 'gender' => 'male',
-                'role' => 'create',
                 'user_id' => '4',
                 'status' => 'active'
             ],

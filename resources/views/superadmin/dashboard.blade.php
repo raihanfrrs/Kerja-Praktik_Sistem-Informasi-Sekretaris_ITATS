@@ -1,7 +1,6 @@
 <div class="col-lg-8">
     <div class="row">
 
-        <!-- Sales Card -->
         <div class="col-xxl-4 col-md-6">
         <div class="card info-card sales-card">
 
@@ -33,9 +32,8 @@
             </div>
 
         </div>
-        </div><!-- End Sales Card -->
+        </div>
 
-        <!-- Revenue Card -->
         <div class="col-xxl-4 col-md-6">
         <div class="card info-card revenue-card">
 
@@ -68,9 +66,8 @@
             </div>
 
         </div>
-        </div><!-- End Revenue Card -->
+        </div>
 
-        <!-- Customers Card -->
         <div class="col-xxl-4 col-xl-12">
 
         <div class="card info-card customers-card">
@@ -82,22 +79,22 @@
                 <h6>Filter</h6>
                 </li>
 
-                <li><a class="dropdown-item" href="#">Today</a></li>
-                <li><a class="dropdown-item" href="#">This Month</a></li>
-                <li><a class="dropdown-item" href="#">This Year</a></li>
+                <li><a class="dropdown-item request" href="#" id="day">Today</a></li>
+                <li><a class="dropdown-item request" href="#" id="month">This Month</a></li>
+                <li><a class="dropdown-item request" href="#" id="year">This Year</a></li>
             </ul>
             </div>
 
             <div class="card-body">
-            <h5 class="card-title">Request <span>| This Year</span></h5>
+            <h5 class="card-title">Request <span>|</span> <span id="date-request">Today</span></h5>
 
             <div class="d-flex align-items-center">
                 <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                <i class="bi bi-people"></i>
+                    <i class="bi bi-envelope-open"></i>
                 </div>
                 <div class="ps-3">
-                <h6>1244</h6>
-                <span class="text-danger small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">decrease</span>
+                <h6 id="amount-request"></h6>
+                <span class="text-success small pt-1 fw-bold" id="percent-request"></span> <span class="text-muted small pt-2 ps-1">increase</span>
 
                 </div>
             </div>
@@ -105,15 +102,13 @@
             </div>
         </div>
 
-        </div><!-- End Customers Card -->
+        </div>
 
     </div>
-    </div><!-- End Left side columns -->
+    </div>
 
-    <!-- Right side columns -->
     <div class="col-lg-4">
 
-    <!-- News & Updates Traffic -->
     <div class="card">
         <div class="filter">
         <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
@@ -122,49 +117,20 @@
             <h6>Filter</h6>
             </li>
 
-            <li><a class="dropdown-item" href="#">Today</a></li>
-            <li><a class="dropdown-item" href="#">This Month</a></li>
-            <li><a class="dropdown-item" href="#">This Year</a></li>
+            <li><a class="dropdown-item request-activity" href="#" id="day">Today</a></li>
+            <li><a class="dropdown-item request-activity" href="#" id="month">This Month</a></li>
+            <li><a class="dropdown-item request-activity" href="#" id="year">This Year</a></li>
         </ul>
         </div>
 
         <div class="card-body pb-0">
-        <h5 class="card-title">Request Activity <span>| Today</span></h5>
+        <h5 class="card-title">Request Activity <span>|</span> <span id="date-request-activity">Today</span></h5>
 
         <div class="news">
-            <div class="post-item clearfix">
-            <img src="assets/img/news-1.jpg" alt="">
-            <h4><a href="#">Nihil blanditiis at in nihil autem</a></h4>
-            <p>Sit recusandae non aspernatur laboriosam. Quia enim eligendi sed ut harum...</p>
-            </div>
-
-            <div class="post-item clearfix">
-            <img src="assets/img/news-2.jpg" alt="">
-            <h4><a href="#">Quidem autem et impedit</a></h4>
-            <p>Illo nemo neque maiores vitae officiis cum eum turos elan dries werona nande...</p>
-            </div>
-
-            <div class="post-item clearfix">
-            <img src="assets/img/news-3.jpg" alt="">
-            <h4><a href="#">Id quia et et ut maxime similique occaecati ut</a></h4>
-            <p>Fugiat voluptas vero eaque accusantium eos. Consequuntur sed ipsam et totam...</p>
-            </div>
-
-            <div class="post-item clearfix">
-            <img src="assets/img/news-4.jpg" alt="">
-            <h4><a href="#">Laborum corporis quo dara net para</a></h4>
-            <p>Qui enim quia optio. Eligendi aut asperiores enim repellendusvel rerum cuder...</p>
-            </div>
-
-            <div class="post-item clearfix">
-            <img src="assets/img/news-5.jpg" alt="">
-            <h4><a href="#">Et dolores corrupti quae illo quod dolor</a></h4>
-            <p>Odit ut eveniet modi reiciendis. Atque cupiditate libero beatae dignissimos eius...</p>
-            </div>
-
-        </div><!-- End sidebar recent posts-->
+            <div id="data-request-activity"></div>
+        </div>
 
         </div>
-    </div><!-- End News & Updates -->
+    </div>
 
 </div>

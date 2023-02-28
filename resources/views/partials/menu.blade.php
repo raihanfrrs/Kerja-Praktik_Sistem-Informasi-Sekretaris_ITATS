@@ -27,19 +27,6 @@
 
 @elseif (auth()->user()->level == 'dosen')
 <li class="nav-item">
-    <a class="nav-link collapsed" data-bs-target="#master-dosen-nav" data-bs-toggle="collapse" href="#">
-        <i class="bi bi-collection"></i><span>Data Master</span><i class="bi bi-chevron-down ms-auto"></i>
-    </a>
-    <ul id="master-dosen-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-        <li>
-        <a href="icons-bootstrap.html">
-            <i class="bi bi-circle"></i><span>Surat</span>
-        </a>
-        </li>
-    </ul>
-</li>
-
-<li class="nav-item">
     <a class="nav-link collapsed" data-bs-target="#keperluan-dosen-nav" data-bs-toggle="collapse" href="#">
         <i class="bi bi-journals"></i><span>Keperluan</span><i class="bi bi-chevron-down ms-auto"></i>
     </a>

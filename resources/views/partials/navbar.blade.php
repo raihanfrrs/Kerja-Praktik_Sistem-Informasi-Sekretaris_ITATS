@@ -20,10 +20,10 @@
     <nav class="header-nav ms-auto">
       <ul class="d-flex align-items-center">
 
-        @if (auth()->user()->level === 'mahasiswa')
+        @if (auth()->user()->level === 'mahasiswa' && request()->is('request', 'request/*'))
         <li class="nav-item" id="request-icon">
 
-          <a class="nav-link nav-icon" href="#" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Request">
+          <a class="nav-link nav-icon" id="detail-request-button" href="#" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Request">
             <i class="bi bi-send"></i>
             @if (Session::get('request') != 0)
               <span class="badge bg-success badge-number">{{ Session::get('request') }}</span>

@@ -54,7 +54,17 @@
                 <div class="row">
                     <div class="col-lg-3 col-md-4 label text-muted">Role</div>
                     <div class="col-lg-9 col-md-8 text-capitalize">
-                        @if($dosen[0]->role) {{ Str::ucfirst($dosen[0]->role) }} @else - @endif
+                        @if($roles->count() > 1)
+                        <ul class="mb-0 roles">
+                            @foreach ($roles as $role)
+                                <li>{{ $role->role->role }}</li>
+                            @endforeach
+                        </ul>
+                        @elseif($roles->count() == 1)
+                            {{ $roles[0]->role->role }}
+                        @else 
+                            - 
+                        @endif
                     </div>
                 </div>
 

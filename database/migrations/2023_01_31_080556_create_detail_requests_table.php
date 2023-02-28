@@ -19,10 +19,10 @@ class CreateDetailRequestsTable extends Migration
         Schema::create('detail_requests', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Request::class);
-            $table->foreignIdFor(Dosen::class);
+            $table->foreignIdFor(Dosen::class)->nullable();
             $table->foreignIdFor(Surat::class);
-            $table->string('surat');
-            $table->enum('status', ['pending', 'accept', 'reject', 'done']);
+            $table->string('surat')->nullable();
+            $table->enum('status', ['pending', 'accept', 'reject', 'done'])->default('pending');
             $table->timestamps();
         });
     }
