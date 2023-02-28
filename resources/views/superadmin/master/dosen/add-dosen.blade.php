@@ -126,7 +126,6 @@
       
       <div class="text-center mt-3">
         <button type="submit" class="btn btn-primary"><i class="bi bi-save"></i> Submit</button>
-        <a href="{{ url('/dosen') }}" class="btn btn-warning"><i class="bi bi-arrow-bar-left"></i> Back</a>
       </div>
     </div>
   </div>

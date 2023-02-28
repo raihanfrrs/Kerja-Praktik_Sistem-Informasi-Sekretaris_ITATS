@@ -246,6 +246,7 @@ class MasterController extends Controller
         foreach ($dosen->job_dosen as $key => $value) {
             $data[] = $value->role_id;
         }
+        
         return view('superadmin.master.dosen.edit-dosen')->with([
             'dosen' => $dosen,
             'data' => $data,
@@ -260,8 +261,7 @@ class MasterController extends Controller
             'birthPlace' => 'required|max:225|min:3',
             'birthDate' => 'required',
             'gender' => 'required',
-            'image' => 'image|file|max:2048',
-            'role' => 'required'
+            'image' => 'image|file|max:2048'
         ];
 
         if($request->nip != $dosen->nip){
@@ -285,7 +285,16 @@ class MasterController extends Controller
             $validateData['image'] = $request->file('image')->store('profile-image');
         }
 
-        // $validateData['role'] = implode(',', $request->role);
+        $request->validate(['role_id' => 'required']);
+
+        JobDosen::where('dosen_id', $dosen->id)->delete();
+
+        for ($i=0; $i < count($request->role_id); $i++) { 
+            $data['dosen_id'] = $dosen->id;
+            $data['role_id'] = $request->role_id[$i];
+
+            JobDosen::create($data);
+        }
 
         $validateData['slug'] = slug($request->name);
             

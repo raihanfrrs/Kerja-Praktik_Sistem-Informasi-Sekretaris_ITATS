@@ -74,13 +74,13 @@
                     <div class="col-sm-10">
                         @foreach ($roles as $role)
                             <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" name="role_id[]" id="{{ $role->slug }}" {{ in_array(old('role_id', $role->id), $data) ? 'checked' : '' }} value="{{ $role->slug }}">
+                                <input class="form-check-input" type="checkbox" name="role_id[]" id="{{ $role->slug }}" {{ in_array(old('role_id', $role->id), $data) ? 'checked' : '' }} value="{{ $role->id }}">
                                 <label class="form-check-label" for="{{ $role->slug }}">{{ $role->role }}</label>
                             </div>
                         @endforeach
                         @if($errors->any())
                         @php
-                            $error = $errors->getBags()['default']->get('role');
+                            $error = $errors->getBags()['default']->get('role_id');
                         @endphp
                         <span class="text-danger">{{$error[0]}}</span>
                         @endif
