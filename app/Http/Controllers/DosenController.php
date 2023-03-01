@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DetailRequest;
 use App\Models\Dosen;
 use App\Models\Request as ModelsRequest;
 use Illuminate\Http\Request;
@@ -38,8 +39,7 @@ class DosenController extends Controller
 
         if ($request->search === 'default') {
             return view('dosen.receive.data')->with([
-                'receives' => ModelsRequest::select('requests.mahasiswa_id')
-                                        ->join('mahasiswas', 'requests.mahasiswa_id', '=', 'mahasiswas.id')
+                'receives' => ModelsRequest::select('requests.mahasiswa_id', ModelsRequest::raw('COUNT(*) as amount'))
                                         ->join('detail_requests', 'requests.id', '=', 'detail_requests.request_id')
                                         ->whereIn('detail_requests.surat_id', $data)
                                         ->where('requests.status', 'unfinished')
