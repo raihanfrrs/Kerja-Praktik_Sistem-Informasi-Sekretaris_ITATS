@@ -1,8 +1,8 @@
 $(document).ready(function () {
-    read();
+    request();
 });
 
-function read() {
+function request() {
     $.get("/request/read", { 'search': 'default' }, function(surat, status){
         $("#data-surat").html(surat);
     })

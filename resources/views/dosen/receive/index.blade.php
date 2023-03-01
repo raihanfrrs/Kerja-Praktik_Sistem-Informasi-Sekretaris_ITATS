@@ -1,5 +1,6 @@
 @extends('layouts.main')
 
 @section('section')
-    test
+
+<div class="row" id="data-surat"></div>
 @endsection

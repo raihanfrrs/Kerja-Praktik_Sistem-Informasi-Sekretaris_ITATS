@@ -78,8 +78,14 @@
   <script src="{{ asset('/') }}assets/js/datatables.js"></script>
   <script src="{{ asset('/') }}assets/js/images.js"></script>
   <script src="{{ asset('/') }}assets/js/button.js"></script>
+  @if (request()->is('/'))
   <script src="{{ asset('/') }}assets/js/dashboard.js"></script>
-  <script src="{{ asset('/') }}assets/js/search.js"></script>
+  @endif
+  @if (auth()->user()->level === 'mahasiswa')
+  <script src="{{ asset('/') }}assets/js/req-mahasiswa.js"></script>
+  @else
+  <script src="{{ asset('/') }}assets/js/req-dosen.js"></script>
+  @endif
   <script src="{{ asset('/') }}assets/js/modal.js"></script>
   @endauth
 </body>

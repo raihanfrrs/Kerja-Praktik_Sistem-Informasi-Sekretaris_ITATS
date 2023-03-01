@@ -10,7 +10,11 @@ class DosenController extends Controller
 {
     public function receive_index()
     {
+        return view('dosen.receive.index');
+    }
 
+    public function receive_read(Request $request)
+    {
         $dosens = Dosen::select('surats.id')
                     ->join('job_dosens', 'dosens.id', '=', 'job_dosens.dosen_id')
                     ->join('job_roles', 'job_dosens.role_id', '=', 'job_roles.role_id')
@@ -23,12 +27,31 @@ class DosenController extends Controller
             $data[] = $dosen->id;
         }
 
-        return view('dosen.receive.index')->with([
-            'receives' => ModelsRequest::select('requests.id')
-                                    ->join('detail_requests', 'requests.id', '=', 'detail_requests.request_id')
-                                    ->whereIn('detail_requests.surat_id', $data)
-                                    ->groupBy('requests.id')
-                                    ->get()
-        ]);
+        ModelsRequest::select('requests.id')
+                    ->join('detail_requests', 'requests.id', '=', 'detail_requests.request_id')
+                    ->whereIn('detail_requests.surat_id', $data)
+                    ->groupBy('requests.id')
+                    ->get();
+
+        // if ($request->search === 'default') {
+        //     return view('mahasiswa.request.data')->with([
+        //         'surats' => Surat::where('status', 'active')->orderBy('id', 'ASC')->get()
+        //     ]);
+        // }
+
+        // $surat = Surat::where('status', 'active')->orderBy('id', 'ASC')
+        //                 ->where('name', 'LIKE', '%'.$request->search.'%')
+        //                 ->orWhere('description', 'LIKE', '%'.$request->search.'%')
+        //                 ->get();
+
+        // if ($surat->count() == 0) {
+        //     return view('mahasiswa.request.data')->with([
+        //         'surats' => Surat::where('status', 'active')->orderBy('id', 'ASC')->get()
+        //     ]);
+        // }
+
+        // return view('mahasiswa.request.data')->with([
+        //     'surats' => $surat
+        // ]);
     }
 }
