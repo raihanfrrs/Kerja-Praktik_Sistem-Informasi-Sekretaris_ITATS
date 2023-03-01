@@ -6,5 +6,5 @@
 
 @include('mahasiswa.request.request-modal')
 
-<div class="row" id="data-received"></div>
+<div class="row" id="data-surat"></div>
 @endsection

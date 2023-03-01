@@ -2,5 +2,5 @@
 
 @section('section')
 
-<div class="row" id="data-surat"></div>
+<div class="row" id="data-receive"></div>
 @endsection

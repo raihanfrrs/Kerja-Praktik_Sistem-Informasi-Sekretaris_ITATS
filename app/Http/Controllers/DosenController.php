@@ -27,17 +27,26 @@ class DosenController extends Controller
             $data[] = $dosen->id;
         }
 
-        ModelsRequest::select('requests.id')
-                    ->join('detail_requests', 'requests.id', '=', 'detail_requests.request_id')
-                    ->whereIn('detail_requests.surat_id', $data)
-                    ->groupBy('requests.id')
-                    ->get();
+        // ModelsRequest::select('requests.*', ModelsRequest::raw('count(*) as amount'))
+        //                                 ->join('detail_requests', 'requests.id', '=', 'detail_requests.request_id')
+        //                                 ->whereIn('detail_requests.surat_id', $data)
+        //                                 ->where('requests.status', 'unfinished')
+        //                                 ->where('requests.mahasiswa_id', '1')
+        //                                 ->groupBy('requests.id')
+        //                                 ->orderBy('requests.id', 'ASC')
+        //                                 ->get()
 
-        // if ($request->search === 'default') {
-        //     return view('mahasiswa.request.data')->with([
-        //         'surats' => Surat::where('status', 'active')->orderBy('id', 'ASC')->get()
-        //     ]);
-        // }
+        if ($request->search === 'default') {
+            return view('dosen.receive.data')->with([
+                'receives' => ModelsRequest::select('requests.mahasiswa_id')
+                                        ->join('mahasiswas', 'requests.mahasiswa_id', '=', 'mahasiswas.id')
+                                        ->join('detail_requests', 'requests.id', '=', 'detail_requests.request_id')
+                                        ->whereIn('detail_requests.surat_id', $data)
+                                        ->where('requests.status', 'unfinished')
+                                        ->groupBy('requests.mahasiswa_id')
+                                        ->get()
+            ]);
+        }
 
         // $surat = Surat::where('status', 'active')->orderBy('id', 'ASC')
         //                 ->where('name', 'LIKE', '%'.$request->search.'%')

@@ -3,7 +3,7 @@ $(document).ready(function () {
 });
 
 function receive() {
-    $.get("/receive/read", { 'search': 'default' }, function(received, status){
-        $("#data-received").html(surat);
+    $.get("/receive/read", { 'search': 'default' }, function(receive, status){
+        $("#data-receive").html(receive);
     })
 }

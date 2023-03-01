@@ -21,15 +21,15 @@ class ProfileController extends Controller
     public function index()
     {
         if(auth()->user()->level == 'mahasiswa'){
-            $data = Mahasiswa::where('user_id', auth()->user()->id)->get();
+            return view('profile')->with([
+                'user' => Mahasiswa::where('user_id', auth()->user()->id)->get()
+            ]);
         }else{
-            $data = Dosen::where('user_id', auth()->user()->id)->get();
+            return view('profile')->with([
+                'user' => Dosen::where('user_id', auth()->user()->id)->get(),
+                'roles' => JobDosen::where('dosen_id', auth()->user()->dosen->id)->get()
+            ]);
         }
-
-        return view('profile')->with([
-            'user' => $data,
-            'roles' => JobDosen::where('dosen_id', auth()->user()->dosen->id)->get()
-        ]);
     }
 
     public function update(Request $request, mahasiswa $mahasiswa, dosen $dosen)
