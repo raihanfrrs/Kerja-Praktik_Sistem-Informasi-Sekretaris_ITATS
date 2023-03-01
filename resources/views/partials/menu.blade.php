@@ -5,7 +5,7 @@
     </a>
     <ul id="keperluan-mhs-nav" class="nav-content collapse {{ request()->is('request', 'accept') ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
         <li>
-        <a href="{{ url('request') }}" class="{{ request()->is('request') ? 'active':'' }}" >
+        <a href="{{ url('request') }}" class="{{ request()->is('request') ? 'active':'' }}">
             <i class="bi bi-circle"></i><span>Minta Surat</span>
         </a>
         </li>
@@ -27,19 +27,19 @@
 
 @elseif (auth()->user()->level == 'dosen')
 <li class="nav-item">
-    <a class="nav-link collapsed" data-bs-target="#keperluan-dosen-nav" data-bs-toggle="collapse" href="#">
+    <a class="nav-link {{ request()->is('receive') ? '' : 'collapsed' }}" data-bs-target="#keperluan-dosen-nav" data-bs-toggle="collapse" href="#">
         <i class="bi bi-journals"></i><span>Keperluan</span><i class="bi bi-chevron-down ms-auto"></i>
     </a>
-    <ul id="keperluan-dosen-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+    <ul id="keperluan-dosen-nav" class="nav-content collapse {{ request()->is('receive') ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
         <li>
-        <a href="icons-bootstrap.html">
-            <i class="bi bi-circle"></i><span>Kirim Surat</span>
-        </a>
+            <a href="/receive" class="{{ request()->is('receive') ? 'active':'' }}">
+                <i class="bi bi-circle"></i><span>Terima Surat</span>
+            </a>
         </li>
         <li>
-        <a href="icons-bootstrap.html">
-            <i class="bi bi-circle"></i><span>Terima Surat</span>
-        </a>
+            <a href="icons-bootstrap.html">
+                <i class="bi bi-circle"></i><span>Kirim Surat</span>
+            </a>
         </li>
     </ul>
 </li>

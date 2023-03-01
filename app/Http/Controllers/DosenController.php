@@ -2,86 +2,33 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use App\Models\Dosen;
+use App\Models\Request as ModelsRequest;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rules\Password;
 
 class DosenController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function receive_index()
     {
-        
-    }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        
-    }
+        $dosens = Dosen::select('surats.id')
+                    ->join('job_dosens', 'dosens.id', '=', 'job_dosens.dosen_id')
+                    ->join('job_roles', 'job_dosens.role_id', '=', 'job_roles.role_id')
+                    ->join('surats', 'job_roles.jenis_surat_id', '=', 'surats.jenis_surat_id')
+                    ->where('dosens.id', auth()->user()->dosen->id)
+                    ->groupBy('surats.id')
+                    ->get();
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        
-    }
+        foreach ($dosens as $dosen) {
+            $data[] = $dosen->id;
+        }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Dosen  $dosen
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Dosen $dosen)
-    {
-        
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Dosen  $dosen
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($nip)
-    {
-       
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Dosen  $dosen
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Dosen $dosen)
-    {
-        
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Dosen  $dosen
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        
+        return view('dosen.receive.index')->with([
+            'receives' => ModelsRequest::select('requests.id')
+                                    ->join('detail_requests', 'requests.id', '=', 'detail_requests.request_id')
+                                    ->whereIn('detail_requests.surat_id', $data)
+                                    ->groupBy('requests.id')
+                                    ->get()
+        ]);
     }
 }

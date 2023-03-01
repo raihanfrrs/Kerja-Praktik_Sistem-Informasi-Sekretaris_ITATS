@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DosenController;
 use App\Http\Controllers\HistoryController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
@@ -80,7 +81,9 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::group(['middleware' => ['cekUserLogin:dosen']], function(){
-        
+        Route::controller(DosenController::class)->group(function () {
+            Route::get('receive', 'receive_index');
+        });
     });
 
     Route::group(['middleware' => ['cekUserLogin:superadmin']], function(){
