@@ -84,6 +84,7 @@ Route::middleware('auth')->group(function () {
         Route::controller(DosenController::class)->group(function () {
             Route::get('receive', 'receive_index');
             Route::get('receive/read', 'receive_read');
+            Route::post('receive', 'receive_store');
         });
     });
 

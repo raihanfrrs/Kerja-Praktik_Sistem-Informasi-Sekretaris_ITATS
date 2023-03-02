@@ -78,7 +78,7 @@
       <div class="row mb-3">
           <label for="password" class="col-sm-2 col-form-label">Password</label>
           <div class="col-sm-10">
-            <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" required>
+            <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" autocomplete="off" required>
             @if ($errors->any())
                 <div class="invalid-feedback">
                   <ul>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\DetailRequest;
 use App\Models\Dosen;
+use App\Models\Mahasiswa;
 use App\Models\Request as ModelsRequest;
 use Illuminate\Http\Request;
 
@@ -62,5 +63,15 @@ class DosenController extends Controller
         // return view('mahasiswa.request.data')->with([
         //     'surats' => $surat
         // ]);
+    }
+
+    public function receive_store(Request $request)
+    {
+        $mahasiswa = Mahasiswa::where('slug', $request->slug)->first();
+        if (ModelsRequest::where('mahasiswa_id', $mahasiswa->id)->where('status', 'processed')->count() > 0) {
+            return false;
+        }
+
+        $requests = ModelsRequest::where('mahasiswa_id', $mahasiswa->id);
     }
 }

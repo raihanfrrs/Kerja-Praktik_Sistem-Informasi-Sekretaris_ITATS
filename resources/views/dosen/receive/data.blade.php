@@ -3,11 +3,16 @@
     <div class="card">
         <div class="card-body">
           <h5 class="card-title">{{ $receive->mahasiswa->name }}</h5>
-          <h6 class="card-subtitle mb-2 text-muted">Last Updated {{\Carbon\Carbon::parse($receive->date)->diffForHumans() }}.</h6>
-          <p class="card-text">Have {{ $receive->amount }} surat request.</p>
-          <p class="card-text"><a href="#" class="btn btn-primary">Button</a></p>
-          <a href="#" class="card-link">Card link</a>
-          <a href="#" class="card-link">Another link</a>
+          <p class="card-text fw-bold">Have {{ $receive->amount }} surat request!</p>
+          <h6 class="card-subtitle mb-2 text-muted">Last Requested {{\Carbon\Carbon::parse($receive->date)->diffForHumans() }}.</h6>
+          <div class="row">
+            <div class="col-6">
+                <a href="#" class="btn btn-secondary w-100" id="detail-surat-button"><i class="bi bi-list-columns"></i> Details</a>
+            </div>
+            <div class="col-6">
+                <button class="btn btn-primary w-100" id="accept-surat" data-id="{{ $receive->mahasiswa->slug }}"><i class="bi bi-send-check"></i> Accept</button>
+            </div>
+          </div>
         </div>
     </div>
 </div>
