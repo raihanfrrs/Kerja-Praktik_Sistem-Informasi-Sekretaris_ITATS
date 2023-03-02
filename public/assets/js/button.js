@@ -56,7 +56,7 @@ $(document).on('click', '#request-surat', function () {
         'slug': slug
     })
     .done(response => {
-        if(response){
+        if(response == 'success'){
             $("#request-icon").load(location.href + " #request-icon");
             Swal.fire({
                 position: 'center',
@@ -65,11 +65,19 @@ $(document).on('click', '#request-surat', function () {
                 showConfirmButton: false,
                 timer: 2000
             });
-        }else{
+        }else if(response == 'exist'){
             Swal.fire({
                 position: 'center',
                 icon: 'warning',
                 title: 'Request Already Exists!',
+                showConfirmButton: false,
+                timer: 2000
+            });
+        }else if(response == 'doneYet'){
+            Swal.fire({
+                position: 'center',
+                icon: 'error',
+                title: 'The request is still unfinished!',
                 showConfirmButton: false,
                 timer: 2000
             });

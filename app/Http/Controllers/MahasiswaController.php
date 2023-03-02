@@ -46,22 +46,32 @@ class MahasiswaController extends Controller
     }
 
     public function request_store(Request $request){
-        $surat = Surat::where('slug', $request->slug)->get();
+        $surat = Surat::where('slug', $request->slug)->first();
 
-        if (TempRequest::where('surat_id', $surat[0]->id)->where('mahasiswa_id', auth()->user()->mahasiswa->id)->count() > 0) {
-            return false;
+        if (TempRequest::where('surat_id', $surat->id)->where('mahasiswa_id', auth()->user()->mahasiswa->id)->count() > 0) {
+            return "exist";
+        }
+
+        $checkSuratExist = ModelsRequest::select('detail_requests.status')
+                                        ->join('detail_requests', 'requests.id', '=', 'detail_requests.request_id')
+                                        ->where('requests.mahasiswa_id', auth()->user()->mahasiswa->id)
+                                        ->where('detail_requests.surat_id', $surat->id)
+                                        ->first();
+
+        if ($checkSuratExist->status != 'done') {
+            return "doneYet";
         }
 
         $data = [
             'mahasiswa_id' => auth()->user()->mahasiswa->id,
-            'surat_id' => $surat[0]->id
+            'surat_id' => $surat->id
         ];
 
         session(['request' => $request->session()->get('request')+1]);
         
         TempRequest::create($data);
 
-        return true;
+        return "success";
     }
 
     public function request_show(){
