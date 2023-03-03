@@ -1,4 +1,9 @@
-@foreach ($surats as $surat)
+@if ($surats->count() == 0)
+    <div class="alert alert-danger mx-2 text-center" role="alert">
+        No Surat Available!
+    </div>
+@else
+    @foreach ($surats as $surat)
     <div class="col-md-3">
         <div class="card">
             <div class="card-body" >
@@ -16,4 +21,5 @@
             </div>
         </div>
     </div>
-@endforeach
+    @endforeach
+@endif
