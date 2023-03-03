@@ -25,7 +25,7 @@ class JobDosenSeeder extends Seeder
             ],
             [
                 'dosen_id' => '2',
-                'role_id' => '1'
+                'role_id' => '2'
             ]
         ];
 

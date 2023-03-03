@@ -56,7 +56,6 @@ $(document).on('click', '#request-surat', function () {
         'slug': slug
     })
     .done(response => {
-        console.log(response);
         if(response == 'success'){
             $("#request-icon").load(location.href + " #request-icon");
             Swal.fire({

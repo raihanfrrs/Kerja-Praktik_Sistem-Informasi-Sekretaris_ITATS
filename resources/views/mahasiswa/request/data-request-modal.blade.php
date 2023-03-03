@@ -7,8 +7,8 @@
     <table class="table">
         @foreach ($requests as $request)
         <tr>
-            <th>{{ $request->surat->name }}</th>
-        <td class="text-end"><button class="btn btn-sm btn-danger" title="Delete" id="delete-request" data-id="{{ $request->surat->slug }}"><i class="bi bi-send-dash-fill"></i></button></td>
+            <th class="text-capitalize">{{ $request->surat->name }}</th>
+            <td class="text-end"><button class="btn btn-sm btn-danger" title="Delete" id="delete-request" data-id="{{ $request->surat->slug }}"><i class="bi bi-send-dash-fill"></i></button></td>
         </tr>
         @endforeach
    </table>

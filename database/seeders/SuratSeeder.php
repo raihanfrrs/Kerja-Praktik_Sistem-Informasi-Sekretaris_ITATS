@@ -16,8 +16,8 @@ class SuratSeeder extends Seeder
     {
         $surats = [
             [
-                'jenis_surat_id' => '3',
-                'name' => 'Surat Rekomendasi',
+                'jenis_surat_id' => '1',
+                'name' => 'DHS',
                 'description' => '<b>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed augue diam, finibus eget tellus sit amet, pulvinar varius lacus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Suspendisse vitae scelerisque neque, sit amet volutpat odio. Donec vel dui at velit iaculis lobortis. Fusce sed quam ullamcorper, aliquet quam id, aliquam tellus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nam accumsan risus at mi luctus sodales. Aliquam sit amet nisl a tellus tempus condimentum.
 
                 In ac nunc ac mauris tempor tempor vitae non arcu. Nam vel tincidunt mi, sit amet volutpat turpis. Vivamus quis blandit quam, eget ultrices elit. In hac habitasse platea dictumst. Vestibulum aliquet rhoncus nibh eu porttitor. Proin ultricies sed dolor vel dapibus. Quisque et aliquam nunc. Proin ac sollicitudin felis, ac facilisis diam. In pharetra facilisis tortor semper tempor. Morbi condimentum elit nulla, non pharetra enim semper at. Etiam viverra dolor quis eleifend ullamcorper. Donec eget odio porttitor dui efficitur malesuada sit amet sed elit. Aliquam blandit quis nibh at porta. Etiam placerat vestibulum consequat. Praesent iaculis vel turpis nec convallis. Nunc sed urna id ipsum laoreet bibendum ac vulputate nunc.
@@ -29,8 +29,8 @@ class SuratSeeder extends Seeder
                 Sed sed vulputate quam. Aenean blandit dapibus ligula, nec volutpat elit efficitur eget. Sed in elit a tortor blandit tincidunt. Suspendisse placerat varius felis, et venenatis odio hendrerit a. Suspendisse felis lacus, blandit sed orci non, scelerisque elementum ex. Duis sagittis maximus lectus maximus fermentum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam vitae tincidunt elit. Curabitur mattis efficitur dolor id tristique. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Etiam dictum ultricies ex a ullamcorper. Etiam scelerisque arcu nisl, eget dapibus nunc consectetur eu. Integer leo risus, dignissim id scelerisque id, dapibus in enim.</b>'
             ],
             [
-                'jenis_surat_id' => '3',
-                'name' => 'SPTJM',
+                'jenis_surat_id' => '2',
+                'name' => 'Aktif Kuliah',
                 'description' => '<i>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed augue diam, finibus eget tellus sit amet, pulvinar varius lacus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Suspendisse vitae scelerisque neque, sit amet volutpat odio. Donec vel dui at velit iaculis lobortis. Fusce sed quam ullamcorper, aliquet quam id, aliquam tellus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nam accumsan risus at mi luctus sodales. Aliquam sit amet nisl a tellus tempus condimentum.
 
                 In ac nunc ac mauris tempor tempor vitae non arcu. Nam vel tincidunt mi, sit amet volutpat turpis. Vivamus quis blandit quam, eget ultrices elit. In hac habitasse platea dictumst. Vestibulum aliquet rhoncus nibh eu porttitor. Proin ultricies sed dolor vel dapibus. Quisque et aliquam nunc. Proin ac sollicitudin felis, ac facilisis diam. In pharetra facilisis tortor semper tempor. Morbi condimentum elit nulla, non pharetra enim semper at. Etiam viverra dolor quis eleifend ullamcorper. Donec eget odio porttitor dui efficitur malesuada sit amet sed elit. Aliquam blandit quis nibh at porta. Etiam placerat vestibulum consequat. Praesent iaculis vel turpis nec convallis. Nunc sed urna id ipsum laoreet bibendum ac vulputate nunc.
