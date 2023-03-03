@@ -17,24 +17,31 @@ $(document).on('click', '#accept-surat', function () {
         'slug': slug
     })
     .done(response => {
-        console.log(response);
-        // if(response){
-        //     Swal.fire({
-        //         position: 'center',
-        //         icon: 'success',
-        //         title: 'Request Added!',
-        //         showConfirmButton: false,
-        //         timer: 2000
-        //     });
-        // }else{
-        //     Swal.fire({
-        //         position: 'center',
-        //         icon: 'warning',
-        //         title: 'Request Already Exists!',
-        //         showConfirmButton: false,
-        //         timer: 2000
-        //     });
-        // }
+        if(response === 'success'){
+            Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'Accept Success!',
+                showConfirmButton: false,
+                timer: 2000
+            });
+        }else if(response === 'taken'){
+            Swal.fire({
+                position: 'center',
+                icon: 'warning',
+                title: 'Request Already Taken!',
+                showConfirmButton: false,
+                timer: 2000
+            });
+        }else if(response === 'finished'){
+            Swal.fire({
+                position: 'center',
+                icon: 'warning',
+                title: 'Request Already Finished!',
+                showConfirmButton: false,
+                timer: 2000
+            });
+        }
         return;
     })
     .fail(errors => {

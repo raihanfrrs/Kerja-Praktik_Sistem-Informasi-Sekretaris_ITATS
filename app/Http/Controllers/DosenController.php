@@ -63,7 +63,7 @@ class DosenController extends Controller
         //ada kasus mahasiswa request surat csr dan sekjur, dosen a hanya punya jabatan csr dan dosen b punya jabatan csr dan sekjur. harus membuatkan filter untuk masing" jabatan
         $mahasiswa = Mahasiswa::where('slug', $request->slug)->first();
         if (ModelsRequest::where('mahasiswa_id', $mahasiswa->id)->where('status', 'finished')->count() > 0) {
-            return false;
+            return 'finished';
         }
 
         $dosens = Dosen::select('surats.id')
@@ -92,7 +92,7 @@ class DosenController extends Controller
             }
 
             if ($detailRequests->count() === $totalStatus) {
-                return false;
+                return 'taken';
             }
 
             DetailRequest::whereId($detailRequest->id)
@@ -100,6 +100,6 @@ class DosenController extends Controller
                         ->update(['status' => 'accept', 'dosen_id' => auth()->user()->dosen->id]);
         }
 
-        return true;
+        return 'success';
     }
 }
