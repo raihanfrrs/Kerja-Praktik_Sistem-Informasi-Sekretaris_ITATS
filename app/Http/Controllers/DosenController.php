@@ -67,11 +67,13 @@ class DosenController extends Controller
 
     public function receive_store(Request $request)
     {
+        //ada kasus mahasiswa request surat csr dan sekjur, dosen a hanya punya jabatan csr dan dosen b punya jabatan csr dan sekjur. harus membuatkan filter untuk masing" jabatan
         $mahasiswa = Mahasiswa::where('slug', $request->slug)->first();
         if (ModelsRequest::where('mahasiswa_id', $mahasiswa->id)->where('status', 'processed')->count() > 0) {
             return false;
         }
 
-        $requests = ModelsRequest::where('mahasiswa_id', $mahasiswa->id);
+        ModelsRequest::where('mahasiswa_id', $mahasiswa->id)
+                    ->where('status', 'unfinished');
     }
 }
