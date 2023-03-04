@@ -8,6 +8,29 @@ function receive() {
     })
 }
 
+$('#search-receive').keypress(function(e) {
+    var key = e.which;
+    if (key == 13) {
+        $('#search-receive').click();
+        return false;
+    }
+});
+
+$(document).on('click', '#search-receive', function () {
+    let search = $('#search-receive').val();
+    
+    $.get('/receive/read', {
+        'search': search
+    })
+    .done(response => {
+        $("#data-receive").html(response);
+        return;
+    })
+    .fail(errors => {
+        return;
+    })
+});
+
 $(document).on('click', '#accept-surat', function () {
     let slug = $(this).data('id');
 
@@ -25,6 +48,7 @@ $(document).on('click', '#accept-surat', function () {
                 showConfirmButton: false,
                 timer: 2000
             });
+            receive();
         }else if(response === 'taken'){
             Swal.fire({
                 position: 'center',
@@ -33,6 +57,7 @@ $(document).on('click', '#accept-surat', function () {
                 showConfirmButton: false,
                 timer: 2000
             });
+            receive();
         }else if(response === 'finished'){
             Swal.fire({
                 position: 'center',
@@ -41,6 +66,7 @@ $(document).on('click', '#accept-surat', function () {
                 showConfirmButton: false,
                 timer: 2000
             });
+            receive();
         }
         return;
     })

@@ -11,8 +11,17 @@
     @if (auth()->user()->level === 'mahasiswa' && request()->is('request'))
     <div class="search-bar">
       <div class="search-form d-flex align-items-center">
-        <input type="text" id="search-form" placeholder="Search" title="Enter search keyword">
-        <button id="search-btn" title="Search"><i class="bi bi-search"></i></button>
+        <input type="text" id="search-request" placeholder="Search" title="Enter search keyword">
+        <button id="search-request" title="Search"><i class="bi bi-search"></i></button>
+      </div>
+    </div>
+    @endif
+
+    @if (auth()->user()->level === 'dosen' && request()->is('receive'))
+    <div class="search-bar">
+      <div class="search-form d-flex align-items-center">
+        <input type="text" id="search-receive" placeholder="Search" title="Enter search keyword">
+        <button id="search-receive" title="Search"><i class="bi bi-search"></i></button>
       </div>
     </div>
     @endif

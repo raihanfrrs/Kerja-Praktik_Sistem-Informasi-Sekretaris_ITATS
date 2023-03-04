@@ -42,20 +42,31 @@ class DosenController extends Controller
             ]);
         }
 
-        // $surat = Surat::where('status', 'active')->orderBy('id', 'ASC')
-        //                 ->where('name', 'LIKE', '%'.$request->search.'%')
-        //                 ->orWhere('description', 'LIKE', '%'.$request->search.'%')
-        //                 ->get();
+        $requests = ModelsRequest::select('requests.mahasiswa_id', ModelsRequest::raw('max(requests.created_at) as date'), ModelsRequest::raw('COUNT(*) as amount'))
+                            ->join('detail_requests', 'requests.id', '=', 'detail_requests.request_id')
+                            ->join('mahasiswas', 'requests.mahasiswa_id', '=', 'mahasiswas.id')
+                            ->whereIn('detail_requests.surat_id', $data)
+                            ->where('requests.status', 'unfinished')
+                            ->where('detail_requests.status', 'pending')
+                            ->where('mahasiswas.name', 'LIKE', '%'.$request->search.'%')
+                            ->groupBy('requests.mahasiswa_id')
+                            ->get();
 
-        // if ($surat->count() == 0) {
-        //     return view('mahasiswa.request.data')->with([
-        //         'surats' => Surat::where('status', 'active')->orderBy('id', 'ASC')->get()
-        //     ]);
-        // }
+        if ($requests->count() == 0) {
+            return view('dosen.receive.data')->with([
+                'receives' => ModelsRequest::select('requests.mahasiswa_id', ModelsRequest::raw('max(requests.created_at) as date'), ModelsRequest::raw('COUNT(*) as amount'))
+                                        ->join('detail_requests', 'requests.id', '=', 'detail_requests.request_id')
+                                        ->whereIn('detail_requests.surat_id', $data)
+                                        ->where('requests.status', 'unfinished')
+                                        ->where('detail_requests.status', 'pending')
+                                        ->groupBy('requests.mahasiswa_id')
+                                        ->get()
+            ]);
+        }
 
-        // return view('mahasiswa.request.data')->with([
-        //     'surats' => $surat
-        // ]);
+        return view('dosen.receive.data')->with([
+            'receives' => $requests
+        ]);
     }
 
     public function receive_store(Request $request)
