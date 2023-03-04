@@ -42,14 +42,32 @@ class DashboardController extends Controller
             return $data;
         }elseif ($data === 'dosen') {
             if ($request->date === 'day') {
-                $amount_now = Dosen::whereDay('created_at', now())->count();
-                $amount_yesterday = Dosen::whereDay('created_at', Carbon::yesterday())->count();
+                $amount_now = Dosen::join('users', 'dosens.user_id', '=', 'users.id')
+                                ->whereDay('dosens.created_at', now())
+                                ->where('users.level', 'dosen')
+                                ->count();
+                $amount_yesterday = Dosen::join('users', 'dosens.user_id', '=', 'users.id')
+                                        ->whereDay('dosens.created_at', Carbon::yesterday())
+                                        ->where('users.level', 'dosen')
+                                        ->count();
             }elseif ($request->date === 'month') {
-                $amount_now = Dosen::whereMonth('created_at', now())->count();
-                $amount_yesterday = Dosen::whereMonth('created_at', Carbon::now()->subMonth()->format('m'))->count();
+                $amount_now = Dosen::join('users', 'dosens.user_id', '=', 'users.id')
+                                ->whereMonth('created_at', now())
+                                ->where('users.level', 'dosen')
+                                ->count();
+                $amount_yesterday = Dosen::join('users', 'dosens.user_id', '=', 'users.id')
+                                        ->whereMonth('created_at', Carbon::now()->subMonth()->format('m'))
+                                        ->where('users.level', 'dosen')
+                                        ->count();
             }elseif ($request->date === 'year') {
-                $amount_now = Dosen::whereYear('created_at', now())->count();
-                $amount_yesterday = Dosen::whereYear('created_at', Carbon::now()->subYear()->format('y'))->count();
+                $amount_now = Dosen::join('users', 'dosens.user_id', '=', 'users.id')
+                                ->whereYear('created_at', now())
+                                ->where('users.level', 'dosen')
+                                ->count();
+                $amount_yesterday = Dosen::join('users', 'dosens.user_id', '=', 'users._id')
+                                        ->whereYear('created_at', Carbon::now()->subYear()->format('y'))
+                                        ->where('users.level', 'dosen')
+                                        ->count();
             }
 
             if ($amount_now == 0 && $amount_yesterday == 0) {
