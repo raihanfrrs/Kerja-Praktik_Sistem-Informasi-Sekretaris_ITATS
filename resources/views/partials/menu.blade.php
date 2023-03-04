@@ -1,13 +1,18 @@
 @if (auth()->user()->level == 'mahasiswa')
 <li class="nav-item">
-    <a class="nav-link {{ request()->is('request') ? '' : 'collapsed' }}" data-bs-target="#keperluan-mhs-nav" data-bs-toggle="collapse" href="#">
+    <a class="nav-link {{ request()->is('request', 'accept') ? '' : 'collapsed' }}" data-bs-target="#keperluan-mhs-nav" data-bs-toggle="collapse" href="#">
         <i class="bi bi-journals"></i><span>Keperluan</span><i class="bi bi-chevron-down ms-auto"></i>
     </a>
-    <ul id="keperluan-mhs-nav" class="nav-content collapse {{ request()->is('request') ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
+    <ul id="keperluan-mhs-nav" class="nav-content collapse {{ request()->is('request', 'accept') ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
         <li>
-            <a href="{{ url('request') }}" class="{{ request()->is('request') ? 'active':'' }}">
-                <i class="bi bi-circle"></i><span>Minta Surat</span>
-            </a>
+        <a href="{{ url('request') }}" class="{{ request()->is('request') ? 'active':'' }}">
+            <i class="bi bi-circle"></i><span>Minta Surat</span>
+        </a>
+        </li>
+        <li>
+        <a href="{{ url('accept') }}" class="{{ request()->is('accept') ? 'active':'' }}">
+            <i class="bi bi-circle"></i><span>Terima Surat</span>
+        </a>
         </li>
     </ul>
 </li>
