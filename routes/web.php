@@ -76,7 +76,8 @@ Route::middleware('auth')->group(function () {
             Route::post('request/send', 'request_send');
 
             /* request surat resource */
-            Route::get('accept','accept_index');
+            Route::get('acception','acception_index');
+            Route::get('acception/read','acception_read');
         });
     });
 

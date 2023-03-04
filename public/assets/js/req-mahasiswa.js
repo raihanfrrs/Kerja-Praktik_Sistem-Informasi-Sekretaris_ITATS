@@ -1,10 +1,17 @@
 $(document).ready(function () {
     request();
+    acception();
 });
 
 function request() {
     $.get("/request/read", { 'search': 'default' }, function(surat, status){
         $("#data-surat").html(surat);
+    })
+}
+
+function acception() {
+    $.get("/acception/read", { 'search': 'default' }, function(acception, status){
+        $("#data-acception").html(acception);
     })
 }
 

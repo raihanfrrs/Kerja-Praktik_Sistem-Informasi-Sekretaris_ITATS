@@ -117,8 +117,39 @@ class MahasiswaController extends Controller
         return true;
     }
 
-    public function accept_index()
+    public function acception_index()
     {
+        return view('mahasiswa.acception.index');
+    }
 
+    public function acception_read(Request $request)
+    {
+        if ($request->search === 'default') {
+            return view('mahasiswa.acception.data')->with([
+                'acceptions' => ModelsRequest::select('detail_requests.request_id', DetailRequest::raw('COUNT(*) as amount'), 'requests.status')
+                                            ->join('detail_requests', 'requests.id', '=', 'detail_requests.request_id')
+                                            ->where('requests.mahasiswa_id', auth()->user()->mahasiswa->id)
+                                            ->where('requests.status', 'unfinished')
+                                            ->whereDay('requests.created_at', now())
+                                            ->groupBy('detail_requests.request_id')
+                                            ->groupBy('requests.status')
+                                            ->get()
+            ]);
+        }
+
+        // $surat = Surat::where('status', 'active')->orderBy('id', 'ASC')
+        //                 ->where('name', 'LIKE', '%'.$request->search.'%')
+        //                 ->orWhere('description', 'LIKE', '%'.$request->search.'%')
+        //                 ->get();
+
+        // if ($surat->count() == 0) {
+        //     return view('mahasiswa.request.data')->with([
+        //         'surats' => Surat::where('status', 'active')->orderBy('id', 'ASC')->get()
+        //     ]);
+        // }
+
+        // return view('mahasiswa.request.data')->with([
+        //     'surats' => $surat
+        // ]);
     }
 }
