@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\DetailRequest;
-use App\Models\Request as ModelsRequest;
-use Illuminate\Http\Request;
+use Carbon\Carbon;
 use App\Models\Surat;
 use App\Models\TempRequest;
+use Illuminate\Http\Request;
+use App\Models\DetailRequest;
+use App\Models\Request as ModelsRequest;
 
 class MahasiswaController extends Controller
 {
@@ -130,9 +131,9 @@ class MahasiswaController extends Controller
                                             ->join('detail_requests', 'requests.id', '=', 'detail_requests.request_id')
                                             ->where('requests.mahasiswa_id', auth()->user()->mahasiswa->id)
                                             ->where('requests.status', 'unfinished')
-                                            ->whereDay('requests.created_at', now())
+                                            ->where('requests.created_at', '>', Carbon::now()->subDay())
+                                            ->where('requests.created_at', '<', Carbon::now())
                                             ->groupBy('detail_requests.request_id')
-                                            ->groupBy('requests.status')
                                             ->get()
             ]);
         }

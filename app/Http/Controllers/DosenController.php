@@ -35,7 +35,7 @@ class DosenController extends Controller
                 'receives' => ModelsRequest::select('requests.mahasiswa_id', ModelsRequest::raw('max(requests.created_at) as date'), ModelsRequest::raw('COUNT(*) as amount'))
                                         ->join('detail_requests', 'requests.id', '=', 'detail_requests.request_id')
                                         ->whereIn('detail_requests.surat_id', $data)
-                                        ->where('requests.status', 'unfinished')
+                                        ->where('requests.status', '!=','finished')
                                         ->where('detail_requests.status', 'pending')
                                         ->groupBy('requests.mahasiswa_id')
                                         ->get()
@@ -109,6 +109,9 @@ class DosenController extends Controller
             DetailRequest::whereId($detailRequest->id)
                         ->where('status', 'pending')
                         ->update(['status' => 'accept', 'dosen_id' => auth()->user()->dosen->id]);
+
+            ModelsRequest::whereId($detailRequest->request_id)
+                    ->update(['status' => 'accept']);
         }
 
         return 'success';
