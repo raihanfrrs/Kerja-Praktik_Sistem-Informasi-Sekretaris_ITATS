@@ -135,3 +135,53 @@ $(document).on('click', '#submit-request-btn', function () {
         return;
     })
 });
+
+$(document).on('click', '#cancel-surat-btn', function () {
+    let id = $(this).data('id');
+    
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You will cancel permanently!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, cancel it!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajaxSetup({
+                headers: {
+                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr("content")
+                }
+            });
+        
+            $.ajax({
+                type: "post",
+                url: "/acception/delete",
+                data: {
+                    "id": id
+                },
+                success: function(data){
+                    acception();
+                    if(data){
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            title: 'Canceled Success!',
+                            showConfirmButton: false,
+                            timer: 2000
+                        });
+                    }else{
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'error',
+                            title: 'Canceled Fail!',
+                            showConfirmButton: false,
+                            timer: 2000
+                        });
+                    }
+                }
+            });
+        }
+      })
+})

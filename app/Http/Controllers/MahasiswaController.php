@@ -55,6 +55,8 @@ class MahasiswaController extends Controller
 
         $checkSuratExist = ModelsRequest::select('detail_requests.status')
                                         ->join('detail_requests', 'requests.id', '=', 'detail_requests.request_id')
+                                        ->where('detail_requests.status', '!=', 'canceled')
+                                        ->where('detail_requests.status', '!=', 'rejected')
                                         ->where('requests.mahasiswa_id', auth()->user()->mahasiswa->id)
                                         ->where('detail_requests.surat_id', $surat->id);
 
@@ -130,7 +132,6 @@ class MahasiswaController extends Controller
                 'acceptions' => ModelsRequest::select('detail_requests.request_id', DetailRequest::raw('COUNT(*) as amount'), 'requests.status')
                                             ->join('detail_requests', 'requests.id', '=', 'detail_requests.request_id')
                                             ->where('requests.mahasiswa_id', auth()->user()->mahasiswa->id)
-                                            ->where('requests.status', 'unfinished')
                                             ->where('requests.created_at', '>', Carbon::now()->subDay())
                                             ->where('requests.created_at', '<', Carbon::now())
                                             ->groupBy('detail_requests.request_id')
@@ -152,5 +153,21 @@ class MahasiswaController extends Controller
         // return view('mahasiswa.request.data')->with([
         //     'surats' => $surat
         // ]);
+    }
+
+    public function acception_delete(Request $request)
+    {
+        if (ModelsRequest::whereId($request->id)->where('status', '!=', 'unfinished')->count() > 0) {
+            return false;
+        }
+
+        if(ModelsRequest::whereId($request->id)->count() == 0){
+            return false;
+        }
+
+        ModelsRequest::whereId($request->id)->update(['status' => 'canceled']);
+        DetailRequest::where('request_id', $request->id)->update(['status' => 'canceled']);
+
+        return true;
     }
 }

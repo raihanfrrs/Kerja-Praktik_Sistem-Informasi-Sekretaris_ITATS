@@ -36,6 +36,7 @@ class DosenController extends Controller
                                         ->join('detail_requests', 'requests.id', '=', 'detail_requests.request_id')
                                         ->whereIn('detail_requests.surat_id', $data)
                                         ->where('requests.status', '!=','finished')
+                                        ->where('requests.status', '!=','rejected')
                                         ->where('detail_requests.status', 'pending')
                                         ->groupBy('requests.mahasiswa_id')
                                         ->get()
@@ -46,7 +47,8 @@ class DosenController extends Controller
                             ->join('detail_requests', 'requests.id', '=', 'detail_requests.request_id')
                             ->join('mahasiswas', 'requests.mahasiswa_id', '=', 'mahasiswas.id')
                             ->whereIn('detail_requests.surat_id', $data)
-                            ->where('requests.status', 'unfinished')
+                            ->where('requests.status', '!=','finished')
+                            ->where('requests.status', '!=','rejected')
                             ->where('detail_requests.status', 'pending')
                             ->where('mahasiswas.name', 'LIKE', '%'.$request->search.'%')
                             ->groupBy('requests.mahasiswa_id')
@@ -57,7 +59,8 @@ class DosenController extends Controller
                 'receives' => ModelsRequest::select('requests.mahasiswa_id', ModelsRequest::raw('max(requests.created_at) as date'), ModelsRequest::raw('COUNT(*) as amount'))
                                         ->join('detail_requests', 'requests.id', '=', 'detail_requests.request_id')
                                         ->whereIn('detail_requests.surat_id', $data)
-                                        ->where('requests.status', 'unfinished')
+                                        ->where('requests.status', '!=','finished')
+                                        ->where('requests.status', '!=','rejected')
                                         ->where('detail_requests.status', 'pending')
                                         ->groupBy('requests.mahasiswa_id')
                                         ->get()
@@ -76,6 +79,10 @@ class DosenController extends Controller
         if (ModelsRequest::where('mahasiswa_id', $mahasiswa->id)->where('status', 'finished')->count() > 0) {
             return 'finished';
         }
+
+        // if (ModelsRequest::where('mahasiswa_id', $mahasiswa->id)->where('status', 'rejected')->count() > 0) {
+        //     return 'finished';
+        // }
 
         $dosens = Dosen::select('surats.id')
                     ->join('job_dosens', 'dosens.id', '=', 'job_dosens.dosen_id')
@@ -98,7 +105,7 @@ class DosenController extends Controller
 
         $totalStatus = 0;
         foreach ($detailRequests as $detailRequest) {
-            if ($detailRequest->status == 'accept') {
+            if ($detailRequest->status == 'accepted') {
                 $totalStatus++;
             }
 
@@ -108,10 +115,11 @@ class DosenController extends Controller
 
             DetailRequest::whereId($detailRequest->id)
                         ->where('status', 'pending')
-                        ->update(['status' => 'accept', 'dosen_id' => auth()->user()->dosen->id]);
+                        ->update(['status' => 'accepted', 'dosen_id' => auth()->user()->dosen->id]);
 
             ModelsRequest::whereId($detailRequest->request_id)
-                    ->update(['status' => 'accept']);
+                    ->where('status', 'unfinished')
+                    ->update(['status' => 'processed']);
         }
 
         return 'success';

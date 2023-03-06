@@ -24,6 +24,11 @@ class RoleSeeder extends Seeder
                 'role' => 'CSR',
                 'slug' => 'csr',
                 'status' => 'active'
+            ],
+            [
+                'role' => 'Tim MBKM',
+                'slug' => 'tim-mbkm',
+                'status' => 'active'
             ]
         ];
 

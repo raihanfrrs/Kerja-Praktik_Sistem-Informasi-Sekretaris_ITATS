@@ -7,7 +7,7 @@
     <div class="col-md-3">
         <div class="card">
             <div class="card-body" >
-                <h5 class="card-title text-capitalize">{{ $surat->name }}</h5>
+                <h5 class="card-title text-capitalize fw-bold">{{ $surat->name }}</h5>
                 <h6 class="card-subtitle mb-2 text-muted">{{ $surat->jenis_surat->jenis }}</h6>
                 <p class="card-text">{{ Str::limit(strip_tags($surat->description), 100) }}</p>
                 <div class="row">

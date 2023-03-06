@@ -26,6 +26,10 @@ class JobRoleSeeder extends Seeder
             [
                 'role_id' => '2',
                 'jenis_surat_id' => '1'
+            ],
+            [
+                'role_id' => '3',
+                'jenis_surat_id' => '3'
             ]
         ];
 

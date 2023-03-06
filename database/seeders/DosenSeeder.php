@@ -44,6 +44,16 @@ class DosenSeeder extends Seeder
                 'gender' => 'male',
                 'user_id' => '5',
                 'status' => 'active'
+            ],
+            [
+                'name' => 'Anindya Cahyani Putri',
+                'slug' => 'anindya-cahyani-putri',
+                'nip' => '09994',
+                'email' => 'anindyacahyaniputri123@gmail.com',
+                'phone' => '0834454542223',
+                'gender' => 'female',
+                'user_id' => '6',
+                'status' => 'active'
             ]
         ];
 

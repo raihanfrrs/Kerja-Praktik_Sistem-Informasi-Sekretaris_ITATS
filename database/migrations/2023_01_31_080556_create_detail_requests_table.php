@@ -22,7 +22,7 @@ class CreateDetailRequestsTable extends Migration
             $table->foreignIdFor(Dosen::class)->nullable();
             $table->foreignIdFor(Surat::class);
             $table->string('surat')->nullable();
-            $table->enum('status', ['pending', 'accepted', 'rejected', 'done'])->default('pending');
+            $table->enum('status', ['pending', 'accepted', 'canceled', 'rejected', 'done'])->default('pending');
             $table->timestamps();
         });
     }
