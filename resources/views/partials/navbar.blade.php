@@ -8,7 +8,7 @@
         <i class="bi bi-list toggle-sidebar-btn"></i>
     </div>
 
-    @if (auth()->user()->level === 'mahasiswa' && request()->is('request'))
+    @if (auth()->user()->level === 'mahasiswa' && (request()->is('request') || request()->is('acception')))
     <div class="search-bar">
       <div class="search-form d-flex align-items-center">
         <input type="text" id="search-request" placeholder="Search" title="Enter search keyword">

@@ -120,6 +120,11 @@ class MahasiswaController extends Controller
         return true;
     }
 
+    public function request_detail(ModelsRequest $request)
+    {
+        dd($request);
+    }
+
     public function acception_index()
     {
         return view('mahasiswa.acception.index');
@@ -127,9 +132,10 @@ class MahasiswaController extends Controller
 
     public function acception_read(Request $request)
     {
+
         if ($request->search === 'default') {
             return view('mahasiswa.acception.data')->with([
-                'acceptions' => ModelsRequest::select('detail_requests.request_id', DetailRequest::raw('COUNT(*) as amount'), 'requests.status')
+                'acceptions' => ModelsRequest::select('detail_requests.request_id', DetailRequest::raw('COUNT(*) as amount'), 'requests.status', 'requests.created_at')
                                             ->join('detail_requests', 'requests.id', '=', 'detail_requests.request_id')
                                             ->where('requests.mahasiswa_id', auth()->user()->mahasiswa->id)
                                             ->where('requests.created_at', '>', Carbon::now()->subDay())
@@ -139,20 +145,47 @@ class MahasiswaController extends Controller
             ]);
         }
 
-        // $surat = Surat::where('status', 'active')->orderBy('id', 'ASC')
-        //                 ->where('name', 'LIKE', '%'.$request->search.'%')
-        //                 ->orWhere('description', 'LIKE', '%'.$request->search.'%')
-        //                 ->get();
+        $modelRequests = ModelsRequest::select('detail_requests.request_id',)
+                                    ->join('detail_requests', 'requests.id', '=', 'detail_requests.request_id')
+                                    ->where('requests.mahasiswa_id', auth()->user()->mahasiswa->id)
+                                    ->where('requests.created_at', '>', Carbon::now()->subDay())
+                                    ->where('requests.created_at', '<', Carbon::now())
+                                    ->where('detail_requests.surat_id', function($query) use ($request) {
+                                        $query->select('id')
+                                            ->from('surats')
+                                            ->where('name', 'LIKE', '%'.$request->search.'%');
+                                    })
+                                    ->groupBy('detail_requests.request_id')
+                                    ->get();
 
-        // if ($surat->count() == 0) {
-        //     return view('mahasiswa.request.data')->with([
-        //         'surats' => Surat::where('status', 'active')->orderBy('id', 'ASC')->get()
-        //     ]);
-        // }
+        foreach ($modelRequests as $modelRequest) {
+            $data[] = $modelRequest->request_id;
+        }
 
-        // return view('mahasiswa.request.data')->with([
-        //     'surats' => $surat
-        // ]);
+        $requests = ModelsRequest::select('detail_requests.request_id', DetailRequest::raw('COUNT(*) as amount'), 'requests.status', 'requests.created_at')
+                            ->join('detail_requests', 'requests.id', '=', 'detail_requests.request_id')
+                            ->where('requests.mahasiswa_id', auth()->user()->mahasiswa->id)
+                            ->where('requests.created_at', '>', Carbon::now()->subDay())
+                            ->where('requests.created_at', '<', Carbon::now())
+                            ->whereIn('detail_requests.request_id', $data)
+                            ->groupBy('detail_requests.request_id')
+                            ->get();
+
+        if ($requests->count() == 0) {
+            return view('mahasiswa.acception.data')->with([
+                'acceptions' => ModelsRequest::select('detail_requests.request_id', DetailRequest::raw('COUNT(*) as amount'), 'requests.status', 'requests.created_at')
+                                            ->join('detail_requests', 'requests.id', '=', 'detail_requests.request_id')
+                                            ->where('requests.mahasiswa_id', auth()->user()->mahasiswa->id)
+                                            ->where('requests.created_at', '>', Carbon::now()->subDay())
+                                            ->where('requests.created_at', '<', Carbon::now())
+                                            ->groupBy('detail_requests.request_id')
+                                            ->get()
+            ]);
+        }
+
+        return view('mahasiswa.acception.data')->with([
+            'acceptions' => $requests
+        ]);
     }
 
     public function acception_delete(Request $request)

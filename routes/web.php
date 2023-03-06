@@ -74,6 +74,7 @@ Route::middleware('auth')->group(function () {
             Route::get('request/show', 'request_show');
             Route::post('request/delete', 'request_delete');
             Route::post('request/send', 'request_send');
+            Route::get('request/{request}', 'request_detail');
 
             /* request surat resource */
             Route::get('acception', 'acception_index');

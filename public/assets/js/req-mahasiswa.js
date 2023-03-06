@@ -11,6 +11,7 @@ function request() {
 
 function acception() {
     $.get("/acception/read", { 'search': 'default' }, function(acception, status){
+        console.log(acception);
         $("#data-acception").html(acception);
     })
 }

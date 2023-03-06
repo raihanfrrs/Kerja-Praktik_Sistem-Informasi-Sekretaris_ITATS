@@ -23,18 +23,27 @@
                         @endif
                     </div>
                 </div>
-                <p class="card-text">Have {{ $acception->amount }} surat in request!</p>
+                <table style="width:100%" class="mb-4">
+                    <tr>
+                      <th>Amount</th>
+                      <td class="text-end fw-bold">{{ $acception->amount }} Surat</td>
+                    </tr>
+                    <tr>
+                      <th>Request At</th>
+                      <td class="text-end fw-bold">{{ $acception->created_at->diffForHumans() }}</td>
+                    </tr>
+                </table>
                 <div class="row">
                     @if ($acception->status === 'unfinished')
                         <div class="col-6">
-                            <button class="btn btn-secondary w-100" id="" data-id="{{ $acception->request_id }}"><i class="bi bi-list-columns"></i> Details</button>
+                            <a href="/request/{{ $acception->request_id }}" class="btn btn-secondary w-100"><i class="bi bi-list-columns"></i> Details</a>
                         </div>
                         <div class="col-6">
                             <button class="btn btn-danger w-100" id="cancel-surat-btn" data-id="{{ $acception->request_id }}"><i class="bi bi-send-slash"></i> Cancel</button>
                         </div>
                     @else
                         <div class="col-12">
-                            <button class="btn btn-secondary w-100" id="" data-id="{{ $acception->request_id }}"><i class="bi bi-list-columns"></i> Details</button>
+                            <a href="/request/{{ $acception->request_id }}" class="btn btn-secondary w-100"><i class="bi bi-list-columns"></i> Details</a>
                         </div>
                     @endif
                 </div>
