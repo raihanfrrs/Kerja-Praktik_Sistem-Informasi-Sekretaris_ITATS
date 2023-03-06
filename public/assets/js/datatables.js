@@ -63,7 +63,6 @@ $(document).ready(function () {
         serverSide: true,
         ajax: '/dataRequestHistory',
         columns: [
-            { data: 'id', name: 'id', class: 'text-muted text-center' },
             { data: 'amount', name: 'amount', class: 'text-muted text-center' },
             { data: 'date', name: 'date', class: 'text-muted text-center' },
             { data: 'status', name: 'status', class: 'text-center' },
