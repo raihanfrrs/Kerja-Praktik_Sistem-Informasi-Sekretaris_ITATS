@@ -57,19 +57,6 @@
         <li class="nav-item dropdown pe-3">
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            @if (auth()->user()->level === 'mahasiswa')
-              @if (auth()->user()->mahasiswa->image)
-                  <img src="{{ asset('storage/'. auth()->user()->mahasiswa->image) }}" class="img-fluid rounded" alt="{{ auth()->user()->mahasiswa->name }}">
-              @else
-                  <img src="{{ asset('/') }}assets/img/profile-img.jpg" class="img-fluid rounded" alt="{{ auth()->user()->mahasiswa->name }}">
-              @endif
-            @else
-              @if (auth()->user()->dosen->image)
-                  <img src="{{ asset('storage/'. auth()->user()->dosen->image) }}" class="img-fluid" alt="{{ auth()->user()->dosen->name }}">
-              @else
-                  <img src="{{ asset('/') }}assets/img/profile-img.jpg" class="img-fluid" alt="{{ auth()->user()->dosen->name }}">
-              @endif
-            @endif
             <span class="d-none d-md-block dropdown-toggle ps-2">
               @if (auth()->user()->level == 'mahasiswa')
                 {{ auth()->user()->mahasiswa->name }}
