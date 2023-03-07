@@ -9,7 +9,7 @@
             <div class="card-body">
                 <div class="d-flex">
                     <div class="me-auto">
-                        <h5 class="card-title text-capitalize fw-bold">Request #{{ $acception->request_id }}</h5>
+                        <h5 class="card-title text-capitalize fw-bold">Request #{{ $loop->iteration }}</h5>
                     </div>
                     <div>
                         @if ($acception->status === 'unfinished')

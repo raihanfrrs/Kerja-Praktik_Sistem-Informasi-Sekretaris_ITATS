@@ -4,12 +4,31 @@
   </div>
 @else 
   @foreach ($receives as $receive)
-  <div class="col-md-3">
+  <div class="col-md-4">
       <div class="card">
           <div class="card-body">
-            <h5 class="card-title">{{ $receive->mahasiswa->name }}</h5>
-            <p class="card-text fw-bold">Have {{ $receive->amount }} surat request!</p>
-            <h6 class="card-subtitle mb-2 text-muted">Last Requested {{\Carbon\Carbon::parse($receive->date)->diffForHumans() }}.</h6>
+            <div class="d-flex">
+              <div class="flex-grow-1"><h5 class="card-title fw-bold">Request #{{ $loop->iteration }}</h5></div>
+              <div><h6 class="card-title text-muted">{{\Carbon\Carbon::parse($receive->date)->diffForHumans() }}.</h6></div>
+            </div>
+            <table style="width:100%" class="mb-4">
+              <tr>
+                <th>Name</th>
+                <td class="text-end fw-bold">{{ $receive->mahasiswa->name }}</td>
+              </tr>
+              <tr>
+                <th>Phone</th>
+                <td class="text-end fw-bold">{{ $receive->mahasiswa->phone }}</td>
+              </tr>
+              <tr>
+                <th>Email</th>
+                <td class="text-end fw-bold">{{ $receive->mahasiswa->email }}</td>
+              </tr>
+              <tr>
+                <th>Amount</th>
+                <td class="text-end fw-bold">{{ $receive->amount }} Surat</td>
+              </tr>
+            </table>
             <div class="row">
               <div class="col-6">
                   <a href="#" class="btn btn-secondary w-100" id="detail-surat-button"><i class="bi bi-list-columns"></i> Details</a>
