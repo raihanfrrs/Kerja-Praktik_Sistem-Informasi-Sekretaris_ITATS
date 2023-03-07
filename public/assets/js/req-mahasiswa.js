@@ -11,7 +11,6 @@ function request() {
 
 function acception() {
     $.get("/acception/read", { 'search': 'default' }, function(acception, status){
-        console.log(acception);
         $("#data-acception").html(acception);
     })
 }
@@ -19,12 +18,12 @@ function acception() {
 $('#search-request').keypress(function(e) {
     var key = e.which;
     if (key == 13) {
-        $('#search-request').click();
+        $('#search-request-btn').click();
         return false;
     }
 });
 
-$(document).on('click', '#search-request', function () {
+$(document).on('click', '#search-request-btn', function () {
     let search = $('#search-request').val();
     
     $.get('/request/read', {
@@ -185,4 +184,27 @@ $(document).on('click', '#cancel-surat-btn', function () {
             });
         }
       })
-})
+});
+
+$('#search-acception').keypress(function(e) {
+    var key = e.which;
+    if (key == 13) {
+        $('#search-acception-btn').click();
+        return false;
+    }
+});
+
+$(document).on('click', '#search-acception-btn', function () {
+    let search = $('#search-acception').val();
+    
+    $.get('/acception/read', {
+        'search': search
+    })
+    .done(response => {
+        $("#data-acception").html(response);
+        return;
+    })
+    .fail(errors => {
+        return;
+    })
+});

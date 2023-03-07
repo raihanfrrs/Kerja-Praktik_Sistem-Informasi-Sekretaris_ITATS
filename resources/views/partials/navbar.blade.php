@@ -11,8 +11,8 @@
     @if (auth()->user()->level === 'mahasiswa' && (request()->is('request') || request()->is('acception')))
     <div class="search-bar">
       <div class="search-form d-flex align-items-center">
-        <input type="text" id="search-request" placeholder="Search" title="Enter search keyword">
-        <button id="search-request" title="Search"><i class="bi bi-search"></i></button>
+        <input type="text" @if(request()->is('request')) id="search-request" @elseif(request()->is('acception')) id="search-acception" @endif placeholder="Search" title="Enter search keyword">
+        <button @if(request()->is('request')) id="search-request-btn" @elseif(request()->is('acception')) id="search-acception-btn" @endif title="Search"><i class="bi bi-search"></i></button>
       </div>
     </div>
     @endif
