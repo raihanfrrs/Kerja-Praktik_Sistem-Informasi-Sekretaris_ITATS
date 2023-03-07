@@ -26,21 +26,25 @@ class LoginController extends Controller
 
         $kredensial = $request->only('username', 'password');
 
-        $checkUser = User::where('username', $request->username)->get();
+        $checkUser = User::where('username', $request->username)->first();
 
         if ($checkUser->count() > 0) {
-            if (Mahasiswa::where('user_id', $checkUser[0]->id)->count() > 0) {
-                if ($checkUser[0]->mahasiswa->status === 'deactivated') {
+            if (Mahasiswa::where('user_id', $checkUser->id)->count() > 0) {
+                if ($checkUser->mahasiswa->status === 'deactivated') {
                     return back()->withErrors([
                         'username' => 'Your account is being deactivated by the admin, please contact the admin!',
                     ])->onlyInput('username');
+                }elseif($checkUser->mahasiswa->status === 'disapprove') {
+                    return back()->withErrors([
+                        'username' => 'Your account is still not approved by the admin, please contact the admin!',
+                    ])->onlyInput('username');
                 }
-            }elseif (Dosen::where('user_id', $checkUser[0]->id)->count() > 0) {
-                if ($checkUser[0]->dosen->status === 'deactivated') {
+            }elseif (Dosen::where('user_id', $checkUser->id)->count() > 0) {
+                if ($checkUser->dosen->status === 'deactivated') {
                     return back()->withErrors([
                         'username' => 'Your account is being deactivated by the admin, please contact the admin!',
                     ])->onlyInput('username');
-                }
+                };
             }
         }
 
