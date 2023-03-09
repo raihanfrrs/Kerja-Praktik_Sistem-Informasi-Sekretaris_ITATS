@@ -44,3 +44,20 @@ $(document).on('click', '#detail-request-button', function () {
         return;
     })
 });
+
+$(document).on('click', '#detail-receive-button', function () {
+    let slug = $(this).data('id');
+
+    $.get('/receive/'+slug+'/show', {
+        '_token': $('meta[name="csrf-token"]').attr('content'),
+        '_method': 'get'
+    })
+    .done(response => {
+        $("#modal-request").html(response);
+        $("#detail-request").modal('show');
+        return;
+    })
+    .fail(errors => {
+        return;
+    })
+});

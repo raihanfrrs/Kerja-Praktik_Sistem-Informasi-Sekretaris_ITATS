@@ -13,25 +13,25 @@
             </div>
             <table style="width:100%" class="mb-4">
               <tr>
-                <th>Name</th>
+                <th class="fw-normal">Name</th>
                 <td class="text-end fw-bold">{{ $receive->mahasiswa->name }}</td>
               </tr>
               <tr>
-                <th>Phone</th>
-                <td class="text-end fw-bold">{{ $receive->mahasiswa->phone }}</td>
+                <th class="fw-normal">Phone</th>
+                <td class="text-end fw-bold fst-italic">{{ $receive->mahasiswa->phone }}</td>
               </tr>
               <tr>
-                <th>Email</th>
-                <td class="text-end fw-bold">{{ $receive->mahasiswa->email }}</td>
+                <th class="fw-normal">Email</th>
+                <td class="text-end fw-bold fst-italic">{{ $receive->mahasiswa->email }}</td>
               </tr>
               <tr>
-                <th>Amount</th>
+                <th class="fw-normal">Amount</th>
                 <td class="text-end fw-bold">{{ $receive->amount }} Surat</td>
               </tr>
             </table>
             <div class="row">
               <div class="col-6">
-                  <a href="#" class="btn btn-secondary w-100" id="detail-surat-button"><i class="bi bi-list-columns"></i> Details</a>
+                  <a href="#" class="btn btn-secondary w-100" id="detail-receive-button" data-id="{{ $receive->mahasiswa->slug }}"><i class="bi bi-list-columns"></i> Details</a>
               </div>
               <div class="col-6">
                   <button class="btn btn-primary w-100" id="accept-surat" data-id="{{ $receive->mahasiswa->slug }}"><i class="bi bi-send-check"></i> Accept</button>

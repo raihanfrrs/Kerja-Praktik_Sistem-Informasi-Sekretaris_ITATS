@@ -6,7 +6,6 @@ use App\Models\DetailRequest;
 use App\Models\Dosen;
 use App\Models\Mahasiswa;
 use App\Models\Request as ModelsRequest;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
 class DosenController extends Controller
@@ -51,6 +50,8 @@ class DosenController extends Controller
                             ->where('requests.status', '!=','rejected')
                             ->where('detail_requests.status', 'pending')
                             ->where('mahasiswas.name', 'LIKE', '%'.$request->search.'%')
+                            ->orWhere('mahasiswas.phone', 'LIKE', '%'.$request->search.'%')
+                            ->orWhere('mahasiswas.email', 'LIKE', '%'.$request->search.'%')
                             ->groupBy('requests.mahasiswa_id')
                             ->get();
 
@@ -123,5 +124,10 @@ class DosenController extends Controller
         }
 
         return 'success';
+    }
+
+    public function receive_show()
+    {
+        
     }
 }

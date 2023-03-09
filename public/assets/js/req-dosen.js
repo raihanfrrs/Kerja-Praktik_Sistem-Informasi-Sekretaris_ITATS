@@ -11,12 +11,12 @@ function receive() {
 $('#search-receive').keypress(function(e) {
     var key = e.which;
     if (key == 13) {
-        $('#search-receive').click();
+        $('#search-receive-btn').click();
         return false;
     }
 });
 
-$(document).on('click', '#search-receive', function () {
+$(document).on('click', '#search-receive-btn', function () {
     let search = $('#search-receive').val();
     
     $.get('/receive/read', {

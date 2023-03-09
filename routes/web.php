@@ -88,6 +88,7 @@ Route::middleware('auth')->group(function () {
             Route::get('receive', 'receive_index');
             Route::get('receive/read', 'receive_read');
             Route::post('receive', 'receive_store');
+            Route::get('receive/{receive}/show', 'receive_show');
         });
     });
 

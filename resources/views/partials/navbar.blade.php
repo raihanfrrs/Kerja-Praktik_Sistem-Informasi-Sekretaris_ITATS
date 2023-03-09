@@ -21,7 +21,7 @@
     <div class="search-bar">
       <div class="search-form d-flex align-items-center">
         <input type="text" id="search-receive" placeholder="Search" title="Enter search keyword">
-        <button id="search-receive" title="Search"><i class="bi bi-search"></i></button>
+        <button id="search-receive-btn" title="Search"><i class="bi bi-search"></i></button>
       </div>
     </div>
     @endif
