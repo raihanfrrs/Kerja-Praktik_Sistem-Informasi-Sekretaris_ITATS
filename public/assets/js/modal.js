@@ -53,8 +53,8 @@ $(document).on('click', '#detail-receive-button', function () {
         '_method': 'get'
     })
     .done(response => {
-        $("#modal-request").html(response);
-        $("#detail-request").modal('show');
+        $("#modal-receive").html(response);
+        $("#detail-receive").modal('show');
         return;
     })
     .fail(errors => {

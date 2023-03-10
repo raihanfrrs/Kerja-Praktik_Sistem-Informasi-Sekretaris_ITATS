@@ -1360,6 +1360,10 @@ trix-toolbar [data-trix-button-group="file-tools"] {
   padding-top: 0;
 }
 
+.table>:not(caption)>*>*{
+  border-bottom-width: 0px !important;
+}
+
 /*--------------------------------------------------------------
 # Bullet Custom
 --------------------------------------------------------------*/

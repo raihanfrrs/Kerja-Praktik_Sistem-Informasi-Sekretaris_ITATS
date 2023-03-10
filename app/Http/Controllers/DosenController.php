@@ -75,15 +75,10 @@ class DosenController extends Controller
 
     public function receive_store(Request $request)
     {
-        //ada kasus mahasiswa request surat csr dan sekjur, dosen a hanya punya jabatan csr dan dosen b punya jabatan csr dan sekjur. harus membuatkan filter untuk masing" jabatan
         $mahasiswa = Mahasiswa::where('slug', $request->slug)->first();
         if (ModelsRequest::where('mahasiswa_id', $mahasiswa->id)->where('status', 'finished')->count() > 0) {
             return 'finished';
         }
-
-        // if (ModelsRequest::where('mahasiswa_id', $mahasiswa->id)->where('status', 'rejected')->count() > 0) {
-        //     return 'finished';
-        // }
 
         $dosens = Dosen::select('surats.id')
                     ->join('job_dosens', 'dosens.id', '=', 'job_dosens.dosen_id')
@@ -126,8 +121,62 @@ class DosenController extends Controller
         return 'success';
     }
 
-    public function receive_show()
+    public function receive_show($slug)
     {
-        
+        $mahasiswa = Mahasiswa::where('slug', $slug)->first();
+
+        $modelsRequests = ModelsRequest::where('mahasiswa_id', $mahasiswa->id)
+                                    ->get();
+
+        foreach ($modelsRequests as $request) {
+            $requests[] = $request->id;
+        }
+
+        $dosens = Dosen::select('surats.id')
+                    ->join('job_dosens', 'dosens.id', '=', 'job_dosens.dosen_id')
+                    ->join('job_roles', 'job_dosens.role_id', '=', 'job_roles.role_id')
+                    ->join('surats', 'job_roles.jenis_surat_id', '=', 'surats.jenis_surat_id')
+                    ->where('dosens.id', auth()->user()->dosen->id)
+                    ->groupBy('surats.id')
+                    ->get();
+
+        foreach ($dosens as $dosen) {
+            $dataDosen[] = $dosen->id;
+        }
+
+        $detailRequests = DetailRequest::join('requests', 'requests.id', '=', 'detail_requests.request_id')
+                                    ->join('mahasiswas', 'requests.mahasiswa_id', '=', 'mahasiswas.id')
+                                    ->select('mahasiswas.slug', 'detail_requests.surat_id')
+                                    ->whereIn('request_id', $requests)
+                                    ->whereIn('surat_id', $dataDosen)
+                                    ->where('detail_requests.status', 'pending')
+                                    ->get();
+
+        return view('dosen.receive.data-receive-modal')->with([
+            'receives' => $detailRequests
+        ]);
+    }
+
+    public function receive_reject($slug)
+    {
+        $mahasiswa = Mahasiswa::where('slug', $slug)->first();
+
+        $dosens = Dosen::select('surats.id')
+                    ->join('job_dosens', 'dosens.id', '=', 'job_dosens.dosen_id')
+                    ->join('job_roles', 'job_dosens.role_id', '=', 'job_roles.role_id')
+                    ->join('surats', 'job_roles.jenis_surat_id', '=', 'surats.jenis_surat_id')
+                    ->where('dosens.id', auth()->user()->dosen->id)
+                    ->groupBy('surats.id')
+                    ->get();
+
+        $counter = 0;
+        foreach ($dosens as $dosen) {
+            $dataDosen[] = $dosen->id;
+            // DetailRequest::where('surat_id', $dosen->id)->update(['status' => 'rejected', 'dosen_id' => auth()->user()->dosen->id]);
+            $counter++;
+        }
+
+        return DetailRequest::whereIn('surat_id', $dataDosen)->count();
+
     }
 }

@@ -74,3 +74,18 @@ $(document).on('click', '#accept-surat', function () {
         return;
     })
 });
+
+$(document).on('click', '#reject-request-btn', function () {
+    let slug = $(this).data('id');
+
+    $.post('receive/'+slug+'/reject', {
+        '_token': $('meta[name="csrf-token"]').attr('content'),
+        '_method': 'post'
+    }).done(response => {
+        console.log(response);
+        return;
+    })
+    .fail(errors => {
+        return;
+    });
+});
