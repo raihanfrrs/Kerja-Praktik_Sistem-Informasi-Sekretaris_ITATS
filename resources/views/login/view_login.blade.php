@@ -33,6 +33,9 @@
       <div class="col-12">
         <p class="small mb-0 text-center">Don't have account? <a href="register">Create an account</a></p>
       </div>
+      <div class="col-12">
+        <p class="small mb-0 text-center">Lupa Password? <a href="lupa-password">reset password</a></p>
+      </div>
     </form>
 
   </div>

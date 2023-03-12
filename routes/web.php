@@ -9,6 +9,7 @@ use App\Http\Controllers\MasterController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RecycleController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\ForgotPasswordController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +31,14 @@ Route::middleware('guest')->group(function () {
     Route::controller(RegisterController::class)->group(function(){
         Route::get('register', 'index');
         Route::post('register', 'store');
+    });
+
+    Route::controller(ForgotPasswordController::class)->group(function(){
+        Route::get('lupa-password', 'index')->name('lupa');
+        Route::get('email', 'getEmail')->name('mail');
+        Route::post('/get-email','getEmail');
+        Route::post('/get-code','sendCode');
+        Route::post('/renew-password','RenewPassword');
     });
 });
 

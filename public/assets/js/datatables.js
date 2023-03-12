@@ -20,9 +20,21 @@ $(document).ready(function () {
         columns: [
             { data: 'name', name: 'name', class: 'text-muted text-capitalize' },
             { data: 'nip', name: 'nip', class: 'text-muted text-center' },
-            { data: 'email', name: 'email', class: 'text-muted' },
+            { data: 'email', name: 'email', class: 'text-muted text-center' },
             { data: 'phone', name: 'phone', class: 'text-muted text-center' },
             { data: 'action', name: 'action', class: 'text-center' }
         ]
     });
+    
+    $('#dataSurat').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: '/dataSurat',
+        columns: [
+            { data: 'jenis', name: 'jenis', class: 'text-muted text-capitalize' },
+            { data: 'created_at', name: 'created_at', class: 'text-muted text-capitalize text-center' },
+            { data: 'updated_at', name: 'updated_at', class: 'text-muted text-capitalize text-center' }
+        ]
+    });
+
 });
