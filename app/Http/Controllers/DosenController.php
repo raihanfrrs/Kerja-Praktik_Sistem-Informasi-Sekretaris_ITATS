@@ -186,13 +186,15 @@ class DosenController extends Controller
                                     ->join('requests', 'requests.id', '=', 'detail_requests.request_id')
                                     ->whereIn('request_id', $requests)
                                     ->whereIn('surat_id', $dataDosen)
-                                    ->where('detail_requests.status', 'pending')
+                                    ->whereIn('detail_requests.status', ['pending', 'accepted'])
                                     ->get();
+
+        return $detailRequests;
 
         foreach ($detailRequests as $detailRequest) {
             DetailRequest::where('request_id', $detailRequest->id)
                     ->where('surat_id', $detailRequest->surat_id)
-                    ->where('status', 'pending')
+                    ->whereIn('status', ['pending', 'accepted'])
                     ->whereNull('dosen_id')
                     ->update(['status' => 'rejected', 'dosen_id' => auth()->user()->dosen->id]);
         }

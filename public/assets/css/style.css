@@ -1319,6 +1319,19 @@ input[type="file"].profile-image {
 }
 
 /*--------------------------------------------------------------
+# Custom Field
+--------------------------------------------------------------*/
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button{ 
+  -webkit-appearance: none; 
+}
+
+input[type=number]{
+  -moz-appearance: textfield;
+}
+
+/*--------------------------------------------------------------
 # Footer
 --------------------------------------------------------------*/
 .footer {

@@ -73,11 +73,11 @@
   <script src="{{ asset('/') }}assets/vendor/datatables/js/datatables.min.js"></script>
 
   <!-- Template Main JS File -->
-  @auth
   <script src="{{ asset('/') }}assets/js/main.js"></script>
   <script src="{{ asset('/') }}assets/js/datatables.js"></script>
   <script src="{{ asset('/') }}assets/js/images.js"></script>
   <script src="{{ asset('/') }}assets/js/button.js"></script>
+  @auth
   @if (request()->is('/'))
   <script src="{{ asset('/') }}assets/js/dashboard.js"></script>
   @endif
@@ -86,8 +86,8 @@
   @else
   <script src="{{ asset('/') }}assets/js/req-dosen.js"></script>
   @endif
-  <script src="{{ asset('/') }}assets/js/modal.js"></script>
   @endauth
+  <script src="{{ asset('/') }}assets/js/modal.js"></script>
 </body>
 
 </html>
