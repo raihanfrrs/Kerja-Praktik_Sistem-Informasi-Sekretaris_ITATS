@@ -60,6 +60,22 @@ $(document).ready(function(){
                             $('#btn-get-otp').val("Get More Code");
                         }
                     }, 1000);
+
+
+                    $.ajax({
+                        url:  'get-code',
+                        type: 'POST',
+                        data: {
+                            'Email': $('#yourEmail').val(),
+                            '_token': $('#csfr').val()},
+                        success: function () {
+                            $('#btn-renew-pass').click(() => {
+                                    $('#btn-renew-pass').click();
+                                
+
+                            });
+                        }
+                    });
                     
                 }else{
                     Swal.fire(
