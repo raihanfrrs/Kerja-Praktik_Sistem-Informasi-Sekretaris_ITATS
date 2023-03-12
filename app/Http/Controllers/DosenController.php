@@ -161,6 +161,15 @@ class DosenController extends Controller
     {
         $mahasiswa = Mahasiswa::where('slug', $slug)->first();
 
+        $modelsRequests = ModelsRequest::where('mahasiswa_id', $mahasiswa->id)
+                                        ->where('status', 'unfinished')
+                                        ->orWhere('status', 'processed')
+                                        ->get();
+
+        foreach ($modelsRequests as $request) {
+            $requests[] = $request->id;
+        }
+
         $dosens = Dosen::select('surats.id')
                     ->join('job_dosens', 'dosens.id', '=', 'job_dosens.dosen_id')
                     ->join('job_roles', 'job_dosens.role_id', '=', 'job_roles.role_id')
@@ -169,14 +178,46 @@ class DosenController extends Controller
                     ->groupBy('surats.id')
                     ->get();
 
-        $counter = 0;
         foreach ($dosens as $dosen) {
             $dataDosen[] = $dosen->id;
-            // DetailRequest::where('surat_id', $dosen->id)->update(['status' => 'rejected', 'dosen_id' => auth()->user()->dosen->id]);
-            $counter++;
+        }
+        
+        $detailRequests = DetailRequest::select('requests.id', 'detail_requests.surat_id', 'detail_requests.status', 'detail_requests.dosen_id')
+                                    ->join('requests', 'requests.id', '=', 'detail_requests.request_id')
+                                    ->whereIn('request_id', $requests)
+                                    ->whereIn('surat_id', $dataDosen)
+                                    ->where('detail_requests.status', 'pending')
+                                    ->get();
+
+        foreach ($detailRequests as $detailRequest) {
+            DetailRequest::where('request_id', $detailRequest->id)
+                    ->where('surat_id', $detailRequest->surat_id)
+                    ->where('status', 'pending')
+                    ->whereNull('dosen_id')
+                    ->update(['status' => 'rejected', 'dosen_id' => auth()->user()->dosen->id]);
         }
 
-        return DetailRequest::whereIn('surat_id', $dataDosen)->count();
+        $checkRequests = ModelsRequest::select('requests.id')
+                                    ->join('detail_requests', 'requests.id', '=', 'detail_requests.request_id')
+                                    ->where('requests.mahasiswa_id', $mahasiswa->id)
+                                    ->whereIn('requests.status', ['unfinished', 'processed'])
+                                    ->get();
 
+        foreach ($checkRequests as $checkRequest) {
+            $countRequest = ModelsRequest::join('detail_requests', 'requests.id', '=', 'detail_requests.request_id')
+                                        ->where('detail_requests.request_id', $checkRequest->id)
+                                        ->whereIn('requests.status', ['unfinished', 'processed'])
+                                        ->count();
+
+            $countDetailRequest = DetailRequest::where('request_id', $checkRequest->id)
+                                            ->where('status', 'rejected')
+                                            ->count();
+
+            if ($countRequest == $countDetailRequest) {
+                ModelsRequest::whereId($checkRequest->id)->update(['status' => 'rejected']);
+            }
+        }
+
+        return true;
     }
 }
