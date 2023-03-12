@@ -13,6 +13,7 @@ use App\Models\Dosen;
 class ForgotPasswordController extends Controller
 {
     private $Email = "";
+    private $kode = "";
     //
     public function index(){
         if(Auth::user()){
@@ -37,19 +38,29 @@ class ForgotPasswordController extends Controller
     public function sendCode(Request $req){
         $kode_otp = random_int(100000,999999);
         Mail::to($req->Email)->send(new SendEmail($kode_otp));
-        return $kode_otp;
+        $this->kode = $kode_otp;
     }
 
     public function RenewPassword(Request $req){
-       if(User::where('id', $req->user_id)->update(['password' => bcrypt($req->renew_password)]) == 1){
-        
-           return redirect('/login')->with([
-            'flash-type' => 'sweetalert',
-            'case' => 'default',
-            'position' => 'center',
-            'type' => 'success',
-            'message' => 'Password Berhasil di perbarui!'
-        ]);
-       }
+        if ($req->otp == $this->kode) {
+            if(User::where('id', $req->user_id)->update(['password' => bcrypt($req->renew_password)]) == 1){
+             
+                return redirect('/login')->with([
+                 'flash-type' => 'sweetalert',
+                 'case' => 'default',
+                 'position' => 'center',
+                 'type' => 'success',
+                 'message' => 'Password Berhasil di perbarui!'
+             ]);
+            }
+        }else {
+            return redirect('/lupa-password')->with([
+                'flash-type' => 'sweetalert',
+                'case' => 'default',
+                'position' => 'center',
+                'type' => 'error',
+                'message' => 'Kode OTP yang anda masukan salah!'
+            ]);
+        }
     }
 }

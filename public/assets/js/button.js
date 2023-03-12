@@ -60,27 +60,8 @@ $(document).ready(function(){
                             $('#btn-get-otp').val("Get More Code");
                         }
                     }, 1000);
-
-
-                    $.ajax({
-                        url:  'get-code',
-                        type: 'POST',
-                        data: {
-                            'Email': $('#yourEmail').val(),
-                            '_token': $('#csfr').val()},
-                        success: function (data) {
-                            $('#btn-renew-pass').click(() => {
-                                $('#btn-renew-pass').attr('type','submit');
-                                if (data == $('#yourOTP').val()) {
-                                    $('#btn-renew-pass').click();
-                                }
-
-                            })
-                        }
-                    });
                     
                 }else{
-                    console.log('tidak');
                     Swal.fire(
                         'Email Anda belum Terdaftar !',
                         'Gunakan Email yang telah terdaftar !',

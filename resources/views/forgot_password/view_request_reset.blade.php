@@ -42,7 +42,7 @@
       </div>
 
       <div class="col-12">
-        <input class="btn btn-primary w-100" id="btn-renew-pass" value="Submit" type="button">
+        <input class="btn btn-primary w-100" id="btn-renew-pass" value="Submit" type="submit">
       </div>
       <div class="col-12">
         <p class="small mb-0 text-center">sudah ingat ?<a href="login">Login</a></p>
