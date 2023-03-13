@@ -31,7 +31,7 @@ class DosenController extends Controller
 
         if ($request->search === 'default') {
             return view('dosen.receive.data')->with([
-                'receives' => ModelsRequest::select('requests.mahasiswa_id', ModelsRequest::raw('max(requests.created_at) as date'), ModelsRequest::raw('COUNT(*) as amount'))
+                'receives' => ModelsRequest::select('requests.mahasiswa_id', ModelsRequest::raw('max(requests.created_at) as date'))
                                         ->join('detail_requests', 'requests.id', '=', 'detail_requests.request_id')
                                         ->whereIn('detail_requests.surat_id', $data)
                                         ->where('requests.status', '!=','finished')
@@ -42,7 +42,7 @@ class DosenController extends Controller
             ]);
         }
 
-        $requests = ModelsRequest::select('requests.mahasiswa_id', ModelsRequest::raw('max(requests.created_at) as date'), ModelsRequest::raw('COUNT(*) as amount'))
+        $requests = ModelsRequest::select('requests.mahasiswa_id', ModelsRequest::raw('max(requests.created_at) as date'))
                             ->join('detail_requests', 'requests.id', '=', 'detail_requests.request_id')
                             ->join('mahasiswas', 'requests.mahasiswa_id', '=', 'mahasiswas.id')
                             ->whereIn('detail_requests.surat_id', $data)
@@ -57,7 +57,7 @@ class DosenController extends Controller
 
         if ($requests->count() == 0) {
             return view('dosen.receive.data')->with([
-                'receives' => ModelsRequest::select('requests.mahasiswa_id', ModelsRequest::raw('max(requests.created_at) as date'), ModelsRequest::raw('COUNT(*) as amount'))
+                'receives' => ModelsRequest::select('requests.mahasiswa_id', ModelsRequest::raw('max(requests.created_at) as date'))
                                         ->join('detail_requests', 'requests.id', '=', 'detail_requests.request_id')
                                         ->whereIn('detail_requests.surat_id', $data)
                                         ->where('requests.status', '!=','finished')

@@ -10,7 +10,7 @@
             <thead>
                 <tr>
                     <th scope="col" class="text-center">Amount</th>
-                    <th scope="col" class="text-center">Date</th>
+                    <th scope="col" class="text-center">Request At</th>
                     <th scope="col" class="text-center">Status</th>
                     <th scope="col" class="text-center">Action</th>
                 </tr>

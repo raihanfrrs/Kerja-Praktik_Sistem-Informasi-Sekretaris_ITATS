@@ -24,10 +24,6 @@
                 <th class="fw-normal">Email</th>
                 <td class="text-end fw-bold fst-italic">{{ $receive->mahasiswa->email }}</td>
               </tr>
-              <tr>
-                <th class="fw-normal">Amount</th>
-                <td class="text-end fw-bold">{{ $receive->amount }} Surat</td>
-              </tr>
             </table>
             <div class="row">
               <div class="col-6">

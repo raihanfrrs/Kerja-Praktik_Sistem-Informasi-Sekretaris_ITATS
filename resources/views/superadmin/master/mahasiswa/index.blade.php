@@ -7,21 +7,21 @@
     </div>
 
     <div class="card-body">
-    <h5 class="card-title">Mahasiswa <span>| Data Master</span></h5>
-    <div class="table-responsive">
-        <table class="table table-master table-borderless datatable table-hover" id="dataMahasiswa">
-            <thead>
-                <tr>
-                    <th scope="col" class="text-center">Mahasiswa</th>
-                    <th scope="col" class="text-center">NPM</th>
-                    <th scope="col" class="text-center">Email</th>
-                    <th scope="col" class="text-center">Phone</th>
-                    <th scope="col" class="text-center">Status</th>
-                    <th scope="col" class="text-center">Action</th>
-                </tr>
-            </thead>
-        </table>
-    </div>
+        <h5 class="card-title">Mahasiswa <span>| Data Master</span></h5>
+        <div class="table-responsive">
+            <table class="table table-master table-borderless datatable table-hover" id="dataMahasiswa">
+                <thead>
+                    <tr>
+                        <th scope="col" class="text-center">Mahasiswa</th>
+                        <th scope="col" class="text-center">NPM</th>
+                        <th scope="col" class="text-center">Email</th>
+                        <th scope="col" class="text-center">Phone</th>
+                        <th scope="col" class="text-center">Status</th>
+                        <th scope="col" class="text-center">Action</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
     </div>
 </div>
 @endsection

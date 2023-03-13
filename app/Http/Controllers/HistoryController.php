@@ -21,7 +21,7 @@ class HistoryController extends Controller
     public function dataRequestHistory()
     {
         return DataTables::of(ModelsRequest::rightJoin('detail_requests', 'requests.id', '=', 'detail_requests.request_id')
-                                        ->select('requests.id', DetailRequest::raw('COUNT(*) as amount'), ModelsRequest::raw('DATE_FORMAT(requests.created_at, "%d/%m/%Y") as date'), 'requests.status')
+                                        ->select('requests.id', DetailRequest::raw('COUNT(*) as amount'), ModelsRequest::raw('DATE_FORMAT(requests.created_at, "%d/%m/%Y %H:%i:%s") as date'), 'requests.status')
                                         ->where('requests.mahasiswa_id', auth()->user()->mahasiswa->id)
                                         ->groupBy('requests.id')
                                         ->get())
