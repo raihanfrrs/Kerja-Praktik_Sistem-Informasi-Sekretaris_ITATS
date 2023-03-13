@@ -47,14 +47,14 @@ Route::middleware('guest')->group(function () {
     });
 });
 
-Route::controller(LogoutController::class)->group(function () {
-    Route::get('logout', 'index');
-});
-
 Route::middleware('auth')->group(function () {
 
     Route::controller(LayoutController::class)->group(function () {
         Route::get('/', 'index');
+    });
+
+    Route::controller(LogoutController::class)->group(function () {
+        Route::get('logout', 'index');
     });
 
     Route::controller(ProfileController::class)->group(function(){
@@ -97,11 +97,16 @@ Route::middleware('auth')->group(function () {
 
     Route::group(['middleware' => ['cekUserLogin:dosen']], function(){
         Route::controller(DosenController::class)->group(function () {
+            /* receive surat resource */
             Route::get('receive', 'receive_index');
             Route::get('receive/read', 'receive_read');
             Route::post('receive', 'receive_store');
             Route::get('receive/{slug}/show', 'receive_show');
             Route::post('receive/{slug}/reject', 'receive_reject');
+            
+            /*  resource */
+            Route::get('assign', 'assign_index');
+            Route::get('assign/read', 'assign_read');
         });
     });
 

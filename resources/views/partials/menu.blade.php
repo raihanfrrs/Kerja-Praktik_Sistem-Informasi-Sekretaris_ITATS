@@ -37,7 +37,7 @@
             </a>
         </li>
         <li>
-            <a href="icons-bootstrap.html">
+            <a href="/assign">
                 <i class="bi bi-circle"></i><span>Kirim Surat</span>
             </a>
         </li>

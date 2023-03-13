@@ -1,5 +1,6 @@
 $(document).ready(function () {
     receive();
+    assign();
 });
 
 function receive() {
@@ -89,3 +90,9 @@ $(document).on('click', '#reject-request-btn', function () {
         return;
     });
 });
+
+function assign() {
+    $.get("/assign/read", { 'search': 'default' }, function(assign, status){
+        $("#data-assign").html(assign);
+    })
+}

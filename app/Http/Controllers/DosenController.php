@@ -222,4 +222,14 @@ class DosenController extends Controller
 
         return true;
     }
+
+    public function assign_index()
+    {
+        return view('dosen.assign.index');
+    }
+
+    public function assign_read()
+    {
+        
+    }
 }
