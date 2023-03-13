@@ -18,17 +18,16 @@
       <div class="col-12">
         <label for="password" class="form-label">New Password</label>
         <div class="input-group mb-3">
-          <input type="password" id="new-pass-input" name="password" class="form-control @error('password') is-invalid @enderror" placeholder="Masukan minimal 6 digit password" required>
+          <input type="password" id="new-pass-input" name="password" class="form-control @error('password') is-invalid @enderror" required>
           <button type="button" class="btn btn-outline-secondary" id="btn-show-password"><i class='bi bi-eye-fill'></i></button>
         </div>
         @if ($errors->any())
-          @foreach ($errors->all() as $error)
-              <div>{{$error}}</div>
-          @endforeach
+        <div class="text-danger">
+            <ul>
+                {!! implode('', $errors->all('<li>:message</li>')) !!}
+            </ul>
+        </div>
         @endif
-        @error('password')
-          <div class="invalid-feedback">{{ $message }}</div>
-        @enderror
       </div>
 
       <div class="col-12">

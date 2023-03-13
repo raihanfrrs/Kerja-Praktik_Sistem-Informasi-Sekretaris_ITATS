@@ -94,7 +94,7 @@ class ForgotPasswordController extends Controller
         if (Hash::check($request->otp, $otp->otp)) {
             $request->session()->put('session_user', [
                 'user' => $user->slug,
-                'expiration' => now()->addMinutes(2)
+                'expiration' => now()->addMinutes(5)
             ]);
 
             return redirect('reset-password');
@@ -105,10 +105,10 @@ class ForgotPasswordController extends Controller
     {
         if (Carbon::now() < $request->session()->get('session_user')['expiration']) {
             return view('forgot-password.view_password_reset')->with([
-                'user' => Session::get('user')
+                'user' => $request->session()->get('session_user')['user']
             ]);
         } else {
-            return redirect()->back()->with([
+            return redirect('login')->with([
                 'flash-type' => 'sweetalert',
                 'case' => 'default',
                 'position' => 'center',
@@ -118,16 +118,14 @@ class ForgotPasswordController extends Controller
         }
     }
 
-    public function renewPassword(Request $request)
+    public function renewPassword(Request $request, $slug)
     {
         $validateData = $request->validate([
-            'email' => 'required|min:5|max:255|unique:dosens|email:dns',
-            'otp' => 'required|min:6|max:6',
             'password' => ['required', Password::min(5)->mixedCase()->letters()->numbers()->symbols()->uncompromised()]
         ]);
 
-        $mahasiswas = Mahasiswa::where('email', $request->email);
-        $dosens = Dosen::where('email', $request->email);
+        $mahasiswas = Mahasiswa::where('slug', $slug);
+        $dosens = Dosen::where('slug', $slug);
 
         if ($mahasiswas->count() > 0) {
             $user = $mahasiswas->first();
@@ -137,7 +135,7 @@ class ForgotPasswordController extends Controller
 
         User::whereId($user->user_id)->update(['password' => Hash::make($request->password)]);
 
-        return back()->with([
+        return redirect('login')->with([
             'flash-type' => 'sweetalert',
             'case' => 'default',
             'position' => 'center',
