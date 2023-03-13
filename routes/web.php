@@ -37,19 +37,21 @@ Route::middleware('guest')->group(function () {
     });
 
     Route::controller(ForgotPasswordController::class)->group(function(){
-        Route::get('forgot-password', 'index');
+        Route::get('forgot-password', 'index')->name('forgot-password');
         Route::get('email', 'getEmail')->name('mail');
         Route::post('get-email','getEmail');
         Route::post('get-code','sendCode');
         Route::post('check-otp','checkOtp');
-        Route::post('renew-password','RenewPassword');
+        Route::get('reset-password', 'resetPassword');
+        Route::post('renew-password/{slug}','renewPassword');
     });
 });
 
+Route::controller(LogoutController::class)->group(function () {
+    Route::get('logout', 'index');
+});
+
 Route::middleware('auth')->group(function () {
-    Route::controller(LogoutController::class)->group(function () {
-        Route::get('logout', 'index');
-    });
 
     Route::controller(LayoutController::class)->group(function () {
         Route::get('/', 'index');

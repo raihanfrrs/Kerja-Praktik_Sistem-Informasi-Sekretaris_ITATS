@@ -110,15 +110,14 @@ $(document).on('click', '#btn-get-otp', function () {
                         'email': $('#yourEmail').val()
                     },
                     success: function (data) {
-                        console.log(data);
+                        return;
                     }
                 });
 
             }else{
-                console.log('tidak');
                 Swal.fire(
-                    'Email Anda belum Terdaftar !',
-                    'Gunakan Email yang telah terdaftar !',
+                    'Email Not Registered !',
+                    'Use a Registered Email !',
                     'error'
                 );
             }
@@ -132,24 +131,39 @@ $(document).on('keydown', '#yourOTP', function (e) {
     }
 });
 
-$(document).on('click', '#btn-renew-pass', function (e) {
-    e.preventDefault();
+// $(document).on('click', '#btn-renew-pass', function (e) {
 
-    $.ajaxSetup({
-        headers: {
-          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr("content")
-        }
-    });
+//     if( $("#yourEmail").val().length === 0 ) {
+//         alert("Email Cannot be Empty !");
+//         return false;
+//     }
 
-    $.ajax({
-        type: "post",
-        url: "check-otp",
-        data: {
-            "email": $('#yourEmail').val(),
-            "otp": $('#yourOTP').val()
-        },
-        success: function(data){
-            console.log(data);
-        }
-    });
-});
+//     if( $("#yourOTP").val().length === 0 ) {
+//         alert("OTP Cannot be Empty !");
+//         return false;
+//     }
+
+//     $.ajaxSetup({
+//         headers: {
+//           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr("content")
+//         }
+//     });
+
+//     $.ajax({
+//         type: "post",
+//         url: "check-otp",
+//         data: {
+//             "email": $('#yourEmail').val(),
+//             "otp": $('#yourOTP').val()
+//         },
+//         success: function(data){
+//             if (!data) {
+//                 Swal.fire(
+//                     'OTP Code Does Not Match !',
+//                     'Check Your Email Again !',
+//                     'error'
+//                 );
+//             }
+//         }
+//     });
+// });

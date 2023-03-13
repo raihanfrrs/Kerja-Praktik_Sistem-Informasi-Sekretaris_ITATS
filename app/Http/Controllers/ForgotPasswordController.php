@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use App\Models\Otp;
+use App\Models\User;
 use App\Models\Dosen;
 use App\Mail\SendEmail;
 use App\Models\Mahasiswa;
@@ -11,6 +12,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Validation\Rules\Password;
 
 class ForgotPasswordController extends Controller
 {
@@ -78,36 +81,68 @@ class ForgotPasswordController extends Controller
 
         $otp = Otp::where('user_id', $user->user_id)->first();
 
-        $data = [
-            'form' => Hash::make($request->otp),
-            'database' => $otp->otp
-        ];
+        if (Otp::where('user_id', $user->user_id)->count() == 0) {
+            return redirect('login')->with([
+                'flash-type' => 'sweetalert',
+                'case' => 'default',
+                'position' => 'center',
+                'type' => 'error',
+                'message' => 'OTP Expired !'
+            ]);
+        }
 
-        return $data;
+        if (Hash::check($request->otp, $otp->otp)) {
+            $request->session()->put('session_user', [
+                'user' => $user->slug,
+                'expiration' => now()->addMinutes(2)
+            ]);
+
+            return redirect('reset-password');
+        }
     }
 
-    // public function RenewPassword(Request $request)
-    // {
-    //     dd($this->kode);
-    //     if ($request->otp == $this->kode) {
-    //         if(User::where('id', $request->user_id)->update(['password' => bcrypt($request->renew_password)]) == 1){
+    public function resetPassword(Request $request)
+    {
+        if (Carbon::now() < $request->session()->get('session_user')['expiration']) {
+            return view('forgot-password.view_password_reset')->with([
+                'user' => Session::get('user')
+            ]);
+        } else {
+            return redirect()->back()->with([
+                'flash-type' => 'sweetalert',
+                'case' => 'default',
+                'position' => 'center',
+                'type' => 'error',
+                'message' => 'OTP Expired !'
+            ]);
+        }
+    }
 
-    //             return redirect('/login')->with([
-    //              'flash-type' => 'sweetalert',
-    //              'case' => 'default',
-    //              'position' => 'center',
-    //              'type' => 'success',
-    //              'message' => 'Password Berhasil di perbarui!'
-    //          ]);
-    //         }
-    //     }else {
-    //         return redirect('/lupa-password')->with([
-    //             'flash-type' => 'sweetalert',
-    //             'case' => 'default',
-    //             'position' => 'center',
-    //             'type' => 'error',
-    //             'message' => 'Kode OTP yang anda masukan salah!'
-    //         ]);
-    //     }
-    // }
+    public function renewPassword(Request $request)
+    {
+        $validateData = $request->validate([
+            'email' => 'required|min:5|max:255|unique:dosens|email:dns',
+            'otp' => 'required|min:6|max:6',
+            'password' => ['required', Password::min(5)->mixedCase()->letters()->numbers()->symbols()->uncompromised()]
+        ]);
+
+        $mahasiswas = Mahasiswa::where('email', $request->email);
+        $dosens = Dosen::where('email', $request->email);
+
+        if ($mahasiswas->count() > 0) {
+            $user = $mahasiswas->first();
+        }elseif ($dosens->count() > 0) {
+            $user = $dosens->first();
+        }
+
+        User::whereId($user->user_id)->update(['password' => Hash::make($request->password)]);
+
+        return back()->with([
+            'flash-type' => 'sweetalert',
+            'case' => 'default',
+            'position' => 'center',
+            'type' => 'success',
+            'message' => 'Password Updated!'
+        ]);
+    }
 }
