@@ -78,16 +78,16 @@ $("#btn-show-password").click(() => {
 $(document).on('click', '#btn-get-otp', function () {
     $.ajaxSetup({
         headers: {
-            'X-CSRF-TOKEN': $('#csfr').val()
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr("content")
         }
     });
 
     $.ajax({
-        url:  'get-email',
+        url: 'get-email',
         type: 'POST',
         data: {
-            'Email': $('#yourEmail').val(),
-            '_token': $('#csfr').val()},
+            'email': $('#yourEmail').val()
+        },
         success: function (data) {
             if (data.length != 0) {
                 $('#user-id-input').val(data.user_id);
@@ -103,21 +103,14 @@ $(document).on('click', '#btn-get-otp', function () {
                     }
                 }, 1000);
 
-
                 $.ajax({
                     url:  'get-code',
                     type: 'POST',
                     data: {
-                        'Email': $('#yourEmail').val(),
-                        '_token': $('#csfr').val()},
+                        'email': $('#yourEmail').val()
+                    },
                     success: function (data) {
-                        $('#btn-renew-pass').click(() => {
-                            $('#btn-renew-pass').attr('type','submit');
-                            if (data == $('#yourOTP').val()) {
-                                $('#btn-renew-pass').click();
-                            }
-
-                        })
+                        console.log(data);
                     }
                 });
 
@@ -127,8 +120,36 @@ $(document).on('click', '#btn-get-otp', function () {
                     'Email Anda belum Terdaftar !',
                     'Gunakan Email yang telah terdaftar !',
                     'error'
-                    );
+                );
             }
+        }
+    });
+});
+
+$(document).on('keydown', '#yourOTP', function (e) {
+    if (e.keyCode > 36 && e.keyCode < 41) {
+        e.preventDefault();
+    }
+});
+
+$(document).on('click', '#btn-renew-pass', function (e) {
+    e.preventDefault();
+
+    $.ajaxSetup({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr("content")
+        }
+    });
+
+    $.ajax({
+        type: "post",
+        url: "check-otp",
+        data: {
+            "email": $('#yourEmail').val(),
+            "otp": $('#yourOTP').val()
+        },
+        success: function(data){
+            console.log(data);
         }
     });
 });

@@ -40,6 +40,11 @@ class User extends Authenticatable
         return $this->hasOne(Mahasiswa::class);
     }
 
+    public function otp()
+    {
+        return $this->hasOne(Otp::class);
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *

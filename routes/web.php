@@ -41,6 +41,7 @@ Route::middleware('guest')->group(function () {
         Route::get('email', 'getEmail')->name('mail');
         Route::post('get-email','getEmail');
         Route::post('get-code','sendCode');
+        Route::post('check-otp','checkOtp');
         Route::post('renew-password','RenewPassword');
     });
 });

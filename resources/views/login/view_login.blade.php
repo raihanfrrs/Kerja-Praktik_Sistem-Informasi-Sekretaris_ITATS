@@ -30,8 +30,11 @@
       <div class="col-12">
         <button class="btn btn-primary w-100" type="submit">Login</button>
       </div>
-      <div class="col-12">
-        <p class="small mb-0 text-center">Don't have account? <a href="register">Create an account</a></p>
+      <div class="col-6">
+        <p class="small mb-0 text-center"><a href="/register">Don't have account?</a></p>
+      </div>
+      <div class="col-6">
+        <p class="small mb-0 text-center"><a href="/forgot-password">Forgot Password?</a></p>
       </div>
     </form>
 

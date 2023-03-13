@@ -14,17 +14,16 @@
     </div>
 
     <form class="row g-3 needs-validation" id="form-renew-password" action="{{ url('/renew-password') }}" method="post">
-      <input type="hidden" name="_token" id="csfr" value="{{ csrf_token() }}">
       <div class="col-12">
         <label for="yourEmail" class="form-label">Email</label>
-        <input type="text" name="Email" class="form-control @error('Email') is-invalid @enderror" id="yourEmail" value="{{ old('Email') }}" autocomplete="off" required>
-        @error('Email')<div class="invalid-feedback">{{ $message }}</div>@enderror
+        <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" id="yourEmail" value="{{ old('email') }}" autocomplete="off" required>
+        @error('email')<div class="invalid-feedback">{{ $message }}</div>@enderror
       </div>
 
       <div class="col-12">
-        <label for="yourOTP" class="form-label">CODE OTP</label>
+        <label for="yourOTP" class="form-label">OTP CODE</label>
         <div class="input-group mb-3">
-          <input type="number" name="otp" id="yourOTP" class="form-control" placeholder="Masukan 6 digit otp" aria-label="Recipient's username" aria-describedby="button-addon2"@error('otp') is-invalid @enderror>
+          <input type="number" name="otp" id="yourOTP" class="form-control" placeholder="Enter 6 Digits OTP" aria-label="Recipient's username" aria-describedby="button-addon2"@error('otp') is-invalid @enderror>
           <input class="btn btn-outline-secondary" type="button" value="GET OTP" id="btn-get-otp">
         </div>
         @error('otp')<div class="invalid-feedback">{{ $message }}</div>@enderror
@@ -35,14 +34,14 @@
       <div class="col-12">
         <label for="password" class="form-label">New Password</label>
         <div class="input-group mb-3">
-          <input type="password" id="new-pass-input" name="renew_password" class="form-control" placeholder="Masukan minimal 6 digit password"  minlength="6" @error('password') is-invalid @enderror>
+          <input type="password" id="new-pass-input" name="renew_password" class="form-control" placeholder="Masukan minimal 6 digit password" @error('password') is-invalid @enderror>
           <button type="button" class="btn btn-outline-secondary" id="btn-show-password"><i class='bi bi-eye-fill'></i></button>
         </div>
         @error('otp')<div class="invalid-feedback">{{ $message }}</div>@enderror
       </div>
 
       <div class="col-12">
-        <input class="btn btn-primary w-100" id="btn-renew-pass" value="Submit" type="button">
+        <input class="btn btn-primary w-100" id="btn-renew-pass" value="Submit" type="submit">
       </div>
       <div class="col-12">
         <p class="small mb-0 text-center">sudah ingat ?<a href="login">Login</a></p>
