@@ -14,7 +14,7 @@ class HistoryController extends Controller
         if (auth()->user()->level === 'mahasiswa') {
             return view('mahasiswa.history.index');
         } else {
-            
+            return view('dosen.history.index');
         }
     }
 

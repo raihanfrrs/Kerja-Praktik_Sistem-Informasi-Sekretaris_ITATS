@@ -28,6 +28,13 @@ class LoginController extends Controller
 
         $checkUser = User::where('username', $request->username)->first();
 
+        
+        if (empty($checkUser)) {
+            return back()->withErrors([
+                'username' => 'Username or Password Wrong'
+            ])->onlyInput('username');
+        }
+
         if ($checkUser->count() > 0) {
             if (Mahasiswa::where('user_id', $checkUser->id)->count() > 0) {
                 if ($checkUser->mahasiswa->status === 'deactivated') {
