@@ -228,8 +228,62 @@ class DosenController extends Controller
         return view('dosen.assign.index');
     }
 
-    public function assign_read()
+    public function assign_read(Request $request)
     {
-        
+        $dosens = Dosen::select('surats.id')
+                    ->join('job_dosens', 'dosens.id', '=', 'job_dosens.dosen_id')
+                    ->join('job_roles', 'job_dosens.role_id', '=', 'job_roles.role_id')
+                    ->join('surats', 'job_roles.jenis_surat_id', '=', 'surats.jenis_surat_id')
+                    ->where('dosens.id', auth()->user()->dosen->id)
+                    ->groupBy('surats.id')
+                    ->get();
+
+        foreach ($dosens as $dosen) {
+            $data[] = $dosen->id;
+        }
+
+        if ($request->search === 'default') {
+            return view('dosen.assign.data')->with([
+                'assigns' => ModelsRequest::select('requests.mahasiswa_id', ModelsRequest::raw('max(requests.created_at) as date'), 'requests.status')
+                                        ->join('detail_requests', 'requests.id', '=', 'detail_requests.request_id')
+                                        ->whereIn('detail_requests.surat_id', $data)
+                                        ->where('requests.status', '!=', 'unfinished')
+                                        ->where('requests.status', '!=', 'canceled')
+                                        ->where('detail_requests.dosen_id', auth()->user()->dosen->id)
+                                        ->groupBy('requests.mahasiswa_id')
+                                        ->groupBy('requests.status')
+                                        ->get()
+            ]);
+        }
+
+        $requests = ModelsRequest::select('requests.mahasiswa_id', ModelsRequest::raw('max(requests.created_at) as date'), 'requests.status')
+                            ->join('detail_requests', 'requests.id', '=', 'detail_requests.request_id')
+                            ->join('mahasiswas', 'requests.mahasiswa_id', '=', 'mahasiswas.id')
+                            ->whereIn('detail_requests.surat_id', $data)
+                            ->where('requests.status', '!=','unfinished')
+                            ->where('requests.status', '!=', 'canceled')
+                            ->where('mahasiswas.name', 'LIKE', '%'.$request->search.'%')
+                            ->orWhere('mahasiswas.phone', 'LIKE', '%'.$request->search.'%')
+                            ->orWhere('mahasiswas.email', 'LIKE', '%'.$request->search.'%')
+                            ->groupBy('requests.mahasiswa_id')
+                            ->groupBy('requests.status')
+                            ->get();
+
+        if ($requests->count() == 0) {
+            return view('dosen.assign.data')->with([
+                'assigns' => ModelsRequest::select('requests.mahasiswa_id', ModelsRequest::raw('max(requests.created_at) as date'), 'requests.status')
+                                        ->join('detail_requests', 'requests.id', '=', 'detail_requests.request_id')
+                                        ->whereIn('detail_requests.surat_id', $data)
+                                        ->where('requests.status', '!=','unfinished')
+                                        ->where('requests.status', '!=', 'canceled')
+                                        ->groupBy('requests.mahasiswa_id')
+                                        ->groupBy('requests.status')
+                                        ->get()
+            ]);
+        }
+
+        return view('dosen.assign.data')->with([
+            'assigns' => $requests
+        ]);
     }
 }

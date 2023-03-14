@@ -96,3 +96,26 @@ function assign() {
         $("#data-assign").html(assign);
     })
 }
+
+$('#search-assign').keypress(function(e) {
+    var key = e.which;
+    if (key == 13) {
+        $('#search-assign-btn').click();
+        return false;
+    }
+});
+
+$(document).on('click', '#search-assign-btn', function () {
+    let search = $('#search-assign').val();
+    
+    $.get('/assign/read', {
+        'search': search
+    })
+    .done(response => {
+        $("#data-assign").html(response);
+        return;
+    })
+    .fail(errors => {
+        return;
+    })
+});

@@ -17,11 +17,11 @@
     </div>
     @endif
 
-    @if (auth()->user()->level === 'dosen' && request()->is('receive'))
+    @if (auth()->user()->level === 'dosen' && (request()->is('receive') || request()->is('assign')))
     <div class="search-bar">
       <div class="search-form d-flex align-items-center">
-        <input type="text" id="search-receive" placeholder="Search" title="Enter search keyword">
-        <button id="search-receive-btn" title="Search"><i class="bi bi-search"></i></button>
+        <input type="text" @if(request()->is('receive')) id="search-receive" @elseif(request()->is('assign')) id="search-assign" @endif  placeholder="Search" title="Enter search keyword">
+        <button @if(request()->is('receive')) id="search-receive-btn" @elseif(request()->is('assign')) id="search-assign-btn" @endif title="Search"><i class="bi bi-search"></i></button>
       </div>
     </div>
     @endif
