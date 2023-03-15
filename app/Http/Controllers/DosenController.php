@@ -162,8 +162,7 @@ class DosenController extends Controller
         $mahasiswa = Mahasiswa::where('slug', $slug)->first();
 
         $modelsRequests = ModelsRequest::where('mahasiswa_id', $mahasiswa->id)
-                                        ->where('status', 'unfinished')
-                                        ->orWhere('status', 'processed')
+                                        ->whereIn('status', ['unfinished', 'processed'])
                                         ->get();
 
         foreach ($modelsRequests as $request) {
@@ -188,8 +187,6 @@ class DosenController extends Controller
                                     ->whereIn('surat_id', $dataDosen)
                                     ->whereIn('detail_requests.status', ['pending', 'accepted'])
                                     ->get();
-
-        return $detailRequests;
 
         foreach ($detailRequests as $detailRequest) {
             DetailRequest::where('request_id', $detailRequest->id)
@@ -244,14 +241,14 @@ class DosenController extends Controller
 
         if ($request->search === 'default') {
             return view('dosen.assign.data')->with([
-                'assigns' => ModelsRequest::select('requests.mahasiswa_id', ModelsRequest::raw('max(requests.created_at) as date'), 'requests.status')
+                'assigns' => ModelsRequest::select('requests.mahasiswa_id', ModelsRequest::raw('max(requests.created_at) as date'), 'detail_requests.status')
                                         ->join('detail_requests', 'requests.id', '=', 'detail_requests.request_id')
                                         ->whereIn('detail_requests.surat_id', $data)
-                                        ->where('requests.status', '!=', 'unfinished')
-                                        ->where('requests.status', '!=', 'canceled')
+                                        ->where('detail_requests.status', '!=', 'pending')
+                                        ->where('detail_requests.status', '!=', 'canceled')
                                         ->where('detail_requests.dosen_id', auth()->user()->dosen->id)
-                                        ->groupBy('requests.mahasiswa_id')
-                                        ->groupBy('requests.status')
+                                        ->groupBy('requests.id')
+                                        ->groupBy('detail_requests.status')
                                         ->get()
             ]);
         }
@@ -265,7 +262,7 @@ class DosenController extends Controller
                             ->where('mahasiswas.name', 'LIKE', '%'.$request->search.'%')
                             ->orWhere('mahasiswas.phone', 'LIKE', '%'.$request->search.'%')
                             ->orWhere('mahasiswas.email', 'LIKE', '%'.$request->search.'%')
-                            ->groupBy('requests.mahasiswa_id')
+                            ->groupBy('requests.id')
                             ->groupBy('requests.status')
                             ->get();
 
@@ -276,7 +273,7 @@ class DosenController extends Controller
                                         ->whereIn('detail_requests.surat_id', $data)
                                         ->where('requests.status', '!=','unfinished')
                                         ->where('requests.status', '!=', 'canceled')
-                                        ->groupBy('requests.mahasiswa_id')
+                                        ->groupBy('requests.id')
                                         ->groupBy('requests.status')
                                         ->get()
             ]);

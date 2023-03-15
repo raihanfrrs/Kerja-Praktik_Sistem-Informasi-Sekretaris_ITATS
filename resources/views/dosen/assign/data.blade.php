@@ -27,7 +27,7 @@
               <tr>
                 <th class="fw-normal">Status</th>
                 <td class="text-end fw-bold text-capitalize">
-                  @if ($assign->status === 'processed')
+                  @if ($assign->status === 'accepted')
                     <span class="badge rounded-pill text-bg-primary">{{ $assign->status }}</span>
                   @elseif ($assign->status === 'rejected')
                     <span class="badge rounded-pill text-bg-danger">{{ $assign->status }}</span>
@@ -38,9 +38,15 @@
               </tr>
             </table>
             <div class="row">
-              <div class="col-12">
-                  <button class="btn btn-primary w-100" id="accept-surat" data-id="{{ $assign->mahasiswa->slug }}"><i class="bi bi-send"></i> Send</button>
-              </div>
+              @if ($assign->status === 'rejected')
+                <div class="col-12">
+                  <a href="/" class="btn btn-secondary w-100"><i class="bi bi-file-text"></i> Detail</a>
+                </div>
+              @elseif ($assign->status === 'accepted')
+                <div class="col-12">
+                  <button class="btn btn-primary w-100"><i class="bi bi-send"></i> Send</button>
+                </div>
+              @endif
             </div>
           </div>
       </div>

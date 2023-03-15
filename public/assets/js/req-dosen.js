@@ -79,16 +79,36 @@ $(document).on('click', '#accept-surat', function () {
 $(document).on('click', '#reject-request-btn', function () {
     let slug = $(this).data('id');
 
-    $.post('receive/'+slug+'/reject', {
-        '_token': $('meta[name="csrf-token"]').attr('content'),
-        '_method': 'post'
-    }).done(response => {
-        console.log(response);
-        return;
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+            $.post('receive/'+slug+'/reject', {
+                '_token': $('meta[name="csrf-token"]').attr('content'),
+                '_method': 'post'
+            }).done(response => {
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: 'Request Rejected!',
+                    showConfirmButton: false,
+                    timer: 2000
+                });
+                $('#detail-receive').modal('hide');
+                receive();
+                return;
+            })
+            .fail(errors => {
+                return;
+            });
+        }
     })
-    .fail(errors => {
-        return;
-    });
 });
 
 function assign() {

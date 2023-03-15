@@ -8,29 +8,27 @@
         <div class="card">
             <div class="card-body">
                 <div class="d-flex">
-                    <div class="me-auto">
-                        <h5 class="card-title text-capitalize fw-bold">Request #{{ $loop->iteration }}</h5>
-                    </div>
-                    <div>
-                        @if ($acception->status === 'unfinished')
-                            <h5 class="card-title"><span class="badge text-bg-warning">Pending</span></h5>
-                        @elseif ($acception->status === 'processed')
-                            <h5 class="card-title"><span class="badge text-bg-primary">Processed</span></h5>
-                        @elseif ($acception->status === 'finished')
-                            <h5 class="card-title"><span class="badge text-bg-success">Finished</span></h5>
-                        @elseif ($acception->status === 'canceled' || $acception->status === 'rejected')
-                            <h5 class="card-title text-capitalize"><span class="badge text-bg-danger">{{ $acception->status }}</span></h5>
-                        @endif
-                    </div>
+                    <div class="flex-grow-1"><h5 class="card-title fw-bold">Request #{{ $loop->iteration }}</h5></div>
+                    <div><h6 class="card-title text-muted">{{ $acception->created_at->diffForHumans() }}.</h6></div>
                 </div>
                 <table style="width:100%" class="mb-4">
                     <tr>
-                      <th>Amount</th>
+                      <th class="fw-normal">Amount</th>
                       <td class="text-end fw-bold">{{ $acception->amount }} Surat</td>
                     </tr>
                     <tr>
-                      <th>Request At</th>
-                      <td class="text-end fw-bold">{{ $acception->created_at->diffForHumans() }}</td>
+                      <th class="fw-normal">Status</th>
+                      <td class="text-end fw-bold">
+                        @if ($acception->status === 'unfinished')
+                            <span class="badge text-bg-warning">Pending</span>
+                        @elseif ($acception->status === 'processed')
+                            <span class="badge text-bg-primary">Processed</span>
+                        @elseif ($acception->status === 'finished')
+                            <span class="badge text-bg-success">Finished</span>
+                        @elseif ($acception->status === 'canceled' || $acception->status === 'rejected')
+                            <span class="badge text-bg-danger">{{ $acception->status }}</span>
+                        @endif
+                      </td>
                     </tr>
                 </table>
                 <div class="row">
