@@ -253,7 +253,7 @@ class DosenController extends Controller
             ]);
         }
 
-        $requests = ModelsRequest::select('requests.mahasiswa_id', ModelsRequest::raw('max(requests.created_at) as date'), 'requests.status')
+        $requests = ModelsRequest::select('requests.mahasiswa_id', ModelsRequest::raw('max(requests.created_at) as date'), 'detail_requests.status')
                             ->join('detail_requests', 'requests.id', '=', 'detail_requests.request_id')
                             ->join('mahasiswas', 'requests.mahasiswa_id', '=', 'mahasiswas.id')
                             ->whereIn('detail_requests.surat_id', $data)
@@ -263,18 +263,18 @@ class DosenController extends Controller
                             ->orWhere('mahasiswas.phone', 'LIKE', '%'.$request->search.'%')
                             ->orWhere('mahasiswas.email', 'LIKE', '%'.$request->search.'%')
                             ->groupBy('requests.id')
-                            ->groupBy('requests.status')
+                            ->groupBy('detail_requests.status')
                             ->get();
 
         if ($requests->count() == 0) {
             return view('dosen.assign.data')->with([
-                'assigns' => ModelsRequest::select('requests.mahasiswa_id', ModelsRequest::raw('max(requests.created_at) as date'), 'requests.status')
+                'assigns' => ModelsRequest::select('requests.mahasiswa_id', ModelsRequest::raw('max(requests.created_at) as date'), 'detail_requests.status')
                                         ->join('detail_requests', 'requests.id', '=', 'detail_requests.request_id')
                                         ->whereIn('detail_requests.surat_id', $data)
                                         ->where('requests.status', '!=','unfinished')
                                         ->where('requests.status', '!=', 'canceled')
                                         ->groupBy('requests.id')
-                                        ->groupBy('requests.status')
+                                        ->groupBy('detail_requests.status')
                                         ->get()
             ]);
         }
