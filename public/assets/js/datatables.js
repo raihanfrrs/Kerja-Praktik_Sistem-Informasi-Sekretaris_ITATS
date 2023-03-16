@@ -69,4 +69,17 @@ $(document).ready(function () {
             { data: 'action', name: 'action', class: 'text-center' }
         ]
     });
+
+    $('#dataAssignHistory').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: '/dataAssignHistory',
+        columns: [
+            { data: 'name', name: 'name', class: 'text-muted text-center' },
+            { data: 'amount', name: 'amount', class: 'text-muted text-center' },
+            { data: 'date', name: 'date', class: 'text-muted text-center' },
+            { data: 'status', name: 'status', class: 'text-center' },
+            { data: 'action', name: 'action', class: 'text-center' }
+        ]
+    });
 });

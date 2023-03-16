@@ -74,6 +74,7 @@ Route::middleware('auth')->group(function () {
         Route::delete('history/{request}', 'destroy');
 
         Route::get('/dataRequestHistory', [HistoryController::class, 'dataRequestHistory'])->name('dataRequestHistory');
+        Route::get('/dataAssignHistory', [HistoryController::class, 'dataAssignHistory'])->name('dataAssignHistory');
     });
 
     Route::group(['middleware' => ['cekUserLogin:mahasiswa']], function(){

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\DetailRequest;
 use App\Models\Request as ModelsRequest;
 use Illuminate\Http\Request;
+use Yajra\DataTables\Contracts\DataTable;
 use Yajra\DataTables\Facades\DataTables;
 
 class HistoryController extends Controller
@@ -33,6 +34,11 @@ class HistoryController extends Controller
         })
         ->rawColumns(['status', 'action'])
         ->make(true);
+    }
+
+    public function dataAssignHistory()
+    {
+        return DataTable::of()
     }
 
     public function destroy(ModelsRequest $request){
