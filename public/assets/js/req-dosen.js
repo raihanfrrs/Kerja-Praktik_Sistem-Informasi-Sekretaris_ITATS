@@ -76,7 +76,7 @@ $(document).on('click', '#accept-surat', function () {
     })
 });
 
-$(document).on('click', '#reject-request-btn', function () {
+$(document).on('click', '#reject-receive-btn', function () {
     let slug = $(this).data('id');
 
     Swal.fire({
@@ -86,10 +86,10 @@ $(document).on('click', '#reject-request-btn', function () {
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
+        confirmButtonText: 'Yes, reject it!'
       }).then((result) => {
         if (result.isConfirmed) {
-            $.post('receive/'+slug+'/reject', {
+            $.post('assive/'+slug+'/reject', {
                 '_token': $('meta[name="csrf-token"]').attr('content'),
                 '_method': 'post'
             }).done(response => {
@@ -137,5 +137,40 @@ $(document).on('click', '#search-assign-btn', function () {
     })
     .fail(errors => {
         return;
+    })
+});
+
+$(document).on('click', '#reject-assign-btn', function () {
+    let slug = $(this).data('id');
+
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, reject it!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+            $.post('assive/'+slug+'/reject', {
+                '_token': $('meta[name="csrf-token"]').attr('content'),
+                '_method': 'post'
+            }).done(response => {
+                console.log(response);
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: 'Request Rejected!',
+                    showConfirmButton: false,
+                    timer: 2000
+                });
+                assign();
+                return;
+            })
+            .fail(errors => {
+                return;
+            });
+        }
     })
 });

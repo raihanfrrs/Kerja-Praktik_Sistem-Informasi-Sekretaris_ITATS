@@ -8,7 +8,7 @@
       <div class="card">
           <div class="card-body">
             <div class="d-flex">
-              <div class="flex-grow-1"><h5 class="card-title fw-bold">Request #{{ $loop->iteration }}</h5></div>
+              <div class="flex-grow-1"><h5 class="card-title fw-bold">Request ID#{{ $assign->id }}</h5></div>
               <div><h6 class="card-title text-muted">{{\Carbon\Carbon::parse($assign->date)->diffForHumans() }}.</h6></div>
             </div>
             <table style="width:100%" class="mb-4">
@@ -43,7 +43,10 @@
                   <a href="/" class="btn btn-secondary w-100"><i class="bi bi-file-text"></i> Detail</a>
                 </div>
               @elseif ($assign->status === 'accepted')
-                <div class="col-12">
+                <div class="col-6">
+                  <button class="btn btn-danger w-100" id="reject-assign-btn" data-id="{{ $assign->mahasiswa->slug }}"><i class="bi bi-send-slash"></i> Rejected</button>
+                </div>
+                <div class="col-6">
                   <button class="btn btn-primary w-100"><i class="bi bi-send"></i> Send</button>
                 </div>
               @endif

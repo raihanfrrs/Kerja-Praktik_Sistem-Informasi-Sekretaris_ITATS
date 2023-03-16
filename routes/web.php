@@ -102,11 +102,12 @@ Route::middleware('auth')->group(function () {
             Route::get('receive/read', 'receive_read');
             Route::post('receive', 'receive_store');
             Route::get('receive/{slug}/show', 'receive_show');
-            Route::post('receive/{slug}/reject', 'receive_reject');
             
-            /*  resource */
+            /* assign surat  resource */
             Route::get('assign', 'assign_index');
             Route::get('assign/read', 'assign_read');
+
+            Route::post('assive/{slug}/reject', 'assive_reject');
         });
     });
 

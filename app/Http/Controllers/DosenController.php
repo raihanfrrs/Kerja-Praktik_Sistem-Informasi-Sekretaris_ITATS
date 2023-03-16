@@ -157,7 +157,7 @@ class DosenController extends Controller
         ]);
     }
 
-    public function receive_reject($slug)
+    public function assive_reject($slug)
     {
         $mahasiswa = Mahasiswa::where('slug', $slug)->first();
 
@@ -189,11 +189,20 @@ class DosenController extends Controller
                                     ->get();
 
         foreach ($detailRequests as $detailRequest) {
-            DetailRequest::where('request_id', $detailRequest->id)
-                    ->where('surat_id', $detailRequest->surat_id)
-                    ->whereIn('status', ['pending', 'accepted'])
-                    ->whereNull('dosen_id')
-                    ->update(['status' => 'rejected', 'dosen_id' => auth()->user()->dosen->id]);
+            $updateDetailRequest = DetailRequest::where('request_id', $detailRequest->id)
+                                                ->where('surat_id', $detailRequest->surat_id)
+                                                ->whereIn('status', ['pending', 'accepted'])
+                                                ->whereNull('dosen_id')
+                                                ->update(['status' => 'rejected', 'dosen_id' => auth()->user()->dosen->id]);
+
+            if (!$updateDetailRequest) {
+                DetailRequest::where('request_id', $detailRequest->id)
+                                                ->where('surat_id', $detailRequest->surat_id)
+                                                ->whereIn('status', ['pending', 'accepted'])
+                                                ->where('dosen_id', auth()->user()->dosen->id)
+                                                ->whereNotNull('dosen_id')
+                                                ->update(['status' => 'rejected']);
+            }
         }
 
         $checkRequests = ModelsRequest::select('requests.id')
@@ -241,7 +250,7 @@ class DosenController extends Controller
 
         if ($request->search === 'default') {
             return view('dosen.assign.data')->with([
-                'assigns' => ModelsRequest::select('requests.mahasiswa_id', ModelsRequest::raw('max(requests.created_at) as date'), 'detail_requests.status')
+                'assigns' => ModelsRequest::select('requests.mahasiswa_id', 'requests.id', ModelsRequest::raw('max(requests.created_at) as date'), 'detail_requests.status')
                                         ->join('detail_requests', 'requests.id', '=', 'detail_requests.request_id')
                                         ->whereIn('detail_requests.surat_id', $data)
                                         ->where('detail_requests.status', '!=', 'pending')
