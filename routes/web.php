@@ -107,6 +107,7 @@ Route::middleware('auth')->group(function () {
             /* assign surat  resource */
             Route::get('assignment', 'assignment_index');
             Route::get('assignment/read', 'assignment_read');
+            Route::get('assignment/{id}', 'assignment_show');
 
             Route::post('assive/{slug}/reject', 'assive_reject');
         });

@@ -47,7 +47,7 @@
                   <button class="btn btn-danger w-100" id="reject-assignment-btn" data-id="{{ $assign->mahasiswa->slug }}"><i class="bi bi-send-slash"></i> Rejected</button>
                 </div>
                 <div class="col-6">
-                  <button class="btn btn-primary w-100"><i class="bi bi-send"></i> Send</button>
+                  <a href="/assignment/{{ $assign->id }}" class="btn btn-primary w-100"><i class="bi bi-send"></i> Send</a>
                 </div>
               @endif
             </div>

@@ -292,4 +292,9 @@ class DosenController extends Controller
             'assigns' => $requests
         ]);
     }
+
+    public function assignment_show($id)
+    {
+        
+    }
 }
