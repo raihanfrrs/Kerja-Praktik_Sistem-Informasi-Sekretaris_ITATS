@@ -10,7 +10,6 @@
             <thead>
                 <tr>
                     <th scope="col" class="text-center">Mahasiswa</th>
-                    <th scope="col" class="text-center">Amount</th>
                     <th scope="col" class="text-center">Requested At</th>
                     <th scope="col" class="text-center">Status</th>
                     <th scope="col" class="text-center">Action</th>

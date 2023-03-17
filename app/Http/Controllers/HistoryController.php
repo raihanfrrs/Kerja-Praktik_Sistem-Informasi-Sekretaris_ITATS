@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\DetailRequest;
 use App\Models\Request as ModelsRequest;
-use Illuminate\Http\Request;
-use Yajra\DataTables\Contracts\DataTable;
 use Yajra\DataTables\Facades\DataTables;
 
 class HistoryController extends Controller
@@ -38,7 +36,23 @@ class HistoryController extends Controller
 
     public function dataAssignHistory()
     {
-        return DataTable::of()
+        return DataTables::of(DetailRequest::select('mahasiswas.name', ModelsRequest::raw('DATE_FORMAT(requests.created_at, "%d/%m/%Y %H:%i:%s") as date'), 'requests.status')
+                                        ->join('requests', 'detail_requests.request_id', '=', 'requests.id')
+                                        ->join('mahasiswas', 'requests.mahasiswa_id', '=', 'mahasiswas.id')
+                                        ->where('detail_requests.dosen_id', auth()->user()->dosen->id)
+                                        ->groupBy('requests.id')
+                                        ->get())
+        ->addColumn('name', function ($model) {
+            return view('dosen.history.mahasiswa-action', compact('model'))->render();
+        })
+        ->addColumn('status', function ($model) {
+            return view('dosen.history.status-action', compact('model'))->render();
+        })
+        ->addColumn('action', function ($model) {
+            return view('dosen.history.form-action', compact('model'))->render();
+        })
+        ->rawColumns(['name', 'status', 'action'])
+        ->make(true);
     }
 
     public function destroy(ModelsRequest $request){
