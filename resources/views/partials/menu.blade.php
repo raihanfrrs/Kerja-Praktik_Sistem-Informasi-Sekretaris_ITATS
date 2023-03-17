@@ -27,17 +27,17 @@
 
 @elseif (auth()->user()->level == 'dosen')
 <li class="nav-item">
-    <a class="nav-link {{ request()->is('receive', 'assign') ? '' : 'collapsed' }}" data-bs-target="#keperluan-dosen-nav" data-bs-toggle="collapse" href="#">
+    <a class="nav-link {{ request()->is('receive', 'assignment') ? '' : 'collapsed' }}" data-bs-target="#keperluan-dosen-nav" data-bs-toggle="collapse" href="#">
         <i class="bi bi-journals"></i><span>Keperluan</span><i class="bi bi-chevron-down ms-auto"></i>
     </a>
-    <ul id="keperluan-dosen-nav" class="nav-content collapse {{ request()->is('receive', 'assign') ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
+    <ul id="keperluan-dosen-nav" class="nav-content collapse {{ request()->is('receive', 'assignment') ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
         <li>
             <a href="/receive" class="{{ request()->is('receive') ? 'active':'' }}">
                 <i class="bi bi-circle"></i><span>Terima Surat</span>
             </a>
         </li>
         <li>
-            <a href="/assign" class="{{ request()->is('assign') ? 'active':'' }}">
+            <a href="/assignment" class="{{ request()->is('assignment') ? 'active':'' }}">
                 <i class="bi bi-circle"></i><span>Kirim Surat</span>
             </a>
         </li>

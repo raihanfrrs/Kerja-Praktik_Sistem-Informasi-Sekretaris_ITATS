@@ -229,12 +229,12 @@ class DosenController extends Controller
         return true;
     }
 
-    public function assign_index()
+    public function assignment_index()
     {
-        return view('dosen.assign.index');
+        return view('dosen.assignment.index');
     }
 
-    public function assign_read(Request $request)
+    public function assignment_read(Request $request)
     {
         $dosens = Dosen::select('surats.id')
                     ->join('job_dosens', 'dosens.id', '=', 'job_dosens.dosen_id')
@@ -249,7 +249,7 @@ class DosenController extends Controller
         }
 
         if ($request->search === 'default') {
-            return view('dosen.assign.data')->with([
+            return view('dosen.assignment.data')->with([
                 'assigns' => ModelsRequest::select('requests.mahasiswa_id', 'requests.id', ModelsRequest::raw('max(requests.created_at) as date'), 'detail_requests.status')
                                         ->join('detail_requests', 'requests.id', '=', 'detail_requests.request_id')
                                         ->whereIn('detail_requests.surat_id', $data)
@@ -276,7 +276,7 @@ class DosenController extends Controller
                             ->get();
 
         if ($requests->count() == 0) {
-            return view('dosen.assign.data')->with([
+            return view('dosen.assignment.data')->with([
                 'assigns' => ModelsRequest::select('requests.mahasiswa_id', ModelsRequest::raw('max(requests.created_at) as date'), 'detail_requests.status')
                                         ->join('detail_requests', 'requests.id', '=', 'detail_requests.request_id')
                                         ->whereIn('detail_requests.surat_id', $data)
@@ -288,7 +288,7 @@ class DosenController extends Controller
             ]);
         }
 
-        return view('dosen.assign.data')->with([
+        return view('dosen.assignment.data')->with([
             'assigns' => $requests
         ]);
     }

@@ -2,5 +2,5 @@
 
 @section('section')
 
-<div class="row" id="data-assign"></div>
+<div class="row" id="data-assignment"></div>
 @endsection

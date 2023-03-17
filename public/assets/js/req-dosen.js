@@ -1,6 +1,6 @@
 $(document).ready(function () {
     receive();
-    assign();
+    assignment();
 });
 
 function receive() {
@@ -111,28 +111,28 @@ $(document).on('click', '#reject-receive-btn', function () {
     })
 });
 
-function assign() {
-    $.get("/assign/read", { 'search': 'default' }, function(assign, status){
-        $("#data-assign").html(assign);
+function assignment() {
+    $.get("/assignment/read", { 'search': 'default' }, function(assign, status){
+        $("#data-assignment").html(assign);
     })
 }
 
-$('#search-assign').keypress(function(e) {
+$('#search-assignment').keypress(function(e) {
     var key = e.which;
     if (key == 13) {
-        $('#search-assign-btn').click();
+        $('#search-assignment-btn').click();
         return false;
     }
 });
 
-$(document).on('click', '#search-assign-btn', function () {
-    let search = $('#search-assign').val();
+$(document).on('click', '#search-assignment-btn', function () {
+    let search = $('#search-assignment').val();
     
-    $.get('/assign/read', {
+    $.get('/assignment/read', {
         'search': search
     })
     .done(response => {
-        $("#data-assign").html(response);
+        $("#data-assignment").html(response);
         return;
     })
     .fail(errors => {
@@ -140,7 +140,7 @@ $(document).on('click', '#search-assign-btn', function () {
     })
 });
 
-$(document).on('click', '#reject-assign-btn', function () {
+$(document).on('click', '#reject-assignment-btn', function () {
     let slug = $(this).data('id');
 
     Swal.fire({
@@ -165,7 +165,7 @@ $(document).on('click', '#reject-assign-btn', function () {
                     showConfirmButton: false,
                     timer: 2000
                 });
-                assign();
+                assignment();
                 return;
             })
             .fail(errors => {
