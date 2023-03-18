@@ -4,10 +4,16 @@ $(document).ready(function () {
 
     FilePond.setOptions({
         server: {
-            url: '/assignment/uploadFileRequest',
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr("content")
-            }
-        }
+            process: {
+                url: '/assignment/uploadFileRequest/'+$(inputFileElement).data("id"),
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr("content")
+                }
+            },
+            revert: '/revert',
+            restore: '/restore/',
+            load: '/load/',
+            fetch: '/fetch/',
+        },
     });
 });

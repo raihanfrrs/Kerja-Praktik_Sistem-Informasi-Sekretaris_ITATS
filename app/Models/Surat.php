@@ -42,4 +42,9 @@ class Surat extends Model
     {
         return $this->hasMany(TempRequest::class);
     }
+
+    public function temp_file()
+    {
+        return $this->hasMany(TempFile::class);
+    }
 }

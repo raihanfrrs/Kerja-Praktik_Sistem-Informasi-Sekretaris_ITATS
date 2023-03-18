@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\DetailRequest;
 use App\Models\Dosen;
+use App\Models\TempFile;
 use App\Models\Mahasiswa;
-use App\Models\Request as ModelsRequest;
 use Illuminate\Http\Request;
+use App\Models\DetailRequest;
+use App\Models\Request as ModelsRequest;
 
 class DosenController extends Controller
 {
@@ -298,7 +299,32 @@ class DosenController extends Controller
         return view('dosen.assignment.detail');
     }
 
-    public function assignment_store(Request $request){
-        return $request;
+    public function assignment_uploadFile(Request $request, $id)
+    {
+        if ($request->hasFile('file')) {
+            $image = $request->file('file');
+            $file_name = $image->getClientOriginalName();
+            $folder = uniqid('post', true);
+            $image->store('posts/tmp/' . $folder);
+
+            TempFile::create([
+                'folder' => $folder,
+                'file' => $file_name
+            ]);
+
+            return $folder;
+        }
+
+        return false;
+    }
+
+    public function assignment_store(Request $request)
+    {
+        dd($request);
+    }
+
+    public function assignment_destroy(Request $request)
+    {
+
     }
 }
