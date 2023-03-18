@@ -294,9 +294,15 @@ class DosenController extends Controller
         ]);
     }
 
-    public function assignment_show($id)
+    public function assignment_show(ModelsRequest $request)
     {
-        return view('dosen.assignment.detail');
+
+        return view('dosen.assignment.detail')->with([
+            'request' => $request,
+            'detail_requests' => DetailRequest::join('surats', 'detail_requests.surat_id', '=', 'surats.id')
+                                            ->where('request_id', $request->id)
+                                            ->get()
+        ]);
     }
 
     public function assignment_uploadFile(Request $request, $id)
@@ -308,6 +314,7 @@ class DosenController extends Controller
             $image->store('posts/tmp/' . $folder);
 
             TempFile::create([
+                'surat_id' => $id,
                 'folder' => $folder,
                 'file' => $file_name
             ]);
@@ -318,9 +325,15 @@ class DosenController extends Controller
         return false;
     }
 
-    public function assignment_store(Request $request)
+    public function assignment_store(Request $request, $id)
     {
-        dd($request);
+        $getDetailRequests = DetailRequest::where('request_id', $id)->get();
+
+        foreach ($getDetailRequests as $detailRequests) {
+            $detailRequest[] = $detailRequests->surat_id;
+        }
+
+
     }
 
     public function assignment_destroy(Request $request)

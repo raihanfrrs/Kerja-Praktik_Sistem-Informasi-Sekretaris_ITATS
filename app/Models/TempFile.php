@@ -13,8 +13,8 @@ class TempFile extends Model
         'id'
     ];
 
-    public function surat()
+    public function detail_request()
     {
-        return $this->belongsTo(Surat::class);
+        return $this->belongsTo(DetailRequest::class);
     }
 }

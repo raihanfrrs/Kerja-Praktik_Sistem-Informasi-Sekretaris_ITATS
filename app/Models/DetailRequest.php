@@ -27,4 +27,9 @@ class DetailRequest extends Model
     {
         return $this->belongsTo(Surat::class);
     }
+
+    public function temp_file()
+    {
+        return $this->hasOne(TempFile::class);
+    }
 }

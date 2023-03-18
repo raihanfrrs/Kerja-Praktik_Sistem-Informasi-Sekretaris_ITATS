@@ -1,7 +1,11 @@
 $(document).ready(function () {
-    const inputFileElement = document.querySelector('input[id="file"]');
-    const pond = FilePond.create(inputFileElement);
 
+    let inputFileElement = document.querySelectorAll('#file');
+    
+    inputFileElement.forEach(function(element) {
+        FilePond.create(element);
+    });
+      
     FilePond.setOptions({
         server: {
             process: {

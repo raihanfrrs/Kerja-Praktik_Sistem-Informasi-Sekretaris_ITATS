@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Surat;
+use App\Models\DetailRequest;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -16,7 +16,7 @@ class CreateTempFilesTable extends Migration
     {
         Schema::create('temp_files', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Surat::class);
+            $table->foreignIdFor(DetailRequest::class);
             $table->string('folder');
             $table->string('file');
             $table->timestamps();
