@@ -300,6 +300,7 @@ class DosenController extends Controller
         return view('dosen.assignment.detail')->with([
             'request' => $request,
             'detail_requests' => DetailRequest::join('surats', 'detail_requests.surat_id', '=', 'surats.id')
+                                            ->join('jenis_surats', 'surats.jenis_surat_id', '=', 'jenis_surats.id')
                                             ->where('request_id', $request->id)
                                             ->get()
         ]);
