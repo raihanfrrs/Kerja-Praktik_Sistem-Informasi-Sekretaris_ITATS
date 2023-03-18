@@ -295,6 +295,10 @@ class DosenController extends Controller
 
     public function assignment_show($id)
     {
-        
+        return view('dosen.assignment.detail');
+    }
+
+    public function assignment_store(Request $request){
+        return $request;
     }
 }

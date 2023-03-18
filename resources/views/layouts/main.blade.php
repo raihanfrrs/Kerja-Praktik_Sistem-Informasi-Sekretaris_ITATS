@@ -26,6 +26,7 @@
   <link href="{{ asset('/') }}assets/vendor/sweetalert2/css/sweetalert2.min.css" rel="stylesheet">
   <link href="{{ asset('/') }}assets/vendor/datatables/css/datatables.min.css" rel="stylesheet">
   <link href="{{ asset('/') }}assets/vendor/trix-editor/css/trix.css" rel="stylesheet">
+  <link href="{{ asset('/') }}assets/vendor/filepond/css/filepond.css" rel="stylesheet">
 
   <!-- Template Main CSS File -->
   <link href="{{ asset('/') }}assets/css/style.css" rel="stylesheet">
@@ -71,6 +72,7 @@
   <script src="{{ asset('/') }}assets/vendor/jquery/jquery-3.6.3.min.js"></script>
   <script src="{{ asset('/') }}assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="{{ asset('/') }}assets/vendor/datatables/js/datatables.min.js"></script>
+  <script src="{{ asset('/') }}assets/vendor/filepond/js/filepond.js"></script>
 
   <!-- Template Main JS File -->
   <script src="{{ asset('/') }}assets/js/main.js"></script>
@@ -88,6 +90,7 @@
   @endif
   @endauth
   <script src="{{ asset('/') }}assets/js/modal.js"></script>
+  <script src="{{ asset('/') }}assets/js/filepond.js"></script>
 </body>
 
 </html>

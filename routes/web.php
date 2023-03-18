@@ -108,6 +108,7 @@ Route::middleware('auth')->group(function () {
             Route::get('assignment', 'assignment_index');
             Route::get('assignment/read', 'assignment_read');
             Route::get('assignment/{id}', 'assignment_show');
+            Route::post('assignment/uploadFileRequest', 'assignment_store');
 
             Route::post('assive/{slug}/reject', 'assive_reject');
         });
