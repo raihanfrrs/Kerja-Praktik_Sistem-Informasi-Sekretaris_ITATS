@@ -108,7 +108,7 @@ Route::middleware('auth')->group(function () {
             Route::get('assignment', 'assignment_index');
             Route::get('assignment/read', 'assignment_read');
             Route::get('assignment/{request}', 'assignment_show');
-            Route::post('assignment/uploadFileRequest/{id}', 'assignment_uploadFile');
+            Route::post('assignment/uploadFileRequest', 'assignment_uploadFile');
             Route::post('assignment/{id}', 'assignment_store');
             Route::delete('assignment/deleteFileRequest', 'assignment_destroy');
 

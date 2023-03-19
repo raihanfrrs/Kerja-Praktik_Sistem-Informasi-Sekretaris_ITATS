@@ -31,6 +31,7 @@
           <h5 class="card-title">Detail <span>| Assignment</span></h5>
     
           <form action="/assignment/{{ $request->id }}" method="post">
+            @csrf
             @foreach ($detail_requests as $detail_request)
               <div class="row py-3">
                 <div class="col-5">
@@ -38,10 +39,14 @@
                     <p class="text-muted text-capitalize">{{ $detail_request->jenis }}</p>
                 </div>
                 <div class="col-7">
-                    <input type="file" name="file" id="file">
+                    <input type="file" name="file" id="file" class="file-{{ $detail_request->id }}" data-key="{{ $detail_request->id }}">
                 </div>
               </div>
             @endforeach
+
+            <div class="text-center mt-3">
+                <button type="submit" class="btn btn-primary"><i class="bi bi-save"></i> Submit</button>
+            </div>
           </form>
     
         </div>

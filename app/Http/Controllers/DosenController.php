@@ -7,6 +7,7 @@ use App\Models\TempFile;
 use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
 use App\Models\DetailRequest;
+use Illuminate\Support\Facades\Storage;
 use App\Models\Request as ModelsRequest;
 
 class DosenController extends Controller
@@ -299,23 +300,23 @@ class DosenController extends Controller
 
         return view('dosen.assignment.detail')->with([
             'request' => $request,
-            'detail_requests' => DetailRequest::join('surats', 'detail_requests.surat_id', '=', 'surats.id')
+            'detail_requests' => DetailRequest::select('detail_requests.id', 'surats.name', 'jenis_surats.jenis')
+                                            ->join('surats', 'detail_requests.surat_id', '=', 'surats.id')
                                             ->join('jenis_surats', 'surats.jenis_surat_id', '=', 'jenis_surats.id')
                                             ->where('request_id', $request->id)
                                             ->get()
         ]);
     }
 
-    public function assignment_uploadFile(Request $request, $id)
+    public function assignment_uploadFile(Request $request)
     {
         if ($request->hasFile('file')) {
             $image = $request->file('file');
-            $file_name = $image->getClientOriginalName();
             $folder = uniqid('post', true);
-            $image->store('posts/tmp/' . $folder);
+            $file_name = $image->store('posts/tmp/' . $folder);
 
             TempFile::create([
-                'surat_id' => $id,
+                'detail_request_id' => $request->id,
                 'folder' => $folder,
                 'file' => $file_name
             ]);
@@ -334,7 +335,12 @@ class DosenController extends Controller
             $detailRequest[] = $detailRequests->surat_id;
         }
 
-
+        $getTempFiles = TempFile::whereIn('detail_request_id', $detailRequest)->get();
+        
+        foreach ($getTempFiles as $tempFiles) {
+            DetailRequest::whereId($tempFiles->detail_request_id)->update(['surat' => $tempFiles->file]);
+            TempFile::where('detail_request_id', $tempFiles->detail_request_id)->delete();
+        }
     }
 
     public function assignment_destroy(Request $request)
