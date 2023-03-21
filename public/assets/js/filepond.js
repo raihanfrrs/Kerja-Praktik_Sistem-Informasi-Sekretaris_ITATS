@@ -12,12 +12,15 @@ $(document).ready(function () {
             var isLoading = pond.getFiles().filter(x=>x.status !== 5).length !== 0;
             if(isLoading) {
                 $('input[type="file"]').attr("disabled", "disabled");
+                $('.uploading').click(function(){ return false; });
             } else {
                 $('input[type="file"]').removeAttr("disabled");
+                $('.uploading').off('click');
             }
         }
 
         $(document).on('click', '.file-'+$(element).attr('data-key'), function (){
+            console.log($(element).attr('data-key'));
             FilePond.setOptions({
                 server: {
                     process: {
@@ -28,8 +31,7 @@ $(document).ready(function () {
                         ondata: (formData) => {
                             formData.append('id', $(element).attr('data-key'));
                             return formData;
-                        },
-                        timeout: 7000,
+                        }
                     },
                     revert: '/revert',
                     restore: '/restore/',

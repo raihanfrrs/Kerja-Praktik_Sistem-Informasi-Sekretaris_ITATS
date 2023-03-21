@@ -39,7 +39,7 @@
                     <p class="text-muted text-capitalize">{{ $detail_request->jenis }}</p>
                 </div>
                 <div class="col-7">
-                    <input type="file" name="file" id="file" class="file-{{ $detail_request->id }}" data-key="{{ $detail_request->id }}">
+                    <input type="file" name="file" id="file" class="file-{{ $detail_request->id }} uploading" data-key="{{ $detail_request->id }}">
                 </div>
               </div>
             @endforeach
