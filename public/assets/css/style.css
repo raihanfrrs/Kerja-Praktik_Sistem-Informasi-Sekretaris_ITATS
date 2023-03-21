@@ -1383,3 +1383,11 @@ trix-toolbar [data-trix-button-group="file-tools"] {
 ul.roles {
   padding-left: 22px;
 }
+
+/*--------------------------------------------------------------
+# Form Custom
+--------------------------------------------------------------*/
+
+.disable-on-upload {
+  background-color: red;
+}
