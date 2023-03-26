@@ -34,11 +34,13 @@ $(document).on('click', '#search-receive-btn', function () {
 
 $(document).on('click', '#accept-surat', function () {
     let slug = $(this).data('id');
+    let request_id = $(this).data('key');
 
     $.post('/receive', {
         '_token': $('meta[name="csrf-token"]').attr('content'),
         '_method': 'post',
-        'slug': slug
+        'slug': slug,
+        'id': request_id
     })
     .done(response => {
         if(response === 'success'){

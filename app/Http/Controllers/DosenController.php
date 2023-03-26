@@ -33,18 +33,19 @@ class DosenController extends Controller
 
         if ($request->search === 'default') {
             return view('dosen.receive.data')->with([
-                'receives' => ModelsRequest::select('requests.mahasiswa_id', ModelsRequest::raw('max(requests.created_at) as date'))
+                'receives' => ModelsRequest::select('requests.id as request_id', 'requests.mahasiswa_id', ModelsRequest::raw('max(requests.created_at) as date'))
                                         ->join('detail_requests', 'requests.id', '=', 'detail_requests.request_id')
                                         ->whereIn('detail_requests.surat_id', $data)
                                         ->where('requests.status', '!=','finished')
                                         ->where('requests.status', '!=','rejected')
                                         ->where('detail_requests.status', 'pending')
                                         ->groupBy('requests.mahasiswa_id')
+                                        ->groupBy('requests.id')
                                         ->get()
             ]);
         }
 
-        $requests = ModelsRequest::select('requests.mahasiswa_id', ModelsRequest::raw('max(requests.created_at) as date'))
+        $requests = ModelsRequest::select('requests.id as request_id','requests.mahasiswa_id', ModelsRequest::raw('max(requests.created_at) as date'))
                             ->join('detail_requests', 'requests.id', '=', 'detail_requests.request_id')
                             ->join('mahasiswas', 'requests.mahasiswa_id', '=', 'mahasiswas.id')
                             ->whereIn('detail_requests.surat_id', $data)
@@ -55,6 +56,7 @@ class DosenController extends Controller
                             ->orWhere('mahasiswas.phone', 'LIKE', '%'.$request->search.'%')
                             ->orWhere('mahasiswas.email', 'LIKE', '%'.$request->search.'%')
                             ->groupBy('requests.mahasiswa_id')
+                            ->groupBy('requests.id')
                             ->get();
 
         if ($requests->count() == 0) {
@@ -78,7 +80,7 @@ class DosenController extends Controller
     public function receive_store(Request $request)
     {
         $mahasiswa = Mahasiswa::where('slug', $request->slug)->first();
-        if (ModelsRequest::where('mahasiswa_id', $mahasiswa->id)->where('status', 'finished')->count() > 0) {
+        if (ModelsRequest::whereId($request->id)->where('mahasiswa_id', $mahasiswa->id)->where('status', 'finished')->count() > 0) {
             return 'finished';
         }
 
@@ -313,10 +315,11 @@ class DosenController extends Controller
     {
         return view('dosen.assignment.data-detail')->with([
             'request' => $request,
-            'detail_requests' => DetailRequest::select('detail_requests.id', 'detail_requests.request_id','surats.name', 'jenis_surats.jenis')
+            'detail_requests' => DetailRequest::select('detail_requests.id', 'detail_requests.request_id', 'detail_requests.surat','surats.name', 'jenis_surats.jenis')
                                             ->join('surats', 'detail_requests.surat_id', '=', 'surats.id')
                                             ->join('jenis_surats', 'surats.jenis_surat_id', '=', 'jenis_surats.id')
                                             ->where('request_id', $request->id)
+                                            ->where('dosen_id', auth()->user()->dosen->id)
                                             ->get()
         ]);
     }
@@ -346,19 +349,48 @@ class DosenController extends Controller
 
     public function assignment_store($id)
     {
-        $getDetailRequests = DetailRequest::where('request_id', $id)->get();
+        $getDetailRequests = DetailRequest::where('request_id', $id)
+                                        ->where('dosen_id', auth()->user()->dosen->id)
+                                        ->get();
 
         foreach ($getDetailRequests as $detailRequests) {
-            $detailRequest[] = $detailRequests->surat_id;
+            $detailRequest[] = $detailRequests->id;
         }
 
         $getTempFiles = TempFile::whereIn('detail_request_id', $detailRequest)->get();
         
         foreach ($getTempFiles as $tempFiles) {
-            DetailRequest::whereId($tempFiles->detail_request_id)->update(['surat' => $tempFiles->file]);
+            DetailRequest::whereId($tempFiles->detail_request_id)->update(['surat' => $tempFiles->file, 'status' => 'done']);
             TempFile::where('detail_request_id', $tempFiles->detail_request_id)->delete();
         }
 
-        return 
+        $checkRequests = ModelsRequest::select('requests.id')
+                                    ->join('detail_requests', 'requests.id', '=', 'detail_requests.request_id')
+                                    ->where('requests.id', $id)
+                                    ->where('requests.status', 'processed')
+                                    ->get();
+
+        foreach ($checkRequests as $checkRequest) {
+            $countRequest = ModelsRequest::join('detail_requests', 'requests.id', '=', 'detail_requests.request_id')
+                                        ->where('detail_requests.request_id', $checkRequest->id)
+                                        ->where('requests.status', 'processed')
+                                        ->count();
+
+            $countDetailRequest = DetailRequest::where('request_id', $checkRequest->id)
+                                            ->where('status', 'done')
+                                            ->count();
+
+            if ($countRequest == $countDetailRequest) {
+                ModelsRequest::whereId($checkRequest->id)->update(['status' => 'finished']);
+            }
+        }
+
+        return redirect('assignment/'.$id)->with([
+            'flash-type' => 'sweetalert',
+            'case' => 'default',
+            'position' => 'center',
+            'type' => 'success',
+            'message' => 'Uploaded Successfully!'
+        ]);
     }
 }

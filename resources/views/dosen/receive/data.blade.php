@@ -30,7 +30,7 @@
                   <a href="#" class="btn btn-secondary w-100" id="detail-receive-button" data-id="{{ $receive->mahasiswa->slug }}"><i class="bi bi-list-columns"></i> Details</a>
               </div>
               <div class="col-6">
-                  <button class="btn btn-primary w-100" id="accept-surat" data-id="{{ $receive->mahasiswa->slug }}"><i class="bi bi-send-check"></i> Accept</button>
+                  <button class="btn btn-primary w-100" id="accept-surat" data-id="{{ $receive->mahasiswa->slug }}" data-key="{{ $receive->request_id }}"><i class="bi bi-send-check"></i> Accept</button>
               </div>
             </div>
           </div>
