@@ -298,9 +298,22 @@ class DosenController extends Controller
     public function assignment_show(ModelsRequest $request)
     {
 
+        $getMahasiswaName = ModelsRequest::select('mahasiswas.name')
+                                        ->join('mahasiswas', 'requests.mahasiswa_id', '=', 'mahasiswas.id')
+                                        ->where('requests.id', $request->id)
+                                        ->first();
+
         return view('dosen.assignment.detail')->with([
             'request' => $request,
-            'detail_requests' => DetailRequest::select('detail_requests.id', 'surats.name', 'jenis_surats.jenis')
+            'subtitle' => $getMahasiswaName->name
+        ]);
+    }
+
+    public function assignment_detail_read(ModelsRequest $request)
+    {
+        return view('dosen.assignment.data-detail')->with([
+            'request' => $request,
+            'detail_requests' => DetailRequest::select('detail_requests.id', 'detail_requests.request_id','surats.name', 'jenis_surats.jenis')
                                             ->join('surats', 'detail_requests.surat_id', '=', 'surats.id')
                                             ->join('jenis_surats', 'surats.jenis_surat_id', '=', 'jenis_surats.id')
                                             ->where('request_id', $request->id)
@@ -310,24 +323,28 @@ class DosenController extends Controller
 
     public function assignment_uploadFile(Request $request)
     {
+        if (TempFile::where('detail_request_id', $request->id)->count() > 0) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Terjadi kesalahan saat mengunggah file.'
+            ], 500);
+        }
+
         if ($request->hasFile('file')) {
             $image = $request->file('file');
             $folder = uniqid('post', true);
-            $file_name = $image->store('posts/tmp/' . $folder);
+            $file_name = $image->store('posts/' . $folder);
 
             TempFile::create([
                 'detail_request_id' => $request->id,
-                'folder' => $folder,
                 'file' => $file_name
             ]);
-
-            return $folder;
         }
 
         return false;
     }
 
-    public function assignment_store(Request $request, $id)
+    public function assignment_store($id)
     {
         $getDetailRequests = DetailRequest::where('request_id', $id)->get();
 
@@ -341,10 +358,7 @@ class DosenController extends Controller
             DetailRequest::whereId($tempFiles->detail_request_id)->update(['surat' => $tempFiles->file]);
             TempFile::where('detail_request_id', $tempFiles->detail_request_id)->delete();
         }
-    }
 
-    public function assignment_destroy(Request $request)
-    {
-
+        return 
     }
 }

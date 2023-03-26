@@ -110,7 +110,7 @@ Route::middleware('auth')->group(function () {
             Route::get('assignment/{request}', 'assignment_show');
             Route::post('assignment/uploadFileRequest', 'assignment_uploadFile');
             Route::post('assignment/{id}', 'assignment_store');
-            Route::delete('assignment/deleteFileRequest', 'assignment_destroy');
+            Route::get('assignment/detail/read/{request}', 'assignment_detail_read');
 
             Route::post('assive/{slug}/reject', 'assive_reject');
         });

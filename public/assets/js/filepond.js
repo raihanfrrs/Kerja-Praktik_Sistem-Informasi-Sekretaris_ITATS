@@ -1,44 +1,69 @@
 $(document).ready(function () {
 
-    let inputFileElement = document.querySelectorAll('#file');
-    
-    inputFileElement.forEach(function(element) {
-        const pond = FilePond.create(element, {
-                        onaddfilestart: (file) => { isLoadingCheck(); },
-                        onprocessfile: (files) => { isLoadingCheck(); }
-                    });
+    assignment($('#data-detail').data('id'));
 
-        function isLoadingCheck(){
-            var isLoading = pond.getFiles().filter(x=>x.status !== 5).length !== 0;
-            if(isLoading) {
-                $('input[type="file"]').attr("disabled", "disabled");
-                $('.uploading').click(function(){ return false; });
-            } else {
-                $('input[type="file"]').removeAttr("disabled");
-                $('.uploading').off('click');
-            }
-        }
+    function assignment(id) {
+        $.get("/assignment/detail/read/"+id, {}, function(assignment, status){
+            $("#data-detail").html(assignment);
 
-        $(document).on('click', '.file-'+$(element).attr('data-key'), function (){
-            console.log($(element).attr('data-key'));
-            FilePond.setOptions({
-                server: {
-                    process: {
-                        url: '/assignment/uploadFileRequest',
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr("content")
-                        },
-                        ondata: (formData) => {
-                            formData.append('id', $(element).attr('data-key'));
-                            return formData;
+            let inputFileElement = document.querySelectorAll('#file');
+
+            inputFileElement.forEach(function(element) {
+                const pond = FilePond.create(element, {
+                                allowRevert: false,
+                                instantUpload: true,
+                                labelTapToUndo: false,
+                                allowCancel: false,
+                                onaddfilestart: (file) => { isLoadingCheck(); },
+                                onprocessfile: (files) => { isLoadingCheck(); }
+                            });
+        
+                function isLoadingCheck(){
+                    var isLoading = pond.getFiles().filter(x=>x.status !== 5).length !== 0;
+                    if(isLoading) {
+                        $('input[type="file"]').attr("disabled", "disabled");
+                        $('.uploading').click(function(){ return false; });
+                    } else {
+                        $('input[type="file"]').removeAttr("disabled");
+                        $('.uploading').off('click');
+                    }
+                }
+        
+                $(document).on('click', '.file-'+$(element).attr('data-key'), function (){
+                    FilePond.setOptions({
+                        server: {
+                            timeout: 7000,
+                            process: {
+                                url: '/assignment/uploadFileRequest',
+                                method: 'POST',
+                                withCredentials: false,
+                                headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr("content")
+                                },
+                                ondata: (formData) => {
+                                    formData.append('id', $(element).attr('data-key'));
+                                    return formData;
+                                },
+                                onload: (response) => {
+                                    setTimeout(() => {
+                                        $('.file-'+$(element).attr('data-key')).addClass('fade-out');
+                                    }, 3000);
+                                    setTimeout(() => {
+                                        $('.file-'+$(element).attr('data-key')).addClass('d-none');
+                                    }, 3500);
+                                    setTimeout(() => {
+                                        $('.alert-'+$(element).attr('data-key')).removeClass('d-none');
+                                    }, 3600);
+                                },
+                                onerror: (response) => {
+                                  // Upload gagal
+                                  console.log('Upload gagal');
+                                }
+                            }
                         }
-                    },
-                    revert: '/revert',
-                    restore: '/restore/',
-                    load: '/load/',
-                    fetch: '/fetch/',
-                },
+                    });
+                });
             });
         });
-    });
+    }
 });
