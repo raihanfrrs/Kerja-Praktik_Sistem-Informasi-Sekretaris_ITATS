@@ -36,11 +36,25 @@ class HistoryController extends Controller
 
     public function dataAssignHistory()
     {
-        return DataTables::of(DetailRequest::select('requests.id', 'mahasiswas.name', ModelsRequest::raw('DATE_FORMAT(requests.created_at, "%d/%m/%Y %H:%i:%s") as date'), 'requests.status')
-                                        ->join('requests', 'detail_requests.request_id', '=', 'requests.id')
+        // $detailRequests = DetailRequest::where('dosen_id', auth()->user()->dosen->id)
+        //                                 ->get();
+
+        // foreach ($detailRequests as $detailRequest) {
+        //     $dataDetailRequestId[] = $detailRequest->request_id;
+        //     $dataDetailRequestStatus[] = $detailRequest->status;
+        // }
+
+        // $getDetailRequests = DetailRequest::whereIn('request_id', $dataDetailRequestId)
+        //                                 ->whereIn('status', $dataDetailRequestStatus)
+        //                                 ->get();
+
+        // dd($getDetailRequests);
+
+        return DataTables::of(ModelsRequest::select('requests.id', 'mahasiswas.name', ModelsRequest::raw('DATE_FORMAT(requests.created_at, "%d/%m/%Y %H:%i:%s") as date'), 'requests.status')
+                                        ->join('detail_requests', 'requests.id', '=', 'detail_requests.request_id')
                                         ->join('mahasiswas', 'requests.mahasiswa_id', '=', 'mahasiswas.id')
                                         ->where('detail_requests.dosen_id', auth()->user()->dosen->id)
-                                        ->groupBy('requests.id')
+                                        ->groupBy('detail_requests.request_id')
                                         ->get())
         ->addColumn('name', function ($model) {
             return view('dosen.history.mahasiswa-action', compact('model'))->render();
