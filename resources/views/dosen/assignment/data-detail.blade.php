@@ -12,23 +12,30 @@
                 <p class="text-muted text-capitalize">{{ $detail_request->jenis }}</p>
             </div>
             <div class="col-7">
-              @if ($detail_request->temp_file || $detail_request->surat)
-                <div class="alert alert-filepond-success d-flex justify-content-between align-items-center alert-{{ $detail_request->id }} fs-6">
-                  <span>Upload Complete</span>
-                  <i class="bi bi-folder-check"></i>
+              @if ($detail_request->request->status == 'rejected')
+                <div class="alert alert-danger d-flex justify-content-between align-items-center fs-6">
+                  <span>Upload Expired</span>
+                  <i class="bi bi-folder-x"></i>
                 </div>
               @else
-                  <input type="file" name="file" id="file" class="file-{{ $detail_request->id }} uploading" data-key="{{ $detail_request->id }}" data-id="{{ $detail_request->request_id }}">
-                  <div class="alert alert-filepond-success d-flex justify-content-between align-items-center alert-{{ $detail_request->id }} fs-6 d-none">
+                @if ($detail_request->temp_file || $detail_request->surat)
+                  <div class="alert alert-filepond-success d-flex justify-content-between align-items-center alert-{{ $detail_request->id }} fs-6">
                     <span>Upload Complete</span>
                     <i class="bi bi-folder-check"></i>
                   </div>
+                @else
+                    <input type="file" name="file" id="file" class="file-{{ $detail_request->id }} uploading" data-key="{{ $detail_request->id }}" data-id="{{ $detail_request->request_id }}">
+                    <div class="alert alert-filepond-success d-flex justify-content-between align-items-center alert-{{ $detail_request->id }} fs-6 d-none">
+                      <span>Upload Complete</span>
+                      <i class="bi bi-folder-check"></i>
+                    </div>
+                @endif
               @endif
             </div>
           </div>
         @endforeach
 
-        @if ($request->status != 'finished')
+        @if ($request->status != 'finished' && $request->status != 'rejected')
         <div class="text-center mt-3">
             <button type="submit" class="btn btn-primary"><i class="bi bi-save"></i> Submit</button>
         </div>
