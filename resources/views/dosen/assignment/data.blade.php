@@ -17,12 +17,8 @@
                 <td class="text-end fw-bold">{{ $assign->mahasiswa->name }}</td>
               </tr>
               <tr>
-                <th class="fw-normal">Phone</th>
-                <td class="text-end fw-bold fst-italic">{{ $assign->mahasiswa->phone }}</td>
-              </tr>
-              <tr>
-                <th class="fw-normal">Email</th>
-                <td class="text-end fw-bold fst-italic">{{ $assign->mahasiswa->email }}</td>
+                <th class="fw-normal">NPM</th>
+                <td class="text-end fw-bold">{{ $assign->mahasiswa->npm }}</td>
               </tr>
               <tr>
                 <th class="fw-normal">Status</th>

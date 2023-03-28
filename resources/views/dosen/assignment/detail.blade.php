@@ -13,12 +13,61 @@
             </div>
 
             <div class="profile-card">
-                <div class="row mb-2">
-                    <div class="col-lg-12 col-md-12 text-lowercase text-center fw-bold">{{ $request->mahasiswa->email }}</div>
-                </div>
-        
-                <div class="row">
-                    <div class="col-lg-12 col-md-12 text-center fw-bold">{{ $request->mahasiswa->phone }}</div>
+                <div class="accordion accordion-flush" id="accordionFlushExample">
+                    <div class="accordion-item">
+                      <h2 class="accordion-header" id="flush-headingOne">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                          Mahasiswa Information
+                        </button>
+                      </h2>
+                      <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">
+                            <table style="width:100%" class="mb-4">
+                                <tr>
+                                  <th class="fw-normal">NPM</th>
+                                  <td class="text-end fw-bold">{{ $request->mahasiswa->npm }}</td>
+                                </tr>
+                                <tr>
+                                  <th class="fw-normal">Phone</th>
+                                  <td class="text-end fw-bold fst-italic">{{ $request->mahasiswa->phone }}</td>
+                                </tr>
+                                <tr>
+                                  <th class="fw-normal">Email</th>
+                                  <td class="text-end fw-bold fst-italic">{{ $request->mahasiswa->email }}</td>
+                                </tr>
+                            </table>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="flush-headingTwo">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                            Another Information
+                            </button>
+                        </h2>
+                        <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body">
+                                <table style="width:100%" class="mb-4">
+                                    <tr>
+                                      <th class="fw-normal">Amount of Surat</th>
+                                      <td class="text-end fw-bold">{{ $request->detail_request->count() }}</td>
+                                    </tr>
+                                    <tr>
+                                      <th class="fw-normal">Requested At</th>
+                                      <td class="text-end fw-bold">{{ $request->created_at }}</td>
+                                    </tr>
+                                    <tr>
+                                      <th class="fw-normal">Last Updated</th>
+                                      <td class="text-end fw-bold">{{ $request->updated_at }}</td>
+                                    </tr>
+                                    <tr>
+                                      <th class="fw-normal">Status</th>
+                                      <td class="text-end fw-bold text-capitalize">{{ $request->status }}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

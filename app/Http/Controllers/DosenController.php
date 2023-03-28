@@ -275,6 +275,7 @@ class DosenController extends Controller
                             ->where('mahasiswas.name', 'LIKE', '%'.$request->search.'%')
                             ->orWhere('mahasiswas.phone', 'LIKE', '%'.$request->search.'%')
                             ->orWhere('mahasiswas.email', 'LIKE', '%'.$request->search.'%')
+                            ->orWhere('mahasiswas.npm', 'LIKE', '%'.$request->search.'%')
                             ->groupBy('requests.id')
                             ->groupBy('detail_requests.status')
                             ->get();
