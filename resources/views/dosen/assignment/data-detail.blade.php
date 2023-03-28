@@ -12,7 +12,7 @@
                 <p class="text-muted text-capitalize">{{ $detail_request->jenis }}</p>
             </div>
             <div class="col-7">
-              @if ($detail_request->request->status == 'rejected')
+              @if ($detail_request->request->status == 'rejected' || $detail_request->status == 'rejected')
                 <div class="alert alert-danger d-flex justify-content-between align-items-center fs-6">
                   <span>Upload Expired</span>
                   <i class="bi bi-folder-x"></i>

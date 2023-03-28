@@ -19,7 +19,7 @@
 
 @if ($done === $counter)
     <span class="badge bg-success text-capitalize"><i class="bi bi-clipboard-check"></i> Finished</span>
-@elseif ($rejected == $counter)
+@elseif ($rejected === $counter)
     <span class="badge bg-danger text-capitalize"><i class="bi bi-clipboard-x"></i> Rejected</span>
 @else
     <span class="badge bg-primary text-capitalize"><i class="bi bi-clipboard-data"></i> Processed</span>

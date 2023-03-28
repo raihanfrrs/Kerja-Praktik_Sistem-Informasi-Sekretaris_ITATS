@@ -300,6 +300,9 @@ class DosenController extends Controller
 
     public function assignment_show(ModelsRequest $request)
     {
+        if ($request->status == 'canceled' || $request->status == 'unfinished') {
+            return back();
+        }
 
         $getMahasiswaName = ModelsRequest::select('mahasiswas.name')
                                         ->join('mahasiswas', 'requests.mahasiswa_id', '=', 'mahasiswas.id')
@@ -316,7 +319,7 @@ class DosenController extends Controller
     {
         return view('dosen.assignment.data-detail')->with([
             'request' => $request,
-            'detail_requests' => DetailRequest::select('detail_requests.id', 'detail_requests.request_id', 'detail_requests.surat','surats.name', 'jenis_surats.jenis')
+            'detail_requests' => DetailRequest::select('detail_requests.id', 'detail_requests.request_id', 'detail_requests.surat', 'detail_requests.status', 'surats.name', 'jenis_surats.jenis')
                                             ->join('surats', 'detail_requests.surat_id', '=', 'surats.id')
                                             ->join('jenis_surats', 'surats.jenis_surat_id', '=', 'jenis_surats.id')
                                             ->where('request_id', $request->id)
