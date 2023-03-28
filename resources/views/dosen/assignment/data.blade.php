@@ -31,8 +31,8 @@
                     <span class="badge rounded-pill text-bg-primary">{{ $assign->status }}</span>
                   @elseif ($assign->status === 'rejected')
                     <span class="badge rounded-pill text-bg-danger">{{ $assign->status }}</span>
-                  @elseif ($assign->status === 'finished') 
-                    <span class="badge rounded-pill text-bg-success">{{ $assign->status }}</span>
+                  @elseif ($assign->status === 'done') 
+                    <span class="badge rounded-pill text-bg-success">Finished</span>
                   @endif
                 </td>
               </tr>
@@ -41,6 +41,10 @@
               @if ($assign->status === 'rejected')
                 <div class="col-12">
                   <a href="/" class="btn btn-secondary w-100"><i class="bi bi-file-text"></i> Detail</a>
+                </div>
+              @elseif ($assign->status === 'done')
+                <div class="col-12">
+                  <a href="/assignment/{{ $assign->id }}" class="btn btn-secondary w-100"><i class="bi bi-file-text"></i> Detail</a>
                 </div>
               @elseif ($assign->status === 'accepted')
                 <div class="col-6">
