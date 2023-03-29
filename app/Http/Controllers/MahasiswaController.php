@@ -55,14 +55,13 @@ class MahasiswaController extends Controller
 
         $checkSuratExist = ModelsRequest::select('detail_requests.status')
                                         ->join('detail_requests', 'requests.id', '=', 'detail_requests.request_id')
-                                        ->where('detail_requests.status', '!=', 'canceled')
-                                        ->where('detail_requests.status', '!=', 'rejected')
+                                        ->where('detail_requests.status', 'accepted')
                                         ->where('requests.mahasiswa_id', auth()->user()->mahasiswa->id)
                                         ->where('detail_requests.surat_id', $surat->id);
 
         $getSuratExists = $checkSuratExist->first();
 
-        if ($checkSuratExist->count() > 0 && $getSuratExists->status != 'done') {
+        if ($checkSuratExist->count() > 0 && $getSuratExists->status == 'accepted') {
             return "doneYet";
         }
 

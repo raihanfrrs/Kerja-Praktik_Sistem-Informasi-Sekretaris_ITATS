@@ -35,7 +35,26 @@
           </div>
         @endforeach
 
-        @if ($request->status != 'finished' && $request->status != 'rejected')
+        @php
+          $counter = 0;
+          $done = 0;
+          $rejected = 0;
+        @endphp
+        @foreach ($request->detail_request as $item)
+            @if ($item->dosen_id == auth()->user()->dosen->id)
+                @php $counter++ @endphp
+            @endif
+
+            @if ($item->status === 'done' && $item->dosen_id == auth()->user()->dosen->id)
+                @php $done++ @endphp
+            @endif
+
+            @if ($item->status === 'rejected' && $item->dosen_id == auth()->user()->dosen->id)
+                @php $rejected++ @endphp
+            @endif
+        @endforeach
+
+        @if (($request->status != 'finished' && $request->status != 'rejected') && ($done !== $counter && $rejected !== $counter))
         <div class="text-center mt-3">
             <button type="submit" class="btn btn-primary"><i class="bi bi-save"></i> Submit</button>
         </div>
