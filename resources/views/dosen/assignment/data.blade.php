@@ -36,7 +36,7 @@
             <div class="row">
               @if ($assign->status === 'rejected')
                 <div class="col-12">
-                  <a href="/" class="btn btn-secondary w-100"><i class="bi bi-file-text"></i> Detail</a>
+                  <a href="/assignment/{{ $assign->id }}" class="btn btn-secondary w-100"><i class="bi bi-file-text"></i> Detail</a>
                 </div>
               @elseif ($assign->status === 'done')
                 <div class="col-12">
