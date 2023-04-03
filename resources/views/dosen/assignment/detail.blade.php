@@ -62,7 +62,33 @@
                                     </tr>
                                     <tr>
                                       <th class="fw-normal">Status</th>
-                                      <td class="text-end fw-bold text-capitalize">{{ $request->status }}</td>
+                                      @php
+                                        $counter = 0;
+                                        $done = 0;
+                                        $rejected = 0;
+                                      @endphp
+                                      @foreach ($request->detail_request as $item)
+                                          @if ($item->dosen_id == auth()->user()->dosen->id)
+                                              @php $counter++ @endphp
+                                          @endif
+
+                                          @if ($item->status === 'done' && $item->dosen_id == auth()->user()->dosen->id)
+                                              @php $done++ @endphp
+                                          @endif
+
+                                          @if ($item->status === 'rejected' && $item->dosen_id == auth()->user()->dosen->id)
+                                              @php $rejected++ @endphp
+                                          @endif
+                                      @endforeach
+                                      <td class="text-end fw-bold text-capitalize">
+                                        @if ($done == $counter)
+                                          Finished
+                                        @elseif ($rejected == $counter)
+                                          Rejected
+                                        @else
+                                          {{ $request->status }}
+                                        @endif
+                                      </td>
                                     </tr>
                                 </table>
                             </div>
