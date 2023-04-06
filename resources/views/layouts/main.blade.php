@@ -14,7 +14,7 @@
   </title>
 
   <!-- Favicons -->
-  <link href="{{ asset('assets/img/Logo_ITATS-2.png') }}" rel="icon">
+<link href="{{ asset('assets/img/Logo_ITATS-2.png') }}" rel="icon">
 
   <!-- Vendor JS Files -->
   <script src="{{ asset('/') }}assets/vendor/sweetalert2/js/sweetalert2.min.js"></script>
