@@ -45,7 +45,7 @@
 </li>
 
 <li class="nav-item">
-    <a class="nav-link collapsed" href="/history">
+    <a class="nav-link {{ request()->is('history') ? '' : 'collapsed' }}" href="/history">
     <i class="bi bi-inboxes"></i>
     <span>Riwayat</span>
     </a>
