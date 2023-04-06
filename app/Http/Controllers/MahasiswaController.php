@@ -7,6 +7,7 @@ use App\Models\Surat;
 use App\Models\TempRequest;
 use Illuminate\Http\Request;
 use App\Models\DetailRequest;
+use Illuminate\Support\Facades\Response;
 use App\Models\Request as ModelsRequest;
 
 class MahasiswaController extends Controller
@@ -120,11 +121,6 @@ class MahasiswaController extends Controller
         return true;
     }
 
-    public function request_detail(ModelsRequest $request)
-    {
-        dd($request);
-    }
-
     public function acception_index()
     {
         return view('mahasiswa.acception.index');
@@ -213,5 +209,48 @@ class MahasiswaController extends Controller
         DetailRequest::where('request_id', $request->id)->update(['status' => 'canceled']);
 
         return true;
+    }
+
+    public function acception_detail(ModelsRequest $request)
+    {
+        if ($request->mahasiswa_id != auth()->user()->mahasiswa->id) {
+            return back();
+        }
+
+        foreach ($request->detail_request as $file) {
+            if ($file->surat) {
+                $extension = pathinfo($file->surat, PATHINFO_EXTENSION);
+
+                $iconMap = [
+                    'pdf' => 'pdf.png',
+                    'docx' => 'docx.jpg',
+                    'pptx' => 'pptx.png',
+                    'xlsx' => 'xlsx.jpg',
+                ];
+                $defaultIcon = 'default.jpg';
+                $icon[] = array_key_exists($extension, $iconMap) ? $iconMap[$extension] : $defaultIcon;
+            }
+        }
+
+        return view('mahasiswa.acception.detail')->with([
+            'requests' => DetailRequest::whereNotNull('surat')
+                                        ->where('request_id', $request->id)
+                                        ->get(),
+            'files' => $icon,
+            'subtitle' => 'Detail'
+        ]);
+    }
+
+    public function acception_download(DetailRequest $request)
+    {
+        if ($request->request->mahasiswa_id != auth()->user()->mahasiswa->id) {
+            return back();
+        }
+
+        $pathToFile = public_path("storage/{$request->surat}");
+        $extension = pathinfo($request->surat, PATHINFO_EXTENSION);
+        
+
+        return Response::download($pathToFile, $request->Surat->name.".".$extension);
     }
 }

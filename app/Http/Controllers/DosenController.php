@@ -221,12 +221,18 @@ class DosenController extends Controller
                                         ->whereIn('requests.status', ['unfinished', 'processed'])
                                         ->count();
 
-            $countDetailRequest = DetailRequest::where('request_id', $checkRequest->id)
+            $countRejectedDetailRequest = DetailRequest::where('request_id', $checkRequest->id)
                                             ->where('status', 'rejected')
                                             ->count();
 
-            if ($countRequest == $countDetailRequest) {
+            $countRejectedDoneDetailRequest = DetailRequest::where('request_id', $checkRequest->id)
+                                            ->whereIn('status', ['rejected', 'done'])
+                                            ->count();
+
+            if ($countRequest == $countRejectedDetailRequest) {
                 ModelsRequest::whereId($checkRequest->id)->update(['status' => 'rejected']);
+            }elseif ($countRequest == $countRejectedDoneDetailRequest) {
+                ModelsRequest::whereId($checkRequest->id)->update(['status' => 'finished']);
             }
         }
 
