@@ -2,7 +2,7 @@
 <div class="container-fluid pe-0">
   <div class="alert-custom alert-error bg-danger rounded-3">
     <div class="alert-icon rounded-start">
-      <i class="bi-x-circle"></i>
+      <i class="bi bi-send-exclamation"></i>
     </div>
     <div class="alert-text text-white">
       <h5 class="alert-heading text-white">Kosong</h5> 
