@@ -1,7 +1,15 @@
 @if ($assigns->count() == 0)
-  <div class="alert alert-danger mx-2 text-center" role="alert">
-    No Request Assigned!
+<div class="container-fluid pe-0">
+  <div class="alert-custom alert-error bg-danger rounded-3">
+    <div class="alert-icon rounded-start">
+      <i class="bi-x-circle"></i>
+    </div>
+    <div class="alert-text text-white">
+      <h5 class="alert-heading text-white">Kosong</h5> 
+      Belum ada surat yang ditugaskan.
+    </div>
   </div>
+</div>
 @else 
   @foreach ($assigns as $assign)
   <div class="col-md-4">

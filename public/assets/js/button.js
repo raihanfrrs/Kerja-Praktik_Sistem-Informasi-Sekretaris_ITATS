@@ -47,24 +47,6 @@ $(document).on('click', '#deactivate-btn', function () {
     }
 });
 
-$(document).on('click', '#delete-history-btn', function (e) {
-    e.preventDefault();
-
-    Swal.fire({
-        title: 'Are you sure?',
-        text: "You will permanently delete this request history!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
-      }).then((result) => {
-        if (result.isConfirmed) {
-            $('#form-delete-history').submit();
-        }
-    })
-});
-
 $("#btn-show-password").click(() => {
     if ($("#new-pass-input").attr('type') == "password") {
         $("#new-pass-input").attr('type', 'text');

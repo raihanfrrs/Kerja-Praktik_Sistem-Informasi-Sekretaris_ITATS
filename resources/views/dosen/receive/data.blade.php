@@ -1,7 +1,15 @@
 @if ($receives->count() == 0)
-  <div class="alert alert-danger mx-2 text-center" role="alert">
-    No Request Received!
+<div class="container-fluid pe-0">
+  <div class="alert-custom alert-error bg-danger rounded-3">
+    <div class="alert-icon rounded-start">
+      <i class="bi-x-circle"></i>
+    </div>
+    <div class="alert-text text-white">
+      <h5 class="alert-heading text-white">Kosong</h5> 
+      Belum ada surat yang masuk.
+    </div>
   </div>
+</div>
 @else 
   @foreach ($receives as $receive)
   <div class="col-md-4">
