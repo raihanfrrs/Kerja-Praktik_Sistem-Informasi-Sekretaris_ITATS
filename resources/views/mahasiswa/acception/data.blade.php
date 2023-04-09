@@ -5,10 +5,10 @@
 @else
     @foreach ($acceptions as $acception)
       <div class="col-md-3">
-          <div class="custom-card-1 p-3 mb-2">
+          <div class="c-card-1 p-3 mb-2">
               <div class="d-flex justify-content-between">
                   <div class="d-flex flex-row align-items-center">
-                      <div class="icon"> <i class="bi bi-send"></i> </div>
+                      <div class="c-icon"> <i class="bi bi-send"></i> </div>
                       <div class="ms-2 c-details">
                           <h6 class="mb-0">Request #{{ $loop->iteration }}</h6> <span>{{ $acception->created_at->diffForHumans() }}</span>
                       </div>
