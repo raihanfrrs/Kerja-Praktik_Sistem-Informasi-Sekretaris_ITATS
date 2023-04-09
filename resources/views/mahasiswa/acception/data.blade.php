@@ -4,49 +4,94 @@
     </div>
 @else
     @foreach ($acceptions as $acception)
-    <div class="col-md-3">
-        <div class="card">
-            <div class="card-body">
-                <div class="d-flex">
-                    <div class="flex-grow-1"><h5 class="card-title fw-bold">Request #{{ $loop->iteration }}</h5></div>
-                    <div><h6 class="card-title text-muted">{{ $acception->created_at->diffForHumans() }}.</h6></div>
-                </div>
-                <table style="width:100%" class="mb-4">
-                    <tr>
-                      <th class="fw-normal">Amount</th>
-                      <td class="text-end fw-bold">{{ $acception->amount }} Surat</td>
-                    </tr>
-                    <tr>
-                      <th class="fw-normal">Status</th>
-                      <td class="text-end fw-bold">
-                        @if ($acception->status === 'unfinished')
-                            <span class="badge text-bg-warning">Pending</span>
-                        @elseif ($acception->status === 'processed')
-                            <span class="badge text-bg-primary">Processed</span>
-                        @elseif ($acception->status === 'finished')
-                            <span class="badge text-bg-success">Finished</span>
-                        @elseif ($acception->status === 'canceled' || $acception->status === 'rejected')
-                            <span class="badge text-bg-danger">{{ $acception->status }}</span>
-                        @endif
-                      </td>
-                    </tr>
-                </table>
-                <div class="row">
+      <div class="col-md-3">
+          <div class="custom-card-1 p-3 mb-2">
+              <div class="d-flex justify-content-between">
+                  <div class="d-flex flex-row align-items-center">
+                      <div class="icon"> <i class="bi bi-send"></i> </div>
+                      <div class="ms-2 c-details">
+                          <h6 class="mb-0">Request #{{ $loop->iteration }}</h6> <span>{{ $acception->created_at->diffForHumans() }}</span>
+                      </div>
+                  </div>
+                  <div class="c-badge"> 
                     @if ($acception->status === 'unfinished')
-                        <div class="col-6">
-                            <a href="/acception/{{ $acception->request_id }}" class="btn btn-secondary w-100"><i class="bi bi-list-columns"></i> Details</a>
-                        </div>
-                        <div class="col-6">
-                            <button class="btn btn-danger w-100" id="cancel-surat-btn" data-id="{{ $acception->request_id }}"><i class="bi bi-send-slash"></i> Cancel</button>
-                        </div>
-                    @else
-                        <div class="col-12">
-                            <a href="/acception/{{ $acception->request_id }}" class="btn btn-secondary w-100"><i class="bi bi-list-columns"></i> Details</a>
-                        </div>
+                        <span class="badge text-bg-warning text-white">Pending</span>
+                    @elseif ($acception->status === 'processed')
+                        <span class="badge text-bg-primary">Processed</span>
+                    @elseif ($acception->status === 'finished')
+                        <span class="badge text-bg-success">Finished</span>
+                    @elseif ($acception->status === 'canceled' || $acception->status === 'rejected')
+                        <span class="badge text-bg-danger">{{ $acception->status }}</span>
                     @endif
-                </div>
+                  </div>
+              </div>
+              <div class="mt-2">
+                  <div class="accordion accordion-flush" id="accordionFlush-{{ $acception->id }}">
+                    <div class="accordion-item">
+                      <h2 class="accordion-header" id="flush-heading-{{ $acception->id }}">
+                        <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-{{ $acception->id }}" aria-expanded="false" aria-controls="flush-collapse-{{ $acception->id }}">
+                          Request Detail
+                        </button>
+                      </h2>
+                      <div id="flush-collapse-{{ $acception->id }}" class="accordion-collapse collapse" aria-labelledby="flush-heading-{{ $acception->id }}" data-bs-parent="#accordionFlush-{{ $acception->id }}">
+                        <div class="accordion-body">
+                          <div class="list-group">
+                            @php
+                                $applied = 0;
+                            @endphp
+                            @foreach ($acception->detail_request as $item)
+                              <a href="#" class="list-group-item list-group-item-action" aria-current="true">
+                                <div class="d-flex w-100 justify-content-between">
+                                  <h5 class="mb-1 fw-bold">{{ $item->Surat->name }}</h5>
+                                  <small>
+                                    @if ($item->status === 'pending')
+                                      <span class="badge text-bg-warning text-white">Pending</span>
+                                    @elseif ($item->status === 'accepted')
+                                      <span class="badge text-bg-primary">Processed</span>
+                                    @elseif ($item->status === 'done')
+                                      @php
+                                          $applied++; 
+                                      @endphp
+                                      <span class="badge text-bg-success">Finished</span>
+                                    @elseif ($item->status === 'canceled' || $item->status === 'rejected')
+                                      <span class="badge text-bg-danger">{{ $item->status }}</span>
+                                    @endif
+                                  </small>
+                                </div>
+                                <small>{{ $item->Surat->jenis_surat->jenis }}</small>
+                              </a>
+                            @endforeach
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                <div class="mt-2">
+                    <div class="progress">
+                      @if ($acception->status === 'unfinished')
+                        <div class="progress-bar progress-bar-striped bg-warning progress-bar-animated" role="progressbar" style="width: 10%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                      @elseif ($acception->status === 'processed')
+                        <div class="progress-bar progress-bar-striped bg-primary progress-bar-animated" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                      @elseif ($acception->status === 'finished')
+                        <div class="progress-bar progress-bar-striped bg-success progress-bar-animated" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                      @elseif ($acception->status === 'canceled' || $acception->status === 'rejected')
+                        <div class="progress-bar progress-bar-striped bg-danger progress-bar-animated" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                      @endif
+                  </div>
+                  <div class="mt-3">
+                    <div class="d-flex justify-content-between">
+                      <div class="d-flex flex-row align-items-center">
+                        <span class="text1">{{ $applied }} Applied <span class="text2">of {{ $acception->amount }} Amount</span></span>
+                      </div>
+                      @if ($acception->status === 'finished')
+                        <a href="/acception/{{ $acception->request_id }}" type="button" class="btn btn-primary btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Tooltip on top"><i class="bi bi-eye"></i></a>
+                      @endif
+                    </div>
+                  </div>
+              </div>
             </div>
-        </div>
-    </div>
+          </div>
+      </div>
     @endforeach
 @endif

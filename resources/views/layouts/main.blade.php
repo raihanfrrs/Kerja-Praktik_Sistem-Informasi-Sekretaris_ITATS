@@ -85,12 +85,12 @@
   @endif
   @if (auth()->user()->level === 'mahasiswa')
   <script src="{{ asset('/') }}assets/js/req-mahasiswa.js"></script>
-  @else
+  @elseif (auth()->user()->level === 'dosen')
   <script src="{{ asset('/') }}assets/js/req-dosen.js"></script>
+  <script src="{{ asset('/') }}assets/js/filepond.js"></script>
   @endif
   @endauth
   <script src="{{ asset('/') }}assets/js/modal.js"></script>
-  <script src="{{ asset('/') }}assets/js/filepond.js"></script>
 </body>
 
 </html>

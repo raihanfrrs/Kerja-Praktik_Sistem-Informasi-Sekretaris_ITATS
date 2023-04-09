@@ -130,7 +130,7 @@ class MahasiswaController extends Controller
     {
         if ($request->search === 'default') {
             return view('mahasiswa.acception.data')->with([
-                'acceptions' => ModelsRequest::select('detail_requests.request_id', DetailRequest::raw('COUNT(*) as amount'), 'requests.status', 'requests.created_at')
+                'acceptions' => ModelsRequest::select('requests.id', 'detail_requests.request_id', DetailRequest::raw('COUNT(*) as amount'), 'requests.status', 'requests.created_at')
                                             ->join('detail_requests', 'requests.id', '=', 'detail_requests.request_id')
                                             ->where('requests.mahasiswa_id', auth()->user()->mahasiswa->id)
                                             ->where('requests.created_at', '>', Carbon::now()->subWeek())
@@ -167,7 +167,7 @@ class MahasiswaController extends Controller
 
         if ($modelRequests->count() == 0) {
             return view('mahasiswa.acception.data')->with([
-                'acceptions' => ModelsRequest::select('detail_requests.request_id', DetailRequest::raw('COUNT(*) as amount'), 'requests.status', 'requests.created_at')
+                'acceptions' => ModelsRequest::select('requests.id', 'detail_requests.request_id', DetailRequest::raw('COUNT(*) as amount'), 'requests.status', 'requests.created_at')
                                             ->join('detail_requests', 'requests.id', '=', 'detail_requests.request_id')
                                             ->where('requests.mahasiswa_id', auth()->user()->mahasiswa->id)
                                             ->where('requests.created_at', '>', Carbon::now()->subWeek())
