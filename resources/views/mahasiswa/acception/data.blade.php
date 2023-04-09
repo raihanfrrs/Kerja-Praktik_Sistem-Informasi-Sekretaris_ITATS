@@ -4,7 +4,7 @@
     </div>
 @else
     @foreach ($acceptions as $acception)
-      <div class="col-md-3">
+      <div class="col-md-4">
           <div class="c-card-1 p-3 mb-2">
               <div class="d-flex justify-content-between">
                   <div class="d-flex flex-row align-items-center">
