@@ -142,7 +142,7 @@ class MahasiswaController extends Controller
 
         if (empty($request->search)) {
             return view('mahasiswa.acception.data')->with([
-                'acceptions' => ModelsRequest::select('detail_requests.request_id', DetailRequest::raw('COUNT(*) as amount'), 'requests.status', 'requests.created_at')
+                'acceptions' => ModelsRequest::select('requests.id', 'detail_requests.request_id', DetailRequest::raw('COUNT(*) as amount'), 'requests.status', 'requests.created_at')
                                             ->join('detail_requests', 'requests.id', '=', 'detail_requests.request_id')
                                             ->where('requests.mahasiswa_id', auth()->user()->mahasiswa->id)
                                             ->where('requests.created_at', '>', Carbon::now()->subWeek())
@@ -152,7 +152,7 @@ class MahasiswaController extends Controller
             ]);
         }
 
-        $modelRequests = ModelsRequest::select('detail_requests.request_id',)
+        $modelRequests = ModelsRequest::select('detail_requests.request_id')
                                     ->join('detail_requests', 'requests.id', '=', 'detail_requests.request_id')
                                     ->where('requests.mahasiswa_id', auth()->user()->mahasiswa->id)
                                     ->where('requests.created_at', '>', Carbon::now()->subWeek())
@@ -181,7 +181,7 @@ class MahasiswaController extends Controller
             $data[] = $modelRequest->request_id;
         }
 
-        $requests = ModelsRequest::select('detail_requests.request_id', DetailRequest::raw('COUNT(*) as amount'), 'requests.status', 'requests.created_at')
+        $requests = ModelsRequest::select('requests.id', 'detail_requests.request_id', DetailRequest::raw('COUNT(*) as amount'), 'requests.status', 'requests.created_at')
                             ->join('detail_requests', 'requests.id', '=', 'detail_requests.request_id')
                             ->where('requests.mahasiswa_id', auth()->user()->mahasiswa->id)
                             ->where('requests.created_at', '>', Carbon::now()->subWeek())
