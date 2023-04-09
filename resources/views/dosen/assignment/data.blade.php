@@ -12,55 +12,66 @@
 </div>
 @else 
   @foreach ($assigns as $assign)
-  <div class="col-md-4">
-      <div class="card">
-          <div class="card-body">
-            <div class="d-flex">
-              <div class="flex-grow-1"><h5 class="card-title fw-bold">Request ID#{{ $assign->id }}</h5></div>
-              <div><h6 class="card-title text-muted">{{\Carbon\Carbon::parse($assign->date)->diffForHumans() }}.</h6></div>
-            </div>
-            <table style="width:100%" class="mb-4">
-              <tr>
-                <th class="fw-normal">Name</th>
-                <td class="text-end fw-bold">{{ $assign->mahasiswa->name }}</td>
-              </tr>
-              <tr>
-                <th class="fw-normal">NPM</th>
-                <td class="text-end fw-bold">{{ $assign->mahasiswa->npm }}</td>
-              </tr>
-              <tr>
-                <th class="fw-normal">Status</th>
-                <td class="text-end fw-bold text-capitalize">
-                  @if ($assign->status === 'accepted')
-                    <span class="badge rounded-pill text-bg-primary">{{ $assign->status }}</span>
-                  @elseif ($assign->status === 'rejected')
-                    <span class="badge rounded-pill text-bg-danger">{{ $assign->status }}</span>
-                  @elseif ($assign->status === 'done') 
-                    <span class="badge rounded-pill text-bg-success">Finished</span>
-                  @endif
-                </td>
-              </tr>
-            </table>
-            <div class="row">
-              @if ($assign->status === 'rejected')
-                <div class="col-12">
-                  <a href="/assignment/{{ $assign->id }}" class="btn btn-secondary w-100"><i class="bi bi-file-text"></i> Detail</a>
-                </div>
-              @elseif ($assign->status === 'done')
-                <div class="col-12">
-                  <a href="/assignment/{{ $assign->id }}" class="btn btn-secondary w-100"><i class="bi bi-file-text"></i> Detail</a>
-                </div>
-              @elseif ($assign->status === 'accepted')
-                <div class="col-6">
-                  <button class="btn btn-danger w-100" id="reject-assignment-btn" data-id="{{ $assign->mahasiswa->slug }}"><i class="bi bi-send-slash"></i> Rejected</button>
-                </div>
-                <div class="col-6">
-                  <a href="/assignment/{{ $assign->id }}" class="btn btn-primary w-100"><i class="bi bi-send"></i> Send</a>
-                </div>
-              @endif
+  <div class="col-md-3">
+    <div class="c-card-2 mb-3">
+      <div class="px-3 pt-2">
+        <div class="d-flex justify-content-between">
+          <div class="d-flex flex-row align-items-center">
+            <div class="round">
+              <img src="{{ asset('/') }}assets/img/mail.png" width="23" class="imgfix"/>
             </div>
           </div>
+          <div class="dropdown">
+            <button class="btn btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="bi bi-three-dots"></i>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end py-0" aria-labelledby="dropdownMenuButton">
+              @if ($assign->status === 'rejected')
+                  <li><a href="/assignment/{{ $assign->id }}" class="dropdown-item"><i class="bi bi-file-text"></i> Detail</a></li>
+              @elseif ($assign->status === 'done')
+                  <li><a href="/assignment/{{ $assign->id }}" class="dropdown-item"><i class="bi bi-file-text"></i> Detail</a></li>
+              @elseif ($assign->status === 'accepted')
+                  <li><button class="dropdown-item" id="reject-assignment-btn" data-id="{{ $assign->mahasiswa->slug }}"><i class="bi bi-send-slash"></i> Rejected</button></li>
+                  <li><a href="/assignment/{{ $assign->id }}" class="dropdown-item"><i class="bi bi-send"></i> Send</a></li>
+              @endif
+            </ul>
+          </div>
+        </div>
       </div>
+      <div class="px-3 pt-3">
+        <h3 class="name">{{ $assign->mahasiswa->name }}</h3>
+        <p class="quote2">These cuties will need a new place where thay can live with their owner.</p>
+      </div>
+      <div class="d-flex justify-content-start px-3 align-items-center">
+        <i class="mdi mdi-view-comfy task"></i>
+        <span class="quote2 pl-2">Email: {{ $assign->mahasiswa->email }}</span>
+      </div>
+      <div class="d-flex justify-content-start px-3 align-items-center">
+        <i class="mdi mdi-view-comfy task"></i>
+        <span class="quote2 pl-2">Phone: {{ $assign->mahasiswa->phone }}</span>
+      </div>
+      <div class="d-flex justify-content-between  px-3 align-items-center pb-3">
+        <div class="d-flex justify-content-start align-items-center">
+          <i class="mdi mdi-calendar-clock date"></i>
+          <span class="quote2 pl-2">Status: 
+            @if ($assign->status === 'accepted')
+              <span class="badge rounded-pill text-bg-primary">{{ $assign->status }}</span>
+            @elseif ($assign->status === 'rejected')
+              <span class="badge rounded-pill text-bg-danger">{{ $assign->status }}</span>
+            @elseif ($assign->status === 'done') 
+              <span class="badge rounded-pill text-bg-success">Finished</span>
+            @endif
+          </span>
+        </div>
+      <div class="d-flex justify-content-end">
+        @if ($assign->mahasiswa->image)
+          <img src="{{ asset('storage/'. $assign->mahasiswa->image) }}" width="20" class="c-img-1" />
+        @else
+          <img src="{{ asset('/') }}assets/img/profile-img.jpg" width="20" class="c-img-1" />
+        @endif
+      </div>
+      </div>
+    </div>
   </div>
   @endforeach
 @endif

@@ -1545,6 +1545,7 @@ ul.roles {
   border: none;
   border-radius: 10px;
   background-color: var(--bs-white);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);    
 }
 
 .c-details span {
@@ -1586,4 +1587,72 @@ ul.roles {
 
 .text2 {
   color: #a5aec0
+}
+
+.c-card-2{
+  width: 100%;
+  background-color: #fff;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);    
+}
+
+.star{
+  font-size: 20px !important;
+  color: #b1b4b7;
+}
+
+.dot{
+  font-size: 20px !important;
+  color: #b1b4b7;
+}
+
+.round{
+  border-radius: 50%;
+  background-color: #eee;
+  width: 33px;
+  height: 33px;
+  margin-bottom: -10px;
+  align-items: center;
+  justify-content: center;
+}
+
+.name{
+  font-size: 22px;
+  color: #464e56;
+  font-weight: 600;
+  text-align: left;
+}
+
+.quote2{
+   font-size: 12px;
+   font-weight: 500;
+   color: #868e94;
+   text-align: left;
+}
+
+.c-img-1{
+  position: relative;
+  border: 0.5px solid #6ebde4;
+  border-radius: 50%;
+  background-color: #bcd8e6;
+}
+
+.task{
+   color: #727475;
+}
+
+.date{
+   color: #727475;
+}
+
+.imgfix{
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  top: 5px;
 }
