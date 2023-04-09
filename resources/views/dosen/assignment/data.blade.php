@@ -1,6 +1,6 @@
 @if ($assigns->count() == 0)
 <div class="container-fluid pe-0">
-  <div class="alert-custom alert-error bg-danger rounded-3">
+  <div class="alert-custom alert-warning bg-warning rounded-3">
     <div class="alert-icon rounded-start">
       <i class="bi bi-send-exclamation"></i>
     </div>

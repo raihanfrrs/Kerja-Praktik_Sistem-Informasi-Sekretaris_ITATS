@@ -943,3 +943,14 @@ if (! function_exists('slug')) {
         return $slug;
     }
 }
+
+if (!function_exists('contact')) {
+    function contact($nomor_telepon)
+    {
+        if (substr($nomor_telepon, 0, 1) === '0') {
+            return '62' . substr($nomor_telepon, 1);
+        }
+
+        return $nomor_telepon;
+    }
+}
