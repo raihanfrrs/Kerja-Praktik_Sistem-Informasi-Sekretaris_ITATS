@@ -1,5 +1,5 @@
 @if ($model->status === 'unfinished')
-    <span class="badge bg-secondary text-capitalize"><i class="bi bi-clipboard"></i> pending</span>
+    <span class="badge bg-warning text-capitalize"><i class="bi bi-clipboard"></i> pending</span>
 @elseif ($model->status === 'processed')
     <span class="badge bg-primary text-capitalize"><i class="bi bi-clipboard-data"></i> {{ $model->status }}</span>
 @elseif ($model->status === 'finished')

@@ -85,7 +85,7 @@
                         <span class="text1">{{ $applied }} Applied <span class="text2">of {{ $acception->amount }} Amount</span></span>
                       </div>
                       @if ($acception->status === 'finished')
-                        <a href="/acception/{{ $acception->request_id }}" type="button" class="btn btn-primary btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Tooltip on top"><i class="bi bi-eye"></i></a>
+                        <a href="/acception/{{ $acception->request_id }}" type="button" class="btn btn-secondary btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Tooltip on top"><i class="bi bi-eye"></i></a>
                       @endif
                     </div>
                   </div>
