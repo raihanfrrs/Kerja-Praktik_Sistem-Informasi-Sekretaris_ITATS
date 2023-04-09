@@ -56,8 +56,7 @@ class MahasiswaController extends Controller
 
         $checkSuratExist = ModelsRequest::select('detail_requests.status')
                                         ->join('detail_requests', 'requests.id', '=', 'detail_requests.request_id')
-                                        ->where('detail_requests.status', 'accepted')
-                                        ->orWhere('detail_requests.status', 'pending')
+                                        ->whereIn('detail_requests.status', ['accepted', 'pending'])
                                         ->where('requests.mahasiswa_id', auth()->user()->mahasiswa->id)
                                         ->where('detail_requests.surat_id', $surat->id);
 
