@@ -10,7 +10,7 @@
                   <div class="d-flex flex-row align-items-center">
                       <div class="c-icon"> <i class="bi bi-send"></i> </div>
                       <div class="ms-2 c-details">
-                          <h6 class="mb-0">Request #{{ $loop->iteration }}</h6> <span>{{ $acception->created_at->diffForHumans() }}</span>
+                          <h6 class="mb-0 fw-bold">Request #{{ $loop->iteration }}</h6> <span>{{ $acception->created_at->diffForHumans() }}</span>
                       </div>
                   </div>
                   <div class="c-badge"> 
@@ -85,7 +85,7 @@
                         <span class="text1">{{ $applied }} Applied <span class="text2">of {{ $acception->amount }} Amount</span></span>
                       </div>
                       @if ($acception->status === 'finished')
-                        <a href="/acception/{{ $acception->request_id }}" type="button" class="btn btn-secondary btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Tooltip on top"><i class="bi bi-eye"></i></a>
+                        <a href="/acception/{{ $acception->request_id }}" class="text1">Detail</a>
                       @endif
                     </div>
                   </div>

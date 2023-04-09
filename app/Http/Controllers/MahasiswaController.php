@@ -227,13 +227,16 @@ class MahasiswaController extends Controller
                     'pptx' => 'pptx.png',
                     'xlsx' => 'xlsx.jpg',
                 ];
-                $defaultIcon = 'default.jpg';
+                $defaultIcon = 'default.png';
                 $icon[] = array_key_exists($extension, $iconMap) ? $iconMap[$extension] : $defaultIcon;
             }
         }
 
         return view('mahasiswa.acception.detail')->with([
-            'requests' => DetailRequest::whereNotNull('surat')
+            'requestsNotNull' => DetailRequest::whereNotNull('surat')
+                                        ->where('request_id', $request->id)
+                                        ->get(),
+            'requestsNull' => DetailRequest::whereNull('surat')
                                         ->where('request_id', $request->id)
                                         ->get(),
             'files' => $icon,
