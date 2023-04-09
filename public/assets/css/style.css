@@ -875,7 +875,7 @@ hr {
   position: relative;
   flex-shrink: 0;
   flex-grow: 0;
-  min-width: 64px;
+  min-width: 94px;
 }
 
 .dashboard .activity .activity-item .activite-label::before {

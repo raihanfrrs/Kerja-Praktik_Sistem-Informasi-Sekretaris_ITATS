@@ -280,6 +280,15 @@ class DashboardController extends Controller
                 ];
 
                 return $data;
+            }elseif ($data === 'recent-activity') {
+                $activity = ModelsRequest::where('mahasiswa_id', auth()->user()->mahasiswa->id)
+                                        ->orderBy('created_at', 'DESC')
+                                        ->limit(6)
+                                        ->get();
+
+                return view('mahasiswa.dashboard.data-recent-activity')->with([
+                    'activities' => $activity
+                ]);
             }
         }
     }

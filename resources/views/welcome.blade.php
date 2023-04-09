@@ -2,7 +2,7 @@
 
 @section('section')
     @if (auth()->user()->level == 'mahasiswa')
-        @include('mahasiswa.dashboard')
+        @include('mahasiswa.dashboard.dashboard')
     @elseif (auth()->user()->level == 'dosen')
         @include('dosen.dashboard')
     @else

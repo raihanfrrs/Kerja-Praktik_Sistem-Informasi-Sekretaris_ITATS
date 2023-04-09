@@ -87,6 +87,14 @@ $(document).ready(function () {
             $("#percent-request-reject").html(data.percent+"%");
         }
     });
+
+    $.ajax({
+        type: "get",
+        url: "dashboard/recent-activity/mahasiswa",
+        success: function(data){
+            $("#activity").html(data);
+        }
+    });
 });
 
 $(document).on('click', '.dropdown-item.mahasiswa', function () {
