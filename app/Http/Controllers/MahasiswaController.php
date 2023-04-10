@@ -217,18 +217,17 @@ class MahasiswaController extends Controller
         }
 
         foreach ($request->detail_request as $file) {
-            if ($file->surat) {
-                $extension = pathinfo($file->surat, PATHINFO_EXTENSION);
+            $extension = pathinfo($file->surat, PATHINFO_EXTENSION);
 
-                $iconMap = [
-                    'pdf' => 'pdf.png',
-                    'docx' => 'docx.jpg',
-                    'pptx' => 'pptx.png',
-                    'xlsx' => 'xlsx.jpg',
-                ];
-                $defaultIcon = 'default.png';
-                $icon[] = array_key_exists($extension, $iconMap) ? $iconMap[$extension] : $defaultIcon;
-            }
+            $iconMap = [
+                'pdf' => 'pdf.png',
+                'docx' => 'docx.jpg',
+                'pptx' => 'pptx.png',
+                'xlsx' => 'xlsx.jpg',
+            ];
+            
+            $defaultIcon = 'default.png';
+            $icon[] = array_key_exists($extension, $iconMap) ? $iconMap[$extension] : $defaultIcon;
         }
 
         return view('mahasiswa.acception.detail')->with([

@@ -16,16 +16,20 @@
                         </h2>
                         <div id="collapse-{{ $item->id }}" class="accordion-collapse collapse" aria-labelledby="heading-{{ $item->id }}" data-bs-parent="#accordion-{{ $item->id }}">
                           <div class="accordion-body">
-                              <table style="width:100%">
-                                  <tr>
-                                    <th class="fw-normal">Dikirim</th>
-                                    <td class="text-end fw-bold">{{ $item->dosen->name }}</td>
-                                  </tr>
-                                  <tr>
-                                    <th class="fw-normal">Updated</th>
-                                    <td class="text-end fw-bold fst-italic">{{ $item->updated_at->diffForHumans() }}</td>
-                                  </tr>
-                              </table>
+                            <table style="width:100%">
+                                <tr>
+                                  <th class="fw-normal">Dikirim</th>
+                                  <td class="text-end fw-bold"><small>{{ $item->dosen->name }}</small></td>
+                                </tr>
+                                <tr>
+                                  <th class="fw-normal">Kontak</th>
+                                  <td class="text-end fw-bold"><a href="https://api.whatsapp.com/send?phone={{ contact($item->dosen->phone) }}" target="_blank" class="text-success"><small><i class="bi bi-whatsapp"></i> WhatsApp</small></a></td>
+                                </tr>
+                                <tr>
+                                  <th class="fw-normal">Updated</th>
+                                  <td class="text-end fw-bold fst-italic"><small>{{ $item->updated_at->diffForHumans() }}</small></td>
+                                </tr>
+                            </table>
                           </div>
                         </div>
                       </div>
@@ -53,16 +57,20 @@
                         </h2>
                         <div id="collapse-{{ $item->id }}" class="accordion-collapse collapse" aria-labelledby="heading-{{ $item->id }}" data-bs-parent="#accordion-{{ $item->id }}">
                           <div class="accordion-body">
-                              <table style="width:100%">
-                                  <tr>
-                                    <th class="fw-normal">Ditolak</th>
-                                    <td class="text-end fw-bold">{{ $item->dosen->name }}</td>
-                                  </tr>
-                                  <tr>
-                                    <th class="fw-normal">Updated</th>
-                                    <td class="text-end fw-bold fst-italic">{{ $item->updated_at->diffForHumans() }}</td>
-                                  </tr>
-                              </table>
+                            <table style="width:100%">
+                              <tr>
+                                <th class="fw-normal">Ditolak</th>
+                                <td class="text-end fw-bold"><small>{{ $item->dosen->name }}</small></td>
+                              </tr>
+                              <tr>
+                                <th class="fw-normal">Kontak</th>
+                                <td class="text-end fw-bold"><a href="https://api.whatsapp.com/send?phone={{ contact($item->dosen->phone) }}" target="_blank" class="text-success"><small><i class="bi bi-whatsapp"></i> WhatsApp</small></a></td>
+                              </tr>
+                              <tr>
+                                <th class="fw-normal">Updated</th>
+                                <td class="text-end fw-bold fst-italic"><small>{{ $item->updated_at->diffForHumans() }}</small></td>
+                              </tr>
+                          </table>
                           </div>
                         </div>
                       </div>
