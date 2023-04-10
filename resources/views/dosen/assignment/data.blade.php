@@ -13,7 +13,7 @@
 @else 
   @foreach ($assigns as $assign)
   <div class="col-md-3">
-    <div class="c-card-2 mb-3">
+    <div class="c-card-2 mb-4">
       <div class="px-3 pt-2">
         <div class="d-flex justify-content-between">
           <div class="d-flex flex-row align-items-center">
