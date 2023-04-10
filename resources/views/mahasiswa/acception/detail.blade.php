@@ -23,7 +23,7 @@
                                 </tr>
                                 <tr>
                                   <th class="fw-normal">Kontak</th>
-                                  <td class="text-end fw-bold"><a href="https://api.whatsapp.com/send?phone={{ contact($item->dosen->phone) }}" target="_blank" class="text-success"><small><i class="bi bi-whatsapp"></i> WhatsApp</small></a></td>
+                                  <td class="text-end fw-bold"><a href="https://api.whatsapp.com/send?phone={{ contact($item->dosen->phone) }}" target="_blank" class="text-success" title="{{ $item->dosen->phone }}"><small><i class="bi bi-whatsapp"></i> WhatsApp</small></a></td>
                                 </tr>
                                 <tr>
                                   <th class="fw-normal">Updated</th>
@@ -64,7 +64,7 @@
                               </tr>
                               <tr>
                                 <th class="fw-normal">Kontak</th>
-                                <td class="text-end fw-bold"><a href="https://api.whatsapp.com/send?phone={{ contact($item->dosen->phone) }}" target="_blank" class="text-success"><small><i class="bi bi-whatsapp"></i> WhatsApp</small></a></td>
+                                <td class="text-end fw-bold"><a href="https://api.whatsapp.com/send?phone={{ contact($item->dosen->phone) }}" target="_blank" class="text-success" title="{{ $item->dosen->phone }}"><small><i class="bi bi-whatsapp"></i> WhatsApp</small></a></td>
                               </tr>
                               <tr>
                                 <th class="fw-normal">Updated</th>
