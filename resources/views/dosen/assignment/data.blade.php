@@ -48,7 +48,7 @@
       </div>
       <div class="d-flex justify-content-start px-3 align-items-center">
         <i class="mdi mdi-view-comfy task"></i>
-        <span class="quote2 pl-2">Phone: {{ $assign->mahasiswa->phone }}</span>
+        <span class="quote2 pl-2">Phone: <a href="https://api.whatsapp.com/send?phone={{ contact($assign->mahasiswa->phone) }}" target="_blank" class="text-success" title="{{ $assign->mahasiswa->phone }}"><i class="bi bi-whatsapp"></i> WhatsApp</a></span>
       </div>
       <div class="d-flex justify-content-between  px-3 align-items-center pb-3">
         <div class="d-flex justify-content-start align-items-center">

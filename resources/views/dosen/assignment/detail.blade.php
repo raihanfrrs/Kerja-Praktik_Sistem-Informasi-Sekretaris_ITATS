@@ -29,7 +29,7 @@
                                 </tr>
                                 <tr>
                                   <th class="fw-normal">Phone</th>
-                                  <td class="text-end fw-bold fst-italic">{{ $request->mahasiswa->phone }}</td>
+                                  <td class="text-end fw-bold"><a href="https://api.whatsapp.com/send?phone={{ contact($request->mahasiswa->phone) }}" target="_blank" class="text-success" title="{{ $request->mahasiswa->phone }}"><i class="bi bi-whatsapp"></i> WhatsApp</a></td>
                                 </tr>
                                 <tr>
                                   <th class="fw-normal">Email</th>

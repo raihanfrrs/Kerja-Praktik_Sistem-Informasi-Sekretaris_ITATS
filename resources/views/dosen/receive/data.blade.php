@@ -43,7 +43,7 @@
         </div>
       </div>
       <h6 class="mb-0"><i class="bi bi-envelope"></i> {{ $receive->mahasiswa->email }}</h6>
-      <a href="https://api.whatsapp.com/send?phone={{ contact($receive->mahasiswa->phone) }}" target="_blank" class="text-success"><small><i class="bi bi-whatsapp"></i> Contact</small></a>
+      <a href="https://api.whatsapp.com/send?phone={{ contact($receive->mahasiswa->phone) }}" target="_blank" class="text-success" title="{{ $receive->mahasiswa->phone }}"><small><i class="bi bi-whatsapp"></i> Contact</small></a>
       <div class="d-flex justify-content-between mt-4">
         <div>
           <h5 class="mb-0">{{ \Carbon\Carbon::createFromDate($receive->created_at)->format('H:i') }}
