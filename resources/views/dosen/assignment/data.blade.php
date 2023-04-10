@@ -27,12 +27,12 @@
             </button>
             <ul class="dropdown-menu dropdown-menu-end py-0" aria-labelledby="dropdownMenuButton">
               @if ($assign->status === 'rejected')
-                  <li><a href="/assignment/{{ $assign->id }}" class="dropdown-item"><i class="bi bi-file-text"></i> Detail</a></li>
+                  <li><a href="/assignment/{{ $assign->id }}" class="dropdown-item text-primary"><i class="bi bi-file-text"></i> Detail</a></li>
               @elseif ($assign->status === 'done')
-                  <li><a href="/assignment/{{ $assign->id }}" class="dropdown-item"><i class="bi bi-file-text"></i> Detail</a></li>
+                  <li><a href="/assignment/{{ $assign->id }}" class="dropdown-item text-primary"><i class="bi bi-file-text"></i> Detail</a></li>
               @elseif ($assign->status === 'accepted')
-                  <li><button class="dropdown-item" id="reject-assignment-btn" data-id="{{ $assign->mahasiswa->slug }}"><i class="bi bi-send-slash"></i> Rejected</button></li>
-                  <li><a href="/assignment/{{ $assign->id }}" class="dropdown-item"><i class="bi bi-send"></i> Send</a></li>
+                  <li><button class="dropdown-item text-danger" id="reject-assignment-btn" data-id="{{ $assign->mahasiswa->slug }}"><i class="bi bi-send-slash"></i> Rejected</button></li>
+                  <li><a href="/assignment/{{ $assign->id }}" class="dropdown-item text-success"><i class="bi bi-send"></i> Send</a></li>
               @endif
             </ul>
           </div>
