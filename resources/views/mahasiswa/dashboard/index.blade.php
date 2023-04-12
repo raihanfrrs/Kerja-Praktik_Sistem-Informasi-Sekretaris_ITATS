@@ -44,22 +44,22 @@
               <h6>Filter</h6>
               </li>
 
-              <li><a class="dropdown-item request-in" href="#" id="day">Today</a></li>
-              <li><a class="dropdown-item request-in" href="#" id="month">This Month</a></li>
-              <li><a class="dropdown-item request-in" href="#" id="year">This Year</a></li>
+              <li><a class="dropdown-item request-in-mahasiswa" href="#" id="day">Today</a></li>
+              <li><a class="dropdown-item request-in-mahasiswa" href="#" id="month">This Month</a></li>
+              <li><a class="dropdown-item request-in-mahasiswa" href="#" id="year">This Year</a></li>
           </ul>
           </div>
 
           <div class="card-body">
-          <h5 class="card-title">Request In <span>|</span> <span id="date-request-in">Today</span></h5>
+          <h5 class="card-title">Request In <span>|</span> <span id="date-request-in-mahasiswa">Today</span></h5>
 
           <div class="d-flex align-items-center">
               <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                 <i class="bi bi-journal-arrow-down"></i>
               </div>
               <div class="ps-3">
-              <h6 id="amount-request-in"></h6>
-              <span class="text-success small pt-1 fw-bold" id="percent-request-in"></span> <span class="text-muted small pt-2 ps-1">increase</span>
+              <h6 id="amount-request-in-mahasiswa"></h6>
+              <span class="text-success small pt-1 fw-bold" id="percent-request-in-mahasiswa"></span> <span class="text-muted small pt-2 ps-1">increase</span>
 
               </div>
           </div>
@@ -90,7 +90,7 @@
 
           <div class="d-flex align-items-center">
               <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                  <i class="bi bi-envelope-open"></i>
+                <i class="bi bi-envelope-exclamation"></i>
               </div>
               <div class="ps-3">
               <h6 id="amount-request-reject"></h6>

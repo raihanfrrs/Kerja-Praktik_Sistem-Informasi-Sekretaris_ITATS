@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DetailRequest;
 use App\Models\Dosen;
 use App\Models\Mahasiswa;
 use App\Models\Request as ModelsRequest;
@@ -135,6 +136,36 @@ class DashboardController extends Controller
             return view('superadmin.data-dashboard-request-activity')->with([
                 'requests' => $request
             ]);
+        }elseif ($data === 'request-in') {
+            $amount_now = ModelsRequest::select('detail_requests.request_id')
+                                        ->join('detail_requests', 'requests.id', '=', 'detail_requests.request_id')
+                                        ->whereYear('requests.created_at', now())
+                                        ->where('detail_requests.dosen_id', auth()->user()->dosen->id)
+                                        ->groupBy('detail_requests.request_id')
+                                        ->count();
+            $amount_yesterday = ModelsRequest::select('detail_requests.request_id')
+                                            ->join('detail_requests', 'requests.id', '=', 'detail_requests.request_id')
+                                            ->whereYear('requests.created_at', Carbon::now()->subYear()->format('y'))
+                                            ->where('detail_requests.dosen_id', auth()->user()->dosen->id)
+                                            ->groupBy('detail_requests.request_id')
+                                            ->count();
+
+            if ($amount_now == 0 && $amount_yesterday == 0) {
+                $amount_yesterday = 1;
+            }elseif ($amount_now > 0 && $amount_yesterday == 0) {
+                $amount_yesterday = $amount_now;
+            }
+
+            $percent = ($amount_now / $amount_yesterday) * 100;
+
+            $data = [
+                'amount' => $amount_now,
+                'percent' => $percent
+            ];
+
+            return $data;
+        }elseif ($data === 'request-out') {
+            return true;
         }
     }
 

@@ -80,14 +80,17 @@
   <script src="{{ asset('/') }}assets/js/images.js"></script>
   <script src="{{ asset('/') }}assets/js/button.js"></script>
   @auth
-  @if (request()->is('/'))
-  <script src="{{ asset('/') }}assets/js/dashboard.js"></script>
+  @if (request()->is('/') && auth()->user()->level === 'mahasiswa')
+  <script src="{{ asset('/') }}assets/js/dashboard-mahasiswa.js"></script>
+  @elseif (request()->is('/') && (auth()->user()->level === 'dosen' || auth()->user()->level === 'superadmin'))
+  <script src="{{ asset('/') }}assets/js/dashboard-dosen.js"></script>
   @endif
   @if (auth()->user()->level === 'mahasiswa')
   <script src="{{ asset('/') }}assets/js/req-mahasiswa.js"></script>
+  @elseif (auth()->user()->level === 'dosen' && request()->is('assignment/*'))
+  <script src="{{ asset('/') }}assets/js/filepond.js"></script>
   @elseif (auth()->user()->level === 'dosen')
   <script src="{{ asset('/') }}assets/js/req-dosen.js"></script>
-  <script src="{{ asset('/') }}assets/js/filepond.js"></script>
   @endif
   @endauth
   <script src="{{ asset('/') }}assets/js/modal.js"></script>
