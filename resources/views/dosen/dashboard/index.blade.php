@@ -54,8 +54,8 @@
                     <i class="bi bi-envelope-exclamation"></i>
                     </div>
                     <div class="ps-3">
-                    <h6 id="amount-request-reject"></h6>
-                    <span class="text-success small pt-1 fw-bold" id="percent-request-reject"></span> <span class="text-muted small pt-2 ps-1">increase</span>
+                    <h6 id="amount-request-reject-dosen"></h6>
+                    <span class="text-success small pt-1 fw-bold" id="percent-request-reject-dosen"></span> <span class="text-muted small pt-2 ps-1">increase</span>
     
                     </div>
                 </div>
@@ -70,14 +70,15 @@
   
     <div class="col-lg-4">
   
-      <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Recent Activity</h5>
-  
-            {{-- <div class="activity" id="activity">
-            </div> --}}
-  
-          </div>
+        <div class="card">
+
+            <div class="card-body pb-0">
+              <h5 class="card-title">Recently Request <span>| {{ \Carbon\Carbon::now()->year }}</span></h5>
+
+              <div class="news" id="recent-request">
+              </div>
+
+            </div>
         </div>
   
   </div>

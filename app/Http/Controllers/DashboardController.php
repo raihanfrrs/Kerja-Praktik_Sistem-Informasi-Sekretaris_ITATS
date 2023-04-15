@@ -133,21 +133,15 @@ class DashboardController extends Controller
                                         ->get();
             }
 
-            return view('superadmin.data-dashboard-request-activity')->with([
+            return view('superadmin.dashboard.data-dashboard-request-activity')->with([
                 'requests' => $request
             ]);
         }elseif ($data === 'request-in') {
-            $amount_now = ModelsRequest::select('detail_requests.request_id')
-                                        ->join('detail_requests', 'requests.id', '=', 'detail_requests.request_id')
-                                        ->whereYear('requests.created_at', now())
-                                        ->where('detail_requests.dosen_id', auth()->user()->dosen->id)
-                                        ->groupBy('detail_requests.request_id')
+            $amount_now = DetailRequest::where('dosen_id', auth()->user()->dosen->id)
+                                        ->whereYear('created_at', now())
                                         ->count();
-            $amount_yesterday = ModelsRequest::select('detail_requests.request_id')
-                                            ->join('detail_requests', 'requests.id', '=', 'detail_requests.request_id')
-                                            ->whereYear('requests.created_at', Carbon::now()->subYear()->format('y'))
-                                            ->where('detail_requests.dosen_id', auth()->user()->dosen->id)
-                                            ->groupBy('detail_requests.request_id')
+            $amount_yesterday = DetailRequest::where('dosen_id', auth()->user()->dosen->id)
+                                            ->whereYear('created_at', Carbon::now()->subYear()->format('y'))
                                             ->count();
 
             if ($amount_now == 0 && $amount_yesterday == 0) {
@@ -165,7 +159,63 @@ class DashboardController extends Controller
 
             return $data;
         }elseif ($data === 'request-out') {
-            return true;
+            $amount_now = DetailRequest::whereNotNull('surat')
+                                        ->where('dosen_id', auth()->user()->dosen->id)
+                                        ->whereYear('updated_at', now())
+                                        ->count();
+            $amount_yesterday = DetailRequest::whereNotNull('surat')
+                                            ->where('dosen_id', auth()->user()->dosen->id)
+                                            ->whereYear('updated_at', Carbon::now()->subYear()->format('y'))
+                                            ->count();
+
+            if ($amount_now == 0 && $amount_yesterday == 0) {
+                $amount_yesterday = 1;
+            }elseif ($amount_now > 0 && $amount_yesterday == 0) {
+                $amount_yesterday = $amount_now;
+            }
+
+            $percent = ($amount_now / $amount_yesterday) * 100;
+
+            $data = [
+                'amount' => $amount_now,
+                'percent' => $percent
+            ];
+
+            return $data;
+        }elseif ($data === 'request-reject') {
+            $amount_now = DetailRequest::where('dosen_id', auth()->user()->dosen->id)
+                                        ->where('status', 'rejected')
+                                        ->whereYear('created_at', now())
+                                        ->count();
+            $amount_yesterday = DetailRequest::where('dosen_id', auth()->user()->dosen->id)
+                                            ->where('status', 'rejected')
+                                            ->whereYear('created_at', Carbon::now()->subYear()->format('y'))
+                                            ->count();
+
+            if ($amount_now == 0 && $amount_yesterday == 0) {
+                $amount_yesterday = 1;
+            }elseif ($amount_now > 0 && $amount_yesterday == 0) {
+                $amount_yesterday = $amount_now;
+            }
+
+            $percent = ($amount_now / $amount_yesterday) * 100;
+
+            $data = [
+                'amount' => $amount_now,
+                'percent' => $percent
+            ];
+
+            return $data;
+        }elseif ($data === 'request-recent') {
+            return view('dosen.dashboard.data-recent-request')->with([
+                'requests' => ModelsRequest::select('mahasiswa_id', 'requests.id', 'requests.created_at')
+                                        ->join('detail_requests', 'detail_requests.request_id', '=', 'requests.id')
+                                        ->where('dosen_id', auth()->user()->dosen->id)
+                                        ->groupBy('requests.id')
+                                        ->orderBy('requests.created_at', 'DESC')
+                                        ->limit(5)
+                                        ->get()
+            ]);
         }
     }
 

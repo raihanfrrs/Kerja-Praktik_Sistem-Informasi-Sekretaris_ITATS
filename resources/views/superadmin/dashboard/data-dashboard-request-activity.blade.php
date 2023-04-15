@@ -6,9 +6,9 @@
     @foreach ($requests as $request)
     <div class="post-item clearfix">
         @if ($request->mahasiswa->image)
-                <img src="{{ asset('storage/'. $request->mahasiswa->image) }}" class="img-fluid rounded" alt="{{ $request->mahasiswa->image }}">
+                <img src="{{ asset('storage/'. $request->mahasiswa->image) }}" class="img-thumbnail" alt="{{ $request->mahasiswa->image }}">
             @else
-                <img src="{{ asset('/') }}assets/img/profile-img.jpg" alt="{{ $request->mahasiswa->image }}">
+                <img src="{{ asset('/') }}assets/img/profile-img.jpg" class="img-thumbnail" alt="{{ $request->mahasiswa->image }}">
             @endif
         <h4><a href="/mahasiswa/{{ $request->mahasiswa->slug }}">{{ $request->mahasiswa->name }}</a></h4>
         <p>Requesting {{ $request->detail_request->count() }} Surat.

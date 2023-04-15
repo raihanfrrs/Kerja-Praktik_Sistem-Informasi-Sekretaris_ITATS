@@ -6,6 +6,6 @@
     @elseif (auth()->user()->level == 'dosen')
         @include('dosen.dashboard.index')
     @else
-        @include('superadmin.dashboard')
+        @include('superadmin.dashboard.index')
     @endif
 @endsection
