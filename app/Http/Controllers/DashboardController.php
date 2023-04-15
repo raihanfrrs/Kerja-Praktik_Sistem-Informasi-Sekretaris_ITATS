@@ -123,12 +123,14 @@ class DashboardController extends Controller
                 $request = ModelsRequest::join('mahasiswas', 'requests.mahasiswa_id', '=', 'mahasiswas.id')
                                         ->select('requests.*')
                                         ->whereMonth('requests.created_at', now())
+                                        ->limit(5)
                                         ->orderBy('requests.created_at', 'DESC')
                                         ->get();
             }elseif ($request->date === 'year') {
                 $request = ModelsRequest::join('mahasiswas', 'requests.mahasiswa_id', '=', 'mahasiswas.id')
                                         ->select('requests.*')
                                         ->whereYear('requests.created_at', now())
+                                        ->limit(5)
                                         ->orderBy('requests.created_at', 'DESC')
                                         ->get();
             }

@@ -23,6 +23,7 @@ class HistoryController extends Controller
                                         ->select('requests.id', DetailRequest::raw('COUNT(*) as amount'), ModelsRequest::raw('DATE_FORMAT(requests.created_at, "%d/%m/%Y %H:%i:%s") as date'), 'requests.status')
                                         ->where('requests.mahasiswa_id', auth()->user()->mahasiswa->id)
                                         ->groupBy('requests.id')
+                                        ->orderBy('requests.created_at', 'DESC')
                                         ->get())
         ->addColumn('status', function ($model) {
             return view('mahasiswa.history.status-action', compact('model'))->render();
@@ -36,25 +37,11 @@ class HistoryController extends Controller
 
     public function dataAssignHistory()
     {
-        // $detailRequests = DetailRequest::where('dosen_id', auth()->user()->dosen->id)
-        //                                 ->get();
-
-        // foreach ($detailRequests as $detailRequest) {
-        //     $dataDetailRequestId[] = $detailRequest->request_id;
-        //     $dataDetailRequestStatus[] = $detailRequest->status;
-        // }
-
-        // $getDetailRequests = DetailRequest::whereIn('request_id', $dataDetailRequestId)
-        //                                 ->whereIn('status', $dataDetailRequestStatus)
-        //                                 ->get();
-
-        // dd($getDetailRequests);
-
-        return DataTables::of(ModelsRequest::select('requests.id', 'mahasiswas.name', ModelsRequest::raw('DATE_FORMAT(requests.created_at, "%d/%m/%Y %H:%i:%s") as date'), 'requests.status')
-                                        ->join('detail_requests', 'requests.id', '=', 'detail_requests.request_id')
-                                        ->join('mahasiswas', 'requests.mahasiswa_id', '=', 'mahasiswas.id')
+        return DataTables::of(ModelsRequest::rightJoin('detail_requests', 'requests.id', '=', 'detail_requests.request_id')
+                                        ->select('requests.id', 'requests.mahasiswa_id', ModelsRequest::raw('DATE_FORMAT(requests.created_at, "%d/%m/%Y %H:%i:%s") as date'), 'requests.status')
                                         ->where('detail_requests.dosen_id', auth()->user()->dosen->id)
-                                        ->groupBy('detail_requests.request_id')
+                                        ->groupBy('requests.id')
+                                        ->orderBy('requests.created_at', 'DESC')
                                         ->get())
         ->addColumn('name', function ($model) {
             return view('dosen.history.mahasiswa-action', compact('model'))->render();

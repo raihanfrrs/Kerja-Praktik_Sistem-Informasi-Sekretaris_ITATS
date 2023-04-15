@@ -76,7 +76,7 @@ $(document).ready(function () {
         ajax: '/dataAssignHistory',
         columns: [
             { data: 'name', name: 'name', class: 'text-muted text-center' },
-            { data: 'date', name: 'date', class: 'text-muted text-center' },
+            { data: 'date', name: 'date', class: 'text-muted text-center', orderable: true },
             { data: 'status', name: 'status', class: 'text-center' },
             { data: 'action', name: 'action', class: 'text-center' }
         ]
