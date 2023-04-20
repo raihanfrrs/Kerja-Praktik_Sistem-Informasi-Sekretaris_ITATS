@@ -11,14 +11,14 @@
               <h6>Filter</h6>
               </li>
 
-              <li><a class="dropdown-item request-out" href="#" id="day">Today</a></li>
-              <li><a class="dropdown-item request-out" href="#" id="month">This Month</a></li>
-              <li><a class="dropdown-item request-out" href="#" id="year">This Year</a></li>
+              <li><a class="dropdown-item request-out" href="#" id="day">Hari ini</a></li>
+              <li><a class="dropdown-item request-out" href="#" id="month">Bulan ini</a></li>
+              <li><a class="dropdown-item request-out" href="#" id="year">Tahun ini</a></li>
           </ul>
           </div>
 
           <div class="card-body">
-          <h5 class="card-title">Request Out <span>|</span> <span id="date-request-out">Today</span></h5>
+          <h5 class="card-title">Surat Keluar <span>|</span> <span id="date-request-out">Hari ini</span></h5>
 
           <div class="d-flex align-items-center">
               <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
@@ -26,7 +26,7 @@
               </div>
               <div class="ps-3">
               <h6 id="amount-request-out"></h6>
-              <span class="text-success small pt-1 fw-bold" id="percent-request-out"></span> <span class="text-muted small pt-2 ps-1">increase</span>
+              <span class="text-success small pt-1 fw-bold" id="percent-request-out"></span> <span class="text-muted small pt-2 ps-1">Kenaikan</span>
               </div>
           </div>
           </div>
@@ -44,14 +44,14 @@
               <h6>Filter</h6>
               </li>
 
-              <li><a class="dropdown-item request-in-mahasiswa" href="#" id="day">Today</a></li>
-              <li><a class="dropdown-item request-in-mahasiswa" href="#" id="month">This Month</a></li>
-              <li><a class="dropdown-item request-in-mahasiswa" href="#" id="year">This Year</a></li>
+              <li><a class="dropdown-item request-in-mahasiswa" href="#" id="day">Hari ini</a></li>
+              <li><a class="dropdown-item request-in-mahasiswa" href="#" id="month">Bulan ini</a></li>
+              <li><a class="dropdown-item request-in-mahasiswa" href="#" id="year">Tahun ini</a></li>
           </ul>
           </div>
 
           <div class="card-body">
-          <h5 class="card-title">Request In <span>|</span> <span id="date-request-in-mahasiswa">Today</span></h5>
+          <h5 class="card-title">Surat Masuk <span>|</span> <span id="date-request-in-mahasiswa">Hari ini</span></h5>
 
           <div class="d-flex align-items-center">
               <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
@@ -59,7 +59,7 @@
               </div>
               <div class="ps-3">
               <h6 id="amount-request-in-mahasiswa"></h6>
-              <span class="text-success small pt-1 fw-bold" id="percent-request-in-mahasiswa"></span> <span class="text-muted small pt-2 ps-1">increase</span>
+              <span class="text-success small pt-1 fw-bold" id="percent-request-in-mahasiswa"></span> <span class="text-muted small pt-2 ps-1">Kenaikan</span>
 
               </div>
           </div>
@@ -79,14 +79,14 @@
               <h6>Filter</h6>
               </li>
 
-              <li><a class="dropdown-item request-reject" href="#" id="day">Today</a></li>
-              <li><a class="dropdown-item request-reject" href="#" id="month">This Month</a></li>
-              <li><a class="dropdown-item request-reject" href="#" id="year">This Year</a></li>
+              <li><a class="dropdown-item request-reject" href="#" id="day">Hari ini</a></li>
+              <li><a class="dropdown-item request-reject" href="#" id="month">Bulan ini</a></li>
+              <li><a class="dropdown-item request-reject" href="#" id="year">Tahun ini</a></li>
           </ul>
           </div>
 
           <div class="card-body">
-          <h5 class="card-title">Rejected <span>|</span> <span id="date-request-reject">Today</span></h5>
+          <h5 class="card-title">Ditolak <span>|</span> <span id="date-request-reject">Hari ini</span></h5>
 
           <div class="d-flex align-items-center">
               <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
@@ -94,7 +94,7 @@
               </div>
               <div class="ps-3">
               <h6 id="amount-request-reject"></h6>
-              <span class="text-success small pt-1 fw-bold" id="percent-request-reject"></span> <span class="text-muted small pt-2 ps-1">increase</span>
+              <span class="text-success small pt-1 fw-bold" id="percent-request-reject"></span> <span class="text-muted small pt-2 ps-1">Kenaikan</span>
 
               </div>
           </div>
@@ -111,7 +111,7 @@
 
     <div class="card">
         <div class="card-body">
-          <h5 class="card-title">Recent Activity</h5>
+          <h5 class="card-title">Aktifitas Terbaru</h5>
 
           <div class="activity" id="activity">
           </div>

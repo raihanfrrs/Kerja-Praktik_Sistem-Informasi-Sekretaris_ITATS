@@ -11,7 +11,7 @@
                       <div class="accordion-item">
                         <h2 class="accordion-header" id="heading-{{ $item->id }}">
                           <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-{{ $item->id }}" aria-expanded="false" aria-controls="collapse-{{ $item->id }}">
-                            Acception Detail
+                            Rincian
                           </button>
                         </h2>
                         <div id="collapse-{{ $item->id }}" class="accordion-collapse collapse" aria-labelledby="heading-{{ $item->id }}" data-bs-parent="#accordion-{{ $item->id }}">
@@ -26,7 +26,7 @@
                                   <td class="text-end fw-bold"><a href="https://api.whatsapp.com/send?phone={{ contact($item->dosen->phone) }}" target="_blank" class="text-success" title="{{ $item->dosen->phone }}"><small><i class="bi bi-whatsapp"></i> WhatsApp</small></a></td>
                                 </tr>
                                 <tr>
-                                  <th class="fw-normal">Updated</th>
+                                  <th class="fw-normal">Diperbaharui</th>
                                   <td class="text-end fw-bold fst-italic"><small>{{ $item->updated_at->diffForHumans() }}</small></td>
                                 </tr>
                             </table>
@@ -35,7 +35,7 @@
                       </div>
                   </div>
                   <div class="col-12">
-                      <p class="card-text"><a href="/acception/download/{{ $item->id }}" class="btn btn-primary btn-md w-100"><i class="bi bi-download"></i> Download</a></p>
+                      <p class="card-text"><a href="/acception/download/{{ $item->id }}" class="btn btn-primary btn-md w-100"><i class="bi bi-download"></i> Unduh</a></p>
                   </div>
               </div>
           </div>
@@ -52,7 +52,7 @@
                       <div class="accordion-item">
                         <h2 class="accordion-header" id="heading-{{ $item->id }}">
                           <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-{{ $item->id }}" aria-expanded="false" aria-controls="collapse-{{ $item->id }}">
-                            Acception Detail
+                            Rincian
                           </button>
                         </h2>
                         <div id="collapse-{{ $item->id }}" class="accordion-collapse collapse" aria-labelledby="heading-{{ $item->id }}" data-bs-parent="#accordion-{{ $item->id }}">
@@ -67,7 +67,7 @@
                                 <td class="text-end fw-bold"><a href="https://api.whatsapp.com/send?phone={{ contact($item->dosen->phone) }}" target="_blank" class="text-success" title="{{ $item->dosen->phone }}"><small><i class="bi bi-whatsapp"></i> WhatsApp</small></a></td>
                               </tr>
                               <tr>
-                                <th class="fw-normal">Updated</th>
+                                <th class="fw-normal">Diperbaharui</th>
                                 <td class="text-end fw-bold fst-italic"><small>{{ $item->updated_at->diffForHumans() }}</small></td>
                               </tr>
                           </table>
@@ -76,7 +76,7 @@
                       </div>
                   </div>
                   <div class="col-12">
-                      <p class="card-text"><a href="#" class="btn btn-primary btn-md w-100 disabled"><i class="bi bi-download"></i> Download</a></p>
+                      <p class="card-text"><a href="#" class="btn btn-primary btn-md w-100 disabled"><i class="bi bi-download"></i> Unduh</a></p>
                   </div>
               </div>
           </div>

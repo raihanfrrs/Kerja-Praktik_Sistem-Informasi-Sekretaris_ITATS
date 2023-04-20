@@ -21,6 +21,8 @@ class LayoutController extends Controller
             session(['request' => TempRequest::where('mahasiswa_id', auth()->user()->mahasiswa->id)->count()]);
         }
 
-        return view('welcome');
+        return view('welcome')->with([
+            'subtitle' => 'Halaman Utama'
+        ]);
     }
 }

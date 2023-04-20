@@ -22,12 +22,16 @@ class ProfileController extends Controller
     {
         if(auth()->user()->level == 'mahasiswa'){
             return view('profile')->with([
-                'user' => Mahasiswa::where('user_id', auth()->user()->id)->get()
+                'user' => Mahasiswa::where('user_id', auth()->user()->id)->get(),
+                'title' => 'Profil',
+                'subtitle' => 'Profil'
             ]);
         }else{
             return view('profile')->with([
                 'user' => Dosen::where('user_id', auth()->user()->id)->get(),
-                'roles' => JobDosen::where('dosen_id', auth()->user()->dosen->id)->get()
+                'roles' => JobDosen::where('dosen_id', auth()->user()->dosen->id)->get(),
+                'title' => 'Profil',
+                'subtitle' => 'Profil'
             ]);
         }
     }
@@ -83,7 +87,7 @@ class ProfileController extends Controller
                 'case' => 'default',
                 'position' => 'center',
                 'type' => 'success',
-                'message' => 'Profile Updated!'
+                'message' => 'Profil Diperbaharui!'
             ]);
         }else{
             if ($request->file('image')) {
@@ -101,7 +105,7 @@ class ProfileController extends Controller
                 'case' => 'default',
                 'position' => 'center',
                 'type' => 'success',
-                'message' => 'Profile Updated!'
+                'message' => 'Profil Diperbaharui!'
             ]);
         }
     }
@@ -116,7 +120,7 @@ class ProfileController extends Controller
             return back()->with([
                 'case' => 'default',
                 'type' => 'danger',
-                'message' => "Old Password Doesn't match!"
+                'message' => "Kata Sandi Lama Tidak Sesuai!"
             ]);
         }
 
@@ -129,7 +133,7 @@ class ProfileController extends Controller
             'case' => 'default',
             'position' => 'center',
             'type' => 'success',
-            'message' => 'Password Updated!'
+            'message' => 'Kata Sandi Diperbaharui!'
         ]);
     }
 }

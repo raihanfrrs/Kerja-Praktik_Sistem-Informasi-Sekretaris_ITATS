@@ -10,18 +10,24 @@
                   <div class="d-flex flex-row align-items-center">
                       <div class="c-icon"> <i class="bi bi-send"></i> </div>
                       <div class="ms-2 c-details">
-                          <h6 class="mb-0 fw-bold">Request #{{ $loop->iteration }}</h6> <span>{{ $acception->created_at->diffForHumans() }}</span>
+                          <h6 class="mb-0 fw-bold">Permintaan #{{ $loop->iteration }}</h6> <span>{{ $acception->created_at->diffForHumans() }}</span>
                       </div>
                   </div>
                   <div class="c-badge"> 
                     @if ($acception->status === 'unfinished')
                         <span class="badge text-bg-warning text-white">Pending</span>
                     @elseif ($acception->status === 'processed')
-                        <span class="badge text-bg-primary">Processed</span>
+                        <span class="badge text-bg-primary">Proses</span>
                     @elseif ($acception->status === 'finished')
-                        <span class="badge text-bg-success">Finished</span>
+                        <span class="badge text-bg-success">Selesai</span>
                     @elseif ($acception->status === 'canceled' || $acception->status === 'rejected')
-                        <span class="badge text-bg-danger">{{ $acception->status }}</span>
+                        <span class="badge text-bg-danger">
+                          @if ($acception->status === 'canceled')
+                              Dibatalkan
+                          @elseif ($acception->status === 'rejected')
+                              Ditolak
+                          @endif
+                        </span>
                     @endif
                   </div>
               </div>
@@ -30,7 +36,7 @@
                     <div class="accordion-item">
                       <h2 class="accordion-header" id="flush-heading-{{ $acception->id }}">
                         <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-{{ $acception->id }}" aria-expanded="false" aria-controls="flush-collapse-{{ $acception->id }}">
-                          Request Detail
+                          Rincian Permintaan
                         </button>
                       </h2>
                       <div id="flush-collapse-{{ $acception->id }}" class="accordion-collapse collapse" aria-labelledby="flush-heading-{{ $acception->id }}" data-bs-parent="#accordionFlush-{{ $acception->id }}">
@@ -47,14 +53,20 @@
                                     @if ($item->status === 'pending')
                                       <span class="badge text-bg-warning text-white">Pending</span>
                                     @elseif ($item->status === 'accepted')
-                                      <span class="badge text-bg-primary">Processed</span>
+                                      <span class="badge text-bg-primary">Proses</span>
                                     @elseif ($item->status === 'done')
                                       @php
                                           $applied++; 
                                       @endphp
-                                      <span class="badge text-bg-success">Finished</span>
+                                      <span class="badge text-bg-success">Selesai</span>
                                     @elseif ($item->status === 'canceled' || $item->status === 'rejected')
-                                      <span class="badge text-bg-danger">{{ $item->status }}</span>
+                                      <span class="badge text-bg-danger">
+                                        @if ($acception->status === 'canceled')
+                                            Dibatalkan
+                                        @elseif ($acception->status === 'rejected')
+                                            Ditolak
+                                        @endif
+                                      </span>
                                     @endif
                                   </small>
                                 </div>
@@ -82,10 +94,10 @@
                   <div class="mt-3">
                     <div class="d-flex justify-content-between">
                       <div class="d-flex flex-row align-items-center">
-                        <span class="text1">{{ $applied }} Applied <span class="text2">of {{ $acception->amount }} Amount</span></span>
+                        <span class="text1">{{ $applied }} Selesai <span class="text2">dari {{ $acception->amount }} Surat</span></span>
                       </div>
                       @if ($acception->status === 'finished')
-                        <a href="/acception/{{ $acception->request_id }}" class="text1">Detail</a>
+                        <a href="/acception/{{ $acception->request_id }}" class="text1">Rincian</a>
                       @endif
                     </div>
                   </div>

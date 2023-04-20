@@ -11,7 +11,10 @@ class HistoryController extends Controller
     public function index()
     {
         if (auth()->user()->level === 'mahasiswa') {
-            return view('mahasiswa.history.index');
+            return view('mahasiswa.history.index')->with([
+                'title' => 'Riwayat',
+                'subtitle' => 'Riwayat'
+            ]);
         } else {
             return view('dosen.history.index');
         }

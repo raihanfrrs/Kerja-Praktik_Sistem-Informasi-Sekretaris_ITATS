@@ -25,15 +25,15 @@
     <ul class="nav nav-tabs nav-tabs-bordered">
 
         <li class="nav-item">
-        <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview">Overview</button>
+        <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview">Ringkasan</button>
         </li>
 
         <li class="nav-item">
-        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Edit Profile</button>
+        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Ubah Profil</button>
         </li>
 
         <li class="nav-item">
-        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password">Change Password</button>
+        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password">Ganti Kata Sandi</button>
         </li>
 
     </ul>
@@ -41,10 +41,10 @@
 
         <div class="tab-pane fade show active profile-overview" id="profile-overview">
 
-        <h5 class="card-title">Profile Details</h5>
+        <h5 class="card-title">Rincian Profil</h5>
 
         <div class="row">
-            <div class="col-lg-3 col-md-4 label ">Full Name</div>
+            <div class="col-lg-3 col-md-4 label ">Nama Lengkap</div>
             <div class="col-lg-9 col-md-8 text-capitalize">{{ $user[0]->name }}</div>
         </div>
 
@@ -59,24 +59,24 @@
         </div>
 
         <div class="row">
-            <div class="col-lg-3 col-md-4 label">Phone</div>
+            <div class="col-lg-3 col-md-4 label">Nomor HP</div>
             <div class="col-lg-9 col-md-8">{{ $user[0]->phone }}</div>
         </div>
 
         <div class="row">
-            <div class="col-lg-3 col-md-4 label">Gender</div>
+            <div class="col-lg-3 col-md-4 label">Jenis Kelamin</div>
             <div class="col-lg-9 col-md-8">@if($user[0]->gender) {{ Str::ucfirst($user[0]->gender) }} @else - @endif</div>
         </div>
 
         <div class="row">
-            <div class="col-lg-3 col-md-4 label">Place, Date of Birth</div>
+            <div class="col-lg-3 col-md-4 label">Tempat, Tanggal Lahir</div>
             <div class="col-lg-9 col-md-8 text-capitalize">@if($user[0]->birthPlace && $user[0]->birthDate) {{ $user[0]->birthPlace }}, {{ $user[0]->birthDate }} @else - @endif</div>
         </div>
 
         @if (auth()->user()->level == 'mahasiswa')
             <div class="row">
                 <div class="col-lg-3 col-md-4 label">Status</div>
-                <div class="col-lg-9 col-md-8"><span class="badge bg-{{ $user[0]->status > 0 ? 'success' : 'danger'}}">{{ $user[0]->status > 0 ? 'APPROVED' : 'DISAPPROVED'}}</span></div>
+                <div class="col-lg-9 col-md-8"><span class="badge bg-{{ $user[0]->status > 0 ? 'success' : 'danger'}}">{{ $user[0]->status > 0 ? 'DISETUJUI' : 'TIDAK DISETUJUI'}}</span></div>
             </div>
         @endif
 
@@ -99,7 +99,7 @@
         </div>
         @endif
 
-        <p class="text-end text-muted">Updated {{ $user[0]->updated_at->diffForHumans(); }}</p>
+        <p class="text-end text-muted">Diperbaharui {{ $user[0]->updated_at->diffForHumans(); }}</p>
         </div>
 
         <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
@@ -108,7 +108,7 @@
             @method('put')
             @csrf
             <div class="row mb-3">
-            <label for="image" class="col-md-4 col-lg-3 col-form-label">Profile Image</label>
+            <label for="image" class="col-md-4 col-lg-3 col-form-label">Foto Profil</label>
                 <div class="col-md-8 col-lg-9">
                     @if ($user[0]->image)
                         <img src="{{ asset('storage/'. $user[0]->image) }}" class="img-preview img-fluid" alt="{{ $user[0]->name }}">
@@ -129,7 +129,7 @@
             </div>
 
             <div class="row mb-3">
-            <label for="name" class="col-md-4 col-lg-3 col-form-label">Full Name</label>
+            <label for="name" class="col-md-4 col-lg-3 col-form-label">Nama Lengkap</label>
             <div class="col-md-8 col-lg-9">
                 <input name="name" type="text" class="form-control @error('name') is-invalid @enderror" id="name" value="{{ old('name', $user[0]->name) }}" required autocomplete="off">
                 @error('name')<div class="invalid-feedback">{{ $message }}</div>@enderror
@@ -164,7 +164,7 @@
             </div>
 
             <div class="row mb-3">
-            <label for="phone" class="col-md-4 col-lg-3 col-form-label">Phone</label>
+            <label for="phone" class="col-md-4 col-lg-3 col-form-label">Nomor HP</label>
             <div class="col-md-8 col-lg-9">
                 <input name="phone" type="text" class="form-control @error('phone') is-invalid @enderror" id="phone" value="{{ old('phone', $user[0]->phone) }}" required autocomplete="off">
                 @error('phone')<div class="invalid-feedback">{{ $message }}</div>@enderror
@@ -172,18 +172,18 @@
             </div>
 
             <div class="row mb-3">
-            <label class="col-md-4 col-lg-3 col-form-label">Gender</label>
+            <label class="col-md-4 col-lg-3 col-form-label">Jenis Kelamin</label>
             <div class="col-md-8 col-lg-9">
                 <div class="form-check">
                     <input class="form-check-input" type="radio" name="gender" value="male" @if(old('gender', $user[0]->gender) == 'male') checked @endif>
                     <label class="form-check-label" for="gridRadios1">
-                      Male
+                      Laki-laki
                     </label>
                   </div>
                   <div class="form-check">
                     <input class="form-check-input" type="radio" name="gender" value="female" @if(old('gender', $user[0]->gender) == 'female') checked @endif>
                     <label class="form-check-label" for="gridRadios2">
-                      Female
+                      Perempuan
                     </label>
                   </div>
                   @error('gender') <div class="invalid-feedback"> {{ $message }} </div> @enderror
@@ -191,7 +191,7 @@
             </div>
 
             <div class="row mb-3">
-            <label for="birthPlace" class="col-md-4 col-lg-3 col-form-label">Place of Birth</label>
+            <label for="birthPlace" class="col-md-4 col-lg-3 col-form-label">Tempat Lahir</label>
             <div class="col-md-8 col-lg-9">
                 <input name="birthPlace" type="text" class="form-control @error('birthPlace') is-invalid @enderror" id="birthPlace" value="{{ old('birthPlace', $user[0]->birthPlace) }}" required autocomplete="off">
                 @error('birthPlace')<div class="invalid-feedback">{{ $message }}</div>@enderror
@@ -199,15 +199,15 @@
             </div>
 
             <div class="row mb-3">
-            <label for="birthDate" class="col-md-4 col-lg-3 col-form-label">Date of Birth</label>
+            <label for="birthDate" class="col-md-4 col-lg-3 col-form-label">Tanggal Lahir</label>
             <div class="col-md-8 col-lg-9">
                 <input name="birthDate" type="date" class="form-control @error('birthDate') is-invalid @enderror" id="birthDate" value="{{ old('birthDate', $user[0]->birthDate) }}" required>
                 @error('datePlace')<div class="invalid-feedback">{{ $message }}</div>@enderror
             </div>
             </div>
 
-            <div class="text-center">
-            <button type="submit" class="btn btn-primary">Save Changes</button>
+            <div class="text-center mt-5">
+            <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
             </div>
         </form>
 
@@ -219,7 +219,7 @@
             @method('put')
             @csrf
             <div class="row mb-3">
-            <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Current Password</label>
+            <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Kata Sandi Lama</label>
             <div class="col-md-8 col-lg-9">
                 <input name="oldPassword" id="currentPassword" type="password" class="form-control @error('oldPassword') is-invalid @enderror" required>
                 @error('oldPassword')<div class="invalid-feedback">{{ $message }}</div>@enderror
@@ -227,7 +227,7 @@
             </div>
 
             <div class="row mb-3">
-            <label for="password" class="col-md-4 col-lg-3 col-form-label">New Password</label>
+            <label for="password" class="col-md-4 col-lg-3 col-form-label">Kata Sandi Baru</label>
             <div class="col-md-8 col-lg-9">
                 <input name="password" id="password" type="password" class="form-control @error('password') is-invalid @enderror" required />
                 @error('password')<div class="invalid-feedback">{{ $message }}</div>@enderror
@@ -235,7 +235,7 @@
             </div>
 
             <div class="text-center">
-            <button type="submit" class="btn btn-primary">Change Password</button>
+            <button type="submit" class="btn btn-primary mt-5">Simpan Perubahan</button>
             </div>
         </form>
 

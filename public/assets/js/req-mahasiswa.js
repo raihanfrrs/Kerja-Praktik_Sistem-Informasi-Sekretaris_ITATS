@@ -52,7 +52,7 @@ $(document).on('click', '#request-surat', function () {
             Swal.fire({
                 position: 'center',
                 icon: 'success',
-                title: 'Request Added!',
+                title: 'Berhasil Ditambahkan!',
                 showConfirmButton: false,
                 timer: 2000
             });
@@ -60,7 +60,7 @@ $(document).on('click', '#request-surat', function () {
             Swal.fire({
                 position: 'center',
                 icon: 'warning',
-                title: 'Request Already Exists!',
+                title: 'Permintaan Sudah Ada!',
                 showConfirmButton: false,
                 timer: 2000
             });
@@ -68,7 +68,7 @@ $(document).on('click', '#request-surat', function () {
             Swal.fire({
                 position: 'center',
                 icon: 'error',
-                title: 'The request is still unfinished!',
+                title: 'Permintaan Masih Dalam Proses!',
                 showConfirmButton: false,
                 timer: 2000
             });

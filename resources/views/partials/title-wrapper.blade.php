@@ -1,7 +1,7 @@
 <div class="pagetitle">
     <h1 class="float-start">
       @if (count(Request::segments()) == 0)
-          Dashboard
+          Halaman Utama
       @else 
           {{ isset($title) ? $title : Str::ucfirst(Request::segment(1)) }}
       @endif
@@ -9,7 +9,7 @@
     <nav class="d-flex justify-content-end">
       <ol class="breadcrumb">
         <li class="breadcrumb-item">
-          <a href="/">Dashboard</a>
+          <a href="/">Halaman Utama</a>
         </li>
         @if (count(Request::segments()) >= 1)
           @if(request()->is(Request::segment(1)."/*"))

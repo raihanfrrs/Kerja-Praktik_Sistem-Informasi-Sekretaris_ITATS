@@ -31,7 +31,7 @@ class LoginController extends Controller
         
         if (empty($checkUser)) {
             return back()->withErrors([
-                'username' => 'Username or Password Wrong'
+                'username' => 'Username atau Kata Sandi Salah'
             ])->onlyInput('username');
         }
 
@@ -39,17 +39,17 @@ class LoginController extends Controller
             if (Mahasiswa::where('user_id', $checkUser->id)->count() > 0) {
                 if ($checkUser->mahasiswa->status === 'deactivated') {
                     return back()->withErrors([
-                        'username' => 'Your account is being deactivated by the admin, please contact the admin!',
+                        'username' => 'Akun anda sedang dinonaktifkan oleh admin, silakan hubungi admin!',
                     ])->onlyInput('username');
                 }elseif($checkUser->mahasiswa->status === 'disapprove') {
                     return back()->withErrors([
-                        'username' => 'Your account is still not approved by the admin, please contact the admin!',
+                        'username' => 'Akun anda sedang dinonaktifkan oleh admin, silakan hubungi admin!',
                     ])->onlyInput('username');
                 }
             }elseif (Dosen::where('user_id', $checkUser->id)->count() > 0) {
                 if ($checkUser->dosen->status === 'deactivated') {
                     return back()->withErrors([
-                        'username' => 'Your account is being deactivated by the admin, please contact the admin!',
+                        'username' => 'Akun anda sedang dinonaktifkan oleh admin, silakan hubungi admin!',
                     ])->onlyInput('username');
                 };
             }
@@ -66,7 +66,7 @@ class LoginController extends Controller
                     'case' => 'default',
                     'position' => 'center',
                     'type' => 'success',
-                    'message' => 'Login Successfully!'
+                    'message' => 'Berhasil Masuk Ke Sistem!'
                 ]);
             }
 
@@ -74,7 +74,7 @@ class LoginController extends Controller
         }
         
         return back()->withErrors([
-            'username' => 'Username or Password Wrong'
+            'username' => 'Username or Kata Sandi Salah'
         ])->onlyInput('username');
     }
 

@@ -7,7 +7,7 @@
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <title>Sekretaris 
     @if (count(Request::segments()) == 0)
-        - Dashboard
+        - Halaman Awal
     @else 
         -  {{ isset($subtitle) ? $subtitle : Str::ucfirst(request()->segment(count(request()->segments()))) }}
     @endif
@@ -56,7 +56,7 @@
     <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
       <div class="container">
         <div class="row justify-content-center">
-          <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
+          <div class="col-lg-6 col-md-6 d-flex flex-column align-items-center justify-content-center">
             @yield('section')
           </div>
         </div>

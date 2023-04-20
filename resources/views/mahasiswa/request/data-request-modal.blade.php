@@ -1,7 +1,7 @@
 <div class="modal-body">
     @if ($requests->count() == 0)
     <div class="alert alert-warning" role="alert">
-        Request is Empty!
+        Permintaan Kosong!
     </div>
     @endif
     <table class="table">
@@ -15,7 +15,7 @@
 
    @if ($requests->count() != 0)
    <div class="d-flex justify-content-center">
-    <button class="btn btn-md btn-primary text-center" id="submit-request-btn"><i class="bi bi-send-check"></i> Request</button>
+    <button class="btn btn-md btn-primary text-center" id="submit-request-btn"><i class="bi bi-send-check"></i> Kirim Permintaan</button>
    </div>
    @endif
  </div>

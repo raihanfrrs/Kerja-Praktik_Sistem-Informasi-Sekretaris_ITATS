@@ -6,7 +6,7 @@
     </div>
     <div class="alert-text text-white">
       <h5 class="alert-heading text-white">Kosong</h5> 
-      Belum ada surat yang masuk.
+      Belum ada permintaan surat yang masuk.
     </div>
   </div>
 </div>

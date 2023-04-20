@@ -14,7 +14,10 @@ class MahasiswaController extends Controller
 {
     public function request_index()
     {
-        return view('mahasiswa.request.index');
+        return view('mahasiswa.request.index')->with([
+            'title' => 'Permintaan',
+            'subtitle' => 'Permintaan'
+        ]);
     }
 
     public function request_read(Request $request)
@@ -122,7 +125,10 @@ class MahasiswaController extends Controller
 
     public function acception_index()
     {
-        return view('mahasiswa.acception.index');
+        return view('mahasiswa.acception.index')->with([
+            'title' => 'Penerimaan',
+            'subtitle' => 'Penerimaan'
+        ]);
     }
 
     public function acception_read(Request $request)
@@ -238,7 +244,8 @@ class MahasiswaController extends Controller
                                         ->where('request_id', $request->id)
                                         ->get(),
             'files' => $icon,
-            'subtitle' => 'Detail'
+            'title' => 'Rincian Permintaan',
+            'subtitle' => 'Rincian Permintaan'
         ]);
     }
 

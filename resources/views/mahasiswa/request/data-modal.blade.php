@@ -1,5 +1,5 @@
 <div class="modal-body detail-surat">
-   <span class="fs-5"><b>Overview</b> <i class="bi bi-exclamation-circle"></i></span>
+   <span class="fs-5"><b>Ringkasan</b> <i class="bi bi-exclamation-circle"></i></span>
    <table class="table">
       <tr>
         <th>Surat</th>
