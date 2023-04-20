@@ -278,21 +278,27 @@ class DosenController extends Controller
                             ->whereIn('detail_requests.surat_id', $data)
                             ->where('requests.status', '!=','unfinished')
                             ->where('requests.status', '!=', 'canceled')
-                            ->where('mahasiswas.name', 'LIKE', '%'.$request->search.'%')
-                            ->orWhere('mahasiswas.phone', 'LIKE', '%'.$request->search.'%')
-                            ->orWhere('mahasiswas.email', 'LIKE', '%'.$request->search.'%')
-                            ->orWhere('mahasiswas.npm', 'LIKE', '%'.$request->search.'%')
+                            ->where('detail_requests.dosen_id', auth()->user()->dosen->id)
+                            ->whereIn('mahasiswas.id', function($query) use ($request){
+                                $query->select('id')
+                                    ->from('mahasiswas')
+                                    ->where('name', 'LIKE', '%'.$request->search.'%')
+                                    ->orWhere('npm', 'LIKE', '%'.$request->search.'%')
+                                    ->orWhere('email', 'LIKE', '%'.$request->search.'%')
+                                    ->orWhere('phone', 'LIKE', '%'.$request->search.'%');
+                            })
                             ->groupBy('requests.id')
                             ->groupBy('detail_requests.status')
                             ->get();
 
-        if ($requests->count() == 0) {
+        if ($requests->count() == 0 || $request->search == null) {
             return view('dosen.assignment.data')->with([
-                'assigns' => ModelsRequest::select('requests.mahasiswa_id', ModelsRequest::raw('max(requests.created_at) as date'), 'detail_requests.status')
+                'assigns' => ModelsRequest::select('requests.mahasiswa_id', 'requests.id', ModelsRequest::raw('max(requests.created_at) as date'), 'detail_requests.status')
                                         ->join('detail_requests', 'requests.id', '=', 'detail_requests.request_id')
                                         ->whereIn('detail_requests.surat_id', $data)
-                                        ->where('requests.status', '!=','unfinished')
-                                        ->where('requests.status', '!=', 'canceled')
+                                        ->where('detail_requests.status', '!=', 'pending')
+                                        ->where('detail_requests.status', '!=', 'canceled')
+                                        ->where('detail_requests.dosen_id', auth()->user()->dosen->id)
                                         ->groupBy('requests.id')
                                         ->groupBy('detail_requests.status')
                                         ->get()

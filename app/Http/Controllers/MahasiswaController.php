@@ -236,7 +236,7 @@ class MahasiswaController extends Controller
             $icon[] = array_key_exists($extension, $iconMap) ? $iconMap[$extension] : $defaultIcon;
         }
 
-        return view('mahasiswa.acception.detail')->with([
+    return view('mahasiswa.acception.detail')->with([
             'requestsNotNull' => DetailRequest::whereNotNull('surat')
                                         ->where('request_id', $request->id)
                                         ->get(),
