@@ -124,7 +124,7 @@ $(document).on('click', '#submit-request-btn', function () {
             Swal.fire({
                 position: 'center',
                 icon: 'success',
-                title: 'Request Success!',
+                title: 'Permintaan Terkirim!',
                 showConfirmButton: false,
                 timer: 2000
             });

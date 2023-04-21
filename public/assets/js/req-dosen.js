@@ -47,7 +47,7 @@ $(document).on('click', '#accept-surat', function () {
             Swal.fire({
                 position: 'center',
                 icon: 'success',
-                title: 'Accept Success!',
+                title: 'Permintaan Berhasil Diterima!',
                 showConfirmButton: false,
                 timer: 2000
             });
@@ -56,7 +56,7 @@ $(document).on('click', '#accept-surat', function () {
             Swal.fire({
                 position: 'center',
                 icon: 'warning',
-                title: 'Request Already Taken!',
+                title: 'Permintaan Sudah Diambil!',
                 showConfirmButton: false,
                 timer: 2000
             });
@@ -65,7 +65,7 @@ $(document).on('click', '#accept-surat', function () {
             Swal.fire({
                 position: 'center',
                 icon: 'warning',
-                title: 'Request Already Finished!',
+                title: 'Permintaan Sudah Selesai!',
                 showConfirmButton: false,
                 timer: 2000
             });
@@ -82,13 +82,13 @@ $(document).on('click', '#reject-receive-btn', function () {
     let slug = $(this).data('id');
 
     Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
+        title: 'Apa kamu sudah yakin?',
+        text: "Proses ini tidak bisa dibatalkan!",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, reject it!'
+        confirmButtonText: 'Ya, Tolak Permintaan!'
       }).then((result) => {
         if (result.isConfirmed) {
             $.post('assive/'+slug+'/reject', {
@@ -98,7 +98,7 @@ $(document).on('click', '#reject-receive-btn', function () {
                 Swal.fire({
                     position: 'center',
                     icon: 'success',
-                    title: 'Request Rejected!',
+                    title: 'Permintaan Ditolak!',
                     showConfirmButton: false,
                     timer: 2000
                 });
@@ -146,13 +146,13 @@ $(document).on('click', '#reject-assignment-btn', function () {
     let slug = $(this).data('id');
 
     Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
+        title: 'Apa kamu sudah yakin?',
+        text: "Proses ini tidak bisa dibatalkan!",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, reject it!'
+        confirmButtonText: 'Ya, Tolak Permintaan!'
       }).then((result) => {
         if (result.isConfirmed) {
             $.post('assive/'+slug+'/reject', {
@@ -163,7 +163,7 @@ $(document).on('click', '#reject-assignment-btn', function () {
                 Swal.fire({
                     position: 'center',
                     icon: 'success',
-                    title: 'Request Rejected!',
+                    title: 'Permintaan Ditolak',
                     showConfirmButton: false,
                     timer: 2000
                 });

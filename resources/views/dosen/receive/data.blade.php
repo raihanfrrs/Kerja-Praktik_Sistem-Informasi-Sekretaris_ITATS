@@ -25,11 +25,15 @@
           </div>
           <div class="user-info__basic">
             <h5 class="mb-0">{{ $receive->mahasiswa->name }}</h5>
-            <p class="text-muted mb-0 text-capitalize">
+            <p class="text-muted mb-0">
               @if ($receive->mahasiswa->birthDate)
-                {{\Carbon\Carbon::now()->diffInYears($receive->mahasiswa->birthDate) }} yrs,
+                {{\Carbon\Carbon::now()->diffInYears($receive->mahasiswa->birthDate) }} tahun,
               @endif
-              {{ $receive->mahasiswa->gender }}
+              @if ($receive->mahasiswa->gender === 'male')
+                Laki-laki
+              @else
+                Perempuan
+              @endif
             </p>
           </div>
         </div>
@@ -38,12 +42,12 @@
             <i class="bi bi-three-dots"></i>
           </button>
           <ul class="dropdown-menu dropdown-menu-end py-0" aria-labelledby="dropdownMenuButton">
-            <li><a href="#" class="dropdown-item text-primary" id="detail-receive-button" data-id="{{ $receive->mahasiswa->slug }}"><i class="bi bi-list-columns"></i> Details</a></li>
+            <li><a href="#" class="dropdown-item text-primary" id="detail-receive-button" data-id="{{ $receive->mahasiswa->slug }}"><i class="bi bi-list-columns"></i> Rincian</a></li>
           </ul>
         </div>
       </div>
       <h6 class="mb-0"><i class="bi bi-envelope"></i> {{ $receive->mahasiswa->email }}</h6>
-      <a href="https://api.whatsapp.com/send?phone={{ contact($receive->mahasiswa->phone) }}" target="_blank" class="text-success" title="{{ $receive->mahasiswa->phone }}"><small><i class="bi bi-whatsapp"></i> Contact</small></a>
+      <a href="https://api.whatsapp.com/send?phone={{ contact($receive->mahasiswa->phone) }}" target="_blank" class="text-success" title="{{ $receive->mahasiswa->phone }}"><small><i class="bi bi-whatsapp"></i> Kontak</small></a>
       <div class="d-flex justify-content-between mt-4">
         <div>
           <h5 class="mb-0">{{ \Carbon\Carbon::createFromDate($receive->created_at)->format('H:i') }}
@@ -51,7 +55,7 @@
           </h5>
         </div>
         <span class="fw-bold">
-          <a href="#" class="text-success" id="accept-surat" data-id="{{ $receive->mahasiswa->slug }}" data-key="{{ $receive->request_id }}"><i class="bi bi-send-check"></i> Accept</a></span>
+          <a href="#" class="text-success" id="accept-surat" data-id="{{ $receive->mahasiswa->slug }}" data-key="{{ $receive->request_id }}"><i class="bi bi-send-check"></i> Terima</a></span>
       </div>
     </div>
   </div>

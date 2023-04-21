@@ -27,12 +27,12 @@
             </button>
             <ul class="dropdown-menu dropdown-menu-end py-0" aria-labelledby="dropdownMenuButton">
               @if ($assign->status === 'rejected')
-                  <li><a href="/assignment/{{ $assign->id }}" class="dropdown-item text-primary"><i class="bi bi-file-text"></i> Detail</a></li>
+                  <li><a href="/assignment/{{ $assign->id }}" class="dropdown-item text-primary"><i class="bi bi-file-text"></i> Rincian</a></li>
               @elseif ($assign->status === 'done')
-                  <li><a href="/assignment/{{ $assign->id }}" class="dropdown-item text-primary"><i class="bi bi-file-text"></i> Detail</a></li>
+                  <li><a href="/assignment/{{ $assign->id }}" class="dropdown-item text-primary"><i class="bi bi-file-text"></i> Rincian</a></li>
               @elseif ($assign->status === 'accepted')
-                  <li><button class="dropdown-item text-danger" id="reject-assignment-btn" data-id="{{ $assign->mahasiswa->slug }}"><i class="bi bi-send-slash"></i> Rejected</button></li>
-                  <li><a href="/assignment/{{ $assign->id }}" class="dropdown-item text-success"><i class="bi bi-send"></i> Send</a></li>
+                  <li><button class="dropdown-item text-danger" id="reject-assignment-btn" data-id="{{ $assign->mahasiswa->slug }}"><i class="bi bi-send-slash"></i> Tolak</button></li>
+                  <li><a href="/assignment/{{ $assign->id }}" class="dropdown-item text-success"><i class="bi bi-send"></i> Kirim</a></li>
               @endif
             </ul>
           </div>
@@ -40,7 +40,7 @@
       </div>
       <div class="px-3 pt-3">
         <h3 class="name">{{ $assign->mahasiswa->name }}</h3>
-        <p class="quote2">These cuties will need a new place where thay can live with their owner.</p>
+        <p class="quote2">Melakukan permintaan pada {{\Carbon\Carbon::parse($assign->date)->diffForHumans() }}.</p>
       </div>
       <div class="d-flex justify-content-start px-3 align-items-center">
         <i class="mdi mdi-view-comfy task"></i>
@@ -48,18 +48,18 @@
       </div>
       <div class="d-flex justify-content-start px-3 align-items-center">
         <i class="mdi mdi-view-comfy task"></i>
-        <span class="quote2 pl-2">Phone: <a href="https://api.whatsapp.com/send?phone={{ contact($assign->mahasiswa->phone) }}" target="_blank" class="text-success" title="{{ $assign->mahasiswa->phone }}"><i class="bi bi-whatsapp"></i> WhatsApp</a></span>
+        <span class="quote2 pl-2">Nomor HP: <a href="https://api.whatsapp.com/send?phone={{ contact($assign->mahasiswa->phone) }}" target="_blank" class="text-success" title="{{ $assign->mahasiswa->phone }}"><i class="bi bi-whatsapp"></i> WhatsApp</a></span>
       </div>
       <div class="d-flex justify-content-between  px-3 align-items-center pb-3">
         <div class="d-flex justify-content-start align-items-center">
           <i class="mdi mdi-calendar-clock date"></i>
           <span class="quote2 pl-2">Status: 
             @if ($assign->status === 'accepted')
-              <span class="badge rounded-pill text-bg-primary">{{ $assign->status }}</span>
+              <span class="badge rounded-pill text-bg-primary">Proses</span>
             @elseif ($assign->status === 'rejected')
-              <span class="badge rounded-pill text-bg-danger">{{ $assign->status }}</span>
+              <span class="badge rounded-pill text-bg-danger">Ditolak</span>
             @elseif ($assign->status === 'done') 
-              <span class="badge rounded-pill text-bg-success">Finished</span>
+              <span class="badge rounded-pill text-bg-success">Selesai</span>
             @endif
           </span>
         </div>

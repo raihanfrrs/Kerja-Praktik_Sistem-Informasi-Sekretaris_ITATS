@@ -14,7 +14,10 @@ class DosenController extends Controller
 {
     public function receive_index()
     {
-        return view('dosen.receive.index');
+        return view('dosen.receive.index')->with([
+            'title' => 'Penerimaan',
+            'subtitle' => 'Penerimaan'
+        ]);
     }
 
     public function receive_read(Request $request)
@@ -52,14 +55,20 @@ class DosenController extends Controller
                             ->where('requests.status', '!=','finished')
                             ->where('requests.status', '!=','rejected')
                             ->where('detail_requests.status', 'pending')
-                            ->where('mahasiswas.name', 'LIKE', '%'.$request->search.'%')
-                            ->orWhere('mahasiswas.phone', 'LIKE', '%'.$request->search.'%')
-                            ->orWhere('mahasiswas.email', 'LIKE', '%'.$request->search.'%')
+                            ->where('detail_requests.dosen_id', auth()->user()->dosen->id)
+                            ->whereIn('mahasiswas.id', function($query) use ($request){
+                                $query->select('id')
+                                    ->from('mahasiswas')
+                                    ->where('name', 'LIKE', '%'.$request->search.'%')
+                                    ->orWhere('npm', 'LIKE', '%'.$request->search.'%')
+                                    ->orWhere('email', 'LIKE', '%'.$request->search.'%')
+                                    ->orWhere('phone', 'LIKE', '%'.$request->search.'%');
+                            })
                             ->groupBy('requests.mahasiswa_id')
                             ->groupBy('requests.id')
                             ->get();
 
-        if ($requests->count() == 0) {
+        if ($requests->count() == 0 || $request->search == null) {
             return view('dosen.receive.data')->with([
                 'receives' => ModelsRequest::select('requests.mahasiswa_id', ModelsRequest::raw('max(requests.created_at) as date'))
                                         ->join('detail_requests', 'requests.id', '=', 'detail_requests.request_id')
@@ -241,7 +250,10 @@ class DosenController extends Controller
 
     public function assignment_index()
     {
-        return view('dosen.assignment.index');
+        return view('dosen.assignment.index')->with([
+            'title' => 'Permintaan',
+            'subtitle' => 'Permintaan'
+        ]);
     }
 
     public function assignment_read(Request $request)
