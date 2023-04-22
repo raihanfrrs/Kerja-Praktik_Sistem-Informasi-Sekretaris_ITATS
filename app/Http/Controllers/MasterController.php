@@ -84,7 +84,9 @@ class MasterController extends Controller
     public function mahasiswa_edit(Mahasiswa $mahasiswa)
     {
         return view('superadmin.master.mahasiswa.edit-mahasiswa')->with([
-            'mahasiswa' => Mahasiswa::whereId($mahasiswa->id)->get()
+            'mahasiswa' => Mahasiswa::whereId($mahasiswa->id)->get(),
+            'title' => 'Ubah',
+            'subtitle' => 'Ubah'
         ]);
     }
     

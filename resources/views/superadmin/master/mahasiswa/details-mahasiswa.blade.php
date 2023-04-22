@@ -47,7 +47,17 @@
     
                 <div class="row">
                     <div class="col-lg-3 col-md-4 label text-muted">Jenis Kelamin</div>
-                    <div class="col-lg-9 col-md-8">@if($mahasiswa[0]->gender) {{ Str::ucfirst($mahasiswa[0]->gender) }} @else - @endif</div>
+                    <div class="col-lg-9 col-md-8">
+                        @if($mahasiswa[0]->gender) 
+                            @if ($mahasiswa[0]->gender === 'male')
+                                Laki=laki
+                            @elseif ($mahasiswa[0]->gender === 'female')
+                                Perempuan
+                            @endif 
+                        @else 
+                            - 
+                        @endif
+                    </div>
                 </div>
     
                 <div class="row">
