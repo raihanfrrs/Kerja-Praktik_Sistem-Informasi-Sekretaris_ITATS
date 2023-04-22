@@ -76,7 +76,8 @@ class MasterController extends Controller
         return view('superadmin.master.mahasiswa.details-mahasiswa')->with([
             'mahasiswa' => Mahasiswa::whereId($mahasiswa->id)->get(),
             'created_at' => Carbon::create($mahasiswa->created_at)->timezone('Asia/Jakarta')->format('Y-m-d H:i:s'),
-            'subtitle' => 'Details'
+            'title' => 'Rincian',
+            'subtitle' => 'Rincian'
         ]);
     }
     
