@@ -11,35 +11,35 @@
       <div class="row mb-3">
         <label for="name" class="col-sm-4 col-form-label">Nama Lengkap</label>
         <div class="col-sm-8">
-          <input type="text" class="form-control @error('name') @enderror text-capitalize" id="name" name="name" value="{{ old('name') }}" required autocomplete="off">
+          <input type="text" class="form-control @error('name') @enderror text-capitalize" id="name" name="name" value="{{ old('name') }}" required autocomplete="off" placeholder="Nama Lengkap">
           @error('name') <div class="invalid-feedback">{{ $message }}</div> @enderror
         </div>
       </div>
       <div class="row mb-3">
         <label for="npm" class="col-sm-4 col-form-label">NPM</label>
         <div class="col-sm-8">
-          <input type="text" class="form-control @error('npm') is-invalid @enderror" id="npm" name="npm" value="{{ old('npm') }}" required autocomplete="off">
+          <input type="text" class="form-control @error('npm') is-invalid @enderror" id="npm" name="npm" value="{{ old('npm') }}" required autocomplete="off" placeholder="NPM">
           @error('npm') <div class="invalid-feedback">{{ $message }}</div> @enderror
         </div>
       </div>
       <div class="row mb-3">
         <label for="email" class="col-sm-4 col-form-label">Email</label>
         <div class="col-sm-8">
-          <input type="email" class="form-control @error('email') is-invalid @enderror text-lowercase" id="email" name="email" value="{{ old('email') }}" required autocomplete="off">
+          <input type="email" class="form-control @error('email') is-invalid @enderror text-lowercase" id="email" name="email" value="{{ old('email') }}" required autocomplete="off" placeholder="Email">
           @error('email') <div class="invalid-feedback">{{ $message }}</div> @enderror
         </div>
       </div>
       <div class="row mb-3">
         <label for="phone" class="col-sm-4 col-form-label">Nomor HP</label>
         <div class="col-sm-8">
-          <input type="text" class="form-control @error('phone') is-invalid @enderror" id="phone" name="phone"  value="{{ old('phone') }}" required autocomplete="off">
+          <input type="text" class="form-control @error('phone') is-invalid @enderror" id="phone" name="phone"  value="{{ old('phone') }}" required autocomplete="off" placeholder="Nomor HP">
           @error('phone') <div class="invalid-feedback">{{ $message }}</div> @enderror
         </div>
       </div>
       <div class="row mb-3">
           <label for="birthPlace" class="col-sm-4 col-form-label">Tempat Lahir</label>
           <div class="col-sm-8">
-            <input type="text" class="form-control @error('birthPlace') is-invalid @enderror text-capitalize" id="birthPlace" name="birthPlace" value="{{ old('birthPlace') }}" required autocomplete="off">
+            <input type="text" class="form-control @error('birthPlace') is-invalid @enderror text-capitalize" id="birthPlace" name="birthPlace" value="{{ old('birthPlace') }}" required autocomplete="off" placeholder="Tempat Lahir">
             @error('birthPlace') <div class="invalid-feedback">{{ $message }}</div> @enderror
           </div>
       </div>
@@ -71,14 +71,14 @@
       <div class="row mb-3">
           <label for="username" class="col-sm-4 col-form-label">Username</label>
           <div class="col-sm-8">
-            <input type="text" class="form-control @error('username') is-invalid @enderror" id="username" name="username"  value="{{ old('username') }}" required autocomplete="off">
+            <input type="text" class="form-control @error('username') is-invalid @enderror" id="username" name="username"  value="{{ old('username') }}" required autocomplete="off" placeholder="Username">
             @error('username') <div class="invalid-feedback">{{ $message }}</div> @enderror
           </div>
       </div>
       <div class="row mb-3">
           <label for="password" class="col-sm-4 col-form-label">Kata Sandi</label>
           <div class="col-sm-8">
-            <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" autocomplete="off" required>
+            <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" autocomplete="off" required placeholder="Kata Sandi">
             @if ($errors->any())
                 <div class="invalid-feedback">
                   <ul>
