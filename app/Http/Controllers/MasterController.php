@@ -28,7 +28,10 @@ class MasterController extends Controller
     
     public function mahasiswa_create()
     {
-        return view('superadmin.master.mahasiswa.add-mahasiswa');
+        return view('superadmin.master.mahasiswa.add-mahasiswa')->with([
+            'title' => 'Tambah',
+            'subtitle' => 'Tambah'
+        ]);
     }
 
     public function mahasiswa_store(Request $request)
@@ -64,7 +67,7 @@ class MasterController extends Controller
             'case' => 'default',
             'position' => 'center',
             'type' => 'success',
-            'message' => 'Mahasiswa Added!'
+            'message' => 'Mahasiswa Berhasil Ditambahkan!'
         ]);
     }
 

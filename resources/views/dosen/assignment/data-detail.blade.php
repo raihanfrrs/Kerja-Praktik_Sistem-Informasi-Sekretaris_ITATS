@@ -1,7 +1,7 @@
 <div class="card">
     <div class="card-body">
 
-      <h5 class="card-title">Detail <span>| Assignment</span></h5>
+      <h5 class="card-title">Rincian <span>| Pengiriman</span></h5>
 
       <form action="/assignment/{{ $request->id }}" method="post" enctype="multipart/form-data">
         @csrf
@@ -14,19 +14,19 @@
             <div class="col-7">
               @if ($detail_request->request->status == 'rejected' || $detail_request->status == 'rejected')
                 <div class="alert alert-danger d-flex justify-content-between align-items-center fs-6">
-                  <span>Upload Expired</span>
+                  <span>Pengunggahan Kadaluarsa</span>
                   <i class="bi bi-folder-x"></i>
                 </div>
               @else
                 @if ($detail_request->temp_file || $detail_request->surat)
                   <div class="alert alert-filepond-success d-flex justify-content-between align-items-center alert-{{ $detail_request->id }} fs-6">
-                    <span>Upload Complete</span>
+                    <span>Berhasil Mengunggah</span>
                     <i class="bi bi-folder-check"></i>
                   </div>
                 @else
                     <input type="file" name="file" id="file" class="file-{{ $detail_request->id }} uploading" data-key="{{ $detail_request->id }}" data-id="{{ $detail_request->request_id }}">
                     <div class="alert alert-filepond-success d-flex justify-content-between align-items-center alert-{{ $detail_request->id }} fs-6 d-none">
-                      <span>Upload Complete</span>
+                      <span>Berhasil Mengunggah</span>
                       <i class="bi bi-folder-check"></i>
                     </div>
                 @endif
@@ -56,7 +56,7 @@
 
         @if (($request->status != 'finished' && $request->status != 'rejected') && ($done !== $counter && $rejected !== $counter))
         <div class="text-center mt-3">
-            <button type="submit" class="btn btn-primary"><i class="bi bi-save"></i> Submit</button>
+            <button type="submit" class="btn btn-primary"><i class="bi bi-save"></i> Kirim</button>
         </div>
         @endif
       </form>

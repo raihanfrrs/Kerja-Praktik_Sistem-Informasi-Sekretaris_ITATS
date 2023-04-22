@@ -16,7 +16,10 @@ class HistoryController extends Controller
                 'subtitle' => 'Riwayat'
             ]);
         } else {
-            return view('dosen.history.index');
+            return view('dosen.history.index')->with([
+                'title' => 'Riwayat',
+                'subtitle' => 'Riwayat'
+            ]);
         }
     }
 

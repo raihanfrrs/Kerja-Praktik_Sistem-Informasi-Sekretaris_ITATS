@@ -335,7 +335,9 @@ class DosenController extends Controller
 
         return view('dosen.assignment.detail')->with([
             'request' => $request,
-            'subtitle' => $getMahasiswaName->name
+            'subtitle' => $getMahasiswaName->name,
+            'title' => 'Pengiriman',
+            'subtitle' => 'Pengiriman'
         ]);
     }
 
@@ -424,7 +426,7 @@ class DosenController extends Controller
             'case' => 'default',
             'position' => 'center',
             'type' => 'success',
-            'message' => 'Uploaded Successfully!'
+            'message' => 'Berhasil Mengunggah!'
         ]);
     }
 }

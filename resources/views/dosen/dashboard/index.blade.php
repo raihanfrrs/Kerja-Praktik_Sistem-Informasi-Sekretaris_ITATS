@@ -13,7 +13,7 @@
                         </div>
                         <div class="ps-3">
                         <h6 id="amount-request-in-dosen"></h6>
-                        <span class="text-success small pt-1 fw-bold" id="percent-request-in-dosen"></span> <span class="text-muted small pt-2 ps-1">increase</span>
+                        <span class="text-success small pt-1 fw-bold" id="percent-request-in-dosen"></span> <span class="text-muted small pt-2 ps-1">Kenaikan</span>
         
                         </div>
                     </div>
@@ -34,7 +34,7 @@
                         </div>
                         <div class="ps-3">
                         <h6 id="amount-request-out-dosen"></h6>
-                        <span class="text-success small pt-1 fw-bold" id="percent-request-out-dosen"></span> <span class="text-muted small pt-2 ps-1">increase</span>
+                        <span class="text-success small pt-1 fw-bold" id="percent-request-out-dosen"></span> <span class="text-muted small pt-2 ps-1">Kenaikan</span>
                         </div>
                     </div>
                 </div>
@@ -55,7 +55,7 @@
                     </div>
                     <div class="ps-3">
                     <h6 id="amount-request-reject-dosen"></h6>
-                    <span class="text-success small pt-1 fw-bold" id="percent-request-reject-dosen"></span> <span class="text-muted small pt-2 ps-1">increase</span>
+                    <span class="text-success small pt-1 fw-bold" id="percent-request-reject-dosen"></span> <span class="text-muted small pt-2 ps-1">Kenaikan</span>
     
                     </div>
                 </div>

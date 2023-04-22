@@ -103,7 +103,7 @@ $(document).on('click', '#delete-request', function () {
                 Swal.fire({
                     position: 'center',
                     icon: 'warning',
-                    title: 'Surat Not Found!',
+                    title: 'Surat Tidak Ditemukan!',
                     showConfirmButton: false,
                     timer: 2000
                 });
@@ -140,13 +140,13 @@ $(document).on('click', '#cancel-surat-btn', function () {
     let id = $(this).data('id');
     
     Swal.fire({
-        title: 'Are you sure?',
-        text: "You will cancel permanently!",
+        title: 'Apa kamu sudah yakin?',
+        text: "Proses ini tidak bisa dibatalkan!",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, cancel it!'
+        confirmButtonText: 'Ya, Batalkan!'
       }).then((result) => {
         if (result.isConfirmed) {
             $.ajaxSetup({
@@ -167,7 +167,7 @@ $(document).on('click', '#cancel-surat-btn', function () {
                         Swal.fire({
                             position: 'center',
                             icon: 'success',
-                            title: 'Canceled Success!',
+                            title: 'Berhasil Dibatalkan!',
                             showConfirmButton: false,
                             timer: 2000
                         });
@@ -175,7 +175,7 @@ $(document).on('click', '#cancel-surat-btn', function () {
                         Swal.fire({
                             position: 'center',
                             icon: 'error',
-                            title: 'Canceled Fail!',
+                            title: 'Pembatalan Gagal!',
                             showConfirmButton: false,
                             timer: 2000
                         });

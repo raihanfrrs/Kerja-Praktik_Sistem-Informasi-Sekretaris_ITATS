@@ -5,7 +5,7 @@
     <div class="card">
         <div class="card-body">
     
-          <h5 class="card-title">Detail <span>| Mahasiswa</span></h5>
+          <h5 class="card-title">Rincian <span>| Mahasiswa</span></h5>
     
             <div class="profile-card pt-2 d-flex flex-column align-items-center">
                     <img src="{{ asset('/') }}assets/img/profile-img.jpg" class="img-fluid rounded">
@@ -17,7 +17,7 @@
                     <div class="accordion-item">
                       <h2 class="accordion-header" id="flush-headingOne">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                          Mahasiswa Information
+                          Informasi Mahasiswa
                         </button>
                       </h2>
                       <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
@@ -28,7 +28,7 @@
                                   <td class="text-end fw-bold">{{ $request->mahasiswa->npm }}</td>
                                 </tr>
                                 <tr>
-                                  <th class="fw-normal">Phone</th>
+                                  <th class="fw-normal">Nomor HP</th>
                                   <td class="text-end fw-bold"><a href="https://api.whatsapp.com/send?phone={{ contact($request->mahasiswa->phone) }}" target="_blank" class="text-success" title="{{ $request->mahasiswa->phone }}"><i class="bi bi-whatsapp"></i> WhatsApp</a></td>
                                 </tr>
                                 <tr>
@@ -42,22 +42,22 @@
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="flush-headingTwo">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
-                            Another Information
+                            Informasi Tambahan
                             </button>
                         </h2>
                         <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body">
                                 <table style="width:100%" class="mb-4">
                                     <tr>
-                                      <th class="fw-normal">Amount of Surat</th>
+                                      <th class="fw-normal">Jumlah Permintaan</th>
                                       <td class="text-end fw-bold">{{ $request->detail_request->count() }}</td>
                                     </tr>
                                     <tr>
-                                      <th class="fw-normal">Requested At</th>
+                                      <th class="fw-normal">Dibuat</th>
                                       <td class="text-end fw-bold">{{ $request->created_at }}</td>
                                     </tr>
                                     <tr>
-                                      <th class="fw-normal">Last Updated</th>
+                                      <th class="fw-normal">Pembaharuan Terakhir</th>
                                       <td class="text-end fw-bold">{{ $request->updated_at }}</td>
                                     </tr>
                                     <tr>
@@ -82,11 +82,11 @@
                                       @endforeach
                                       <td class="text-end fw-bold text-capitalize">
                                         @if ($done == $counter)
-                                          Finished
+                                          Selesai
                                         @elseif ($rejected == $counter)
-                                          Rejected
+                                          Ditolak
                                         @else
-                                          {{ $request->status }}
+                                          Proses
                                         @endif
                                       </td>
                                     </tr>

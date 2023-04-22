@@ -92,11 +92,11 @@ $(document).on('click', '.dropdown-item.dosen', function () {
     let date = $(this).attr('id');
 
     if (date === 'day') {
-        $("#date-dosen").html("<span>Today</span>");
+        $("#date-dosen").html("<span>Hari ini</span>");
     } else if (date === 'month') {
-        $("#date-dosen").html("<span>This Month</span>");
+        $("#date-dosen").html("<span>Bulan ini</span>");
     } else if (date === 'year') {
-        $("#date-dosen").html("<span>This Year</span>");
+        $("#date-dosen").html("<span>Tahun ini</span>");
     }
 
     $.ajaxSetup({
@@ -122,11 +122,11 @@ $(document).on('click', '.dropdown-item.mahasiswa', function () {
     let date = $(this).attr('id');
 
     if (date === 'day') {
-        $("#mahasiswa-date").html("<span>Today</span>");
+        $("#mahasiswa-date").html("<span>Hari ini</span>");
     } else if (date === 'month') {
-        $("#mahasiswa-date").html("<span>This Month</span>");
+        $("#mahasiswa-date").html("<span>Bulan ini</span>");
     } else if (date === 'year') {
-        $("#mahasiswa-date").html("<span>This Year</span>");
+        $("#mahasiswa-date").html("<span>Tahun ini</span>");
     }
 
     $.ajaxSetup({
@@ -182,11 +182,11 @@ $(document).on('click', '.dropdown-item.request-activity', function () {
     let date = $(this).attr('id');
 
     if (date === 'day') {
-        $("#date-request-activity").html("<span>Today</span>");
+        $("#date-request-activity").html("<span>Hari ini</span>");
     } else if (date === 'month') {
-        $("#date-request-activity").html("<span>This Month</span>");
+        $("#date-request-activity").html("<span>Bulan ini</span>");
     } else if (date === 'year') {
-        $("#date-request-activity").html("<span>This Year</span>");
+        $("#date-request-activity").html("<span>Tahun ini</span>");
     }
 
     $.ajaxSetup({

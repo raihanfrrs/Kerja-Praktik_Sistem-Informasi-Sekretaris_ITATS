@@ -11,14 +11,14 @@
                 <h6>Filter</h6>
                 </li>
 
-                <li><a class="dropdown-item mahasiswa" href="#" id="day">Today</a></li>
-                <li><a class="dropdown-item mahasiswa" href="#" id="month">This Month</a></li>
-                <li><a class="dropdown-item mahasiswa" href="#" id="year">This Year</a></li>
+                <li><a class="dropdown-item mahasiswa" href="#" id="day">Hari ini</a></li>
+                <li><a class="dropdown-item mahasiswa" href="#" id="month">Bulan ini</a></li>
+                <li><a class="dropdown-item mahasiswa" href="#" id="year">Tahun ini</a></li>
             </ul>
             </div>
 
             <div class="card-body">
-            <h5 class="card-title">Mahasiswa <span>|</span> <span id="mahasiswa-date">Today</span></h5>
+            <h5 class="card-title">Mahasiswa <span>|</span> <span id="mahasiswa-date">Hari ini</span></h5>
 
             <div class="d-flex align-items-center">
                 <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
@@ -26,7 +26,7 @@
                 </div>
                 <div class="ps-3">
                 <h6 id="amount-mahasiswa"></h6>
-                <span class="text-success small pt-1 fw-bold" id="percent-mahasiswa"></span> <span class="text-muted small pt-2 ps-1">increase</span>
+                <span class="text-success small pt-1 fw-bold" id="percent-mahasiswa"></span> <span class="text-muted small pt-2 ps-1">Kenaikan</span>
                 </div>
             </div>
             </div>
@@ -44,14 +44,14 @@
                 <h6>Filter</h6>
                 </li>
 
-                <li><a class="dropdown-item dosen" href="#" id="day">Today</a></li>
-                <li><a class="dropdown-item dosen" href="#" id="month">This Month</a></li>
-                <li><a class="dropdown-item dosen" href="#" id="year">This Year</a></li>
+                <li><a class="dropdown-item dosen" href="#" id="day">Hari ini</a></li>
+                <li><a class="dropdown-item dosen" href="#" id="month">Bulan ini</a></li>
+                <li><a class="dropdown-item dosen" href="#" id="year">Tahun ini</a></li>
             </ul>
             </div>
 
             <div class="card-body">
-            <h5 class="card-title">Dosen <span>|</span> <span id="date-dosen">Today</span></h5>
+            <h5 class="card-title">Dosen <span>|</span> <span id="date-dosen">Hari ini</span></h5>
 
             <div class="d-flex align-items-center">
                 <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
@@ -59,7 +59,7 @@
                 </div>
                 <div class="ps-3">
                 <h6 id="amount-dosen"></h6>
-                <span class="text-success small pt-1 fw-bold" id="percent-dosen"></span> <span class="text-muted small pt-2 ps-1">increase</span>
+                <span class="text-success small pt-1 fw-bold" id="percent-dosen"></span> <span class="text-muted small pt-2 ps-1">Kenaikan</span>
 
                 </div>
             </div>
@@ -79,14 +79,14 @@
                 <h6>Filter</h6>
                 </li>
 
-                <li><a class="dropdown-item request" href="#" id="day">Today</a></li>
-                <li><a class="dropdown-item request" href="#" id="month">This Month</a></li>
-                <li><a class="dropdown-item request" href="#" id="year">This Year</a></li>
+                <li><a class="dropdown-item request" href="#" id="day">Hari ini</a></li>
+                <li><a class="dropdown-item request" href="#" id="month">Bulan ini</a></li>
+                <li><a class="dropdown-item request" href="#" id="year">Tahun ini</a></li>
             </ul>
             </div>
 
             <div class="card-body">
-            <h5 class="card-title">Request <span>|</span> <span id="date-request">Today</span></h5>
+            <h5 class="card-title">Permintaan <span>|</span> <span id="date-request">Hari ini</span></h5>
 
             <div class="d-flex align-items-center">
                 <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
@@ -94,7 +94,7 @@
                 </div>
                 <div class="ps-3">
                 <h6 id="amount-request"></h6>
-                <span class="text-success small pt-1 fw-bold" id="percent-request"></span> <span class="text-muted small pt-2 ps-1">increase</span>
+                <span class="text-success small pt-1 fw-bold" id="percent-request"></span> <span class="text-muted small pt-2 ps-1">Kenaikan</span>
 
                 </div>
             </div>
@@ -117,14 +117,14 @@
             <h6>Filter</h6>
             </li>
 
-            <li><a class="dropdown-item request-activity" href="#" id="day">Today</a></li>
-            <li><a class="dropdown-item request-activity" href="#" id="month">This Month</a></li>
-            <li><a class="dropdown-item request-activity" href="#" id="year">This Year</a></li>
+            <li><a class="dropdown-item request-activity" href="#" id="day">Hari ini</a></li>
+            <li><a class="dropdown-item request-activity" href="#" id="month">Bulan ini</a></li>
+            <li><a class="dropdown-item request-activity" href="#" id="year">Tahun ini</a></li>
         </ul>
         </div>
 
         <div class="card-body pb-0">
-        <h5 class="card-title">Request Activity <span>|</span> <span id="date-request-activity">Today</span></h5>
+        <h5 class="card-title">Aktifitas Terbaru <span>|</span> <span id="date-request-activity">Hari ini</span></h5>
 
         <div class="news">
             <div id="data-request-activity"></div>
