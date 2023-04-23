@@ -30,7 +30,7 @@ $(document).on('click', '#deactivate-btn', function () {
             Swal.fire({
                 position: 'center',
                 icon: 'success',
-                title: 'Deactivated Successfully!',
+                title: 'Berhasil Menonaktifkan!',
                 showConfirmButton: false,
                 timer: 2000
             });

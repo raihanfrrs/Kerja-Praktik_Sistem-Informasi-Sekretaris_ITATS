@@ -14,8 +14,8 @@
                     <tr>
                         <th scope="col" class="text-center">Surat</th>
                         <th scope="col" class="text-center">Jenis Surat</th>
-                        <th scope="col" class="text-center">Description</th>
-                        <th scope="col" class="text-center">Action</th>
+                        <th scope="col" class="text-center">Deskripsi</th>
+                        <th scope="col" class="text-center">Aksi</th>
                     </tr>
                 </thead>
             </table>

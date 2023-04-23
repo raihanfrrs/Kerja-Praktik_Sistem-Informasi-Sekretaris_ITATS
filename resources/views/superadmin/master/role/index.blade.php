@@ -15,8 +15,8 @@
             <table id="dataRole" class="table table-master table-borderless datatable table-hover">
                 <thead>
                     <tr>
-                        <th scope="col" class="text-center">Role</th>
-                        <th scope="col" class="text-center">Action</th>
+                        <th scope="col" class="text-center">Jabatan</th>
+                        <th scope="col" class="text-center">Aksi</th>
                     </tr>
                 </thead>
             </table>

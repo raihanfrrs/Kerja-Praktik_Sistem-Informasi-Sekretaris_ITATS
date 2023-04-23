@@ -101,7 +101,7 @@ class MasterController extends Controller
                     'case' => 'default',
                     'position' => 'center',
                     'type' => 'success',
-                    'message' => 'Status Updated!'
+                    'message' => 'Mahasiswa Disetujui!'
                 ]);
             }elseif ($mahasiswa->status == 'approved') {
                 Mahasiswa::where('npm', $mahasiswa->npm)->update(['status' => 'disapprove']);
@@ -111,7 +111,7 @@ class MasterController extends Controller
                     'case' => 'default',
                     'position' => 'center',
                     'type' => 'success',
-                    'message' => 'Status Updated!'
+                    'message' => 'Mahasiswa Tidak Disetujui!'
                 ]);
             }
         }
@@ -153,7 +153,7 @@ class MasterController extends Controller
             'case' => 'default',
             'position' => 'center',
             'type' => 'success',
-            'message' => 'Mahasiswa Updated!'
+            'message' => 'Mahasiswa Berhasil Diubah!'
         ]);
     }
     
@@ -190,7 +190,9 @@ class MasterController extends Controller
     public function dosen_create()
     {
         return view('superadmin.master.dosen.add-dosen')->with([
-            'roles' => Role::where('status', 'active')->get()
+            'roles' => Role::where('status', 'active')->get(),
+            'title' => 'Tambah',
+            'subtitle' => 'Tambah'
         ]);
     }
 
@@ -233,7 +235,7 @@ class MasterController extends Controller
             'case' => 'default',
             'position' => 'center',
             'type' => 'success',
-            'message' => 'Dosen Added!'
+            'message' => 'Dosen Berhasil Ditambahkan!'
         ]);
     }
 
@@ -243,7 +245,8 @@ class MasterController extends Controller
             'dosen' => Dosen::whereId($dosen->id)->get(),
             'roles' => JobDosen::where('dosen_id', $dosen->id)->get(),
             'created_at' => Carbon::create($dosen->created_at)->timezone('Asia/Jakarta')->format('Y-m-d H:i:s'),
-            'subtitle' => 'Details'
+            'title' => 'Rincian',
+            'subtitle' => 'Rincian'
         ]);
     }
     
@@ -347,7 +350,10 @@ class MasterController extends Controller
     
     public function category_create()
     {
-        return view('superadmin.master.category.add-category');
+        return view('superadmin.master.category.add-category')->with([
+            'title' => 'Tambah',
+            'subtitle' => 'Tambah'
+        ]);
     }
 
     public function category_store(Request $request)
@@ -363,14 +369,16 @@ class MasterController extends Controller
             'case' => 'default',
             'position' => 'center',
             'type' => 'success',
-            'message' => 'Surat Added!'
+            'message' => 'Jenis Surat Berhasil Ditambahkan!'
         ]);
     }
     
     public function category_edit(JenisSurat $category)
     {
         return view('superadmin.master.category.edit-category')->with([
-            'category' => $category
+            'category' => $category,
+            'title' => 'Ubah',
+            'subtitle' => 'Ubah'
         ]);
     }
     
@@ -389,13 +397,8 @@ class MasterController extends Controller
             'case' => 'default',
             'position' => 'center',
             'type' => 'success',
-            'message' => 'Surat Updated!'
+            'message' => 'Jenis Surat Berhasil Diubah!'
         ]);
-    }
-    
-    public function category_show(JenisSurat $surat)
-    {
-        
     }
     
     public function category_destroy(Request $request, JenisSurat $category)
@@ -408,7 +411,7 @@ class MasterController extends Controller
             'case' => 'default',
             'position' => 'center',
             'type' => 'success',
-            'message' => 'Surat Deleted!'
+            'message' => 'Jenis Surat Berhasil Dihapus!'
         ]);
     }
 
@@ -433,7 +436,9 @@ class MasterController extends Controller
     public function surat_create()
     {
         return view('superadmin.master.surat.add-surat')->with([
-            'jenis_surats' => JenisSurat::where('status', 'active')->get()
+            'jenis_surats' => JenisSurat::where('status', 'active')->get(),
+            'title' => 'Tambah',
+            'subtitle' => 'Tambah'
         ]);
     }
 
@@ -452,7 +457,7 @@ class MasterController extends Controller
             'case' => 'default',
             'position' => 'center',
             'type' => 'success',
-            'message' => 'Surat Added!'
+            'message' => 'Surat Berhasil Ditambahkan'
         ]);
     }
     
@@ -460,7 +465,9 @@ class MasterController extends Controller
     {
         return view('superadmin.master.surat.edit-surat')->with([
             'surat' => $surat,
-            'jenis_surats' => JenisSurat::where('status', 'active')->get()
+            'jenis_surats' => JenisSurat::where('status', 'active')->get(),
+            'title' => 'Ubah',
+            'subtitle' => 'Ubah'
         ]);
     }
     
@@ -484,13 +491,8 @@ class MasterController extends Controller
             'case' => 'default',
             'position' => 'center',
             'type' => 'success',
-            'message' => 'Surat Updated!'
+            'message' => 'Surat Berhasil Diubah!'
         ]);
-    }
-    
-    public function surat_show(Surat $surat)
-    {
-
     }
     
     public function surat_destroy(Request $request, Surat $surat)
@@ -503,7 +505,7 @@ class MasterController extends Controller
             'case' => 'default',
             'position' => 'center',
             'type' => 'success',
-            'message' => 'Surat Deleted!'
+            'message' => 'Surat Berhasil Dihapus!'
         ]);
     }
 
@@ -529,7 +531,10 @@ class MasterController extends Controller
 
     public function role_index()
     {
-        return view('superadmin.master.role.index');
+        return view('superadmin.master.role.index')->with([
+            'title' => 'Jabatan',
+            'subtitle' => 'Jabatan'
+        ]);
     }
     
     public function role_create()

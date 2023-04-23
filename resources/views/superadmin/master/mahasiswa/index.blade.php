@@ -3,7 +3,7 @@
 @section('section')
 <div class="card overflow-auto mx-2">
     <div class="filter">
-        <a href="{{ url('mahasiswa/add') }}" class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Add Mahasiswa"><i class="bi bi-person-plus"></i></a>
+        <a href="{{ url('mahasiswa/add') }}" class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Tambah Mahasiswa"><i class="bi bi-person-plus"></i></a>
     </div>
 
     <div class="card-body">
@@ -15,9 +15,9 @@
                         <th scope="col" class="text-center">Mahasiswa</th>
                         <th scope="col" class="text-center">NPM</th>
                         <th scope="col" class="text-center">Email</th>
-                        <th scope="col" class="text-center">Phone</th>
+                        <th scope="col" class="text-center">Nomor HP</th>
                         <th scope="col" class="text-center">Status</th>
-                        <th scope="col" class="text-center">Action</th>
+                        <th scope="col" class="text-center">Aksi</th>
                     </tr>
                 </thead>
             </table>

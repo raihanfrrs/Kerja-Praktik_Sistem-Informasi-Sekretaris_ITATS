@@ -13,7 +13,7 @@
                 <thead>
                     <tr>
                         <th scope="col">Jenis Surat</th>
-                        <th scope="col">Action</th>
+                        <th scope="col">Aksi</th>
                     </tr>
                 </thead>
             </table>

@@ -80,7 +80,7 @@
         </li>
         <li>
             <a href="{{ url('role') }}" class="{{ request()->is('role' ,'role/*') ? 'active' : '' }}">
-                <i class="bi bi-circle"></i><span>Role</span>
+                <i class="bi bi-circle"></i><span>Jabatan</span>
             </a>
         </li>
     </ul>

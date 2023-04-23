@@ -7,7 +7,7 @@
     @csrf
     <div class="card">
         <div class="card-body">
-        <h5 class="card-title">Surat <span>| Edit</span></h5>
+        <h5 class="card-title">Surat <span>| Ubah</span></h5>
 
             <div class="row mb-3">
                 <label for="jenis" class="col-sm-2 col-form-label">Jenis Surat</label>
@@ -18,7 +18,7 @@
             </div>
     
             <div class="text-center mt-5">
-                <button type="submit" class="btn btn-primary"><i class="bi bi-save"></i> Submit</button>
+                <button type="submit" class="btn btn-primary"><i class="bi bi-save"></i> Kirim</button>
             </div>
         </div>
     </div>

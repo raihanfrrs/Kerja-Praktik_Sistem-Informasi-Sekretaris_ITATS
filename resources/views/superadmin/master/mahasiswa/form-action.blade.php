@@ -4,5 +4,5 @@
 <form action="/mahasiswa/{{ $model->slug }}" class="d-inline" method="post">
     @method('put')
     @csrf
-    <button title="{{ $model->status == 'approved' ? 'DISAPPROVE' : 'APPROVE' }}" name="status" value="checked" class="btn btn-sm btn-{{ $model->status == 'approved' ? 'danger' : 'success' }}" ><i class="{{ $model->status == 'approved' ? 'bi bi-x-circle' : 'bi bi-check-circle' }}"></i></button>
+    <button title="{{ $model->status == 'approved' ? 'TIDAK DISETUJUI' : 'DISETUJUI' }}" name="status" value="checked" class="btn btn-sm btn-{{ $model->status == 'approved' ? 'danger' : 'success' }}" ><i class="{{ $model->status == 'approved' ? 'bi bi-x-circle' : 'bi bi-check-circle' }}"></i></button>
 </form>
