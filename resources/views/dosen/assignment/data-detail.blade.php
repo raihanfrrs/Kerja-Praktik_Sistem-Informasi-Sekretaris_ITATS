@@ -57,9 +57,13 @@
         @if (($request->status != 'finished' && $request->status != 'rejected') && ($done !== $counter && $rejected !== $counter))
         <div class="text-center mt-3">
             <button type="submit" class="btn btn-primary"><i class="bi bi-save"></i> Kirim</button>
+      </form>
+      <form action="/assignment/{{ $request->id }}" method="post" class="d-inline">
+          @csrf
+          @method('delete')
+          <button type="submit" class="btn btn-danger"><i class="bi bi-escape"></i> Batalkan</button>
+      </form>
         </div>
         @endif
-      </form>
-
     </div>
 </div>

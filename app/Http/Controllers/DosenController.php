@@ -370,7 +370,8 @@ class DosenController extends Controller
 
             TempFile::create([
                 'detail_request_id' => $request->id,
-                'file' => $file_name
+                'file' => $file_name,
+                'folder' => $folder
             ]);
         }
 
@@ -427,6 +428,31 @@ class DosenController extends Controller
             'position' => 'center',
             'type' => 'success',
             'message' => 'Berhasil Mengunggah!'
+        ]);
+    }
+
+    public function assignment_delete(ModelsRequest $request)
+    {
+        $getDetailRequests = DetailRequest::where('request_id', $request->id)->get();
+
+        foreach ($getDetailRequests as $detailRequest) {
+            $dataDetailRequests[] = $detailRequest->id;
+        }
+
+        $getTempFiles = TempFile::whereIn('detail_request_id', $dataDetailRequests)->get();
+
+        foreach ($getTempFiles as $tempFiles) {
+            Storage::delete($tempFiles->file);
+            Storage::deleteDirectory('posts/'.$tempFiles->folder);
+            TempFile::whereId($tempFiles->id)->delete();
+        }
+
+        return redirect('assignment/'.$request->id)->with([
+            'flash-type' => 'sweetalert',
+            'case' => 'default',
+            'position' => 'center',
+            'type' => 'success',
+            'message' => 'Berhasil Membatalkan Pengiriman Surat!'
         ]);
     }
 }

@@ -18,6 +18,7 @@ class CreateTempFilesTable extends Migration
             $table->id();
             $table->foreignIdFor(DetailRequest::class);
             $table->string('file');
+            $table->string('folder');
             $table->timestamps();
         });
     }

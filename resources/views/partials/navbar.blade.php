@@ -45,7 +45,7 @@
 
         <li class="nav-item">
 
-          <a class="nav-link nav-icon" href="/recycle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Bin">
+          <a class="nav-link nav-icon" href="/recycle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Sampah">
             <i class="bi bi-trash3"></i>
             @if (Session::get('deactivate') != 0)
               <span class="badge bg-success badge-number">{{ Session::get('deactivate') }}</span>

@@ -6,7 +6,7 @@
 
 <div class="card overflow-auto mx-2">
     <div class="filter">
-        <a href="{{ url('/role/add') }}" class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Add Role"><i class="bi bi-journal-plus"></i></a>
+        <a href="{{ url('/role/add') }}" class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Tambah Jabatan"><i class="bi bi-journal-plus"></i></a>
     </div>
 
     <div class="card-body">

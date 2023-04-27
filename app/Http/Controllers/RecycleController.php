@@ -23,7 +23,9 @@ class RecycleController extends Controller
             'surats' => Surat::where('status', 'deactivated')->get(),
             'roles' => Role::where('roles.status', 'deactivated')
                             ->groupBy('roles.id')
-                            ->get()
+                            ->get(),
+            'title' => 'Sampah',
+            'subtitle' => 'Sampah'
         ]);
     }
 
@@ -53,7 +55,7 @@ class RecycleController extends Controller
                 'case' => 'default',
                 'position' => 'center',
                 'type' => 'error',
-                'message' => 'Restore Failed!'
+                'message' => 'Gagal Memulihkan!'
             ]);
         }
 
@@ -64,7 +66,7 @@ class RecycleController extends Controller
             'case' => 'default',
             'position' => 'center',
             'type' => 'success',
-            'message' => 'Restore Success!'
+            'message' => 'Berhasil Memulihkan!'
         ]);
     }
 
@@ -104,7 +106,7 @@ class RecycleController extends Controller
                 'case' => 'default',
                 'position' => 'center',
                 'type' => 'error',
-                'message' => 'Delete Failed!'
+                'message' => 'Sampah Gagal Dibersihkan!'
             ]);
         }
 
@@ -115,7 +117,7 @@ class RecycleController extends Controller
             'case' => 'default',
             'position' => 'center',
             'type' => 'success',
-            'message' => 'Delete Success!'
+            'message' => 'Sampah Berhasil Dibersihkan!'
         ]);
     }
 }

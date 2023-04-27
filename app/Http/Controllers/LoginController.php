@@ -43,7 +43,7 @@ class LoginController extends Controller
                     ])->onlyInput('username');
                 }elseif($checkUser->mahasiswa->status === 'disapprove') {
                     return back()->withErrors([
-                        'username' => 'Akun anda sedang dinonaktifkan oleh admin, silakan hubungi admin!',
+                        'username' => 'Akun anda belum disetujui oleh admin, silakan hubungi admin!',
                     ])->onlyInput('username');
                 }
             }elseif (Dosen::where('user_id', $checkUser->id)->count() > 0) {

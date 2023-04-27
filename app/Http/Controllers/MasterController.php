@@ -540,7 +540,9 @@ class MasterController extends Controller
     public function role_create()
     {
         return view('superadmin.master.role.add-role')->with([
-            'jenis_surats' => JenisSurat::where('status', 'active')->get()
+            'jenis_surats' => JenisSurat::where('status', 'active')->get(),
+            'title' => 'Tambah',
+            'subtitle' => 'Tambah'
         ]);
     }
 
@@ -565,7 +567,7 @@ class MasterController extends Controller
             'case' => 'default',
             'position' => 'center',
             'type' => 'success',
-            'message' => 'Role Added!'
+            'message' => 'Jabatan Berhasil Ditambahkan!'
         ]);
     }
     
@@ -575,6 +577,8 @@ class MasterController extends Controller
             'role' => $role,
             'jenis_surats' => JenisSurat::where('status', 'active')->get(),
             'job' => JobRole::where('role_id', $role->id)->get(),
+            'title' => 'Ubah',
+            'subtitle' => 'Ubah'
         ]);
     }
     
@@ -605,7 +609,7 @@ class MasterController extends Controller
             'case' => 'default',
             'position' => 'center',
             'type' => 'success',
-            'message' => 'Role Updated!'
+            'message' => 'Jabatan Berhasil Diubah!'
         ]);
     }
     
@@ -626,7 +630,7 @@ class MasterController extends Controller
             'case' => 'default',
             'position' => 'center',
             'type' => 'success',
-            'message' => 'Role Deleted!'
+            'message' => 'Jabatan Berhasil Dihapus!'
         ]);
     }
 

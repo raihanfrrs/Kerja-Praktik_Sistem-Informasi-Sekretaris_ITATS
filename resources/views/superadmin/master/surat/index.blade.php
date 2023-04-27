@@ -3,7 +3,7 @@
 @section('section')
 <div class="card overflow-auto mx-2">
     <div class="filter">
-        <a href="{{ url('/surat/add') }}" class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Add Surat"><i class="bi bi-envelope-plus"></i></a>
+        <a href="{{ url('/surat/add') }}" class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Tambah Surat"><i class="bi bi-envelope-plus"></i></a>
     </div>
 
     <div class="card-body">
