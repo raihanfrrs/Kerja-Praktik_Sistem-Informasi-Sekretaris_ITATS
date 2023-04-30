@@ -364,18 +364,27 @@ class DosenController extends Controller
         }
 
         if ($request->hasFile('file')) {
-            $image = $request->file('file');
+            
+            $allowedFormats = ['jpeg', 'jpg', 'png'];
+            $file = $request->file('file');
+            $extension = strtolower($file->getClientOriginalExtension());
+            if (!in_array($extension, $allowedFormats)) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Format file tidak sesuai. Format yang diizinkan: ' . implode(', ', $allowedFormats)
+                ], 500);
+            }
+        
+            // Proses upload file jika formatnya sesuai
             $folder = uniqid('post', true);
-            $file_name = $image->store('posts/' . $folder);
-
+            $file_name = $file->store('posts/' . $folder);
+        
             TempFile::create([
                 'detail_request_id' => $request->id,
                 'file' => $file_name,
                 'folder' => $folder
             ]);
         }
-
-        return false;
     }
 
     public function assignment_store($id)
@@ -389,6 +398,16 @@ class DosenController extends Controller
         }
 
         $getTempFiles = TempFile::whereIn('detail_request_id', $detailRequest)->get();
+
+        if ($getTempFiles->count() === 0) {
+            return redirect('assignment/'.$id)->with([
+                'flash-type' => 'sweetalert',
+                'case' => 'default',
+                'position' => 'center',
+                'type' => 'error',
+                'message' => 'Gagal Mengunggah!'
+            ]);
+        }
         
         foreach ($getTempFiles as $tempFiles) {
             DetailRequest::whereId($tempFiles->detail_request_id)->update(['surat' => $tempFiles->file, 'status' => 'done']);

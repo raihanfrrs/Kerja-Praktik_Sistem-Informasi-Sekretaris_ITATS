@@ -19,11 +19,14 @@ $(document).ready(function () {
                             });
         
                 function isLoadingCheck(){
-                    var isLoading = pond.getFiles().filter(x=>x.status !== 5).length !== 0;
+                    var isLoading = pond.getFiles().filter(x=>x.status !== 5 && x.status !== 6).length !== 0;
                     if(isLoading) {
                         $('input[type="file"]').attr("disabled", "disabled");
                         $('.uploading').click(function(){ return false; });
-                    } else {
+                    }else if (pond.getFiles().filter(x=>x.status === 6).length !== 0){
+                        $('input[type="file"]').removeAttr("disabled");
+                        $('.uploading').off('click');
+                    }else {
                         $('input[type="file"]').removeAttr("disabled");
                         $('.uploading').off('click');
                     }
@@ -54,10 +57,6 @@ $(document).ready(function () {
                                     setTimeout(() => {
                                         $('.alert-'+$(element).attr('data-key')).removeClass('d-none');
                                     }, 3600);
-                                },
-                                onerror: (response) => {
-                                  // Upload gagal
-                                  console.log('Upload gagal');
                                 }
                             }
                         }
