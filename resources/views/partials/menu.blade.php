@@ -70,7 +70,7 @@
         </li>
         <li>
             <a href="{{ url('category') }}" class="{{ request()->is('category', 'category/*') ? 'active' : '' }}">
-                <i class="bi bi-circle"></i><span>Category</span>
+                <i class="bi bi-circle"></i><span>Jenis Surat</span>
             </a>
         </li>
         <li>
