@@ -57,6 +57,11 @@ $(document).ready(function () {
                                     setTimeout(() => {
                                         $('.alert-'+$(element).attr('data-key')).removeClass('d-none');
                                     }, 3600);
+                                },
+                                onerror: (response) => {
+                                    let objString = response;
+                                    let jsonObj = JSON.parse(objString);
+                                    alert(jsonObj.message);
                                 }
                             }
                         }

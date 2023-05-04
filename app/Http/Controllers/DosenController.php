@@ -365,13 +365,23 @@ class DosenController extends Controller
 
         if ($request->hasFile('file')) {
             
-            $allowedFormats = ['jpeg', 'jpg', 'png'];
+            $allowedFormats = ['pdf', 'doc', 'docx', 'ppt', 'pptx', 'xlsx', 'xls'];
             $file = $request->file('file');
             $extension = strtolower($file->getClientOriginalExtension());
             if (!in_array($extension, $allowedFormats)) {
                 return response()->json([
                     'success' => false,
                     'message' => 'Format file tidak sesuai. Format yang diizinkan: ' . implode(', ', $allowedFormats)
+                ], 500);
+            }
+
+            // Validasi ukuran file
+            $maxSizeInMb = 2;
+            $fileSizeInMb = $file->getSize() / 1024 / 1024; // konversi ke MB
+            if ($fileSizeInMb > $maxSizeInMb) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Ukuran file melebihi batas maksimum ' . $maxSizeInMb . ' MB.'
                 ], 500);
             }
         

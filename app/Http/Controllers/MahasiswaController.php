@@ -228,8 +228,11 @@ class MahasiswaController extends Controller
             $iconMap = [
                 'pdf' => 'pdf.png',
                 'docx' => 'docx.jpg',
+                'doc' => 'doc.jpg',
                 'pptx' => 'pptx.png',
+                'ppt' => 'ppt.png',
                 'xlsx' => 'xlsx.jpg',
+                'xls' => 'xls.jpg',
             ];
             
             $defaultIcon = 'default.png';
