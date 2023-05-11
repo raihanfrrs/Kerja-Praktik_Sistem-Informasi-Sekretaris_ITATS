@@ -45,6 +45,24 @@
                     @enderror
                 </div>
             </div>
+
+            <div class="row mb-3">
+                <label for="name" class="col-sm-2 col-form-label">Level</label>
+                <div class="col-sm-10">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="level" id="mahasiswa" value="mahasiswa" {{ old('level', $surat->level) == 'mahasiswa' ? 'checked' : '' }}>
+                        <label class="form-check-label" for="mahasiswa">
+                          Mahasiswa
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="level" id="dosen" value="dosen" {{ old('level', $surat->level) == 'dosen' ? 'checked' : '' }}>
+                        <label class="form-check-label" for="dosen">
+                          Dosen
+                        </label>
+                    </div>
+                </div>
+            </div>
     
             <div class="text-center mt-5">
                 <button type="submit" class="btn btn-primary"><i class="bi bi-save"></i> Kirim</button>

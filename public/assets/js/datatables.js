@@ -44,16 +44,7 @@ $(document).ready(function () {
             { data: 'name', name: 'name', class: 'text-muted text-capitalize text-center' },
             { data: 'jenis', name: 'jenis', class: 'text-muted text-capitalize text-center' },
             { data: 'description', name: 'description', class: 'text-muted text-center' },
-            { data: 'action', name: 'action', class: 'text-center' }
-        ]
-    });
-
-    $('#dataRole').DataTable({
-        processing: true,
-        serverSide: true,
-        ajax: '/dataRole',
-        columns: [
-            { data: 'role', name: 'role', class: 'text-muted text-capitalize text-center' },
+            { data: 'level', name: 'level', class: 'text-muted text-center text-capitalize' },
             { data: 'action', name: 'action', class: 'text-center' }
         ]
     });

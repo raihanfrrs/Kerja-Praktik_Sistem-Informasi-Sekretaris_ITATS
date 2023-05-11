@@ -69,24 +69,6 @@
                     @error('gender') <div class="invalid-feedback"> {{ $message }} </div> @enderror
                     </div>
                 </fieldset>
-                <div class="row mb-3">
-                    <legend class="col-form-label col-sm-4 pt-0">Jabatan</legend>
-                    <div class="col-sm-8">
-                        @foreach ($roles as $role)
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" name="role_id[]" id="{{ $role->slug }}" {{ in_array(old('role_id', $role->id), $data) ? 'checked' : '' }} value="{{ $role->id }}">
-                                <label class="form-check-label" for="{{ $role->slug }}">{{ $role->role }}</label>
-                            </div>
-                        @endforeach
-                        @if($errors->any())
-                        @php
-                            $error = $errors->getBags()['default']->get('role_id');
-                        @endphp
-                        <span class="text-danger">{{$error[0]}}</span>
-                        @endif
-                    </div>
-                </div>
-        
             </div>
         </div>
 </div>

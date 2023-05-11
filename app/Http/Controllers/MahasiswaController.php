@@ -12,13 +12,6 @@ use App\Models\Request as ModelsRequest;
 
 class MahasiswaController extends Controller
 {
-    public function request_index()
-    {
-        return view('mahasiswa.request.index')->with([
-            'title' => 'Permintaan',
-            'subtitle' => 'Permintaan'
-        ]);
-    }
 
     public function request_read(Request $request)
     {

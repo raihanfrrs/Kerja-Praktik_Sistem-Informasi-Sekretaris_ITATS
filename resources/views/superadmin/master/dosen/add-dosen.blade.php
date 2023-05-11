@@ -69,23 +69,6 @@
           </div>
         </fieldset>
         <div class="row mb-3">
-          <legend class="col-form-label col-sm-4 pt-0">Jabatan</legend>
-          <div class="col-sm-8">
-            @foreach ($roles as $role)
-            <div class="form-check form-switch">
-              <input class="form-check-input" type="checkbox" id="{{ $role->slug }}" name="role_id[]" value="{{ $role->id }}" {{ old('role_id') == $role->id ? 'checked' : '' }}>
-              <label class="form-check-label" for="{{ $role->slug }}">{{ $role->role }}</label>
-            </div>
-            @endforeach
-            @if($errors->any())
-            @php
-                $error = $errors->getBags()['default']->get('role_id');
-            @endphp
-              <span class="text-danger">{{$error[0]}}</span>
-            @endif
-          </div>
-        </div>
-        <div class="row mb-3">
           <label for="username" class="col-sm-4 col-form-label">Username</label>
           <div class="col-sm-8">
             <input type="text" class="form-control @error('username') is-invalid @enderror" id="username" name="username" value="{{ old('username') }}" required autocomplete="off" placeholder="Username">

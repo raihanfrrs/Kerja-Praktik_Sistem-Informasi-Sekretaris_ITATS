@@ -50,23 +50,6 @@
                     <div class="col-lg-3 col-md-4 label text-muted">Jenis Kelamin</div>
                     <div class="col-lg-9 col-md-8">@if($dosen[0]->gender) {{ Str::ucfirst($dosen[0]->gender) }} @else - @endif</div>
                 </div>
-                
-                <div class="row">
-                    <div class="col-lg-3 col-md-4 label text-muted">Jabatan</div>
-                    <div class="col-lg-9 col-md-8 text-capitalize">
-                        @if($roles->count() > 1)
-                        <ul class="mb-0 roles">
-                            @foreach ($roles as $role)
-                                <li>{{ $role->role->role }}</li>
-                            @endforeach
-                        </ul>
-                        @elseif($roles->count() == 1)
-                            {{ $roles[0]->role->role }}
-                        @else 
-                            - 
-                        @endif
-                    </div>
-                </div>
 
                 <div class="row">
                     <div class="col-lg-3 col-md-4 label text-muted">Status</div>

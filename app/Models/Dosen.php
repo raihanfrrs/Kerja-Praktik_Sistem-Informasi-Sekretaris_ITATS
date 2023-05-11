@@ -33,11 +33,6 @@ class Dosen extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function job_dosen()
-    {
-        return $this->hasMany(JobDosen::class);
-    }
-
     public function detail_request()
     {
         return $this->hasMany(DetailRequest::class);

@@ -153,41 +153,6 @@
                 <hr>
             @endforeach
 
-            @if ($roles->count() != 0)
-            <h5 class="card-title">Jabatan <span>| Daftar</span></h5>
-            @endif
-
-            @foreach ($roles as $role)
-                <div class="single-notification">
-                    <div class="notification">
-                        <div class="image bg-info">
-                            <span>{{ mb_substr($role->role, 0, 1) }}</span>
-                        </div>
-                        <a href="#" class="content">
-                            <h5 class="fw-bold text-black">{{ Str::ucfirst($role->role) }}</h5>
-                            <span class="fw-semibold text-muted">Dipindahkan pada {{ $role->updated_at->diffForHumans() }}</span>
-                        </a>
-                    </div>
-                    <div class="action">
-                        <form action="/recycle/{{ $role->slug }}" method="post" id="delete-form-{{ $role->slug }}">
-                            @csrf
-                            @method('delete')
-                            <button type="submit" id="delete-btn" class="action-btn" value="{{ $role->slug }}" title="Hapus">
-                                <i class="bi bi-trash3"></i>
-                            </button>
-                        </form>
-                        <form action="/recycle/{{ $role->slug }}" method="post">
-                            @csrf
-                            @method('put')
-                            <button type="submit" class="action-btn" title="Pulihkan">
-                                <i class="bi bi-arrow-clockwise"></i>
-                            </button>
-                        </form>
-                    </div>
-                </div>
-                <hr>
-            @endforeach
-
         </div>
     </div>
 @endsection

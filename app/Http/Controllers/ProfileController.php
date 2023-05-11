@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Dosen;
-use App\Models\JobDosen;
 use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -29,7 +28,6 @@ class ProfileController extends Controller
         }else{
             return view('profile')->with([
                 'user' => Dosen::where('user_id', auth()->user()->id)->get(),
-                'roles' => JobDosen::where('dosen_id', auth()->user()->dosen->id)->get(),
                 'title' => 'Profil',
                 'subtitle' => 'Profil'
             ]);

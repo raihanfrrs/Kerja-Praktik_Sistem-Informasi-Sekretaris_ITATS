@@ -15,6 +15,7 @@
                         <th scope="col" class="text-center">Surat</th>
                         <th scope="col" class="text-center">Jenis Surat</th>
                         <th scope="col" class="text-center">Deskripsi</th>
+                        <th scope="col" class="text-center">Level</th>
                         <th scope="col" class="text-center">Aksi</th>
                     </tr>
                 </thead>

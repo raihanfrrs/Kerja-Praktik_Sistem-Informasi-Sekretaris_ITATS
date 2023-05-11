@@ -9,7 +9,9 @@ use App\Http\Controllers\MasterController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RecycleController;
+use App\Http\Controllers\RequestController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\AcceptionController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\ForgotPasswordController;
@@ -77,24 +79,22 @@ Route::middleware('auth')->group(function () {
         Route::get('/dataAssignHistory', [HistoryController::class, 'dataAssignHistory'])->name('dataAssignHistory');
     });
 
-    Route::group(['middleware' => ['cekUserLogin:mahasiswa']], function(){
-        Route::controller(MahasiswaController::class)->group(function () {
-            /* request surat resource */
-            Route::get('request','request_index');
-            Route::get('request/read', 'request_read');
-            Route::get('request/{surat}/surat', 'request_surat');
-            Route::post('request', 'request_store');
-            Route::get('request/show', 'request_show');
-            Route::post('request/delete', 'request_delete');
-            Route::post('request/send', 'request_send');
+    Route::controller(RequestController::class)->group(function () {
+        Route::get('request', 'request_index');
+        Route::get('request/read', 'request_read');
+        Route::get('request/{surat}/surat', 'request_surat');
+        Route::post('request', 'request_store');
+        Route::get('request/show', 'request_show');
+        Route::post('request/delete', 'request_delete');
+        Route::post('request/send', 'request_send');
+    });
 
-            /* request surat resource */
-            Route::get('acception', 'acception_index');
-            Route::get('acception/read', 'acception_read');
-            Route::post('acception/delete', 'acception_delete');
-            Route::get('acception/{request}', 'acception_detail');
-            Route::get('acception/download/{request}', 'acception_download');
-        });
+    Route::controller(AcceptionController::class)->group(function () {
+        Route::get('acception', 'acception_index');
+        Route::get('acception/read', 'acception_read');
+        Route::post('acception/delete', 'acception_delete');
+        Route::get('acception/{request}', 'acception_detail');
+        Route::get('acception/download/{request}', 'acception_download');
     });
 
     Route::group(['middleware' => ['cekUserLogin:dosen']], function(){

@@ -54,6 +54,16 @@ class DosenSeeder extends Seeder
                 'gender' => 'female',
                 'user_id' => '6',
                 'status' => 'active'
+            ],
+            [
+                'name' => 'Muchamad Kurniawan',
+                'slug' => 'muchamad-kurniawan',
+                'nip' => '09995',
+                'email' => 'kurniawan123@gmail.com',
+                'phone' => '0812344383223',
+                'gender' => 'male',
+                'user_id' => '7',
+                'status' => 'active'
             ]
         ];
 

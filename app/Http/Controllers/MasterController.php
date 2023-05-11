@@ -6,10 +6,7 @@ use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Dosen;
 use App\Models\JenisSurat;
-use App\Models\JobDosen;
-use App\Models\JobRole;
 use App\Models\Mahasiswa;
-use App\Models\Role;
 use App\Models\Surat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -190,7 +187,6 @@ class MasterController extends Controller
     public function dosen_create()
     {
         return view('superadmin.master.dosen.add-dosen')->with([
-            'roles' => Role::where('status', 'active')->get(),
             'title' => 'Tambah',
             'subtitle' => 'Tambah'
         ]);
@@ -208,8 +204,7 @@ class MasterController extends Controller
             'birthPlace' => 'required|max:225|min:3',
             'birthDate' => 'required',
             'gender' => 'required',
-            'image' => 'image|file|max:2048',
-            'role_id' => 'required'
+            'image' => 'image|file|max:2048'
         ]);
 
         $validateData['level'] = 'dosen';
@@ -222,13 +217,7 @@ class MasterController extends Controller
         }
         $validateData['user_id'] = $user->id;
 
-        $dosen = Dosen::create($validateData);
-
-        for ($i=0; $i < count($request->role_id); $i++) { 
-            $data['dosen_id'] = $dosen->id;
-            $data['role_id'] = $request->role_id[$i];
-            JobDosen::create($data);
-        }
+        Dosen::create($validateData);
 
         return redirect('dosen/add')->with([
             'flash-type' => 'sweetalert',
@@ -243,7 +232,6 @@ class MasterController extends Controller
     {
         return view('superadmin.master.dosen.details-dosen')->with([
             'dosen' => Dosen::whereId($dosen->id)->get(),
-            'roles' => JobDosen::where('dosen_id', $dosen->id)->get(),
             'created_at' => Carbon::create($dosen->created_at)->timezone('Asia/Jakarta')->format('Y-m-d H:i:s'),
             'title' => 'Rincian',
             'subtitle' => 'Rincian'
@@ -251,15 +239,9 @@ class MasterController extends Controller
     }
     
     public function dosen_edit(Dosen $dosen)
-    {
-        foreach ($dosen->job_dosen as $key => $value) {
-            $data[] = $value->role_id;
-        }
-        
+    {   
         return view('superadmin.master.dosen.edit-dosen')->with([
-            'dosen' => $dosen,
-            'data' => $data,
-            'roles' => Role::where('status', 'active')->get()
+            'dosen' => $dosen
         ]);
     }
     
@@ -292,17 +274,6 @@ class MasterController extends Controller
                 Storage::delete($dosen->image);
             }
             $validateData['image'] = $request->file('image')->store('profile-image');
-        }
-
-        $request->validate(['role_id' => 'required']);
-
-        JobDosen::where('dosen_id', $dosen->id)->delete();
-
-        for ($i=0; $i < count($request->role_id); $i++) { 
-            $data['dosen_id'] = $dosen->id;
-            $data['role_id'] = $request->role_id[$i];
-
-            JobDosen::create($data);
         }
 
         $validateData['slug'] = slug($request->name);
@@ -447,7 +418,8 @@ class MasterController extends Controller
         $validateData = $request->validate([
             'name' => 'required|min:2|max:255|unique:surats',
             'jenis_surat_id' => 'required',
-            'description' => 'required'
+            'description' => 'required',
+            'level' => 'required'
         ]);
 
         Surat::create($validateData);
@@ -475,7 +447,8 @@ class MasterController extends Controller
     {
         $validateData = [
             'jenis_surat_id' => 'required',
-            'description' => 'required'
+            'description' => 'required',
+            'level' => 'required'
         ];
 
         if ($request->name != $surat->name) {
@@ -527,121 +500,4 @@ class MasterController extends Controller
 
     /* SURAT METHOD END SECTION */
 
-    /* ROLE METHOD SECTION */
-
-    public function role_index()
-    {
-        return view('superadmin.master.role.index')->with([
-            'title' => 'Jabatan',
-            'subtitle' => 'Jabatan'
-        ]);
-    }
-    
-    public function role_create()
-    {
-        return view('superadmin.master.role.add-role')->with([
-            'jenis_surats' => JenisSurat::where('status', 'active')->get(),
-            'title' => 'Tambah',
-            'subtitle' => 'Tambah'
-        ]);
-    }
-
-    public function role_store(Request $request)
-    {
-        $validateData = $request->validate([
-            'role' => 'required|min:2|max:255|unique:roles',
-            'jenis_surat' => 'required'
-        ]);
-
-        $validateData['status'] = 'active';
-        $role = Role::create($validateData);
-
-        for ($i=0; $i < count($request->jenis_surat); $i++) { 
-            $roles['role_id'] = $role->id;
-            $roles['jenis_surat_id'] = $request->jenis_surat[$i];
-            JobRole::create($roles);
-        }
-
-        return redirect('role/add')->with([
-            'flash-type' => 'sweetalert',
-            'case' => 'default',
-            'position' => 'center',
-            'type' => 'success',
-            'message' => 'Jabatan Berhasil Ditambahkan!'
-        ]);
-    }
-    
-    public function role_edit(Role $role)
-    {
-        return view('superadmin.master.role.edit-role')->with([
-            'role' => $role,
-            'jenis_surats' => JenisSurat::where('status', 'active')->get(),
-            'job' => JobRole::where('role_id', $role->id)->get(),
-            'title' => 'Ubah',
-            'subtitle' => 'Ubah'
-        ]);
-    }
-    
-    public function role_update(Request $request, Role $role)
-    {
-        $validateData = $request->validate([
-            'jenis_surat' => 'required'
-        ]);
-
-        if ($request->role != $role->role) {
-            $validateData = $request->validate([
-                'role' => 'required|min:2|max:255|unique:roles'
-            ]);
-
-            Role::findOrFail($role->id)->update($validateData);
-        }
-
-        JobRole::where('role_id', $role->id)->delete();
-
-        for ($i=0; $i < count($request->jenis_surat); $i++) { 
-            $roles['role_id'] = $role->id;
-            $roles['jenis_surat_id'] = $request->jenis_surat[$i];
-            JobRole::create($roles);
-        }
-
-        return redirect('role')->with([
-            'flash-type' => 'sweetalert',
-            'case' => 'default',
-            'position' => 'center',
-            'type' => 'success',
-            'message' => 'Jabatan Berhasil Diubah!'
-        ]);
-    }
-    
-    public function role_show(Role $role)
-    {
-        return view('superadmin.master.role.data-modal')->with([
-            'jobs' => JobRole::where('role_id', $role->id)->get()
-        ]);
-    }
-    
-    public function role_destroy(Request $request, Role $role)
-    {
-        Role::findOrFail($role->id)->update(['status' => 'deactivated']);
-        session(['deactivate' => $request->session()->get('deactivate')+1]);
-
-        return redirect('role')->with([
-            'flash-type' => 'sweetalert',
-            'case' => 'default',
-            'position' => 'center',
-            'type' => 'success',
-            'message' => 'Jabatan Berhasil Dihapus!'
-        ]);
-    }
-
-    public function dataRole()
-    {
-        return DataTables::of(Role::where('status', 'active')->get())
-        ->addColumn('action', function ($model) {
-            return view('superadmin.master.role.form-action', compact('model'))->render();
-        })
-        ->make(true);
-    }
-
-    /* ROLE METHOD END SECTION */
 }

@@ -20,6 +20,7 @@ class CreateSuratsTable extends Migration
             $table->string('name')->unique();
             $table->string('slug');
             $table->text('description');
+            $table->enum('level', ['mahasiswa', 'dosen']);
             $table->enum('status', ['active', 'deactivated']);
             $table->timestamps();
         });

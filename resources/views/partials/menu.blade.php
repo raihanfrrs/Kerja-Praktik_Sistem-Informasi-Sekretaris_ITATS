@@ -57,7 +57,7 @@
     <a class="nav-link {{ request()->is('master/*') ? '' : 'collapsed' }}" data-bs-target="#master-super-nav" data-bs-toggle="collapse" href="#">
         <i class="bi bi-collection"></i><span>Data Master</span><i class="bi bi-chevron-down ms-auto"></i>
     </a>
-    <ul id="master-super-nav" class="nav-content collapse {{ request()->is('mahasiswa', 'mahasiswa/*', 'dosen', 'dosen/*', 'category', 'category/*', 'surat', 'surat/*','role', 'role/*') ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
+    <ul id="master-super-nav" class="nav-content collapse {{ request()->is('mahasiswa', 'mahasiswa/*', 'dosen', 'dosen/*', 'category', 'category/*', 'surat', 'surat/*') ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
         <li>
             <a href="{{ url('mahasiswa') }}" class="{{ request()->is('mahasiswa', 'mahasiswa/*') ? 'active' : '' }}">
                 <i class="bi bi-circle"></i><span>Mahasiswa</span>
@@ -76,11 +76,6 @@
         <li>
             <a href="{{ url('surat') }}" class="{{ request()->is('surat' ,'surat/*') ? 'active' : '' }}">
                 <i class="bi bi-circle"></i><span>Surat</span>
-            </a>
-        </li>
-        <li>
-            <a href="{{ url('role') }}" class="{{ request()->is('role' ,'role/*') ? 'active' : '' }}">
-                <i class="bi bi-circle"></i><span>Jabatan</span>
             </a>
         </li>
     </ul>
