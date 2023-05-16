@@ -2,7 +2,7 @@
 
 @section('section')
 
-@include('dosen.receive.receive-modal')
+@include('admin.receive.receive-modal')
 
 <div class="row" id="data-receive"></div>
 @endsection

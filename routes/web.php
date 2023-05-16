@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\DosenController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LayoutController;
 use App\Http\Controllers\LogoutController;
@@ -12,8 +11,8 @@ use App\Http\Controllers\RecycleController;
 use App\Http\Controllers\RequestController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\AcceptionController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\ForgotPasswordController;
 
 /*
@@ -68,7 +67,7 @@ Route::middleware('auth')->group(function () {
 
     Route::controller(DashboardController::class)->group(function () {
         Route::get('dashboard/{data}/superadmin', 'daily_dosen');
-        Route::get('dashboard/{data}/mahasiswa', 'daily_mahasiswa');
+        Route::get('dashboard/{data}/user', 'daily_user');
     });
 
     Route::controller(HistoryController::class)->group(function () {
@@ -97,13 +96,13 @@ Route::middleware('auth')->group(function () {
         Route::get('acception/download/{request}', 'acception_download');
     });
 
-    Route::group(['middleware' => ['cekUserLogin:dosen']], function(){
-        Route::controller(DosenController::class)->group(function () {
+    Route::group(['middleware' => ['cekUserLogin:admin']], function(){
+        Route::controller(AdminController::class)->group(function () {
             /* receive surat resource */
             Route::get('receive', 'receive_index');
             Route::get('receive/read', 'receive_read');
             Route::post('receive', 'receive_store');
-            Route::get('receive/{slug}/show', 'receive_show');
+            Route::get('receive/{id}/show', 'receive_show');
             
             /* assign surat  resource */
             Route::get('assignment', 'assignment_index');
@@ -114,7 +113,7 @@ Route::middleware('auth')->group(function () {
             Route::get('assignment/detail/read/{request}', 'assignment_detail_read');
             Route::delete('assignment/{request}', 'assignment_delete');
 
-            Route::post('assive/{slug}/reject', 'assive_reject');
+            Route::post('assive/{id}/reject', 'assive_reject');
         });
     });
 

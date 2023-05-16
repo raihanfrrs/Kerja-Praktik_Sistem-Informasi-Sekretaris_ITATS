@@ -18,8 +18,8 @@ class TempRequest extends Model
         return $this->belongsTo(Surat::class);
     }
 
-    public function mahasiswa()
+    public function user()
     {
-        return $this->belongsTo(Mahasiswa::class);
+        return $this->belongsTo(User::class);
     }
 }

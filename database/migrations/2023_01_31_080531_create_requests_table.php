@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Mahasiswa;
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -16,7 +16,7 @@ class CreateRequestsTable extends Migration
     {
         Schema::create('requests', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Mahasiswa::class);
+            $table->foreignIdFor(User::class);
             $table->enum('status', ['finished', 'unfinished', 'processed', 'canceled', 'rejected'])->default('unfinished');
             $table->timestamps();
         });

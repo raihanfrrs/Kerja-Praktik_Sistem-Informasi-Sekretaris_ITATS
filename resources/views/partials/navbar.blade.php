@@ -8,7 +8,7 @@
         <i class="bi bi-list toggle-sidebar-btn"></i>
     </div>
 
-    @if (auth()->user()->level === 'mahasiswa' && (request()->is('request') || request()->is('acception')))
+    @if ((auth()->user()->level === 'mahasiswa' || auth()->user()->level == 'dosen') && (request()->is('request') || request()->is('acception')))
     <div class="search-bar">
       <div class="search-form d-flex align-items-center">
         <input type="text" @if(request()->is('request')) id="search-request" @elseif(request()->is('acception')) id="search-acception" @endif placeholder="Search" title="Enter search keyword">
@@ -17,7 +17,7 @@
     </div>
     @endif
 
-    @if (auth()->user()->level === 'dosen' && (request()->is('receive') || request()->is('assignment')))
+    @if (auth()->user()->level === 'admin' && (request()->is('receive') || request()->is('assignment')))
     <div class="search-bar">
       <div class="search-form d-flex align-items-center">
         <input type="text" @if(request()->is('receive')) id="search-receive" @elseif(request()->is('assignment')) id="search-assignment" @endif  placeholder="Search" title="Enter search keyword">
@@ -29,7 +29,7 @@
     <nav class="header-nav ms-auto">
       <ul class="d-flex align-items-center">
 
-        @if (auth()->user()->level === 'mahasiswa' && request()->is('request', 'request/*'))
+        @if ((auth()->user()->level === 'mahasiswa' || auth()->user()->level === 'dosen') && request()->is('request', 'request/*'))
         <li class="nav-item" id="request-icon">
 
           <a class="nav-link nav-icon" id="detail-request-button" href="#" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Request">

@@ -7,7 +7,7 @@ $(document).ready(function () {
 
     $.ajax({
         type: "get",
-        url: "dashboard/request-out/mahasiswa",
+        url: "dashboard/request-out/user",
         data: {
             "date": "day"
         },
@@ -19,7 +19,7 @@ $(document).ready(function () {
 
     $.ajax({
         type: "get",
-        url: "dashboard/request-in/mahasiswa",
+        url: "dashboard/request-in/user",
         data: {
             "date": "day"
         },
@@ -31,7 +31,7 @@ $(document).ready(function () {
 
     $.ajax({
         type: "get",
-        url: "dashboard/request-reject/mahasiswa",
+        url: "dashboard/request-reject/user",
         data: {
             "date": "day"
         },
@@ -43,7 +43,7 @@ $(document).ready(function () {
 
     $.ajax({
         type: "get",
-        url: "dashboard/recent-activity/mahasiswa",
+        url: "dashboard/recent-activity/user",
         success: function(data){
             $("#activity").html(data);
         }
@@ -69,7 +69,7 @@ $(document).on('click', '.dropdown-item.request-out', function () {
 
     $.ajax({
         type: "get",
-        url: "dashboard/request-out/mahasiswa",
+        url: "dashboard/request-out/user",
         data: {
             "date": date
         },
@@ -99,7 +99,7 @@ $(document).on('click', '.dropdown-item.request-in-mahasiswa', function () {
 
     $.ajax({
         type: "get",
-        url: "dashboard/request-in/mahasiswa",
+        url: "dashboard/request-in/user",
         data: {
             "date": date
         },
@@ -129,7 +129,7 @@ $(document).on('click', '.dropdown-item.request-reject', function () {
 
     $.ajax({
         type: "get",
-        url: "dashboard/request-reject/mahasiswa",
+        url: "dashboard/request-reject/user",
         data: {
             "date": date
         },

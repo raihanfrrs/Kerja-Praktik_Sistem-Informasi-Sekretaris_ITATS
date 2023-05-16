@@ -9,18 +9,20 @@ use App\Models\TempRequest;
 
 class LayoutController extends Controller
 {
+
     public function index()
     {
         if (auth()->user()->level === 'superadmin') {
             session(['deactivate' => Mahasiswa::where('status', 'deactivated')->count() 
                                 + Dosen::where('status', 'deactivated')->count() 
                                 + JenisSurat::where('status', 'deactivated')->count()]);
-        } elseif (auth()->user()->level === 'mahasiswa') {
-            session(['request' => TempRequest::where('mahasiswa_id', auth()->user()->mahasiswa->id)->count()]);
+        } elseif (auth()->user()->level === 'mahasiswa' || auth()->user()->level === 'dosen') {
+            session(['request' => TempRequest::where('user_id', auth()->user()->id)->count()]);
         }
 
         return view('welcome')->with([
             'subtitle' => 'Halaman Utama'
         ]);
     }
+    
 }

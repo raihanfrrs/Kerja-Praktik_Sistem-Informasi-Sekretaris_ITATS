@@ -221,158 +221,156 @@ class DashboardController extends Controller
         }
     }
 
-    public function daily_mahasiswa(Request $request, $data){
-        if (auth()->user()->level === 'mahasiswa') {
-            $amount_now = 0;
-            $amount_yesterday = 0;
-            if ($data === 'request-out') {
-                if ($request->date === 'day') {
-                    $amount_now = ModelsRequest::whereDay('created_at', now())
-                                                ->where('mahasiswa_id', auth()->user()->mahasiswa->id)
+    public function daily_user(Request $request, $data){
+        $amount_now = 0;
+        $amount_yesterday = 0;
+        if ($data === 'request-out') {
+            if ($request->date === 'day') {
+                $amount_now = ModelsRequest::whereDay('created_at', now())
+                                            ->where('user_id', auth()->user()->id)
+                                            ->count();
+                $amount_yesterday = ModelsRequest::whereDay('created_at', Carbon::yesterday())
+                                                ->where('user_id', auth()->user()->id)
                                                 ->count();
-                    $amount_yesterday = ModelsRequest::whereDay('created_at', Carbon::yesterday())
-                                                    ->where('mahasiswa_id', auth()->user()->mahasiswa->id)
-                                                    ->count();
-                }elseif ($request->date === 'month') {
-                    $amount_now = ModelsRequest::whereMonth('created_at', now())
-                                                ->where('mahasiswa_id', auth()->user()->mahasiswa->id)
+            }elseif ($request->date === 'month') {
+                $amount_now = ModelsRequest::whereMonth('created_at', now())
+                                            ->where('user_id', auth()->user()->id)
+                                            ->count();
+                $amount_yesterday = ModelsRequest::whereMonth('created_at', Carbon::now()->subMonth()->format('m'))
+                                                ->where('user_id', auth()->user()->id)
                                                 ->count();
-                    $amount_yesterday = ModelsRequest::whereMonth('created_at', Carbon::now()->subMonth()->format('m'))
-                                                    ->where('mahasiswa_id', auth()->user()->mahasiswa->id)
-                                                    ->count();
-                }elseif ($request->date === 'year') {
-                    $amount_now = ModelsRequest::whereYear('created_at', now())
-                                                ->where('mahasiswa_id', auth()->user()->mahasiswa->id)
+            }elseif ($request->date === 'year') {
+                $amount_now = ModelsRequest::whereYear('created_at', now())
+                                            ->where('user_id', auth()->user()->id)
+                                            ->count();
+                $amount_yesterday = ModelsRequest::whereYear('created_at', Carbon::now()->subYear()->format('y'))
+                                                ->where('user_id', auth()->user()->id)
                                                 ->count();
-                    $amount_yesterday = ModelsRequest::whereYear('created_at', Carbon::now()->subYear()->format('y'))
-                                                    ->where('mahasiswa_id', auth()->user()->mahasiswa->id)
-                                                    ->count();
-                }
-
-                if ($amount_now == 0 && $amount_yesterday == 0) {
-                    $amount_yesterday = 1;
-                }elseif ($amount_now > 0 && $amount_yesterday == 0) {
-                    $amount_yesterday = $amount_now;
-                }
-
-                $percent = ($amount_now / $amount_yesterday) * 100;
-
-                $data = [
-                    'amount' => $amount_now,
-                    'percent' => $percent
-                ];
-
-                return $data;
-            }elseif ($data === 'request-in') {
-                if ($request->date === 'day') {
-                    $amount_now = ModelsRequest::join('detail_requests', 'requests.id', '=', 'detail_requests.request_id')
-                                                ->whereDay('detail_requests.updated_at', now())
-                                                ->whereNotNull('detail_requests.surat')
-                                                ->where('requests.mahasiswa_id', auth()->user()->mahasiswa->id)
-                                                ->count();
-                    $amount_yesterday = ModelsRequest::join('detail_requests', 'requests.id', '=', 'detail_requests.request_id')
-                                                    ->whereDay('detail_requests.updated_at', Carbon::yesterday())
-                                                    ->whereNotNull('detail_requests.surat')
-                                                    ->where('requests.mahasiswa_id', auth()->user()->mahasiswa->id)
-                                                    ->count();
-                }elseif ($request->date === 'month') {
-                    $amount_now = ModelsRequest::join('detail_requests', 'requests.id', '=', 'detail_requests.request_id')
-                                                ->whereMonth('detail_requests.updated_at', now())
-                                                ->whereNotNull('detail_requests.surat')
-                                                ->where('requests.mahasiswa_id', auth()->user()->mahasiswa->id)
-                                                ->count();
-                    $amount_yesterday = ModelsRequest::join('detail_requests', 'requests.id', '=', 'detail_requests.request_id')
-                                                    ->whereDay('detail_requests.updated_at', Carbon::now()->subMonth()->format('m'))
-                                                    ->whereNotNull('detail_requests.surat')
-                                                    ->where('requests.mahasiswa_id', auth()->user()->mahasiswa->id)
-                                                    ->count();
-                }elseif ($request->date === 'year') {
-                    $amount_now = ModelsRequest::join('detail_requests', 'requests.id', '=', 'detail_requests.request_id')
-                                                ->whereYear('detail_requests.updated_at', now())
-                                                ->whereNotNull('detail_requests.surat')
-                                                ->where('requests.mahasiswa_id', auth()->user()->mahasiswa->id)
-                                                ->count();
-                    $amount_yesterday = ModelsRequest::join('detail_requests', 'requests.id', '=', 'detail_requests.request_id')
-                                                    ->whereDay('detail_requests.updated_at', Carbon::now()->subYear()->format('y'))
-                                                    ->whereNotNull('detail_requests.surat')
-                                                    ->where('requests.mahasiswa_id', auth()->user()->mahasiswa->id)
-                                                    ->count();
-                }
-
-                if ($amount_now == 0 && $amount_yesterday == 0) {
-                    $amount_yesterday = 1;
-                }elseif ($amount_now > 0 && $amount_yesterday == 0) {
-                    $amount_yesterday = $amount_now;
-                }
-
-                $percent = ($amount_now / $amount_yesterday) * 100;
-
-                $data = [
-                    'amount' => $amount_now,
-                    'percent' => $percent
-                ];
-
-                return $data;
-            }elseif ($data === 'request-reject') {
-                if ($request->date === 'day') {
-                    $amount_now = ModelsRequest::join('detail_requests', 'requests.id', '=', 'detail_requests.request_id')
-                                                ->whereDay('detail_requests.updated_at', now())
-                                                ->where('detail_requests.status', 'reject')
-                                                ->where('requests.mahasiswa_id', auth()->user()->mahasiswa->id)
-                                                ->count();
-                    $amount_yesterday = ModelsRequest::join('detail_requests', 'requests.id', '=', 'detail_requests.request_id')
-                                                    ->whereDay('detail_requests.updated_at', Carbon::yesterday())
-                                                    ->where('detail_requests.status', 'reject')
-                                                    ->where('requests.mahasiswa_id', auth()->user()->mahasiswa->id)
-                                                    ->count();
-                }elseif ($request->date === 'month') {
-                    $amount_now = ModelsRequest::join('detail_requests', 'requests.id', '=', 'detail_requests.request_id')
-                                                ->whereMonth('detail_requests.updated_at', now())
-                                                ->where('detail_requests.status', 'reject')
-                                                ->where('requests.mahasiswa_id', auth()->user()->mahasiswa->id)
-                                                ->count();
-                    $amount_yesterday = ModelsRequest::join('detail_requests', 'requests.id', '=', 'detail_requests.request_id')
-                                                    ->whereMonth('detail_requests.updated_at', Carbon::now()->subMonth()->format('m'))
-                                                    ->where('detail_requests.status', 'reject')
-                                                    ->where('requests.mahasiswa_id', auth()->user()->mahasiswa->id)
-                                                    ->count();
-                }elseif ($request->date === 'year') {
-                    $amount_now = ModelsRequest::join('detail_requests', 'requests.id', '=', 'detail_requests.request_id')
-                                                ->whereYear('detail_requests.updated_at', now())
-                                                ->where('detail_requests.status', 'reject')
-                                                ->where('requests.mahasiswa_id', auth()->user()->mahasiswa->id)
-                                                ->count();
-                    $amount_yesterday = ModelsRequest::join('detail_requests', 'requests.id', '=', 'detail_requests.request_id')
-                                                    ->whereYear('detail_requests.updated_at', Carbon::now()->subYear()->format('y'))
-                                                    ->where('detail_requests.status', 'reject')
-                                                    ->where('requests.mahasiswa_id', auth()->user()->mahasiswa->id)
-                                                    ->count();
-                }
-
-                if ($amount_now == 0 && $amount_yesterday == 0) {
-                    $amount_yesterday = 1;
-                }elseif ($amount_now > 0 && $amount_yesterday == 0) {
-                    $amount_yesterday = $amount_now;
-                }
-
-                $percent = ($amount_now / $amount_yesterday) * 100;
-
-                $data = [
-                    'amount' => $amount_now,
-                    'percent' => $percent
-                ];
-
-                return $data;
-            }elseif ($data === 'recent-activity') {
-                $activity = ModelsRequest::where('mahasiswa_id', auth()->user()->mahasiswa->id)
-                                        ->orderBy('created_at', 'DESC')
-                                        ->limit(6)
-                                        ->get();
-
-                return view('mahasiswa.dashboard.data-recent-activity')->with([
-                    'activities' => $activity
-                ]);
             }
+
+            if ($amount_now == 0 && $amount_yesterday == 0) {
+                $amount_yesterday = 1;
+            }elseif ($amount_now > 0 && $amount_yesterday == 0) {
+                $amount_yesterday = $amount_now;
+            }
+
+            $percent = ($amount_now / $amount_yesterday) * 100;
+
+            $data = [
+                'amount' => $amount_now,
+                'percent' => $percent
+            ];
+
+            return $data;
+        }elseif ($data === 'request-in') {
+            if ($request->date === 'day') {
+                $amount_now = ModelsRequest::join('detail_requests', 'requests.id', '=', 'detail_requests.request_id')
+                                            ->whereDay('detail_requests.updated_at', now())
+                                            ->whereNotNull('detail_requests.surat')
+                                            ->where('requests.user_id', auth()->user()->id)
+                                            ->count();
+                $amount_yesterday = ModelsRequest::join('detail_requests', 'requests.id', '=', 'detail_requests.request_id')
+                                                ->whereDay('detail_requests.updated_at', Carbon::yesterday())
+                                                ->whereNotNull('detail_requests.surat')
+                                                ->where('requests.user_id', auth()->user()->id)
+                                                ->count();
+            }elseif ($request->date === 'month') {
+                $amount_now = ModelsRequest::join('detail_requests', 'requests.id', '=', 'detail_requests.request_id')
+                                            ->whereMonth('detail_requests.updated_at', now())
+                                            ->whereNotNull('detail_requests.surat')
+                                            ->where('requests.user_id', auth()->user()->id)
+                                            ->count();
+                $amount_yesterday = ModelsRequest::join('detail_requests', 'requests.id', '=', 'detail_requests.request_id')
+                                                ->whereDay('detail_requests.updated_at', Carbon::now()->subMonth()->format('m'))
+                                                ->whereNotNull('detail_requests.surat')
+                                                ->where('requests.user_id', auth()->user()->id)
+                                                ->count();
+            }elseif ($request->date === 'year') {
+                $amount_now = ModelsRequest::join('detail_requests', 'requests.id', '=', 'detail_requests.request_id')
+                                            ->whereYear('detail_requests.updated_at', now())
+                                            ->whereNotNull('detail_requests.surat')
+                                            ->where('requests.user_id', auth()->user()->id)
+                                            ->count();
+                $amount_yesterday = ModelsRequest::join('detail_requests', 'requests.id', '=', 'detail_requests.request_id')
+                                                ->whereDay('detail_requests.updated_at', Carbon::now()->subYear()->format('y'))
+                                                ->whereNotNull('detail_requests.surat')
+                                                ->where('requests.user_id', auth()->user()->id)
+                                                ->count();
+            }
+
+            if ($amount_now == 0 && $amount_yesterday == 0) {
+                $amount_yesterday = 1;
+            }elseif ($amount_now > 0 && $amount_yesterday == 0) {
+                $amount_yesterday = $amount_now;
+            }
+
+            $percent = ($amount_now / $amount_yesterday) * 100;
+
+            $data = [
+                'amount' => $amount_now,
+                'percent' => $percent
+            ];
+
+            return $data;
+        }elseif ($data === 'request-reject') {
+            if ($request->date === 'day') {
+                $amount_now = ModelsRequest::join('detail_requests', 'requests.id', '=', 'detail_requests.request_id')
+                                            ->whereDay('detail_requests.updated_at', now())
+                                            ->where('detail_requests.status', 'reject')
+                                            ->where('requests.user_id', auth()->user()->id)
+                                            ->count();
+                $amount_yesterday = ModelsRequest::join('detail_requests', 'requests.id', '=', 'detail_requests.request_id')
+                                                ->whereDay('detail_requests.updated_at', Carbon::yesterday())
+                                                ->where('detail_requests.status', 'reject')
+                                                ->where('requests.user_id', auth()->user()->id)
+                                                ->count();
+            }elseif ($request->date === 'month') {
+                $amount_now = ModelsRequest::join('detail_requests', 'requests.id', '=', 'detail_requests.request_id')
+                                            ->whereMonth('detail_requests.updated_at', now())
+                                            ->where('detail_requests.status', 'reject')
+                                            ->where('requests.user_id', auth()->user()->id)
+                                            ->count();
+                $amount_yesterday = ModelsRequest::join('detail_requests', 'requests.id', '=', 'detail_requests.request_id')
+                                                ->whereMonth('detail_requests.updated_at', Carbon::now()->subMonth()->format('m'))
+                                                ->where('detail_requests.status', 'reject')
+                                                ->where('requests.user_id', auth()->user()->id)
+                                                ->count();
+            }elseif ($request->date === 'year') {
+                $amount_now = ModelsRequest::join('detail_requests', 'requests.id', '=', 'detail_requests.request_id')
+                                            ->whereYear('detail_requests.updated_at', now())
+                                            ->where('detail_requests.status', 'reject')
+                                            ->where('requests.user_id', auth()->user()->id)
+                                            ->count();
+                $amount_yesterday = ModelsRequest::join('detail_requests', 'requests.id', '=', 'detail_requests.request_id')
+                                                ->whereYear('detail_requests.updated_at', Carbon::now()->subYear()->format('y'))
+                                                ->where('detail_requests.status', 'reject')
+                                                ->where('requests.user_id', auth()->user()->id)
+                                                ->count();
+            }
+
+            if ($amount_now == 0 && $amount_yesterday == 0) {
+                $amount_yesterday = 1;
+            }elseif ($amount_now > 0 && $amount_yesterday == 0) {
+                $amount_yesterday = $amount_now;
+            }
+
+            $percent = ($amount_now / $amount_yesterday) * 100;
+
+            $data = [
+                'amount' => $amount_now,
+                'percent' => $percent
+            ];
+
+            return $data;
+        }elseif ($data === 'recent-activity') {
+            $activity = ModelsRequest::where('user_id', auth()->user()->id)
+                                    ->orderBy('created_at', 'DESC')
+                                    ->limit(6)
+                                    ->get();
+
+            return view('user.dashboard.data-recent-activity')->with([
+                'activities' => $activity
+            ]);
         }
     }
 }

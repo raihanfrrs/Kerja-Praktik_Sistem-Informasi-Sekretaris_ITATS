@@ -13,9 +13,9 @@ class Request extends Model
         'id'
     ];
 
-    public function mahasiswa()
+    public function user()
     {
-        return $this->belongsTo(Mahasiswa::class);
+        return $this->belongsTo(User::class);
     }
 
     public function detail_request()

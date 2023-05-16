@@ -12,5 +12,5 @@
         </tr>
         @endforeach
     </table>
-    <button class="btn btn-md btn-danger w-100 mt-2 fw-bold" id="reject-receive-btn" data-id="{{ $receives[0]->slug }}"><i class="bi bi-send-slash"></i> Tolak Permintaan</button>
+    <button class="btn btn-md btn-danger w-100 mt-2 fw-bold" id="reject-receive-btn" data-id="{{ $receives[0]->id }}"><i class="bi bi-send-slash"></i> Tolak Permintaan</button>
 </div>

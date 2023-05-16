@@ -1,4 +1,4 @@
-@if (auth()->user()->level == 'mahasiswa')
+@if (auth()->user()->level == 'mahasiswa' || auth()->user()->level == 'dosen')
 <li class="nav-item">
     <a class="nav-link {{ request()->is('request', 'acception') ? '' : 'collapsed' }}" data-bs-target="#keperluan-mhs-nav" data-bs-toggle="collapse" href="#">
         <i class="bi bi-journals"></i><span>Keperluan</span><i class="bi bi-chevron-down ms-auto"></i>
@@ -25,7 +25,7 @@
 </li>
 
 
-@elseif (auth()->user()->level == 'dosen')
+@elseif (auth()->user()->level == 'admin')
 <li class="nav-item">
     <a class="nav-link {{ request()->is('receive', 'assignment') ? '' : 'collapsed' }}" data-bs-target="#keperluan-dosen-nav" data-bs-toggle="collapse" href="#">
         <i class="bi bi-journals"></i><span>Keperluan</span><i class="bi bi-chevron-down ms-auto"></i>

@@ -2,9 +2,9 @@
 
 @section('section')
 
-@include('mahasiswa.request.surat-modal')
+@include('user.request.surat-modal')
 
-@include('mahasiswa.request.request-modal')
+@include('user.request.request-modal')
 
 <div class="row" id="data-surat"></div>
 @endsection

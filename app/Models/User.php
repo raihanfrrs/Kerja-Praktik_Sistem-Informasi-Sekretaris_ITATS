@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\Dosen;
-use App\Models\Mahasiswa;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -43,6 +41,16 @@ class User extends Authenticatable
     public function otp()
     {
         return $this->hasOne(Otp::class);
+    }
+
+    public function temp_request()
+    {
+        return $this->hasOne(TempRequest::class);
+    }
+
+    public function request()
+    {
+        return $this->hasOne(Request::class);
     }
 
     /**
