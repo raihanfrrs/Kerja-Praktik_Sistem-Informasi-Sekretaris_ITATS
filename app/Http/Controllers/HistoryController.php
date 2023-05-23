@@ -10,13 +10,13 @@ class HistoryController extends Controller
 {
     public function index()
     {
-        if (auth()->user()->level === 'mahasiswa') {
-            return view('mahasiswa.history.index')->with([
+        if (auth()->user()->level === 'mahasiswa' || auth()->user()->level === 'dosen') {
+            return view('user.history.index')->with([
                 'title' => 'Riwayat',
                 'subtitle' => 'Riwayat'
             ]);
         } else {
-            return view('dosen.history.index')->with([
+            return view('admin.history.index')->with([
                 'title' => 'Riwayat',
                 'subtitle' => 'Riwayat'
             ]);
@@ -27,15 +27,15 @@ class HistoryController extends Controller
     {
         return DataTables::of(ModelsRequest::rightJoin('detail_requests', 'requests.id', '=', 'detail_requests.request_id')
                                         ->select('requests.id', DetailRequest::raw('COUNT(*) as amount'), ModelsRequest::raw('DATE_FORMAT(requests.created_at, "%d/%m/%Y %H:%i:%s") as date'), 'requests.status')
-                                        ->where('requests.mahasiswa_id', auth()->user()->mahasiswa->id)
+                                        ->where('requests.user_id', auth()->user()->id)
                                         ->groupBy('requests.id')
                                         ->orderBy('requests.created_at', 'DESC')
                                         ->get())
         ->addColumn('status', function ($model) {
-            return view('mahasiswa.history.status-action', compact('model'))->render();
+            return view('user.history.status-action', compact('model'))->render();
         })
         ->addColumn('action', function ($model) {
-            return view('mahasiswa.history.form-action', compact('model'))->render();
+            return view('user.history.form-action', compact('model'))->render();
         })
         ->rawColumns(['status', 'action'])
         ->make(true);
@@ -44,19 +44,22 @@ class HistoryController extends Controller
     public function dataAssignHistory()
     {
         return DataTables::of(ModelsRequest::rightJoin('detail_requests', 'requests.id', '=', 'detail_requests.request_id')
-                                        ->select('requests.id', 'requests.mahasiswa_id', ModelsRequest::raw('DATE_FORMAT(requests.created_at, "%d/%m/%Y %H:%i:%s") as date'), 'requests.status')
+                                        ->select('requests.id', 'requests.user_id', ModelsRequest::raw('DATE_FORMAT(requests.created_at, "%d/%m/%Y %H:%i:%s") as date'), 'requests.status')
                                         ->where('detail_requests.dosen_id', auth()->user()->dosen->id)
                                         ->groupBy('requests.id')
                                         ->orderBy('requests.created_at', 'DESC')
                                         ->get())
         ->addColumn('name', function ($model) {
-            return view('dosen.history.mahasiswa-action', compact('model'))->render();
+            return view('admin.history.user-action', compact('model'))->render();
+        })
+        ->addColumn('level', function ($model) {
+            return view('admin.history.level-action', compact('model'))->render();
         })
         ->addColumn('status', function ($model) {
-            return view('dosen.history.status-action', compact('model'))->render();
+            return view('admin.history.status-action', compact('model'))->render();
         })
         ->addColumn('action', function ($model) {
-            return view('dosen.history.form-action', compact('model'))->render();
+            return view('admin.history.form-action', compact('model'))->render();
         })
         ->rawColumns(['name', 'status', 'action'])
         ->make(true);

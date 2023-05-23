@@ -8,8 +8,8 @@
         @foreach ($detail_requests as $detail_request)
           <div class="row py-3">
             <div class="col-5">
-                <span class="fw-bold fs-4 text-capitalize">{{ $detail_request->name }}</span>
-                <p class="text-muted text-capitalize">{{ $detail_request->jenis }}</p>
+                <span class="fw-bold fs-4 text-capitalize">{{ $detail_request->Surat->name }}</span>
+                <p class="text-muted text-capitalize">{{ $detail_request->Surat->jenis_surat->jenis }}</p>
             </div>
             <div class="col-7">
               @if ($detail_request->request->status == 'rejected' || $detail_request->status == 'rejected')

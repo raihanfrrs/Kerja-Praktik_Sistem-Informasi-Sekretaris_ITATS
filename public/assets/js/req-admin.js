@@ -25,6 +25,7 @@ $(document).on('click', '#search-receive-btn', function () {
     })
     .done(response => {
         $("#data-receive").html(response);
+        console.log(response);
         return;
     })
     .fail(errors => {
@@ -159,7 +160,6 @@ $(document).on('click', '#reject-assignment-btn', function () {
                 '_token': $('meta[name="csrf-token"]').attr('content'),
                 '_method': 'post'
             }).done(response => {
-                console.log(response);
                 Swal.fire({
                     position: 'center',
                     icon: 'success',

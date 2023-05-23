@@ -252,7 +252,7 @@ class MasterController extends Controller
             'birthPlace' => 'required|max:225|min:3',
             'birthDate' => 'required',
             'gender' => 'required',
-            'image' => 'image|file|max:2048'
+            'image' => 'image|file|max:2048'                                                                                                                
         ];
 
         if($request->nip != $dosen->nip){
@@ -260,7 +260,7 @@ class MasterController extends Controller
         }
 
         if($request->email != $dosen->email){
-            $rules['email'] = 'required|min:5|max:255|unique:mahasiswas|email:dns';
+            $rules['email'] = 'required|min:5|max:255|unique:dosens|email:dns';
         }
 
         if($request->phone != $dosen->phone){
@@ -311,6 +311,135 @@ class MasterController extends Controller
     }
 
     /* DOSEN METHOD END SECTION */
+
+    /* ADMIN METHOD SECTION */
+
+    public function admin_index()
+    {
+        return view('superadmin.master.admin.index');
+    }
+
+    public function admin_create()
+    {
+        return view('superadmin.master.admin.add-admin')->with([
+            'title' => 'Tambah',
+            'subtitle' => 'Tambah'
+        ]);
+    }
+
+    public function admin_store(Request $request)
+    {
+        $validateData = $request->validate([
+            'username' => 'required|min:5|max:255|unique:users|alpha_num',
+            'password' => ['required', Password::min(5)->mixedCase()->letters()->numbers()->symbols()->uncompromised()],
+            'name' => 'required|min:3|max:255|regex:/^[\pL\s\-]+$/u',
+            'nip' => 'required|numeric|unique:dosens',
+            'email' => 'required|min:5|max:255|unique:dosens|email:dns',
+            'phone' =>'required|numeric|unique:dosens',
+            'birthPlace' => 'required|max:225|min:3',
+            'birthDate' => 'required',
+            'gender' => 'required',
+            'image' => 'image|file|max:2048'
+        ]);
+
+        $validateData['level'] = 'admin';
+        $validateData['password'] = bcrypt($validateData['password']);
+
+        $user = User::create($validateData);
+
+        if ($request->file('image')) {
+            $validateData['image'] = $request->file('image')->store('profile-image');
+        }
+        $validateData['user_id'] = $user->id;
+
+        Dosen::create($validateData);
+
+        return redirect('admin/add')->with([
+            'flash-type' => 'sweetalert',
+            'case' => 'default',
+            'position' => 'center',
+            'type' => 'success',
+            'message' => 'Admin Berhasil Ditambahkan!'
+        ]);
+    }
+
+    public function admin_show(Dosen $admin)
+    {
+        return view('superadmin.master.admin.details-admin')->with([
+            'admin' => Dosen::whereId($admin->id)->first(),
+            'created_at' => Carbon::create($admin->created_at)->timezone('Asia/Jakarta')->format('Y-m-d H:i:s'),
+            'title' => 'Rincian',
+            'subtitle' => 'Rincian'
+        ]);
+    }
+
+    public function admin_edit(Dosen $admin)
+    {
+        return view('superadmin.master.admin.edit-admin')->with([
+            'admin' => $admin
+        ]);
+    }
+
+    public function admin_update(Request $request, Dosen $admin)
+    {
+        $rules = [
+            'name' => 'required|min:3|max:255|regex:/^[\pL\s\-]+$/u',
+            'birthPlace' => 'required|max:225|min:3',
+            'birthDate' => 'required',
+            'gender' => 'required',
+            'image' => 'image|file|max:2048'
+        ];
+
+        if($request->nip != $admin->nip){
+            $rules['nip'] = 'required|numeric|unique:dosens';
+        }
+
+        if($request->email != $admin->email){
+            $rules['email'] = 'required|min:5|max:255|unique:dosens|email:dns';
+        }
+
+        if($request->phone != $admin->phone){
+            $rules['phone'] = 'required|numeric|unique:dosens';
+        }
+
+        $validateData = $request->validate($rules);
+
+        if ($request->file('image')) {
+            if ($admin->image) {
+                Storage::delete($admin->image);
+            }
+            $validateData['image'] = $request->file('image')->store('profile-image');
+        }
+
+        $validateData['slug'] = slug($request->name);
+            
+        Dosen::whereId($admin->id)
+                    ->update($validateData);
+
+        return redirect('admin')->with([
+            'flash-type' => 'sweetalert',
+            'case' => 'default',
+            'position' => 'center',
+            'type' => 'success',
+            'message' => 'Admin Updated!'
+        ]);
+    }
+
+    public function dataAdmin()
+    {
+        return DataTables::of(Dosen::join('users', 'dosens.user_id', '=', 'users.id')
+                                    ->select('dosens.*')
+                                    ->where('users.level', 'admin')
+                                    ->where('status', 'active')
+                                    ->orderBy('dosens.user_id', 'DESC')
+                                    ->get())
+        ->addColumn('action', function ($model) {
+            return view('superadmin.master.admin.form-action', compact('model'))->render();
+        })
+        ->make(true);
+    }
+
+    /* ADMIN METHOD END SECTION */
     
     /* CATEGORY METHOD SECTION */
 

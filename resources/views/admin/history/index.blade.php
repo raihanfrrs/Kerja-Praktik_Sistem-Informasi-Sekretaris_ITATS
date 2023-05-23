@@ -9,7 +9,8 @@
         <table class="table table-master table-borderless datatable table-hover" id="dataAssignHistory">
             <thead>
                 <tr>
-                    <th scope="col" class="text-center">Mahasiswa</th>
+                    <th scope="col" class="text-center">Nama Lengkap</th>
+                    <th scope="col" class="text-center">Tingkatan</th>
                     <th scope="col" class="text-center">Permintaan Dibuat</th>
                     <th scope="col" class="text-center">Status</th>
                     <th scope="col" class="text-center">Aksi</th>

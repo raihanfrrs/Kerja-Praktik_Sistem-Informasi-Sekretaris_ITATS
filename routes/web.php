@@ -12,6 +12,7 @@ use App\Http\Controllers\RequestController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\AcceptionController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\BroadcastController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ForgotPasswordController;
 
@@ -104,7 +105,7 @@ Route::middleware('auth')->group(function () {
             Route::post('receive', 'receive_store');
             Route::get('receive/{id}/show', 'receive_show');
             
-            /* assign surat  resource */
+            /* assign surat resource */
             Route::get('assignment', 'assignment_index');
             Route::get('assignment/read', 'assignment_read');
             Route::get('assignment/{request}', 'assignment_show');
@@ -114,6 +115,23 @@ Route::middleware('auth')->group(function () {
             Route::delete('assignment/{request}', 'assignment_delete');
 
             Route::post('assive/{id}/reject', 'assive_reject');
+        });
+
+        Route::controller(BroadcastController::class)->group(function () {
+            Route::get('broadcast', 'index');
+            Route::get('broadcast/read-surat', 'readSurat');
+            Route::get('broadcast/read-dosen', 'readDosen');
+            Route::get('broadcast/read-btnSurat', 'readBtnSurat');
+            Route::get('broadcast/read-btnDosen', 'readBtnDosen');
+            Route::get('broadcast/read-btnSend', 'readBtnSend');
+            Route::post('broadcast/uploadFileRequest', 'uploadFileRequest');
+            Route::post('broadcast/storeDosenData', 'storeDosenData');
+            Route::delete('broadcast/destroy', 'destroy');
+            Route::post('broadcast/resetDosen', 'resetDosen');
+            Route::post('broadcast/resetSurat', 'resetSurat');
+            Route::post('broadcast/store', 'store');
+
+            Route::get('/dataListDosen', [BroadcastController::class, 'dataListDosen'])->name('dataListDosen');
         });
     });
 
@@ -136,6 +154,15 @@ Route::middleware('auth')->group(function () {
             Route::get('dosen/{dosen}/edit', 'dosen_edit');
             Route::put('dosen/{dosen}', 'dosen_update');
             Route::delete('dosen/{dosen}', 'dosen_destroy');
+
+            /* admin master resource */
+            Route::get('admin', 'admin_index');
+            Route::get('admin/add', 'admin_create');
+            Route::post('admin', 'admin_store');
+            Route::get('admin/{admin}', 'admin_show');
+            Route::get('admin/{admin}/edit', 'admin_edit');
+            Route::put('admin/{admin}', 'admin_update');
+            Route::delete('admin/{admin}', 'admin_destroy');
 
             /* category master resource */
             Route::get('category', 'category_index');
@@ -166,6 +193,7 @@ Route::middleware('auth')->group(function () {
 
             Route::get('/dataMahasiswa', [MasterController::class, 'dataMahasiswa'])->name('dataMahasiswa');
             Route::get('/dataDosen', [MasterController::class, 'dataDosen'])->name('dataDosen');
+            Route::get('/dataAdmin', [MasterController::class, 'dataAdmin'])->name('dataAdmin');
             Route::get('/dataCategory', [MasterController::class, 'dataCategory'])->name('dataCategory');
             Route::get('/dataSurat', [MasterController::class, 'dataSurat'])->name('dataSurat');
             Route::get('/dataRole', [MasterController::class, 'dataRole'])->name('dataRole');

@@ -53,6 +53,21 @@ class User extends Authenticatable
         return $this->hasOne(Request::class);
     }
 
+    public function broadcast()
+    {
+        return $this->hasMany(Broadcast::class);
+    }
+
+    public function temp_broadcast()
+    {
+        return $this->hasMany(TempBroadcast::class);
+    }
+
+    public function temp_dosen()
+    {
+        return $this->hasMany(TempDosen::class);
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *

@@ -89,6 +89,8 @@
   <script src="{{ asset('/') }}assets/js/req-user.js"></script>
   @elseif (auth()->user()->level === 'admin' && request()->is('assignment/*'))
   <script src="{{ asset('/') }}assets/js/filepond.js"></script>
+  @elseif (auth()->user()->level === 'admin' && request()->is('broadcast')) 
+  <script src="{{ asset('/') }}assets/js/broadcast.js"></script>
   @elseif (auth()->user()->level === 'admin')
   <script src="{{ asset('/') }}assets/js/req-admin.js"></script>
   @endif

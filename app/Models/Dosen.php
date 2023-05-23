@@ -37,4 +37,14 @@ class Dosen extends Model
     {
         return $this->hasMany(DetailRequest::class);
     }
+
+    public function detail_broadcast()
+    {
+        return $this->hasMany(DetailBroadcast::class);
+    }
+
+    public function temp_dosen()
+    {
+        return $this->hasMany(TempDosen::class);
+    }
 }

@@ -26,6 +26,18 @@ $(document).ready(function () {
         ]
     });
 
+    $('#dataAdmin').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: '/dataAdmin',
+        columns: [
+            { data: 'name', name: 'name', class: 'text-muted text-capitalize' },
+            { data: 'email', name: 'email', class: 'text-muted' },
+            { data: 'phone', name: 'phone', class: 'text-muted text-center' },
+            { data: 'action', name: 'action', class: 'text-center' }
+        ]
+    });
+
     $('#dataCategory').DataTable({
         processing: true,
         serverSide: true,
@@ -67,9 +79,23 @@ $(document).ready(function () {
         ajax: '/dataAssignHistory',
         columns: [
             { data: 'name', name: 'name', class: 'text-muted text-center' },
+            { data: 'level', name: 'level', class: 'text-muted text-center text-capitalize' },
             { data: 'date', name: 'date', class: 'text-muted text-center', orderable: true },
             { data: 'status', name: 'status', class: 'text-center' },
             { data: 'action', name: 'action', class: 'text-center' }
+        ]
+    });
+
+    $('#dataListDosen').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: '/dataListDosen',
+        columns: [
+            { data: 'name', name: 'name', class: 'text-muted text-capitalize' },
+            { data: 'nip', name: 'nip', class: 'text-muted text-center' },
+            { data: 'email', name: 'email', class: 'text-muted' },
+            { data: 'phone', name: 'phone', class: 'text-muted text-center' },
+            { data: 'checkbox', name: 'checkbox', class: 'text-center', orderable: false, searchable: false }
         ]
     });
 });

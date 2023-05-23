@@ -1,0 +1,1 @@
+{{ $model->user->level === 'mahasiswa' ? $model->user->mahasiswa->name : $model->user->dosen->name }}

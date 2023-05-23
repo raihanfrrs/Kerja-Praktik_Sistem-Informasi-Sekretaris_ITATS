@@ -1,0 +1,2 @@
+<a href="/admin/{{ $model->slug }}/edit" class="btn btn-sm btn-warning" title="Ubah"><i class="bi bi-pen"></i></a>
+<a href="/admin/{{ $model->slug }}" class="btn btn-sm btn-primary" title="Rincian"><i class="bi bi-eye"></i></a>

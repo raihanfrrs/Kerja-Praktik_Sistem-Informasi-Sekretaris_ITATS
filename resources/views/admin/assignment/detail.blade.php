@@ -5,11 +5,11 @@
     <div class="card">
         <div class="card-body">
     
-          <h5 class="card-title">Rincian <span>| Mahasiswa</span></h5>
+          <h5 class="card-title">Rincian <span>| {{ $request->user->level === 'mahasiswa' ? 'Mahasiswa' : 'Dosen' }}</span></h5>
     
             <div class="profile-card pt-2 d-flex flex-column align-items-center">
                     <img src="{{ asset('/') }}assets/img/profile-img.jpg" class="img-fluid rounded">
-                    <h2 class="mt-3 card-title text-center fs-4">{{ $request->mahasiswa->name }}</h2>
+                    <h2 class="mt-3 card-title text-center fs-4">{{ $request->user->level === 'mahasiswa' ? $request->user->mahasiswa->name : $request->user->dosen->name }}</h2>
             </div>
 
             <div class="profile-card">
@@ -17,23 +17,23 @@
                     <div class="accordion-item">
                       <h2 class="accordion-header" id="flush-headingOne">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                          Informasi Mahasiswa
+                          Informasi {{ $request->user->level === 'mahasiswa' ? 'Mahasiswa' : 'Dosen' }}
                         </button>
                       </h2>
                       <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
                         <div class="accordion-body">
                             <table style="width:100%" class="mb-4">
                                 <tr>
-                                  <th class="fw-normal">NPM</th>
-                                  <td class="text-end fw-bold">{{ $request->mahasiswa->npm }}</td>
+                                  <th class="fw-normal">{{ $request->user->level === 'mahasiswa' ? 'NPM' : 'NIP' }}</th>
+                                  <td class="text-end fw-bold">{{ $request->user->level === 'mahasiswa' ? $request->user->mahasiswa->npm : $request->user->dosen->nip }}</td>
                                 </tr>
                                 <tr>
                                   <th class="fw-normal">Nomor HP</th>
-                                  <td class="text-end fw-bold"><a href="https://api.whatsapp.com/send?phone={{ contact($request->mahasiswa->phone) }}" target="_blank" class="text-success" title="{{ $request->mahasiswa->phone }}"><i class="bi bi-whatsapp"></i> WhatsApp</a></td>
+                                  <td class="text-end fw-bold"><a href="https://api.whatsapp.com/send?phone={{ contact($request->user->level === 'mahasiswa' ? $request->user->mahasiswa->phone : $request->user->dosen->phone) }}" target="_blank" class="text-success" title="{{ $request->user->level === 'mahasiswa' ? $request->user->mahasiswa->phone : $request->user->dosen->phone }}"><i class="bi bi-whatsapp"></i> WhatsApp</a></td>
                                 </tr>
                                 <tr>
                                   <th class="fw-normal">Email</th>
-                                  <td class="text-end fw-bold fst-italic">{{ $request->mahasiswa->email }}</td>
+                                  <td class="text-end fw-bold fst-italic">{{ $request->user->level === 'mahasiswa' ? $request->user->mahasiswa->email : $request->user->dosen->email }}</td>
                                 </tr>
                             </table>
                         </div>
