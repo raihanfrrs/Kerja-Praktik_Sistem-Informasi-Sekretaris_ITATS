@@ -4,10 +4,10 @@
     </div>
 @else
 <div class="row">
-    @foreach ($list[0] as $key => $file)
+    @foreach ($list as $key => $file)
     <div class="col-md-3">
         <div class="card">
-            <h5 class="card-title text-center">{{ $name[$key] }}</h5>
+            <h5 class="card-title text-center">{{ $file->name }}</h5>
             <img src="{{ asset('/') }}assets/img/{{ $icon[$key] }}" class="card-img-top w-75 h-75 mx-auto d-block mb-4" alt="...">
             <div class="card-body">
                 <div class="col-12">

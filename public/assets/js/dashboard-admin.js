@@ -7,7 +7,7 @@ $(document).ready(function () {
 
     $.ajax({
         type: "get",
-        url: "/dashboard/mahasiswa/superadmin",
+        url: "/dashboard/mahasiswa/admin",
         data: {
             "date": "day"
         },
@@ -19,7 +19,7 @@ $(document).ready(function () {
 
     $.ajax({
         type: "get",
-        url: "/dashboard/dosen/superadmin",
+        url: "/dashboard/dosen/admin",
         data: {
             "date": "day"
         },
@@ -31,7 +31,7 @@ $(document).ready(function () {
 
     $.ajax({
         type: "get",
-        url: "/dashboard/request/superadmin",
+        url: "/dashboard/request/admin",
         data: {
             "date": "day"
         },
@@ -43,7 +43,7 @@ $(document).ready(function () {
 
     $.ajax({
         type: "get",
-        url: "dashboard/request-activity/superadmin",
+        url: "dashboard/request-activity/admin",
         data: {
             "date": "day"
         },
@@ -54,7 +54,7 @@ $(document).ready(function () {
 
     $.ajax({
         type: "get",
-        url: "dashboard/request-in/superadmin",
+        url: "dashboard/request-in/admin",
         success: function(data){
             $("#amount-request-in-dosen").html(data.amount);
             $("#percent-request-in-dosen").html(data.percent+"%");
@@ -63,7 +63,7 @@ $(document).ready(function () {
 
     $.ajax({
         type: "get",
-        url: "dashboard/request-out/superadmin",
+        url: "dashboard/request-out/admin",
         success: function(data){
             $("#amount-request-out-dosen").html(data.amount);
             $("#percent-request-out-dosen").html(data.percent+"%");
@@ -72,7 +72,7 @@ $(document).ready(function () {
     
     $.ajax({
         type: "get",
-        url: "dashboard/request-reject/superadmin",
+        url: "dashboard/request-reject/admin",
         success: function(data){
             $("#amount-request-reject-dosen").html(data.amount);
             $("#percent-request-reject-dosen").html(data.percent+"%");
@@ -81,7 +81,7 @@ $(document).ready(function () {
 
     $.ajax({
         type: "get",
-        url: "dashboard/request-recent/superadmin",
+        url: "dashboard/request-recent/admin",
         success: function(data){
             $("#recent-request").html(data);
         }
@@ -107,7 +107,7 @@ $(document).on('click', '.dropdown-item.dosen', function () {
 
     $.ajax({
         type: "get",
-        url: "dashboard/dosen/superadmin",
+        url: "dashboard/dosen/admin",
         data: {
             "date": date
         },
@@ -137,7 +137,7 @@ $(document).on('click', '.dropdown-item.mahasiswa', function () {
 
     $.ajax({
         type: "get",
-        url: "dashboard/mahasiswa/superadmin",
+        url: "dashboard/mahasiswa/admin",
         data: {
             "date": date
         },
@@ -167,7 +167,7 @@ $(document).on('click', '.dropdown-item.request', function () {
 
     $.ajax({
         type: "get",
-        url: "dashboard/request/superadmin",
+        url: "dashboard/request/admin",
         data: {
             "date": date
         },
@@ -197,7 +197,7 @@ $(document).on('click', '.dropdown-item.request-activity', function () {
 
     $.ajax({
         type: "get",
-        url: "dashboard/request-activity/superadmin",
+        url: "dashboard/request-activity/admin",
         data: {
             "date": date
         },

@@ -98,4 +98,17 @@ $(document).ready(function () {
             { data: 'checkbox', name: 'checkbox', class: 'text-center', orderable: false, searchable: false }
         ]
     });
+
+    $('#dataBroadcastList').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: '/dataBroadcastList',
+        columns: [
+            { data: 'id', name: 'id', class: 'text-muted text-capitalize' },
+            { data: 'date', name: 'date', class: 'text-muted text-center' },
+            { data: 'amount', name: 'amount', class: 'text-muted text-center' },
+            { data: 'sender', name: 'sender', class: 'text-muted text-center' },
+            { data: 'action', name: 'action', class: 'text-center' }
+        ]
+    });
 });

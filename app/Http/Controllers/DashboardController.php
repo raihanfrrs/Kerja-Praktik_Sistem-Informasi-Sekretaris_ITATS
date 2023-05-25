@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
-    public function daily_dosen(Request $request, $data)
+    public function daily_admin(Request $request, $data)
     {
         $amount_now = 0;
         $amount_yesterday = 0;
@@ -113,22 +113,19 @@ class DashboardController extends Controller
             return $data;
         }elseif ($data === 'request-activity') {
             if ($request->date === 'day') {
-                $request = ModelsRequest::join('mahasiswas', 'requests.mahasiswa_id', '=', 'mahasiswas.id')
-                                        ->select('requests.*')
+                $request = ModelsRequest::select('requests.*')
                                         ->whereDay('requests.created_at', now())
                                         ->limit(5)
                                         ->orderBy('requests.created_at', 'DESC')
                                         ->get();
             }elseif ($request->date === 'month') {
-                $request = ModelsRequest::join('mahasiswas', 'requests.mahasiswa_id', '=', 'mahasiswas.id')
-                                        ->select('requests.*')
+                $request = ModelsRequest::select('requests.*')
                                         ->whereMonth('requests.created_at', now())
                                         ->limit(5)
                                         ->orderBy('requests.created_at', 'DESC')
                                         ->get();
             }elseif ($request->date === 'year') {
-                $request = ModelsRequest::join('mahasiswas', 'requests.mahasiswa_id', '=', 'mahasiswas.id')
-                                        ->select('requests.*')
+                $request = ModelsRequest::select('requests.*')
                                         ->whereYear('requests.created_at', now())
                                         ->limit(5)
                                         ->orderBy('requests.created_at', 'DESC')
@@ -209,8 +206,8 @@ class DashboardController extends Controller
 
             return $data;
         }elseif ($data === 'request-recent') {
-            return view('dosen.dashboard.data-recent-request')->with([
-                'requests' => ModelsRequest::select('mahasiswa_id', 'requests.id', 'requests.created_at')
+            return view('admin.dashboard.data-recent-request')->with([
+                'requests' => ModelsRequest::select('requests.user_id', 'requests.id', 'requests.created_at')
                                         ->join('detail_requests', 'detail_requests.request_id', '=', 'requests.id')
                                         ->where('dosen_id', auth()->user()->dosen->id)
                                         ->groupBy('requests.id')

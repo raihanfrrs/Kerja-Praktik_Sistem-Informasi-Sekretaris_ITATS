@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Dosen;
 use App\Models\Broadcast;
+use App\Models\DetailBroadcast;
 use Illuminate\Http\Request;
 use App\Models\TempBroadcast;
 use App\Models\TempDosen;
@@ -22,24 +23,15 @@ class BroadcastController extends Controller
 
     public function readSurat()
     {
-        $broadcasts = Broadcast::where('user_id', auth()->user()->id)
-                                ->where('status', 'unfinished')
-                                ->get();
+        $broadcasts = TempBroadcast::where('user_id', auth()->user()->id)->get();
 
-        $data = [];
-        $name = [];
-        foreach ($broadcasts as $value) {
-            $data[] = unserialize($value->surat);
-            $name[] = unserialize($value->name);
-        }
-
-        if (count($data) == 0) {
+        if ($broadcasts->count() == 0) {
             return view('admin.broadcast.data-surat')->with([
                 'list' => '0'
             ]);
-        }elseif (count($data[0]) > 0) {
-            foreach ($data[0] as $file) {
-                $extension = pathinfo($file, PATHINFO_EXTENSION);
+        }elseif ($broadcasts->count() > 0) {
+            foreach ($broadcasts as $file) {
+                $extension = pathinfo($file->file, PATHINFO_EXTENSION);
     
                 $iconMap = [
                     'pdf' => 'pdf.png',
@@ -56,9 +48,8 @@ class BroadcastController extends Controller
             }
 
             return view('admin.broadcast.data-surat')->with([
-                'list' => $data,
-                'icon' => $icon,
-                'name' => $name[0]
+                'list' => $broadcasts,
+                'icon' => $icon
             ]);
         }
     }
@@ -73,7 +64,7 @@ class BroadcastController extends Controller
     public function readBtnSurat()
     {
         return view('admin.broadcast.data-btnSurat')->with([
-            'data' => Broadcast::where('user_id', auth()->user()->id)->where('status', 'unfinished')->get()
+            'data' => TempBroadcast::where('user_id', auth()->user()->id)->get()
         ]);
     }
 
@@ -119,17 +110,6 @@ class BroadcastController extends Controller
             $folder = uniqid('post', true);
             $file_name = $file->store('posts/' . $folder);
             $original_name = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
-
-            if (Broadcast::where('user_id', auth()->user()->id)->where('status', 'unfinished')->count() == 0) {
-                $broadcast['user_id'] = auth()->user()->id;
-                $data[] = $file_name;
-                $dataSerialized = serialize($data);
-                $broadcast['surat'] = $dataSerialized;
-                $data2[] = $original_name;
-                $dataSerialized2 = serialize($data2);
-                $broadcast['name'] = $dataSerialized2;
-                Broadcast::create($broadcast);
-            }
         
             TempBroadcast::create([
                 'user_id' => auth()->user()->id,
@@ -150,7 +130,6 @@ class BroadcastController extends Controller
 
                 Broadcast::where('user_id', auth()->user()->id)->where('status', 'unfinished')
                         ->update(['surat' => serialize($surat), 'name' => serialize($name)]);
-                
             }
 
             return $file_name;
@@ -186,7 +165,7 @@ class BroadcastController extends Controller
 
     public function storeDosenData(Request $request)
     {
-        if (Broadcast::where('user_id', auth()->user()->id)->where('status', 'unfinished')->count() === 0) {
+        if (TempBroadcast::where('user_id', auth()->user()->id)->count() === 0) {
             return response()->json([
                 'success' => false,
                 'message' => 'Tolong upload surat terlebih dahulu sebelum memilih dosen!'
@@ -209,13 +188,38 @@ class BroadcastController extends Controller
     public function resetSurat()
     {
         TempBroadcast::where('user_id', auth()->user()->id)->delete();
-
-        Broadcast::where('user_id', auth()->user()->id)->where('status', 'unfinished')->delete();
     }
 
     public function store()
     {
+        $tempBroadcast = TempBroadcast::where('user_id', auth()->user()->id)->get();
 
+        $name = [];
+        $surat = [];
+        foreach ($tempBroadcast as $broadcast) {
+            $name[] = $broadcast->name;
+            $surat[] = $broadcast->file;
+        }
+
+        $broadcast = Broadcast::create([
+            'user_id' => auth()->user()->id,
+            'name' => serialize($name),
+            'surat' => serialize($surat),
+            'status' => 'finished'
+        ]);
+
+        TempBroadcast::where('user_id', auth()->user()->id)->delete();
+
+        $dosens = TempDosen::where('user_id', auth()->user()->id)->get();
+
+        foreach ($dosens as $dosen) {
+            $detailbroadcast['broadcast_id'] = $broadcast->id;
+            $detailbroadcast['dosen_id'] = $dosen->dosen_id;
+
+            DetailBroadcast::create($detailbroadcast);
+        }
+
+        TempDosen::where('user_id', auth()->user()->id)->delete();
     }
 
     public function dataListDosen()

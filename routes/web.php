@@ -67,7 +67,7 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::controller(DashboardController::class)->group(function () {
-        Route::get('dashboard/{data}/superadmin', 'daily_dosen');
+        Route::get('dashboard/{data}/admin', 'daily_admin');
         Route::get('dashboard/{data}/user', 'daily_user');
     });
 
@@ -95,6 +95,11 @@ Route::middleware('auth')->group(function () {
         Route::post('acception/delete', 'acception_delete');
         Route::get('acception/{request}', 'acception_detail');
         Route::get('acception/download/{request}', 'acception_download');
+
+        Route::get('acception/broadcast/{slug}', 'broadcast_index');
+        Route::get('acception/broadcast/{broadcast}/show', 'broadcast_show');
+        Route::get('acception/broadcast/download/{id}/{key}', 'broadcast_download');
+        Route::get('/dataBroadcastList', [AcceptionController::class, 'dataBroadcastList'])->name('dataBroadcastList');
     });
 
     Route::group(['middleware' => ['cekUserLogin:admin']], function(){

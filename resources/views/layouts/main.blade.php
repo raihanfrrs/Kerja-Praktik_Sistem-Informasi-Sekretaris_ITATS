@@ -80,10 +80,10 @@
   <script src="{{ asset('/') }}assets/js/images.js"></script>
   <script src="{{ asset('/') }}assets/js/button.js"></script>
   @auth
-  @if (request()->is('/') && auth()->user()->level === 'mahasiswa')
-  <script src="{{ asset('/') }}assets/js/dashboard-mahasiswa.js"></script>
-  @elseif (request()->is('/') && (auth()->user()->level === 'dosen' || auth()->user()->level === 'superadmin'))
-  <script src="{{ asset('/') }}assets/js/dashboard-dosen.js"></script>
+  @if (request()->is('/') && (auth()->user()->level === 'mahasiswa' || auth()->user()->level === 'dosen') )
+  <script src="{{ asset('/') }}assets/js/dashboard-user.js"></script>
+  @elseif (request()->is('/') && (auth()->user()->level === 'admin' || auth()->user()->level === 'superadmin'))
+  <script src="{{ asset('/') }}assets/js/dashboard-admin.js"></script>
   @endif
   @if (auth()->user()->level === 'mahasiswa' || auth()->user()->level === 'dosen')
   <script src="{{ asset('/') }}assets/js/req-user.js"></script>

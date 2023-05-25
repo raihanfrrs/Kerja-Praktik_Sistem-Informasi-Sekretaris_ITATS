@@ -1,3 +1,8 @@
+@if (count($activities) == 0)
+  <div class="alert alert-warning" role="alert">
+    Belum ada aktifitas terbaru!
+  </div>
+@endif
 @foreach ($activities as $activity)
   <div class="activity-item d-flex">
     <div class="activite-label">{{ $activity->updated_at->diffForHumans() }}</div>

@@ -191,8 +191,6 @@ $(document).on('click', '#resetSurat', function () {
 });
 
 $(document).on('click', '#sendBroadcast', function () {
-    let id = $(this).data('id');
-
     $.ajax({
         url: '/broadcast/store',
         headers: {

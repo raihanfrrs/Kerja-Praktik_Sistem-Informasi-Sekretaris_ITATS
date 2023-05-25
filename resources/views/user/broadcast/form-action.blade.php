@@ -1,0 +1,1 @@
+<a href="/acception/broadcast/{{ $model->id }}/show" class="btn btn-sm btn-primary" title="Rincian"><i class="bi bi-eye"></i></a>

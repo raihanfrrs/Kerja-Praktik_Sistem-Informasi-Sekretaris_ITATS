@@ -29,6 +29,15 @@
     <nav class="header-nav ms-auto">
       <ul class="d-flex align-items-center">
 
+        @if (auth()->user()->level === 'dosen')
+          <li class="nav-item">
+
+            <a class="nav-link nav-icon" href="/acception/broadcast/{{ auth()->user()->dosen->slug }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Broadcast">
+              <i class="bi bi-megaphone"></i>
+            </a>
+          </li>
+        @endif
+
         @if ((auth()->user()->level === 'mahasiswa' || auth()->user()->level === 'dosen') && request()->is('request', 'request/*'))
         <li class="nav-item" id="request-icon">
 

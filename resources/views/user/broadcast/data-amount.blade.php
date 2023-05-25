@@ -1,0 +1,1 @@
+{{ count(unserialize($model->surat)) }}
