@@ -47,7 +47,7 @@ class MasterController extends Controller
         ]);
 
         $validateData['level'] = 'mahasiswa';
-        $validateData['status'] = 'approve';
+        $validateData['status'] = 'approved';
         $validateData['password'] = bcrypt($validateData['password']);
 
         $user = User::create($validateData);
