@@ -19,7 +19,6 @@ class CreateBroadcastsTable extends Migration
             $table->foreignIdFor(User::class);
             $table->text('name');
             $table->text('surat');
-            $table->text('note')->nullable();
             $table->enum('status', ['unfinished', 'finished']);
             $table->timestamps();
         });

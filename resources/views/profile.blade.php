@@ -80,25 +80,6 @@
             </div>
         @endif
 
-        @if(auth()->user()->level == 'dosen')
-        <div class="row">
-            <div class="col-lg-3 col-md-4 label">Role</div>
-            <div class="col-lg-9 col-md-8">
-                @if($roles->count() > 1)
-                <ul class="mb-0 roles">
-                    @foreach ($roles as $role)
-                        <li>{{ $role->role->role }}</li>
-                    @endforeach
-                </ul>
-                @elseif($roles->count() == 1)
-                    {{ $roles[0]->role->role }}
-                @else 
-                    - 
-                @endif
-            </div>
-        </div>
-        @endif
-
         <p class="text-end text-muted">Diperbaharui {{ $user[0]->updated_at->diffForHumans(); }}</p>
         </div>
 

@@ -25,7 +25,6 @@ $(document).on('click', '#search-receive-btn', function () {
     })
     .done(response => {
         $("#data-receive").html(response);
-        console.log(response);
         return;
     })
     .fail(errors => {

@@ -165,6 +165,14 @@ class BroadcastController extends Controller
 
     public function storeDosenData(Request $request)
     {
+
+        if (TempDosen::where('user_id', auth()->user()->id)->whereIn('dosen_id', $request->id)->count() > 0) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Dosen sudah berhasil dipilih!'
+            ], 500);
+        }
+
         if (TempBroadcast::where('user_id', auth()->user()->id)->count() === 0) {
             return response()->json([
                 'success' => false,
